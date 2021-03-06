@@ -1,0 +1,207 @@
+{
+    "0": {
+      "name": "News",
+      "iconName": "newspaper.fill",
+      "hexColor": "8E8E93"
+    },
+    "1": {
+      "name": "LifeStyle",
+      "iconName": "figure.walk",
+      "hexColor": "5856D6"
+    },
+    "2": {
+      "name": "Transportation",
+      "iconName": "car.fill",
+      "hexColor": "007AFF"
+    },
+    "3": {
+      "name": "Money",
+      "iconName": "dollarsign.circle.fill",
+      "hexColor": "34C759"
+    },
+    "4": {
+      "name": "Food & Drinks",
+      "iconName": "",
+      "hexColor": "FF9500"
+    },
+    "5": {
+      "name": "Medical",
+      "iconName": "pills.fill",
+      "hexColor": "FF2D55"
+    },
+    "6": {
+      "name": "Gaming",
+      "iconName": "gamecontroller.fill",
+      "hexColor": "34C759"
+    },
+    "7": {
+      "name": "Tools",
+      "iconName": "wrench.and.screwdriver.fill",
+      "hexColor": "FF9500"
+    },
+    "8": {
+      "name": "Cloud Storage",
+      "iconName": "icloud.fill",
+      "hexColor": "007AFF"
+    },
+    "9": {
+      "name": "Study",
+      "iconName": "books.vertical.fill",
+      "hexColor": "FF9500"
+    },
+    "10": {
+      "name": "Finance",
+      "iconName": "dollarsign.circle.fill",
+      "hexColor": "34C759"
+    },
+    "11": {
+      "name": "Household",
+      "iconName": "house.fill",
+      "hexColor": "FF9500"
+    },
+    "12": {
+      "name": "Taxes",
+      "iconName": "doc.plaintext.fill",
+      "hexColor": "FF453A"
+    },
+    "13": {
+      "name": "Insurance",
+      "iconName": "checkmark.shield.fill",
+      "hexColor": "8E8E93"
+    },
+    "14": {
+      "name": "Streaming",
+      "iconName": "tv.fill",
+      "hexColor": "5856D6"
+    },
+    "15": {
+      "name": "Internet",
+      "iconName": "globe",
+      "hexColor": "007AFF"
+    },
+    "16": {
+      "name": "Essentials",
+      "iconName": "star.fill",
+      "hexColor": "FFCC00"
+    },
+    "17": {
+      "name": "Social Networking",
+      "iconName": "square.and.arrow.up.fill",
+      "hexColor": "007AFF"
+    },
+    "18": {
+      "name": "Music",
+      "iconName": "music.note",
+      "hexColor": "FF2D55"
+    },
+    "19": {
+      "name": "Business",
+      "iconName": "chart.pie.fill",
+      "hexColor": "007AFF"
+    },
+    "20": {
+      "name": "Utilities",
+      "iconName": "bolt.fill",
+      "hexColor": "FFCC00"
+    },
+    "21": {
+      "name": "Sports",
+      "iconName": "sportscourt.fill",
+      "hexColor": "FF3B30"
+    },
+    "22": {
+      "name": "Donations",
+      "iconName": "face.smiling.fill",
+      "hexColor": "34C759"
+    },
+    "23": {
+      "name": "Travel",
+      "iconName": "airplane",
+      "hexColor": "8E8E93"
+    },
+    "24": {
+      "name": "Services",
+      "iconName": "building.fill",
+      "hexColor": "AF52DE"
+    },
+    "25": {
+      "name": "Pets",
+      "iconName": "tortoise.fill",
+      "hexColor": "FFD600"
+    },
+    "26": {
+      "name": "Communication",
+      "iconName": "ellipsis.bubble.fill",
+      "hexColor": "34C759"
+    },
+    "27": {
+      "name": "Default",
+      "iconName": "questionmark",
+      "hexColor": "8E8E93"
+    },
+    "28": {
+      "name": "Shopping",
+      "iconName": "bag.fill",
+      "hexColor": "007AFF"
+    },
+    "29": {
+      "name": "Clothing",
+      "iconName": "eyeglasses",
+      "hexColor": "007AFF"
+    },
+    "30": {
+      "name": "Entertainment",
+      "iconName": "ticket.fill",
+      "hexColor": "34C759"
+    },
+    "31": {
+      "name": "Miscellaneous",
+      "iconName": "tag.fill",
+      "hexColor": "8E8E93"
+    },
+    "32": {
+      "name": "Child Expenses",
+      "iconName": "person.2.fill",
+      "hexColor": "5AC8FA"
+    },
+    "33": {
+      "name": "Photo & Video",
+      "iconName": "camera.fill",
+      "hexColor": "5AC8FA"
+    },
+    "34": {
+      "name": "Health & Fitness",
+      "iconName": "figure.walk",
+      "hexColor": "FF3B30"
+    },
+    "35": {
+      "name": "Employment",
+      "iconName": "briefcase.fill",
+      "hexColor": "FF9500"
+    },
+    "36": {
+      "name": "Personal Care",
+      "iconName": "person.fill",
+      "hexColor": "FF2D55"
+    },
+    "37": {
+      "name": "Productivity",
+      "iconName": "sunrise.fill",
+      "hexColor": "FFCC00"
+    },
+    "38": {
+      "name": "Memberships",
+      "iconName": "creditcard.fill",
+      "hexColor": "FF9500"
+    },
+    "39": {
+      "name": "Education",
+      "iconName": "graduationcap.fill",
+      "hexColor": "FF9500"
+    },
+    "40": {
+      "name": "Books",
+      "iconName": "book.fill",
+      "hexColor": "007AFF"
+    }
+  }

@@ -19,7 +19,7 @@ dependencies:
   # Authentication
   # Just updated the firebase dependencies to latest
   stacked_firebase_auth:
-    path: ../packages/stacked_firebase_auth
+    path: ./packages/stacked_firebase_auth
 
   # Firebase
   firebase_auth: ^1.0.0

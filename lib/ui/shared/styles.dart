@@ -4,58 +4,59 @@ part of "shared.dart";
 
 const TextStyle kMainStyle = TextStyle(fontFamily: "NotoSansKR");
 
-const TextStyle kBoardingTitleStyle = TextStyle(
+TextStyle kBoardingTitleStyle = kMainStyle.copyWith(
   color: AppColor.STAccent,
   fontSize: kTitleTextSize,
   fontWeight: FontWeightX.black,
   letterSpacing: 2,
 );
 
-const TextStyle kTitleStyle = TextStyle(
+TextStyle kTitleStyle = kMainStyle.copyWith(
   color: AppColor.STGrey,
   fontSize: kTitleTextSize,
   fontWeight: FontWeightX.bold,
   letterSpacing: -2,
 );
 
-const TextStyle kHeader2Style = TextStyle(
+TextStyle kHeader2Style = kMainStyle.copyWith(
   fontSize: kHeader2TextSize,
   fontWeight: FontWeightX.bold,
   letterSpacing: -2,
 );
 
-const TextStyle kHeader3Style = TextStyle(
+TextStyle kHeader3Style = kMainStyle.copyWith(
   fontSize: kHeader3TextSize,
   fontWeight: FontWeightX.bold,
 );
 
-const TextStyle kBodyLargeStyle = TextStyle(
+TextStyle kBodyLargeStyle = kMainStyle.copyWith(
   fontSize: kBodyLargeTextSize,
   fontWeight: FontWeightX.medium,
 );
 
-const TextStyle kBodyStyle = TextStyle(
+TextStyle kBodyStyle = kMainStyle.copyWith(
   fontSize: kBodyTextSize,
   fontWeight: FontWeightX.regular,
 );
 
-const TextStyle kBodyBoldStyle = TextStyle(
+TextStyle kBodyBoldStyle = kMainStyle.copyWith(
   fontSize: kBodyTextSize,
+  // fontFamily: "NotoSansKR",
   fontWeight: FontWeightX.bold,
 );
 
-const TextStyle kSmallStyle = TextStyle(
+TextStyle kSmallStyle = kMainStyle.copyWith(
   fontSize: kSmallTextSize,
   fontWeight: FontWeightX.medium,
 );
 
-const TextStyle kPreTitleStyle = TextStyle(
+TextStyle kPreTitleStyle = kMainStyle.copyWith(
   fontSize: kPreTitleTextSize,
   fontWeight: FontWeightX.bold,
   letterSpacing: 3,
 );
 
-const TextStyle kNavigationStyle = TextStyle(
+TextStyle kNavigationStyle = kMainStyle.copyWith(
   fontSize: kNavigationBarTextSize,
   fontWeight: FontWeightX.bold,
 );

@@ -40,6 +40,7 @@ class _StartupViewState extends State<StartupView> {
                 placeholder: "This is Disabled TextField",
               ),
               STButton(
+                buttonText: "Button",
                 buttonType: ButtonType.SECONDARY,
                 onPressed: () {},
               )

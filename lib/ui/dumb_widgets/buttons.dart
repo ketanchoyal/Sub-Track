@@ -11,10 +11,12 @@ class STButton extends StatelessWidget {
     Key? key,
     this.buttonType = ButtonType.PRIMARY,
     required this.onPressed,
+    required this.buttonText,
   }) : super(key: key);
 
   final ButtonType buttonType;
   final Function() onPressed;
+  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class STButton extends StatelessWidget {
       child: CupertinoButton.filled(
         disabledColor: AppColor.STAccentLight,
         child: Text(
-          "BUTTON",
+          buttonText,
           style: kBodyStyle.copyWith(
             fontWeight: FontWeightX.bold,
             color: buttonType == ButtonType.PRIMARY

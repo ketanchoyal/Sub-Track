@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import './startup_viewmodel.dart';
 
@@ -24,20 +25,24 @@ class _StartupViewState extends State<StartupView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              BasicTextField(
+              STTextField(
                 type: TextFieldType.VALID,
                 focusNode: _focusNode1,
                 nextFocusNode: _focusNode2,
               ),
-              BasicTextField(
+              STTextField(
                 type: TextFieldType.ERROR,
                 focusNode: _focusNode2,
               ),
-              BasicTextField(
+              STTextField(
                 focusNode: FocusNode(),
                 type: TextFieldType.DEFAULT,
                 placeholder: "This is Disabled TextField",
               ),
+              STButton(
+                buttonType: ButtonType.SECONDARY,
+                onPressed: () {},
+              )
             ],
           ),
         ),

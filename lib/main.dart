@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // REVIEW Using Material on top of CupertinoApp is okay or not
     return Material(
-      textStyle: kMainStyle,
+      // textStyle: kMainStyle,
       child: CupertinoApp(
         title: 'Sub Track',
         color: AppColor.STAccent,

@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AppColor {
   // SECTION[epic=Light Colors]
@@ -14,6 +14,8 @@ class AppColor {
   static const STDarkLight = Color(0xff77868c);
   static const STAccent = Color(0xff566bde);
   static const STAccentLight = Color(0xffaab5ee);
+  static const STPureWhite = Colors.white;
+  static const STPureDark = Colors.black;
 
   //!SECTION
 }

@@ -11,8 +11,8 @@ enum TextFieldType {
   DISABLED,
 }
 
-class BasicTextField extends StatefulWidget {
-  const BasicTextField({
+class STTextField extends StatefulWidget {
+  const STTextField({
     Key? key,
     required this.type,
     this.placeholder,
@@ -34,10 +34,10 @@ class BasicTextField extends StatefulWidget {
   final IconData? suffixIcon;
 
   @override
-  _BasicTextFieldState createState() => _BasicTextFieldState();
+  _STTextFieldState createState() => _STTextFieldState();
 }
 
-class _BasicTextFieldState extends State<BasicTextField> {
+class _STTextFieldState extends State<STTextField> {
   @override
   Widget build(BuildContext context) {
     bool _hasFocus = widget.focusNode.hasFocus;
@@ -78,7 +78,7 @@ class _BasicTextFieldState extends State<BasicTextField> {
           color: _textFieldType == TextFieldType.DEFAULT ||
                   _textFieldType == TextFieldType.DISABLED
               ? AppColor.STLight
-              : Colors.white,
+              : AppColor.STPureWhite,
           boxShadow: [
             BoxShadow(
               color: _color,

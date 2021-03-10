@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 class AppColor {
+  // SECTION[epic=Light Colors]
+
   static const STGrey = Color(0xff4a5358);
   static const STLight = Color(0xffecf1f4);
   static const STFailure = Color(0xffc54045);
@@ -12,4 +14,6 @@ class AppColor {
   static const STDarkLight = Color(0xff77868c);
   static const STAccent = Color(0xff566bde);
   static const STAccentLight = Color(0xffaab5ee);
+
+  //!SECTION
 }

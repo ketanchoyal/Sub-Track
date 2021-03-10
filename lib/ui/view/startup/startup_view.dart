@@ -20,7 +20,27 @@ class _StartupViewState extends State<StartupView> {
     return ViewModelBuilder<StartupViewModel>.reactive(
       viewModelBuilder: () => StartupViewModel(),
       builder: (context, model, child) => Scaffold(
-        body: Center(),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BasicTextField(
+                type: TextFieldType.VALID,
+                focusNode: _focusNode1,
+                nextFocusNode: _focusNode2,
+              ),
+              BasicTextField(
+                type: TextFieldType.ERROR,
+                focusNode: _focusNode2,
+              ),
+              BasicTextField(
+                focusNode: FocusNode(),
+                type: TextFieldType.DEFAULT,
+                placeholder: "This is Disabled TextField",
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

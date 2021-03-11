@@ -11,6 +11,11 @@
       "types": ["jpg", "jpeg", "png", "webp", "gif", "bmp", "wbmp"]
     },
     {
+      "path": "assets/appIcons",
+      "class_name": "AppIconsAssets",
+      "types": ["jpg", "jpeg", "png", "webp", "gif", "bmp", "wbmp"]
+    },
+    {
       "path": "assets/images/svg",
       "class_name": "SvgAssets",
       "types": ["svg"]

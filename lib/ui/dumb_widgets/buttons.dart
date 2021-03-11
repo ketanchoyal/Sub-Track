@@ -12,11 +12,13 @@ class STButton extends StatelessWidget {
     this.buttonType = ButtonType.PRIMARY,
     required this.onPressed,
     required this.buttonText,
+    this.icon,
   }) : super(key: key);
 
   final ButtonType buttonType;
   final Function() onPressed;
   final String buttonText;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +32,45 @@ class STButton extends StatelessWidget {
                       ? AppColor.STPureWhite
                       : AppColor.STAccentLight),
       child: CupertinoButton.filled(
+        padding: EdgeInsets.symmetric(
+          vertical: 14.0,
+          horizontal: icon == null ? 40 : 32.0,
+        ),
         disabledColor: AppColor.STAccentLight,
-        child: Text(
-          buttonText,
-          style: kBodyStyle.copyWith(
-            fontWeight: FontWeightX.bold,
-            color: buttonType == ButtonType.PRIMARY
-                ? AppColor.STPureWhite
-                : buttonType == ButtonType.DISABLED
-                    ? AppColor.STLight
-                    : AppColor.STAccent,
-          ),
+        alignment: Alignment.center,
+        // minSize: 10,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (icon != null)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: icon!,
+                  ),
+                  horizontalSpaceSmall,
+                ],
+              ),
+            Text(
+              buttonText,
+              textAlign: TextAlign.center,
+              style: kBodyStyle.copyWith(
+                fontWeight: FontWeightX.bold,
+                color: buttonType == ButtonType.PRIMARY
+                    ? AppColor.STPureWhite
+                    : buttonType == ButtonType.DISABLED
+                        ? AppColor.STLight
+                        : AppColor.STAccent,
+              ),
+            ),
+          ],
         ),
         onPressed: buttonType == ButtonType.DISABLED ? null : onPressed,
       ),

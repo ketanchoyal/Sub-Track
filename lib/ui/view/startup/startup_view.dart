@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
+import 'package:sub_track/ui/resources/resources.dart';
 import './startup_viewmodel.dart';
 
 class StartupView extends StatefulWidget {
@@ -40,10 +41,13 @@ class _StartupViewState extends State<StartupView> {
                 placeholder: "This is Disabled TextField",
               ),
               STButton(
-                buttonText: "Button",
-                buttonType: ButtonType.SECONDARY,
+                buttonText: "Apple",
+                buttonType: ButtonType.PRIMARY,
                 onPressed: () {},
-              )
+                icon: Image.asset(
+                  AppIconsAssets.apple,
+                ),
+              ),
             ],
           ),
         ),

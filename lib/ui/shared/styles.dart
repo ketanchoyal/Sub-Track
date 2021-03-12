@@ -53,7 +53,7 @@ TextStyle kSmallStyle = kMainStyle.copyWith(
 TextStyle kPreTitleStyle = kMainStyle.copyWith(
   fontSize: kPreTitleTextSize,
   fontWeight: FontWeightX.bold,
-  letterSpacing: 3,
+  // letterSpacing: -1,
 );
 
 TextStyle kNavigationStyle = kMainStyle.copyWith(
@@ -82,8 +82,8 @@ const double kBodyLargeTextSize = 18;
 /// 12
 const double kSmallTextSize = 12;
 
-/// 8
-const double kPreTitleTextSize = 8;
+/// 10
+const double kPreTitleTextSize = 10;
 
 ///17
 const double kNavigationBarTextSize = 17;

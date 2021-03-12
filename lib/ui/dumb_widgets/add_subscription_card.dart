@@ -2,26 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
-class ActiveSubCard extends StatelessWidget {
-  ActiveSubCard({
+class AddSubCard extends StatelessWidget {
+  AddSubCard({
     Key? key,
     required this.name,
     required this.colorHex,
-    required this.price,
     required this.iconAsset,
-    required this.repeatEvery,
     this.fontColor,
   }) : super(key: key);
 
   final String name;
   final String colorHex;
-  final double price;
   late final Color? fontColor;
 
   // TODO if icon is null then make icon using initial of sub
   final String iconAsset;
-  // TODO Make enum for repatation
-  final String repeatEvery;
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +28,19 @@ class ActiveSubCard extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 2,
+        horizontal: 2,
+        vertical: 1,
       ),
       child: SizedBox(
         height: 65,
         width: MediaQuery.of(context).size.width,
         child: Card(
-          elevation: 5,
+          elevation: 0,
+          margin: EdgeInsets.all(0),
           color: colorHex.toColor() ?? AppColor.STAccent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(12),
+              Radius.circular(4),
             ),
           ),
           child: Row(
@@ -72,23 +68,10 @@ class ActiveSubCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "\$",
-                        style: kBodyBoldStyle.copyWith(color: AppColor.STLight),
-                      ),
-                      TextSpan(
-                        text: price.toString(),
-                        style: kBodyBoldStyle.copyWith(color: AppColor.STLight),
-                      ),
-                      TextSpan(
-                        text: repeatEvery,
-                        style: kPreTitleStyle.copyWith(color: AppColor.STLight),
-                      ),
-                    ],
-                  ),
+                child: Icon(
+                  Icons.add,
+                  size: 30,
+                  color: AppColor.STLight,
                 ),
               )
             ],

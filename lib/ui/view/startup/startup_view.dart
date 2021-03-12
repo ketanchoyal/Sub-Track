@@ -1,11 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
+import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import './startup_viewmodel.dart';
+import 'package:sub_track/ui/shared/shared.dart';
 
 class StartupView extends StatefulWidget {
   @override
@@ -63,6 +66,17 @@ class _StartupViewState extends State<StartupView> {
                 iconAsset:
                     "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
                 repeatEvery: "/m",
+              ),
+              AddSubCard(
+                name: "Google",
+                colorHex: "000000",
+                iconAsset: AppIconsAssets.google,
+              ),
+              AddSubCard(
+                name: "Apple",
+                colorHex: "CF3A26",
+                iconAsset:
+                    "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
               ),
             ],
           ),

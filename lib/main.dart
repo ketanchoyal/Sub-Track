@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'package:sub_track/ui/view/startup/startup_view.dart';
+import 'package:sub_track/ui/view/demo/demo_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             textStyle: kBodyStyle,
           ),
         ),
-        home: StartupView(),
+        home: DemoView(),
       ),
     );
   }

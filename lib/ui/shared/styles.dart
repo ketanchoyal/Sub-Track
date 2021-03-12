@@ -89,3 +89,14 @@ const double kPreTitleTextSize = 10;
 const double kNavigationBarTextSize = 17;
 
 // !SECTION
+
+// SECTION[epic=Card Shapes]
+
+ShapeBorder kRoundedCardBorder({double radius = 12}) => RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius),
+      ),
+    );
+
+
+// !SECTION

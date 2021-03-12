@@ -16,6 +16,8 @@ class STActiveSubCard extends StatelessWidget {
   final String name;
   final String colorHex;
   final double price;
+
+  // TODO set font color based on [liminance]
   late final Color? fontColor;
 
   // TODO if icon is null then make icon using initial of sub
@@ -42,11 +44,7 @@ class STActiveSubCard extends StatelessWidget {
         child: Card(
           elevation: 5,
           color: colorHex.toColor() ?? AppColor.STAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(12),
-            ),
-          ),
+          shape: kRoundedCardBorder(),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +82,7 @@ class STActiveSubCard extends StatelessWidget {
                         style: kBodyBoldStyle.copyWith(color: AppColor.STLight),
                       ),
                       TextSpan(
-                        text: repeatEvery,
+                        text: "/" + repeatEvery,
                         style: kPreTitleStyle.copyWith(color: AppColor.STLight),
                       ),
                     ],

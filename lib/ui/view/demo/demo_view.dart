@@ -7,16 +7,17 @@ import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
+import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
-import './startup_viewmodel.dart';
+import 'demo_viewmodel.dart';
 
-class StartupView extends StatefulWidget {
+class DemoView extends StatefulWidget {
   @override
-  _StartupViewState createState() => _StartupViewState();
+  _DemoViewState createState() => _DemoViewState();
 }
 
-class _StartupViewState extends State<StartupView> {
+class _DemoViewState extends State<DemoView> {
   late FocusNode _focusNode1;
   late FocusNode _focusNode2;
   late FocusNode _focusNode3;
@@ -32,11 +33,12 @@ class _StartupViewState extends State<StartupView> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<StartupViewModel>.reactive(
-      viewModelBuilder: () => StartupViewModel(),
+    return ViewModelBuilder<DemoViewModel>.reactive(
+      viewModelBuilder: () => DemoViewModel(),
       builder: (context, model, child) => Scaffold(
         body: Center(
           child: ListView(
+            shrinkWrap: true,
             // mainAxisSize: MainAxisSize.max,
             children: [
               STTextField(
@@ -82,7 +84,7 @@ class _StartupViewState extends State<StartupView> {
                 colorHex: "000000",
                 price: 18.99,
                 iconAsset: AppIconsAssets.google,
-                repeatEvery: "/m",
+                repeatEvery: "m",
               ),
               STActiveSubCard(
                 name: "Apple",
@@ -90,7 +92,7 @@ class _StartupViewState extends State<StartupView> {
                 price: 11.99,
                 iconAsset:
                     "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
-                repeatEvery: "/m",
+                repeatEvery: "m",
               ),
               STAddSubCard(
                 name: "Google",
@@ -115,6 +117,30 @@ class _StartupViewState extends State<StartupView> {
                   selectedValue = value!;
                   setState(() {});
                 },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  STUpcommingSub(
+                    name: "Apple",
+                    colorHex: "CF3A26",
+                    iconAsset:
+                        "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
+                    percentage: 20,
+                    price: 11.99,
+                    remainingDays: 21,
+                    repeatEvery: "Month",
+                  ),
+                  STUpcommingSub(
+                    name: "Google",
+                    colorHex: "000000",
+                    iconAsset: AppIconsAssets.google,
+                    percentage: 30,
+                    price: 18.99,
+                    remainingDays: 18,
+                    repeatEvery: "Month",
+                  ),
+                ],
               ),
             ],
           ),

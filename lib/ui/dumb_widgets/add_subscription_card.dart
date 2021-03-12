@@ -38,11 +38,7 @@ class STAddSubCard extends StatelessWidget {
           elevation: 0,
           margin: EdgeInsets.all(0),
           color: colorHex.toColor() ?? AppColor.STAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(4),
-            ),
-          ),
+          shape: kRoundedCardBorder(radius: 4),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -38,14 +38,29 @@ class STTextField extends StatefulWidget {
 }
 
 class _STTextFieldState extends State<STTextField> {
+  late TextFieldType _textFieldType;
+  late Color _color;
+  IconData? _icon;
   @override
-  Widget build(BuildContext context) {
-    bool _hasFocus = widget.focusNode.hasFocus;
+  void initState() {
+    super.initState();
+    // _textFieldType = widget.type;
+    setUp();
+    widget.focusNode.addListener(() {
+      setUp();
+    });
+  }
 
-    TextFieldType _textFieldType =
-        _hasFocus ? TextFieldType.ACTIVE : widget.type;
+  setUp() {
+    // FocusScopeNode currentFocus = FocusScope.of(context);
+    // if (!currentFocus.hasPrimaryFocus) {
+    //   currentFocus.focusedChild?.unfocus();
+    // }
+    bool _hasFocus = widget.focusNode.hasPrimaryFocus;
 
-    Color _color = _textFieldType == TextFieldType.DEFAULT ||
+    _textFieldType = _hasFocus ? TextFieldType.ACTIVE : widget.type;
+
+    _color = _textFieldType == TextFieldType.DEFAULT ||
             _textFieldType == TextFieldType.DISABLED
         ? Colors.transparent
         : _textFieldType == TextFieldType.ACTIVE
@@ -54,7 +69,7 @@ class _STTextFieldState extends State<STTextField> {
                 ? AppColor.STSuccess
                 : AppColor.STFailure;
 
-    IconData? _icon = _textFieldType == TextFieldType.DEFAULT
+    _icon = _textFieldType == TextFieldType.DEFAULT
         ? widget.suffixIcon
         : _textFieldType == TextFieldType.ACTIVE
             ? null
@@ -65,6 +80,10 @@ class _STTextFieldState extends State<STTextField> {
                     : _textFieldType == TextFieldType.ERROR
                         ? Icons.error_outline
                         : null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(12),
       child: CupertinoTextField(
@@ -100,6 +119,16 @@ class _STTextFieldState extends State<STTextField> {
                 ? TextInputAction.next
                 : TextInputAction.done,
         onSubmitted: (_) {
+          widget.focusNode.unfocus();
+          _textFieldType = widget.type;
+          FocusScope.of(context).requestFocus(widget.nextFocusNode);
+          setState(() {});
+        },
+        onTap: () {
+          _textFieldType = TextFieldType.ACTIVE;
+          setState(() {});
+        },
+        onEditingComplete: () {
           widget.focusNode.unfocus();
           _textFieldType = widget.type;
           FocusScope.of(context).requestFocus(widget.nextFocusNode);

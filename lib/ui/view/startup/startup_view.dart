@@ -19,6 +19,7 @@ class StartupView extends StatefulWidget {
 class _StartupViewState extends State<StartupView> {
   late FocusNode _focusNode1;
   late FocusNode _focusNode2;
+  late FocusNode _focusNode3;
   String selectedValue = "Label 1";
 
   @override
@@ -26,6 +27,7 @@ class _StartupViewState extends State<StartupView> {
     super.initState();
     _focusNode1 = FocusNode();
     _focusNode2 = FocusNode();
+    _focusNode3 = FocusNode();
   }
 
   @override
@@ -45,11 +47,12 @@ class _StartupViewState extends State<StartupView> {
               STTextField(
                 type: TextFieldType.ERROR,
                 focusNode: _focusNode2,
+                nextFocusNode: _focusNode3,
               ),
               STTextField(
-                focusNode: FocusNode(),
+                focusNode: _focusNode3,
                 type: TextFieldType.DEFAULT,
-                placeholder: "This is Disabled TextField",
+                placeholder: "This is Default TextField",
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

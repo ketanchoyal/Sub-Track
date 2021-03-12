@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
-class AddSubCard extends StatelessWidget {
-  AddSubCard({
+class STAddSubCard extends StatelessWidget {
+  STAddSubCard({
     Key? key,
     required this.name,
     required this.colorHex,

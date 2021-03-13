@@ -32,10 +32,9 @@ class View1 extends StatelessWidget {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
       viewModelBuilder: () => locator<OnBoardingViewModel>(),
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
-        extendBody: true,
-        backgroundColor: AppColor.STLight,
-        body: _STOnBoarding(
+      builder: (context, model, child) => CupertinoPageScaffold(
+        resizeToAvoidBottomInset: false,
+        child: _STOnBoarding(
           index: 0,
           onSkipPressed: () {
             model.skip();
@@ -58,10 +57,9 @@ class View2 extends StatelessWidget {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
       viewModelBuilder: () => locator<OnBoardingViewModel>(),
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
-        extendBody: true,
-        backgroundColor: AppColor.STLight,
-        body: _STOnBoarding(
+      builder: (context, model, child) => CupertinoPageScaffold(
+        resizeToAvoidBottomInset: false,
+        child: _STOnBoarding(
           index: 1,
           onSkipPressed: () {
             model.skip();
@@ -86,10 +84,9 @@ class View3 extends StatelessWidget {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
       viewModelBuilder: () => locator<OnBoardingViewModel>(),
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
-        extendBody: true,
-        backgroundColor: AppColor.STLight,
-        body: _STOnBoarding(
+      builder: (context, model, child) => CupertinoPageScaffold(
+        resizeToAvoidBottomInset: false,
+        child: _STOnBoarding(
           index: 2,
           onSkipPressed: () {
             model.skip();

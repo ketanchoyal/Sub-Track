@@ -1,10 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
+import 'package:sub_track/ui/view/on_boarding_1/on_boarding1_view.dart';
 
-void main() {
+import 'app/app.locator.dart';
+import 'app/app.router.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -30,7 +38,9 @@ class MyApp extends StatelessWidget {
             textStyle: kBodyStyle,
           ),
         ),
-        home: DemoView(),
+        home: OnBoarding1View(),
+        navigatorKey: StackedService.navigatorKey,
+        onGenerateRoute: StackedRouter().onGenerateRoute,
       ),
     );
   }

@@ -4,7 +4,7 @@ part of "shared.dart";
 
 const TextStyle kMainStyle = TextStyle(fontFamily: "NotoSansKR");
 
-TextStyle kBoardingTitleStyle = kMainStyle.copyWith(
+TextStyle kOnBoardingTitleStyle = kMainStyle.copyWith(
   color: AppColor.STAccent,
   fontSize: kTitleTextSize,
   fontWeight: FontWeightX.black,

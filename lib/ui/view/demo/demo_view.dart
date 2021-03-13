@@ -63,7 +63,9 @@ class _DemoViewState extends State<DemoView> {
                   STButton(
                     buttonText: "Apple",
                     buttonType: ButtonType.PRIMARY,
-                    onPressed: () {},
+                    onPressed: () {
+                      model.navigate();
+                    },
                     icon: Image.asset(
                       AppIconsAssets.apple,
                     ),

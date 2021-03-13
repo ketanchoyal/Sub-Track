@@ -4,37 +4,43 @@ import 'package:flutter/material.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
-enum ButtonType { PRIMARY, SECONDARY, TERTIARY, DISABLED }
+enum ButtonType { PRIMARY, SECONDARY, TERTIARY, DISABLED, ICON }
 
 class STButton extends StatelessWidget {
   const STButton({
     Key? key,
     this.buttonType = ButtonType.PRIMARY,
     required this.onPressed,
-    required this.buttonText,
+    this.buttonText,
     this.icon,
   }) : super(key: key);
 
   final ButtonType buttonType;
   final Function() onPressed;
-  final String buttonText;
+  final String? buttonText;
   final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoTheme(
       data: CupertinoTheme.of(context).copyWith(
-          primaryColor: buttonType == ButtonType.PRIMARY
-              ? AppColor.STAccent
-              : buttonType == ButtonType.SECONDARY
-                  ? AppColor.STLight
-                  : buttonType == ButtonType.TERTIARY
-                      ? AppColor.STPureWhite
-                      : AppColor.STAccentLight),
+        primaryColor:
+            buttonType == ButtonType.PRIMARY || buttonType == ButtonType.ICON
+                ? AppColor.STAccent
+                : buttonType == ButtonType.SECONDARY
+                    ? AppColor.STLight
+                    : buttonType == ButtonType.TERTIARY
+                        ? AppColor.STPureWhite
+                        : AppColor.STAccentLight,
+      ),
       child: CupertinoButton.filled(
         padding: EdgeInsets.symmetric(
           vertical: 14.0,
-          horizontal: icon == null ? 40 : 32.0,
+          horizontal: buttonType == ButtonType.ICON
+              ? 14
+              : icon == null
+                  ? 40.0
+                  : 32.0,
         ),
         disabledColor: AppColor.STAccentLight,
         alignment: Alignment.center,
@@ -51,25 +57,26 @@ class STButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 25,
-                    width: 25,
+                    height: buttonType == ButtonType.ICON ? 30 : 25,
+                    width: buttonType == ButtonType.ICON ? 30 : 25,
                     child: icon!,
                   ),
-                  horizontalSpaceSmall,
+                  if (buttonType != ButtonType.ICON) horizontalSpaceSmall,
                 ],
               ),
-            Text(
-              buttonText,
-              textAlign: TextAlign.center,
-              style: kBodyStyle.copyWith(
-                fontWeight: FontWeightX.bold,
-                color: buttonType == ButtonType.PRIMARY
-                    ? AppColor.STPureWhite
-                    : buttonType == ButtonType.DISABLED
-                        ? AppColor.STLight
-                        : AppColor.STAccent,
+            if (buttonText != null)
+              Text(
+                buttonText!,
+                textAlign: TextAlign.center,
+                style: kBodyStyle.copyWith(
+                  fontWeight: FontWeightX.bold,
+                  color: buttonType == ButtonType.PRIMARY
+                      ? AppColor.STPureWhite
+                      : buttonType == ButtonType.DISABLED
+                          ? AppColor.STLight
+                          : AppColor.STAccent,
+                ),
               ),
-            ),
           ],
         ),
         onPressed: buttonType == ButtonType.DISABLED ? null : onPressed,

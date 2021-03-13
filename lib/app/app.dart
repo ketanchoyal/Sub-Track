@@ -3,8 +3,10 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
+import 'package:sub_track/ui/view/login/login_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_viewmodel.dart';
+import 'package:sub_track/ui/view/register/register_view.dart';
 import 'package:sub_track/ui/view/startup/startup_view.dart';
 
 @StackedApp(
@@ -12,7 +14,6 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
     CupertinoRoute(page: DemoView),
     CupertinoRoute(page: StartUpView, initial: true),
     CupertinoRoute(
-      // initial: true,
       page: OnBoardingView,
       path: "/onBoarding",
       children: [
@@ -32,7 +33,9 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
           path: "/3",
         ),
       ],
-    )
+    ),
+    StackedRoute(page: LoginView),
+    StackedRoute(page: RegisterView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

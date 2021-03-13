@@ -13,6 +13,10 @@ class OnBoardingViewModel extends BaseViewModel {
     );
   }
 
+  skip() {
+    _navigationService.navigateTo(Routes.loginView);
+  }
+
   back() {
     _navigationService.back();
   }

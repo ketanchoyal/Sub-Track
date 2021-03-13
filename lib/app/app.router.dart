@@ -7,20 +7,27 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../ui/view/demo/demo_view.dart';
+import '../ui/view/login/login_view.dart';
 import '../ui/view/on_boarding/on_boarding_view.dart';
+import '../ui/view/register/register_view.dart';
 import '../ui/view/startup/startup_view.dart';
 
 class Routes {
   static const String demoView = '/demo-view';
   static const String startUpView = '/';
   static const String onBoardingView = '/onBoarding';
+  static const String loginView = '/login-view';
+  static const String registerView = '/register-view';
   static const all = <String>{
     demoView,
     startUpView,
     onBoardingView,
+    loginView,
+    registerView,
   };
 }
 
@@ -35,6 +42,8 @@ class StackedRouter extends RouterBase {
       page: OnBoardingView,
       generator: OnBoardingViewRouter(),
     ),
+    RouteDef(Routes.loginView, page: LoginView),
+    RouteDef(Routes.registerView, page: RegisterView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -54,6 +63,18 @@ class StackedRouter extends RouterBase {
     OnBoardingView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => OnBoardingView(),
+        settings: data,
+      );
+    },
+    LoginView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => LoginView(),
+        settings: data,
+      );
+    },
+    RegisterView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => RegisterView(),
         settings: data,
       );
     },

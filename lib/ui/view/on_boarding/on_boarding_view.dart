@@ -37,10 +37,10 @@ class View1 extends StatelessWidget {
         backgroundColor: AppColor.STLight,
         body: _STOnBoarding(
           index: 0,
-          onSkipPressed: () {},
-          onBackPressed: () {
-            model.back();
+          onSkipPressed: () {
+            model.skip();
           },
+          onBackPressed: () {},
           onPressed: () {
             model.navigate(1);
           },
@@ -63,7 +63,9 @@ class View2 extends StatelessWidget {
         backgroundColor: AppColor.STLight,
         body: _STOnBoarding(
           index: 1,
-          onSkipPressed: () {},
+          onSkipPressed: () {
+            model.skip();
+          },
           onBackPressed: () {
             model.back();
           },
@@ -89,58 +91,20 @@ class View3 extends StatelessWidget {
         backgroundColor: AppColor.STLight,
         body: _STOnBoarding(
           index: 2,
-          onSkipPressed: () {},
+          onSkipPressed: () {
+            model.skip();
+          },
           onBackPressed: () {
             model.back();
           },
-          onPressed: () {},
+          onPressed: () {
+            model.skip();
+          },
         ),
       ),
     );
   }
 }
-
-// class View2 extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ViewModelBuilder<OnBoardingViewModel>.reactive(
-//       viewModelBuilder: () => OnBoardingViewModel(),
-//       builder: (context, model, child) => Scaffold(
-//         extendBody: true,
-//         backgroundColor: AppColor.STLight,
-//         body: _STOnBoarding(
-//           index: 1,
-//           onPressed: () {
-//             Navigator.push(
-//               context,
-//               CupertinoPageRoute<bool>(
-//                 fullscreenDialog: true,
-//                 builder: (BuildContext context) => View3(),
-//               ),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class View3 extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ViewModelBuilder<OnBoardingViewModel>.reactive(
-//       viewModelBuilder: () => OnBoardingViewModel(),
-//       builder: (context, model, child) => Scaffold(
-//         extendBody: true,
-//         backgroundColor: AppColor.STLight,
-//         body: _STOnBoarding(
-//           index: 2,
-//           onPressed: () {},
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class _STOnBoarding extends StatelessWidget {
   const _STOnBoarding({
@@ -163,21 +127,29 @@ class _STOnBoarding extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: STButton(
-              buttonType: ButtonType.SECONDARY,
-              onPressed: () {},
-              buttonText: "Skip",
+            child: Hero(
+              tag: "backBtn",
+              transitionOnUserGestures: true,
+              child: STButton(
+                buttonType: ButtonType.SECONDARY,
+                onPressed: onSkipPressed,
+                buttonText: "Skip",
+              ),
             ),
           ),
           if (index != 0)
             Align(
               alignment: Alignment.topLeft,
-              child: STButton(
-                buttonType: ButtonType.SECONDARY,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                buttonText: "Back",
+              child: Hero(
+                tag: "skip",
+                transitionOnUserGestures: true,
+                child: STButton(
+                  buttonType: ButtonType.SECONDARY,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  buttonText: "Back",
+                ),
               ),
             ),
           Align(
@@ -191,7 +163,7 @@ class _STOnBoarding extends StatelessWidget {
           Align(
             alignment: onBoardingData[index].alignment2,
             child: Hero(
-              tag: "boy",
+              tag: index == 2 ? "" : "boy",
               transitionOnUserGestures: true,
               child: Image.asset(
                 onBoardingData[index].image2,

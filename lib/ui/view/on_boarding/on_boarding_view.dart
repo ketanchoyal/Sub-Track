@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
@@ -10,20 +13,36 @@ import 'on_boarding_viewmodel.dart';
 class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      extendBody: true,
+      // backgroundColor: AppColor.STLight,
+      body: ExtendedNavigator<OnBoardingViewRouter>(
+        router: OnBoardingViewRouter(),
+        navigatorKey: StackedService.nestedNavigationKey(1),
+      ),
+    );
+  }
+}
+
+class View1 extends StatelessWidget {
+  const View1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
-      viewModelBuilder: () => OnBoardingViewModel(),
+      viewModelBuilder: () => locator<OnBoardingViewModel>(),
+      disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
         extendBody: true,
         backgroundColor: AppColor.STLight,
         body: _STOnBoarding(
           index: 0,
+          onSkipPressed: () {},
+          onBackPressed: () {
+            model.back();
+          },
           onPressed: () {
-            Navigator.of(context).push(
-              CupertinoPageRoute<bool>(
-                fullscreenDialog: false,
-                builder: (BuildContext context) => View2(),
-              ),
-            );
+            model.navigate(1);
           },
         ),
       ),
@@ -32,23 +51,24 @@ class OnBoardingView extends StatelessWidget {
 }
 
 class View2 extends StatelessWidget {
+  const View2({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
-      viewModelBuilder: () => OnBoardingViewModel(),
+      viewModelBuilder: () => locator<OnBoardingViewModel>(),
+      disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
         extendBody: true,
         backgroundColor: AppColor.STLight,
         body: _STOnBoarding(
           index: 1,
+          onSkipPressed: () {},
+          onBackPressed: () {
+            model.back();
+          },
           onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute<bool>(
-                fullscreenDialog: true,
-                builder: (BuildContext context) => View3(),
-              ),
-            );
+            model.navigate(2);
           },
         ),
       ),
@@ -57,15 +77,22 @@ class View2 extends StatelessWidget {
 }
 
 class View3 extends StatelessWidget {
+  const View3({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnBoardingViewModel>.reactive(
-      viewModelBuilder: () => OnBoardingViewModel(),
+      viewModelBuilder: () => locator<OnBoardingViewModel>(),
+      disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
         extendBody: true,
         backgroundColor: AppColor.STLight,
         body: _STOnBoarding(
           index: 2,
+          onSkipPressed: () {},
+          onBackPressed: () {
+            model.back();
+          },
           onPressed: () {},
         ),
       ),
@@ -73,15 +100,61 @@ class View3 extends StatelessWidget {
   }
 }
 
+// class View2 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ViewModelBuilder<OnBoardingViewModel>.reactive(
+//       viewModelBuilder: () => OnBoardingViewModel(),
+//       builder: (context, model, child) => Scaffold(
+//         extendBody: true,
+//         backgroundColor: AppColor.STLight,
+//         body: _STOnBoarding(
+//           index: 1,
+//           onPressed: () {
+//             Navigator.push(
+//               context,
+//               CupertinoPageRoute<bool>(
+//                 fullscreenDialog: true,
+//                 builder: (BuildContext context) => View3(),
+//               ),
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class View3 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ViewModelBuilder<OnBoardingViewModel>.reactive(
+//       viewModelBuilder: () => OnBoardingViewModel(),
+//       builder: (context, model, child) => Scaffold(
+//         extendBody: true,
+//         backgroundColor: AppColor.STLight,
+//         body: _STOnBoarding(
+//           index: 2,
+//           onPressed: () {},
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class _STOnBoarding extends StatelessWidget {
   const _STOnBoarding({
     Key? key,
     required this.index,
     required this.onPressed,
+    required this.onBackPressed,
+    required this.onSkipPressed,
   }) : super(key: key);
 
   final int index;
   final Function() onPressed;
+  final Function() onBackPressed;
+  final Function() onSkipPressed;
 
   @override
   Widget build(BuildContext context) {

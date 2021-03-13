@@ -4,7 +4,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
-import 'package:sub_track/ui/view/on_boarding_1/on_boarding_view.dart';
+import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
 
 import 'app/app.locator.dart';
 import 'app/app.router.dart';

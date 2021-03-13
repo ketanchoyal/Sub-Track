@@ -1,15 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sub_track/ui/shared/enums.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-
-enum TextFieldType {
-  DEFAULT,
-  ACTIVE,
-  VALID,
-  ERROR,
-  DISABLED,
-}
 
 class STTextField extends StatefulWidget {
   const STTextField({
@@ -22,6 +15,7 @@ class STTextField extends StatefulWidget {
     this.textInputAction,
     this.obscureText = false,
     this.suffixIcon,
+    this.onSubmitted,
   }) : super(key: key);
 
   final TextFieldType type;
@@ -32,6 +26,7 @@ class STTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final bool obscureText;
   final IconData? suffixIcon;
+  final Function(String)? onSubmitted;
 
   @override
   _STTextFieldState createState() => _STTextFieldState();
@@ -85,7 +80,7 @@ class _STTextFieldState extends State<STTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(12),
+      // margin: EdgeInsets.all(12),
       child: CupertinoTextField(
         controller: widget.controller,
         focusNode: widget.focusNode,
@@ -105,7 +100,7 @@ class _STTextFieldState extends State<STTextField> {
             ),
           ],
         ),
-        padding: EdgeInsets.all(18),
+        padding: EdgeInsets.all(15),
         placeholderStyle: kBodyBoldStyle.copyWith(
           color: AppColor.STDarkLight,
         ),
@@ -119,6 +114,7 @@ class _STTextFieldState extends State<STTextField> {
                 ? TextInputAction.next
                 : TextInputAction.done,
         onSubmitted: (_) {
+          if (widget.onSubmitted != null) widget.onSubmitted!("");
           widget.focusNode.unfocus();
           _textFieldType = widget.type;
           FocusScope.of(context).requestFocus(widget.nextFocusNode);

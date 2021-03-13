@@ -6,6 +6,7 @@ import 'package:sub_track/app/app.locator.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/resources/resources.dart';
+import 'package:sub_track/ui/shared/enums.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'on_boarding_viewmodel.dart';
@@ -125,7 +126,7 @@ class _STOnBoarding extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: Hero(
-              tag: "backBtn",
+              tag: "skip",
               transitionOnUserGestures: true,
               child: STButton(
                 buttonType: ButtonType.SECONDARY,
@@ -138,7 +139,7 @@ class _STOnBoarding extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: Hero(
-                tag: "skip",
+                tag: "back",
                 transitionOnUserGestures: true,
                 child: STButton(
                   buttonType: ButtonType.SECONDARY,

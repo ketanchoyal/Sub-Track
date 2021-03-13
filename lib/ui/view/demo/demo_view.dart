@@ -9,6 +9,7 @@ import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
 import 'package:sub_track/ui/resources/resources.dart';
+import 'package:sub_track/ui/shared/enums.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'demo_viewmodel.dart';
 
@@ -46,16 +47,19 @@ class _DemoViewState extends State<DemoView> {
                 focusNode: _focusNode1,
                 nextFocusNode: _focusNode2,
               ),
+              verticalSpaceSmall,
               STTextField(
                 type: TextFieldType.ERROR,
                 focusNode: _focusNode2,
                 nextFocusNode: _focusNode3,
               ),
+              verticalSpaceSmall,
               STTextField(
                 focusNode: _focusNode3,
                 type: TextFieldType.DEFAULT,
                 placeholder: "This is Default TextField",
               ),
+              verticalSpaceSmall,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

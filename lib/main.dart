@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             textStyle: kBodyStyle,
           ),
         ),
-        // home: OnBoardingView(),
+        // home: DemoView(),
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouter().onGenerateRoute,
       ),

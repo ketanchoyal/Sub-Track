@@ -1,19 +1,37 @@
 part of "shared.dart";
 
 // SECTION[epic=Horizontal Spacing]
+/// 5
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);
+
+/// 10
 const Widget horizontalSpaceSmall = SizedBox(width: 10.0);
+
+/// 18
 const Widget horizontalSpaceRegular = SizedBox(width: 18.0);
+
+/// 25
 const Widget horizontalSpaceMedium = SizedBox(width: 25.0);
+
+///50
 const Widget horizontalSpaceLarge = SizedBox(width: 50.0);
 
 // !SECTION
 
 // SECTION[epic=Vertical Spacing]
+/// 5
 const Widget verticalSpaceTiny = SizedBox(height: 5.0);
+
+/// 10
 const Widget verticalSpaceSmall = SizedBox(height: 10.0);
+
+/// 18
 const Widget verticalSpaceRegular = SizedBox(height: 18.0);
+
+/// 25
 const Widget verticalSpaceMedium = SizedBox(height: 25.0);
+
+/// 50
 const Widget verticalSpaceLarge = SizedBox(height: 50.0);
 
 // !SECTION

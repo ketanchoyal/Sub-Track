@@ -15,7 +15,7 @@ TextStyle kTitleStyle = kMainStyle.copyWith(
   color: AppColor.STGrey,
   fontSize: kTitleTextSize,
   fontWeight: FontWeightX.bold,
-  letterSpacing: -2,
+  letterSpacing: 2,
 );
 
 TextStyle kHeader2Style = kMainStyle.copyWith(
@@ -45,6 +45,11 @@ TextStyle kBodyBoldStyle = kMainStyle.copyWith(
   fontWeight: FontWeightX.bold,
 );
 
+TextStyle kMediumStyle = kMainStyle.copyWith(
+  fontSize: kMeduimTextSize,
+  fontWeight: FontWeightX.medium,
+);
+
 TextStyle kSmallStyle = kMainStyle.copyWith(
   fontSize: kSmallTextSize,
   fontWeight: FontWeightX.medium,
@@ -59,6 +64,13 @@ TextStyle kPreTitleStyle = kMainStyle.copyWith(
 TextStyle kNavigationStyle = kMainStyle.copyWith(
   fontSize: kNavigationBarTextSize,
   fontWeight: FontWeightX.bold,
+);
+
+TextStyle kLinkStyle = kMainStyle.copyWith(
+  fontSize: kBodyTextSize,
+  fontWeight: FontWeightX.bold,
+  color: AppColor.STSkyBlue,
+  decoration: TextDecoration.underline,
 );
 
 // !SECTION
@@ -79,13 +91,16 @@ const double kHeader3TextSize = 20;
 /// 18
 const double kBodyLargeTextSize = 18;
 
+/// 14
+const double kMeduimTextSize = 14;
+
 /// 12
 const double kSmallTextSize = 12;
 
 /// 10
 const double kPreTitleTextSize = 10;
 
-///17
+/// 17
 const double kNavigationBarTextSize = 17;
 
 // !SECTION

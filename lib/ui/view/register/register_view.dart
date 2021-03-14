@@ -107,7 +107,9 @@ class RegisterView extends StatelessWidget with $RegisterView {
                         ),
                         verticalSpaceSmall,
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            model.back();
+                          },
                           child: Text(
                             "Already registered?",
                             style: kLinkStyle,

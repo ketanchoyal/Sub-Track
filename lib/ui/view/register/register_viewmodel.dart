@@ -21,6 +21,10 @@ class RegisterViewModel extends FormViewModel {
     // notifyListeners();
   }
 
+  back() {
+    _navigationService.back();
+  }
+
   Future? saveData() {
     // here we can run custom functionality to save to our api
   }

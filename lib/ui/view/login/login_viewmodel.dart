@@ -33,6 +33,6 @@ class LoginViewModel extends FormViewModel {
 
   void skip() {
     // TODO Anonymous Login here
-    _navigationService.navigateTo(Routes.homeView);
+    _navigationService.clearStackAndShow(Routes.homeView);
   }
 }

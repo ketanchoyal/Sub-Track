@@ -33,9 +33,16 @@ class MyApp extends StatelessWidget {
           primaryColor: AppColor.STAccent,
           textTheme: CupertinoTextThemeData(
             primaryColor: AppColor.STAccent,
-            navLargeTitleTextStyle: kTitleStyle,
-            navTitleTextStyle: kNavigationStyle,
-            textStyle: kBodyStyle,
+            navLargeTitleTextStyle: kTitleStyle.copyWith(
+              color: AppColor.STDark,
+              letterSpacing: 1,
+            ),
+            navTitleTextStyle: kNavigationStyle.copyWith(
+              color: AppColor.STDark,
+            ),
+            textStyle: kBodyStyle.copyWith(
+              color: AppColor.STDark,
+            ),
           ),
         ),
         // home: DemoView(),

@@ -30,4 +30,9 @@ class LoginViewModel extends FormViewModel {
   void register() {
     _navigationService.navigateTo(Routes.registerView);
   }
+
+  void skip() {
+    // TODO Anonymous Login here
+    _navigationService.navigateTo(Routes.homeView);
+  }
 }

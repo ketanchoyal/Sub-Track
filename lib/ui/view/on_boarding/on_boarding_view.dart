@@ -11,6 +11,8 @@ import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'on_boarding_viewmodel.dart';
 
+// TODO change image height based on screen size
+// TODO Change align coordinates based on screen size
 class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

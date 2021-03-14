@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/shared/enums.dart';
 
 class RegisterViewModel extends FormViewModel {
@@ -27,5 +28,10 @@ class RegisterViewModel extends FormViewModel {
 
   Future? saveData() {
     // here we can run custom functionality to save to our api
+  }
+
+  void skip() {
+    // TODO Anonymous Login here
+    _navigationService.navigateTo(Routes.homeView);
   }
 }

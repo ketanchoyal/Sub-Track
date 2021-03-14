@@ -3,6 +3,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
+import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_viewmodel.dart';
@@ -36,6 +37,7 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
     ),
     StackedRoute(page: LoginView),
     StackedRoute(page: RegisterView),
+    StackedRoute(page: HomeView),
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),

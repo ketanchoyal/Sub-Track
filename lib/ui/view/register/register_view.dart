@@ -162,7 +162,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                   transitionOnUserGestures: true,
                   child: STButton(
                     buttonType: ButtonType.SECONDARY,
-                    onPressed: () {},
+                    onPressed: model.skip,
                     buttonText: "Skip",
                   ),
                 ),

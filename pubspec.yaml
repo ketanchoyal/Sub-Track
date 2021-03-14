@@ -44,7 +44,7 @@ flutter:
     - assets/subIcons/
     - assets/appIcons/
     - assets/json/
-    - assets/images/
+    - assets/images/3x/
     # - assets/images/button_icons
     # - assets/images/3x
 

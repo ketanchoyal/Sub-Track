@@ -16,11 +16,6 @@
       "types": ["jpg", "jpeg", "png", "webp", "gif", "bmp", "wbmp"]
     },
     {
-      "path": "assets/images/svg",
-      "class_name": "SvgAssets",
-      "types": ["svg"]
-    },
-    {
       "path": "assets/json",
       "class_name": "SubData",
       "package": "res",

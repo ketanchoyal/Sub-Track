@@ -38,111 +38,121 @@ class LoginView extends StatelessWidget with $LoginView {
                 ),
               ],
             ),
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
+            Center(
+              child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Welcome back!",
+                              style: kTitleStyle.copyWith(
+                                color: AppColor.STDark,
+                              ),
+                            ),
+                            Text(
+                              "Use your credentials below and login \nto your account",
+                              style: kMediumStyle.copyWith(
+                                color: AppColor.STDarkLight,
+                              ),
+                            ),
+                          ],
+                        ),
+                        verticalSpaceMedium,
+                        STTextFieldOutline(
+                          title: "Email",
+                          icon: Icons.email_outlined,
+                          textField: STTextField(
+                            placeholder: "yourname@something.com",
+                            type: model.emailTextFieldType,
+                            controller: emailController,
+                            focusNode: emailFocusNode,
+                            nextFocusNode: passwordFocusNode,
+                          ),
+                        ),
+                        verticalSpaceRegular,
+                        STTextFieldOutline(
+                          title: "Password",
+                          icon: Icons.lock_outline_rounded,
+                          textField: STTextField(
+                            placeholder: "********",
+                            type: model.passwordTextFieldType,
+                            controller: passwordController,
+                            obscureText: true,
+                            focusNode: passwordFocusNode,
+                            onSubmitted: (_) => model.saveData(),
+                          ),
+                        ),
+                        verticalSpaceSmall,
                         Text(
-                          "Welcome back!",
-                          style: kTitleStyle,
+                          "Forgot Password?",
+                          style: kLinkStyle,
                         ),
-                        Text(
-                          "Use your credentials below and login \nto your account",
-                          style: kMediumStyle.copyWith(
-                            color: AppColor.STDarkLight,
-                          ),
+                        verticalSpaceMedium,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: STButton(
+                                onPressed: () {},
+                                buttonText: "Login to my account",
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    verticalSpaceMedium,
-                    STTextFieldOutline(
-                      title: "Email",
-                      icon: Icons.email_outlined,
-                      textField: STTextField(
-                        placeholder: "yourname@something.com",
-                        type: model.emailTextFieldType,
-                        controller: emailController,
-                        focusNode: emailFocusNode,
-                        nextFocusNode: passwordFocusNode,
-                      ),
-                    ),
-                    verticalSpaceRegular,
-                    STTextFieldOutline(
-                      title: "Password",
-                      icon: Icons.lock_outline_rounded,
-                      textField: STTextField(
-                        placeholder: "********",
-                        type: model.passwordTextFieldType,
-                        controller: passwordController,
-                        obscureText: true,
-                        focusNode: passwordFocusNode,
-                        onSubmitted: (_) => model.saveData(),
-                      ),
-                    ),
-                    verticalSpaceSmall,
-                    Text(
-                      "Forgot Password?",
-                      style: kLinkStyle,
-                    ),
-                    verticalSpaceMedium,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: STButton(
-                            onPressed: () {},
-                            buttonText: "Login to my account",
-                          ),
+                        verticalSpaceSmall,
+                        verticalSpaceSmall,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: STButton(
+                                buttonType: ButtonType.TERTIARY,
+                                onPressed: () {},
+                                buttonText: "Mobile",
+                              ),
+                            ),
+                            horizontalSpaceRegular,
+                            Expanded(
+                              child: STButton(
+                                buttonType: ButtonType.TERTIARY,
+                                onPressed: () {},
+                                icon: Image.asset(AppIconsAssets.google),
+                                buttonText: "Google",
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    verticalSpaceRegular,
-                    verticalSpaceRegular,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: STButton(
-                            buttonType: ButtonType.TERTIARY,
-                            onPressed: () {},
-                            buttonText: "Mobile",
-                          ),
-                        ),
-                        horizontalSpaceRegular,
-                        Expanded(
-                          child: STButton(
-                            buttonType: ButtonType.TERTIARY,
-                            onPressed: () {},
-                            icon: Image.asset(AppIconsAssets.google),
-                            buttonText: "Google",
-                          ),
+                        verticalSpaceRegular,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: STButton(
+                                buttonType: ButtonType.TERTIARY,
+                                onPressed: () {
+                                  model.register();
+                                },
+                                buttonText: "Create a New Account",
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    verticalSpaceRegular,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: STButton(
-                            buttonType: ButtonType.TERTIARY,
-                            onPressed: () {},
-                            buttonText: "Create a New Account",
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
             Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment(0.95, -1.0),
               child: SafeArea(
                 child: Hero(
                   tag: "skip",
@@ -161,19 +171,3 @@ class LoginView extends StatelessWidget with $LoginView {
     );
   }
 }
-
-// class TextFiledHook extends HookViewModelWidget<LoginViewModel> {
-
-//   @override
-//   Widget buildViewModelWidget(BuildContext context, LoginViewModel viewModel) {
-//     return STTextFieldOutline(
-//       title: "Email",
-//       icon: Icons.email_outlined,
-//       textField: STTextField(
-//         placeholder: "yourname@something.com",
-//         type: TextFieldType.DEFAULT,
-//         focusNode: new FocusNode(),
-//       ),
-//     );
-//   }
-// }

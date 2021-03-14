@@ -11,5 +11,6 @@ void main() {
     expect(true, File(Assets.boy2).existsSync());
     expect(true, File(Assets.mobile1).existsSync());
     expect(true, File(Assets.mobile2).existsSync());
+    expect(true, File(Assets.addIcon).existsSync());
   });
 }

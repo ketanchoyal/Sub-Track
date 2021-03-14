@@ -9,11 +9,13 @@ class STTextFieldOutline extends StatelessWidget {
     required this.textField,
     this.icon,
     required this.title,
+    this.helperText,
   }) : super(key: key);
 
   final STTextField textField;
   final IconData? icon;
   final String title;
+  final String? helperText;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class STTextFieldOutline extends StatelessWidget {
       ),
       padding: EdgeInsets.all(10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,11 +45,23 @@ class STTextFieldOutline extends StatelessWidget {
                 style: kHeader3Style.copyWith(
                   color: AppColor.STDark,
                 ),
-              )
+              ),
             ],
           ),
           verticalSpaceTiny,
           textField,
+          if (helperText != null)
+            Row(
+              children: [
+                horizontalSpaceTiny,
+                Text(
+                  helperText!,
+                  style: kPreTitleStyle.copyWith(
+                    color: AppColor.STDarkLight,
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );

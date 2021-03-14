@@ -1,13 +1,174 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-	import 'package:stacked/stacked.dart';
-	import './register_viewmodel.dart';
-    
-    class RegisterView extends StatelessWidget {
-		@override
-		Widget build(BuildContext context) {
-			return ViewModelBuilder<RegisterViewModel>.reactive(
-			builder: (context, model, child) => Scaffold(),
-			viewModelBuilder: () => RegisterViewModel(),
-			);
-		}
-	}
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+import 'package:sub_track/ui/dumb_widgets/buttons.dart';
+import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
+import 'package:sub_track/ui/dumb_widgets/textfield_outline.dart';
+import 'package:sub_track/ui/resources/resources.dart';
+import 'package:sub_track/ui/shared/enums.dart';
+import 'package:sub_track/ui/shared/shared.dart';
+import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/register/register_view.form.dart';
+import './register_viewmodel.dart';
+
+@FormView(fields: [
+  FormTextField(name: "name"),
+  FormTextField(name: 'email'),
+  FormTextField(name: 'password', isPassword: true),
+])
+class RegisterView extends StatelessWidget with $RegisterView {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<RegisterViewModel>.reactive(
+      viewModelBuilder: () => RegisterViewModel(),
+      onModelReady: (model) {
+        listenToFormUpdated(model);
+      },
+      builder: (context, model, child) => CupertinoPageScaffold(
+        child: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  color: AppColor.STPureWhite.withOpacity(0.5),
+                ),
+              ],
+            ),
+            Center(
+              child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Hello!",
+                              style: kTitleStyle.copyWith(
+                                color: AppColor.STDark,
+                              ),
+                            ),
+                            Text(
+                              "Enter details to get started",
+                              style: kMediumStyle.copyWith(
+                                color: AppColor.STDarkLight,
+                              ),
+                            ),
+                          ],
+                        ),
+                        verticalSpaceRegular,
+                        STTextFieldOutline(
+                          title: "Name",
+                          textField: STTextField(
+                            placeholder: "",
+                            type: model.nameTextFieldType,
+                            controller: nameController,
+                            focusNode: nameFocusNode,
+                            nextFocusNode: emailFocusNode,
+                          ),
+                        ),
+                        verticalSpaceRegular,
+                        STTextFieldOutline(
+                          title: "Email",
+                          icon: Icons.email_outlined,
+                          textField: STTextField(
+                            placeholder: "yourname@something.com",
+                            type: model.emailTextFieldType,
+                            controller: emailController,
+                            focusNode: emailFocusNode,
+                            nextFocusNode: passwordFocusNode,
+                          ),
+                        ),
+                        verticalSpaceRegular,
+                        STTextFieldOutline(
+                          helperText: "at least 7 characters",
+                          title: "Password",
+                          icon: Icons.lock_outline_rounded,
+                          textField: STTextField(
+                            placeholder: "********",
+                            type: model.passwordTextFieldType,
+                            controller: passwordController,
+                            obscureText: true,
+                            focusNode: passwordFocusNode,
+                            onSubmitted: (_) => model.saveData(),
+                          ),
+                        ),
+                        verticalSpaceSmall,
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "Already registered?",
+                            style: kLinkStyle,
+                          ),
+                        ),
+                        verticalSpaceRegular,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: STButton(
+                                onPressed: () {},
+                                buttonText: "Create account",
+                              ),
+                            ),
+                          ],
+                        ),
+                        verticalSpaceSmall,
+                        verticalSpaceSmall,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: STButton(
+                                buttonType: ButtonType.TERTIARY,
+                                onPressed: () {},
+                                buttonText: "Mobile",
+                              ),
+                            ),
+                            horizontalSpaceRegular,
+                            Expanded(
+                              child: STButton(
+                                buttonType: ButtonType.TERTIARY,
+                                onPressed: () {},
+                                icon: Image.asset(AppIconsAssets.google),
+                                buttonText: "Google",
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.95, -1.0),
+              child: SafeArea(
+                child: Hero(
+                  tag: "skip",
+                  transitionOnUserGestures: true,
+                  child: STButton(
+                    buttonType: ButtonType.SECONDARY,
+                    onPressed: () {},
+                    buttonText: "Skip",
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

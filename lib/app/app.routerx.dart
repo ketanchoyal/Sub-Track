@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
 
@@ -13,12 +14,29 @@ final customPagesMap = <Type, StackedRouteFactory>{
     return CupertinoModalBottomSheetRoute<dynamic>(
       builder: (context) => DemoView(),
       expanded: false,
-      containerBuilder: (context, _, child) => _CupertinoBottomSheetContainer(
+      containerBuilder: (context, _, child) => CupertinoBottomSheetContainer(
         child: child,
         topRadius: _kDefaultTopRadius,
         shadow: _kDefaultBoxShadow,
       ),
       topRadius: _kDefaultTopRadius,
+      settings: data,
+      bounce: true,
+      enableDrag: true,
+    );
+  },
+  AddSubView: (data) {
+    return CupertinoModalBottomSheetRoute<dynamic>(
+      builder: (context) => AddSubView(),
+      expanded: false,
+      containerBuilder: (context, _, child) => CupertinoBottomSheetContainer(
+        child: child,
+        topRadius: _kDefaultTopRadius,
+        shadow: _kDefaultBoxShadow,
+      ),
+      topRadius: _kDefaultTopRadius,
+      isDismissible: false,
+      animationCurve: Curves.easeInExpo,
       settings: data,
       bounce: true,
       enableDrag: true,
@@ -45,13 +63,13 @@ const BoxShadow _kDefaultBoxShadow =
 /// Clip the child widget to rectangle with top rounded corners and adds
 /// top padding(+safe area padding). This padding [_kPreviousPageVisibleOffset]
 /// is the height that will be displayed from previous route.
-class _CupertinoBottomSheetContainer extends StatelessWidget {
+class CupertinoBottomSheetContainer extends StatelessWidget {
   final Widget child;
   final Color? backgroundColor;
   final Radius topRadius;
   final BoxShadow? shadow;
 
-  const _CupertinoBottomSheetContainer({
+  const CupertinoBottomSheetContainer({
     Key? key,
     required this.child,
     this.backgroundColor,

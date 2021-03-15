@@ -1,3 +1,14 @@
 import 'package:stacked/stacked.dart';
-    
-    class AddSubViewModel extends BaseViewModel {}
+import 'package:stacked_services/stacked_services.dart';
+import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.router.dart';
+
+class AddSubViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+
+  bool haveSubscriptions = false;
+
+  navigateToAddSub() {
+    _navigationService.navigateTo(Routes.loginView);
+  }
+}

@@ -229,13 +229,7 @@ class HomeView extends StatelessWidget {
                           child: Image.asset(Assets.addIcon),
                         ),
                         onPressed: () {
-                          model.navigateToDemo();
-                          // showCupertinoModalBottomSheet(
-                          //   expand: true,
-                          //   context: context,
-                          //   backgroundColor: Colors.transparent,
-                          //   builder: (context) => DemoView(),
-                          // );
+                          model.navigateToAddSub();
                         },
                       ),
                     ),

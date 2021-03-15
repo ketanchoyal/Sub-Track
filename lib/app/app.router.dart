@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/app/app.routerx.dart';
 
+import '../ui/view/add_sub/add_sub_view.dart';
 import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';
 import '../ui/view/login/login_view.dart';
@@ -20,6 +21,7 @@ import '../ui/view/startup/startup_view.dart';
 
 class Routes {
   static const String demoView = '/demo-view';
+  static const String addSubView = '/add-sub-view';
   static const String startUpView = '/';
   static const String onBoardingView = '/onBoarding';
   static const String loginView = '/login-view';
@@ -27,6 +29,7 @@ class Routes {
   static const String homeView = '/home-view';
   static const all = <String>{
     demoView,
+    addSubView,
     startUpView,
     onBoardingView,
     loginView,
@@ -40,6 +43,7 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.demoView, page: DemoView),
+    RouteDef(Routes.addSubView, page: AddSubView),
     RouteDef(Routes.startUpView, page: StartUpView),
     RouteDef(
       Routes.onBoardingView,
@@ -56,6 +60,12 @@ class StackedRouter extends RouterBase {
     DemoView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => DemoView(),
+        settings: data,
+      );
+    },
+    AddSubView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => AddSubView(),
         settings: data,
       );
     },

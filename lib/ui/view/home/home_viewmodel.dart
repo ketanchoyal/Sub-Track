@@ -8,7 +8,7 @@ class HomeViewModel extends BaseViewModel {
 
   bool haveSubscriptions = false;
 
-  navigateToDemo() {
-    _navigationService.navigateTo(Routes.demoView);
+  navigateToAddSub() {
+    _navigationService.navigateTo(Routes.addSubView);
   }
 }

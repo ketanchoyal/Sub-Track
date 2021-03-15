@@ -78,3 +78,17 @@ extension PaddingX on Widget {
         child: this,
       );
 }
+
+extension ForBottomModalSheet on Widget {
+  Widget addMaterial() => Material(
+        child: this,
+      );
+
+  Widget addNavigator() => Navigator(
+        onGenerateRoute: (_) => MaterialPageRoute(
+          builder: (context2) => Builder(
+            builder: (context) => this,
+          ),
+        ),
+      );
+}

@@ -9,6 +9,10 @@ class AddSubViewModel extends BaseViewModel {
   bool haveSubscriptions = false;
 
   navigateToAddSub() {
-    _navigationService.navigateTo(Routes.loginView);
+    _navigationService.navigateTo(Routes.addSubView);
+  }
+
+  pop() {
+    _navigationService.back();
   }
 }

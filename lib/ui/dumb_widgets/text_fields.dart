@@ -16,6 +16,8 @@ class STTextField extends StatefulWidget {
     this.obscureText = false,
     this.suffixIcon,
     this.onSubmitted,
+    this.padding,
+    this.prefix,
   }) : super(key: key);
 
   final TextFieldType type;
@@ -27,6 +29,8 @@ class STTextField extends StatefulWidget {
   final bool obscureText;
   final IconData? suffixIcon;
   final Function(String)? onSubmitted;
+  final EdgeInsetsGeometry? padding;
+  final Widget? prefix;
 
   @override
   _STTextFieldState createState() => _STTextFieldState();
@@ -79,75 +83,73 @@ class _STTextFieldState extends State<STTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // margin: EdgeInsets.all(12),
-      child: CupertinoTextField(
-        controller: widget.controller,
-        focusNode: widget.focusNode,
-        keyboardType: TextInputType.text,
-        placeholder: widget.placeholder,
-        enabled: _textFieldType == TextFieldType.DISABLED ? false : true,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: _textFieldType == TextFieldType.DEFAULT ||
-                  _textFieldType == TextFieldType.DISABLED
-              ? AppColor.STLight
-              : AppColor.STPureWhite,
-          boxShadow: [
-            BoxShadow(
-              color: _color,
-              blurRadius: 4.5,
-            ),
-          ],
-        ),
-        padding: EdgeInsets.all(15),
-        placeholderStyle: kBodyBoldStyle.copyWith(
-          color: AppColor.STDarkLight,
-        ),
-        style: kBodyBoldStyle.copyWith(
-          color: AppColor.STDark,
-        ),
-        autofocus: false,
-        textInputAction: widget.textInputAction != null
-            ? widget.textInputAction
-            : widget.nextFocusNode != null
-                ? TextInputAction.next
-                : TextInputAction.done,
-        onSubmitted: (_) {
-          if (widget.onSubmitted != null) widget.onSubmitted!("");
-          widget.focusNode.unfocus();
-          _textFieldType = widget.type;
-          FocusScope.of(context).requestFocus(widget.nextFocusNode);
-          setState(() {});
-        },
-        onTap: () {
-          _textFieldType = TextFieldType.ACTIVE;
-          setState(() {});
-        },
-        onEditingComplete: () {
-          widget.focusNode.unfocus();
-          _textFieldType = widget.type;
-          FocusScope.of(context).requestFocus(widget.nextFocusNode);
-          setState(() {});
-        },
-        onChanged: (_) {
-          _textFieldType = TextFieldType.ACTIVE;
-          setState(() {});
-        },
-        clearButtonMode: OverlayVisibilityMode.editing,
-        obscureText: widget.obscureText,
-        suffixMode: _textFieldType == TextFieldType.DEFAULT ||
-                _textFieldType == TextFieldType.ACTIVE
-            ? OverlayVisibilityMode.never
-            : OverlayVisibilityMode.always,
-        suffix: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Icon(
-            _icon,
-            color: _textFieldType == TextFieldType.DISABLED
-                ? AppColor.STDarkLight
-                : _color,
+    return CupertinoTextField(
+      controller: widget.controller,
+      focusNode: widget.focusNode,
+      keyboardType: TextInputType.text,
+      placeholder: widget.placeholder,
+      enabled: _textFieldType == TextFieldType.DISABLED ? false : true,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: _textFieldType == TextFieldType.DEFAULT ||
+                _textFieldType == TextFieldType.DISABLED
+            ? AppColor.STLight
+            : AppColor.STPureWhite,
+        boxShadow: [
+          BoxShadow(
+            color: _color,
+            blurRadius: 4.5,
           ),
+        ],
+      ),
+      padding: widget.padding ?? EdgeInsets.all(15),
+      placeholderStyle: kBodyBoldStyle.copyWith(
+        color: AppColor.STDarkLight,
+      ),
+      style: kBodyBoldStyle.copyWith(
+        color: AppColor.STDark,
+      ),
+      autofocus: false,
+      textInputAction: widget.textInputAction != null
+          ? widget.textInputAction
+          : widget.nextFocusNode != null
+              ? TextInputAction.next
+              : TextInputAction.done,
+      onSubmitted: (_) {
+        if (widget.onSubmitted != null) widget.onSubmitted!("");
+        widget.focusNode.unfocus();
+        _textFieldType = widget.type;
+        FocusScope.of(context).requestFocus(widget.nextFocusNode);
+        setState(() {});
+      },
+      onTap: () {
+        _textFieldType = TextFieldType.ACTIVE;
+        setState(() {});
+      },
+      onEditingComplete: () {
+        widget.focusNode.unfocus();
+        _textFieldType = widget.type;
+        FocusScope.of(context).requestFocus(widget.nextFocusNode);
+        setState(() {});
+      },
+      onChanged: (_) {
+        _textFieldType = TextFieldType.ACTIVE;
+        setState(() {});
+      },
+      clearButtonMode: OverlayVisibilityMode.editing,
+      obscureText: widget.obscureText,
+      suffixMode: _textFieldType == TextFieldType.DEFAULT ||
+              _textFieldType == TextFieldType.ACTIVE
+          ? OverlayVisibilityMode.never
+          : OverlayVisibilityMode.always,
+      prefix: widget.prefix,
+      suffix: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Icon(
+          _icon,
+          color: _textFieldType == TextFieldType.DISABLED
+              ? AppColor.STDarkLight
+              : _color,
         ),
       ),
     );

@@ -9,6 +9,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/app/app.routerx.dart';
 
 import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';
@@ -88,6 +89,7 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ...customPagesMap,
   };
 }
 

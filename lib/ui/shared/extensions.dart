@@ -51,3 +51,30 @@ extension ColorExtensions on Color {
         this.blue + ((255 - this.blue) * p).round());
   }
 }
+
+extension PaddingX on Widget {
+  Padding padding(EdgeInsets padding) => Padding(
+        padding: padding,
+        child: this,
+      );
+
+  Padding paddingA10() => Padding(
+        padding: EdgeInsets.all(10),
+        child: this,
+      );
+
+  Padding paddingA(double padding) => Padding(
+        padding: EdgeInsets.all(padding),
+        child: this,
+      );
+
+  Padding paddingH(double padding) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: padding),
+        child: this,
+      );
+
+  Padding paddingV(double padding) => Padding(
+        padding: EdgeInsets.symmetric(vertical: padding),
+        child: this,
+      );
+}

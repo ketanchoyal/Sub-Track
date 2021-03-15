@@ -39,7 +39,7 @@ class STActiveSubCard extends StatelessWidget {
         vertical: 2,
       ),
       child: SizedBox(
-        height: 65,
+        height: 70,
         width: MediaQuery.of(context).size.width,
         child: Card(
           elevation: 5,

@@ -4,6 +4,7 @@ import 'package:stacked/src/code_generation/router/transitions_builders.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
+import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
@@ -16,6 +17,7 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
   routes: [
     CupertinoRoute(page: DemoView),
     CupertinoRoute(page: AddSubView),
+    CupertinoRoute(page: AddSubDetailsView),
     CupertinoRoute(page: StartUpView, initial: true),
     CupertinoRoute(
       page: OnBoardingView,
@@ -44,6 +46,7 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
   ],
   dependencies: [
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: DialogService),
     Singleton(classType: OnBoardingViewModel),
     // Singleton(classType: FirebaseAuthenticationService),
   ],

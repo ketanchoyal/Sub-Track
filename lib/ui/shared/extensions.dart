@@ -91,4 +91,12 @@ extension ForBottomModalSheet on Widget {
           ),
         ),
       );
+
+  Widget addModalContainer({double additionalTopPadding = 0, enable = true}) =>
+      enable
+          ? CupertinoModalContainer(
+              topRadius: kDefaultTopRadius,
+              child: this,
+              additionalTopPadding: additionalTopPadding)
+          : this;
 }

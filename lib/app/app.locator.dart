@@ -16,4 +16,5 @@ final locator = StackedLocator.instance;
 void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerSingleton(OnBoardingViewModel());
+  locator.registerLazySingleton(() => DialogService());
 }

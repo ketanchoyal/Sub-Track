@@ -47,3 +47,13 @@ double screenWidthPercentage(BuildContext context, {double percentage = 1}) =>
     screenWidth(context) * percentage;
 
 // !SECTION
+
+// SECTION[epic=Cupertino Modal Constants]
+
+const double kPreviousPageVisibleOffset = 10;
+
+const Radius kDefaultTopRadius = Radius.circular(12);
+const BoxShadow kDefaultBoxShadow =
+    BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5);
+
+// !SECTION

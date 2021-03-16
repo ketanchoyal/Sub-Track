@@ -1,11 +1,13 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_viewmodel.dart';
 
-class AddSubDetailsViewModel extends BaseViewModel {
+class AddSubDetailsViewModel extends StreamViewModel<double> {
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
+  final _uiServices = locator<UIServices>();
 
   // FIXME Unhandled Exception: No MaterialLocalizations found cupertino app
   willPopDialog() {
@@ -18,9 +20,10 @@ class AddSubDetailsViewModel extends BaseViewModel {
     );
   }
 
-  @override
-  void dispose() {
-    AddSubViewModel.toppadding = 0;
-    super.dispose();
+  resetpadding() async {
+    await _uiServices.setExtraPadding(0);
   }
+
+  @override
+  Stream<double> get stream => _uiServices.getExtraPadding;
 }

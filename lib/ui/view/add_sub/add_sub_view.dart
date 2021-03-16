@@ -27,6 +27,7 @@ class AddSubView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddSubViewModel>.reactive(
       viewModelBuilder: () => AddSubViewModel(),
+      onModelReady: (model) => model.resetpadding(),
       builder: (context, model, child) => CupertinoPageScaffold(
         backgroundColor: AppColor.STPureWhite,
         child: NestedScrollView(
@@ -109,7 +110,7 @@ class AddSubView extends StatelessWidget {
       )
           .addNavigator()
           .addMaterial()
-          .addModalContainer(additionalTopPadding: AddSubViewModel.toppadding),
+          .addModalContainer(additionalTopPadding: model.data ?? 0),
     );
   }
 }

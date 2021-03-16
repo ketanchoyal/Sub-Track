@@ -14,6 +14,15 @@ import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
 class AddSubView extends StatelessWidget {
+  final ScrollController scrollController = ScrollController();
+  scrollnavigationBar(context) {
+    double animateOffset = kMinInteractiveDimensionCupertino +
+        MediaQuery.of(context).padding.top +
+        10;
+    scrollController.animateTo(animateOffset,
+        duration: Duration(milliseconds: 200), curve: Curves.bounceIn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddSubViewModel>.reactive(
@@ -21,17 +30,22 @@ class AddSubView extends StatelessWidget {
       builder: (context, model, child) => CupertinoPageScaffold(
         backgroundColor: AppColor.STPureWhite,
         child: NestedScrollView(
-          controller: ScrollController(),
+          controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               CupertinoSliverNavigationBar(
-                stretch: true,
+                stretch: false,
                 backgroundColor: AppColor.STPureWhite,
                 border: Border(bottom: BorderSide.none),
                 transitionBetweenRoutes: true,
                 largeTitle: Text(
                   'Add Subscription',
                 ),
+                // leading: Text(
+                //   'Add Subscription',
+                //   style: kNavigationStyle,
+                // ),
+                // middle: null,
                 trailing: GestureDetector(
                   onTap: model.pop,
                   child: Icon(
@@ -77,6 +91,11 @@ class AddSubView extends StatelessWidget {
               // itemExtent: 20,
               itemBuilder: (context, index) {
                 return STAddSubCard(
+                  // onTap: model.navigateToAddDetails,
+                  onTap: () {
+                    scrollnavigationBar(context);
+                    model.navigateToAddDetails();
+                  },
                   name: "Apple",
                   colorHex: "CF3A26",
                   iconAsset:
@@ -87,7 +106,10 @@ class AddSubView extends StatelessWidget {
             ),
           ),
         ),
-      ).addNavigator().addMaterial(),
+      )
+          .addNavigator()
+          .addMaterial()
+          .addModalContainer(additionalTopPadding: AddSubViewModel.toppadding),
     );
   }
 }

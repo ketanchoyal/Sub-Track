@@ -25,7 +25,7 @@ class AddSubViewModel extends StreamViewModel<double> {
 
   // FIXME Subscription model is necessery
   navigateToAddDetails({Subscription? subscription}) async {
-    _uiServices.setExtraPadding(-10);
+    await _uiServices.setExtraPadding(-10);
     _navigationService.navigateTo(
       Routes.addSubDetailsView,
     );

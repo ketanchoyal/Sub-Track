@@ -71,7 +71,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                         verticalSpaceRegular,
                         STTextFieldOutline(
                           title: "Name",
-                          textField: STTextField(
+                          child: STTextField(
                             placeholder: "",
                             type: model.nameTextFieldType,
                             controller: nameController,
@@ -83,7 +83,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                         STTextFieldOutline(
                           title: "Email",
                           icon: Icons.email_outlined,
-                          textField: STTextField(
+                          child: STTextField(
                             placeholder: "yourname@something.com",
                             type: model.emailTextFieldType,
                             controller: emailController,
@@ -96,7 +96,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                           helperText: "at least 7 characters",
                           title: "Password",
                           icon: Icons.lock_outline_rounded,
-                          textField: STTextField(
+                          child: STTextField(
                             placeholder: "********",
                             type: model.passwordTextFieldType,
                             controller: passwordController,

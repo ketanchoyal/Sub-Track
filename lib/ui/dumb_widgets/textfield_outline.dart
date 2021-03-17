@@ -6,24 +6,28 @@ import 'package:sub_track/ui/theme/app_colors.dart';
 class STTextFieldOutline extends StatelessWidget {
   const STTextFieldOutline({
     Key? key,
-    required this.textField,
+    required this.child,
     this.icon,
     required this.title,
     this.helperText,
+    this.enableDecoration = true,
   }) : super(key: key);
 
-  final STTextField textField;
+  final Widget child;
   final IconData? icon;
   final String title;
   final String? helperText;
+  final bool enableDecoration;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: AppColor.STPureWhite.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: enableDecoration
+          ? BoxDecoration(
+              color: AppColor.STPureWhite.withOpacity(0.6),
+              borderRadius: BorderRadius.circular(12),
+            )
+          : null,
       padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +53,7 @@ class STTextFieldOutline extends StatelessWidget {
             ],
           ),
           verticalSpaceTiny,
-          textField,
+          child,
           if (helperText != null)
             Row(
               children: [

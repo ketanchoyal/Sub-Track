@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_viewmodel.dart';
 
@@ -18,6 +19,11 @@ class AddSubDetailsViewModel extends StreamViewModel<double> {
       cancelTitle: "No",
       dialogPlatform: DialogPlatform.Cupertino,
     );
+  }
+
+  pop() {
+    resetpadding();
+    _navigationService.back();
   }
 
   resetpadding() async {

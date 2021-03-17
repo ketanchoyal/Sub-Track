@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'package:sub_track/ui/view/demo/demo_view.dart';
+import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
 
 import 'app/app.locator.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      // home: DemoView(),
+      // home: AddSubDetailsView(),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
     );

@@ -9,8 +9,8 @@ import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/enums.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import './add_sub_viewmodel.dart';
-import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
 class AddSubView extends StatelessWidget {
@@ -33,6 +33,7 @@ class AddSubView extends StatelessWidget {
         child: NestedScrollView(
           controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            print("idhar se print hua hai ${model.data}");
             return <Widget>[
               CupertinoSliverNavigationBar(
                 stretch: false,
@@ -42,6 +43,7 @@ class AddSubView extends StatelessWidget {
                 largeTitle: Text(
                   'Add Subscription',
                 ),
+                automaticallyImplyLeading: false,
                 // leading: Text(
                 //   'Add Subscription',
                 //   style: kNavigationStyle,
@@ -50,7 +52,9 @@ class AddSubView extends StatelessWidget {
                 trailing: GestureDetector(
                   onTap: model.pop,
                   child: Icon(
-                    CupertinoIcons.xmark_circle_fill,
+                    model.data != 0.0
+                        ? CupertinoIcons.arrow_down_circle_fill
+                        : CupertinoIcons.xmark_circle_fill,
                     size: 30,
                   ),
                 ),
@@ -107,10 +111,7 @@ class AddSubView extends StatelessWidget {
             ),
           ),
         ),
-      )
-          .addNavigator()
-          .addMaterial()
-          .addModalContainer(additionalTopPadding: model.data ?? 0),
+      ).addModalContainer(additionalTopPadding: model.data ?? 0),
     );
   }
 }

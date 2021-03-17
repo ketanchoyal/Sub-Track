@@ -72,7 +72,7 @@ class LoginView extends StatelessWidget with $LoginView {
                         STTextFieldOutline(
                           title: "Email",
                           icon: Icons.email_outlined,
-                          textField: STTextField(
+                          child: STTextField(
                             placeholder: "yourname@something.com",
                             type: model.emailTextFieldType,
                             controller: emailController,
@@ -84,7 +84,7 @@ class LoginView extends StatelessWidget with $LoginView {
                         STTextFieldOutline(
                           title: "Password",
                           icon: Icons.lock_outline_rounded,
-                          textField: STTextField(
+                          child: STTextField(
                             placeholder: "********",
                             type: model.passwordTextFieldType,
                             controller: passwordController,

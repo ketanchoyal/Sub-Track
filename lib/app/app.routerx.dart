@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/cupertino_modal_container.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
+import 'package:sub_track/ui/view/add_sub/new_sub.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
@@ -25,9 +26,9 @@ final customPagesMap = <Type, StackedRouteFactory>{
       enableDrag: true,
     );
   },
-  AddSubView: (data) {
+  NewSubscription: (data) {
     return CupertinoModalBottomSheetRoute<dynamic>(
-      builder: (context) => AddSubView(),
+      builder: (context) => NewSubscription(),
       expanded: false,
       topRadius: kDefaultTopRadius,
       isDismissible: true,
@@ -38,20 +39,33 @@ final customPagesMap = <Type, StackedRouteFactory>{
       enableDrag: true,
     );
   },
-  AddSubDetailsView: (data) {
-    return CupertinoModalBottomSheetRoute<dynamic>(
-      builder: (context) => AddSubDetailsView(),
-      expanded: false,
-      topRadius: kDefaultTopRadius,
-      isDismissible: false,
-      closeProgressThreshold: 0.9,
-      animationCurve: Curves.bounceIn,
-      // duration: Duration(milliseconds: 0),
-      settings: data,
-      bounce: false,
-      enableDrag: true,
-    );
-  },
+  // AddSubView: (data) {
+  //   return CupertinoModalBottomSheetRoute<dynamic>(
+  //     builder: (context) => AddSubView(),
+  //     expanded: false,
+  //     topRadius: kDefaultTopRadius,
+  //     isDismissible: true,
+  //     // duration: Duration(milliseconds: 400),
+  //     animationCurve: Curves.easeIn,
+  //     settings: data,
+  //     bounce: false,
+  //     enableDrag: true,
+  //   );
+  // },
+  // AddSubDetailsView: (data) {
+  //   return CupertinoModalBottomSheetRoute<dynamic>(
+  //     builder: (context) => AddSubDetailsView(),
+  //     expanded: true,
+  //     topRadius: kDefaultTopRadius,
+  //     isDismissible: false,
+  //     closeProgressThreshold: 0.9,
+  //     animationCurve: Curves.bounceIn,
+  //     // duration: Duration(milliseconds: 0),
+  //     settings: data,
+  //     bounce: false,
+  //     enableDrag: true,
+  //   );
+  // },
   HomeView: (data) {
     return MaterialWithModalsPageRoute<dynamic>(
       builder: (context) => HomeView(),

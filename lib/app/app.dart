@@ -5,6 +5,7 @@ import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
+import 'package:sub_track/ui/view/add_sub/new_sub.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
@@ -17,9 +18,6 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
 @StackedApp(
   routes: [
     CupertinoRoute(page: DemoView),
-    CupertinoRoute(page: AddSubView),
-    CupertinoRoute(page: AddSubDetailsView),
-    CupertinoRoute(page: StartUpView, initial: true),
     CupertinoRoute(
       page: OnBoardingView,
       path: "/onBoarding",
@@ -41,6 +39,14 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
         ),
       ],
     ),
+    CupertinoRoute(
+      page: NewSubscription,
+      children: [
+        CupertinoRoute(page: AddSubView, initial: true),
+        CupertinoRoute(page: AddSubDetailsView),
+      ],
+    ),
+    CupertinoRoute(page: StartUpView, initial: true),
     StackedRoute(page: LoginView),
     StackedRoute(page: RegisterView),
     StackedRoute(page: HomeView),

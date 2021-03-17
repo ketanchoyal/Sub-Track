@@ -27,13 +27,13 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
       builder: (context, model, child) {
         return WillPopScope(
           onWillPop: () async {
-            await model.resetpadding();
+            // await model.resetpadding();
             // TODO add dialogbox to confirm exit
             return true;
           },
           child: CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-              automaticallyImplyLeading: false,
+              automaticallyImplyLeading: true,
               transitionBetweenRoutes: true,
               middle: Text(
                 "Apple",
@@ -43,13 +43,6 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                 onTap: () {},
                 child: Icon(
                   CupertinoIcons.plus,
-                  size: 30,
-                ),
-              ),
-              leading: GestureDetector(
-                onTap: model.pop,
-                child: Icon(
-                  CupertinoIcons.chevron_down,
                   size: 30,
                 ),
               ),
@@ -217,8 +210,7 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                 )
               ],
             ),
-          ).addModalContainer(
-              additionalTopPadding: (model.data ?? 0) + _topPadding),
+          ).addModalContainer(additionalTopPadding: -10),
         );
       },
     );

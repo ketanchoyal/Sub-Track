@@ -15,19 +15,19 @@ import 'package:sub_track/ui/shared/shared.dart';
 
 class AddSubView extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
-  scrollnavigationBar(context) {
-    double animateOffset = kMinInteractiveDimensionCupertino +
-        MediaQuery.of(context).padding.top +
-        10;
-    scrollController.animateTo(animateOffset,
-        duration: Duration(milliseconds: 200), curve: Curves.bounceIn);
-  }
+  // scrollnavigationBar(context) {
+  //   double animateOffset = kMinInteractiveDimensionCupertino +
+  //       MediaQuery.of(context).padding.top +
+  //       10;
+  //   scrollController.animateTo(animateOffset,
+  //       duration: Duration(milliseconds: 200), curve: Curves.bounceIn);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddSubViewModel>.reactive(
       viewModelBuilder: () => AddSubViewModel(),
-      onModelReady: (model) => model.resetpadding(),
+      // onModelReady: (model) => model.resetpadding(),
       builder: (context, model, child) => CupertinoPageScaffold(
         backgroundColor: AppColor.STPureWhite,
         child: NestedScrollView(
@@ -98,7 +98,7 @@ class AddSubView extends StatelessWidget {
                 return STAddSubCard(
                   // onTap: model.navigateToAddDetails,
                   onTap: () {
-                    scrollnavigationBar(context);
+                    // scrollnavigationBar(context);
                     model.navigateToAddDetails();
                   },
                   name: "Apple",
@@ -111,7 +111,7 @@ class AddSubView extends StatelessWidget {
             ),
           ),
         ),
-      ).addModalContainer(additionalTopPadding: model.data ?? 0),
+      ).addNavigator().addModalContainer(additionalTopPadding: -10),
     );
   }
 }

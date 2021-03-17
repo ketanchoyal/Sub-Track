@@ -9,9 +9,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/app/app.routerx.dart';
 
 import '../ui/view/add_sub/add_sub_view.dart';
+import '../ui/view/add_sub/new_sub.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';
 import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';
@@ -19,22 +19,21 @@ import '../ui/view/login/login_view.dart';
 import '../ui/view/on_boarding/on_boarding_view.dart';
 import '../ui/view/register/register_view.dart';
 import '../ui/view/startup/startup_view.dart';
+import 'app.routerx.dart';
 
 class Routes {
   static const String demoView = '/demo-view';
-  static const String addSubView = '/add-sub-view';
-  static const String addSubDetailsView = '/add-sub-details-view';
-  static const String startUpView = '/';
   static const String onBoardingView = '/onBoarding';
+  static const String newSubscription = '/new-subscription';
+  static const String startUpView = '/';
   static const String loginView = '/login-view';
   static const String registerView = '/register-view';
   static const String homeView = '/home-view';
   static const all = <String>{
     demoView,
-    addSubView,
-    addSubDetailsView,
-    startUpView,
     onBoardingView,
+    newSubscription,
+    startUpView,
     loginView,
     registerView,
     homeView,
@@ -46,14 +45,17 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.demoView, page: DemoView),
-    RouteDef(Routes.addSubView, page: AddSubView),
-    RouteDef(Routes.addSubDetailsView, page: AddSubDetailsView),
-    RouteDef(Routes.startUpView, page: StartUpView),
     RouteDef(
       Routes.onBoardingView,
       page: OnBoardingView,
       generator: OnBoardingViewRouter(),
     ),
+    RouteDef(
+      Routes.newSubscription,
+      page: NewSubscription,
+      generator: NewSubscriptionRouter(),
+    ),
+    RouteDef(Routes.startUpView, page: StartUpView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.registerView, page: RegisterView),
     RouteDef(Routes.homeView, page: HomeView),
@@ -67,27 +69,21 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    AddSubView: (data) {
+    OnBoardingView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => AddSubView(),
+        builder: (context) => OnBoardingView(),
         settings: data,
       );
     },
-    AddSubDetailsView: (data) {
+    NewSubscription: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => AddSubDetailsView(),
+        builder: (context) => NewSubscription(),
         settings: data,
       );
     },
     StartUpView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => StartUpView(),
-        settings: data,
-      );
-    },
-    OnBoardingView: (data) {
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => OnBoardingView(),
         settings: data,
       );
     },
@@ -154,6 +150,40 @@ class OnBoardingViewRouter extends RouterBase {
         builder: (context) => const View3(),
         settings: data,
         fullscreenDialog: false,
+      );
+    },
+  };
+}
+
+class NewSubscriptionRoutes {
+  static const String addSubView = '/';
+  static const String addSubDetailsView = '/add-sub-details-view';
+  static const all = <String>{
+    addSubView,
+    addSubDetailsView,
+  };
+}
+
+class NewSubscriptionRouter extends RouterBase {
+  @override
+  List<RouteDef> get routes => _routes;
+  final _routes = <RouteDef>[
+    RouteDef(NewSubscriptionRoutes.addSubView, page: AddSubView),
+    RouteDef(NewSubscriptionRoutes.addSubDetailsView, page: AddSubDetailsView),
+  ];
+  @override
+  Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
+  final _pagesMap = <Type, StackedRouteFactory>{
+    AddSubView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => AddSubView(),
+        settings: data,
+      );
+    },
+    AddSubDetailsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => AddSubDetailsView(),
+        settings: data,
       );
     },
   };

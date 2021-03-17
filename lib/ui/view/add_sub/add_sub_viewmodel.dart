@@ -11,23 +11,24 @@ class AddSubViewModel extends StreamViewModel<double> {
 
   bool haveSubscriptions = false;
 
-  navigateToAddSub() {
-    _navigationService.navigateTo(Routes.addSubView);
-  }
+  // navigateToAddSub() {
+  //   _navigationService.navigateTo(NewSubscriptionRoutes.addSubView, id: 2);
+  // }
 
   pop() {
     _navigationService.back();
   }
 
-  resetpadding() {
-    _uiServices.setExtraPadding(0);
-  }
+  // resetpadding() {
+  //   _uiServices.setExtraPadding(0);
+  // }
 
   // FIXME Subscription model is necessery
   navigateToAddDetails({Subscription? subscription}) async {
-    await _uiServices.setExtraPadding(-10);
+    // await _uiServices.setExtraPadding(-10);
     _navigationService.navigateTo(
-      Routes.addSubDetailsView,
+      NewSubscriptionRoutes.addSubDetailsView,
+      id: 2,
     );
   }
 

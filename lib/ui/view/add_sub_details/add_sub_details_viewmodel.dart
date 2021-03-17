@@ -22,13 +22,13 @@ class AddSubDetailsViewModel extends StreamViewModel<double> {
   }
 
   pop() {
-    resetpadding();
+    // resetpadding();
     _navigationService.back();
   }
 
-  resetpadding() async {
-    await _uiServices.setExtraPadding(0);
-  }
+  // resetpadding() async {
+  //   await _uiServices.setExtraPadding(0);
+  // }
 
   @override
   Stream<double> get stream => _uiServices.getExtraPadding;

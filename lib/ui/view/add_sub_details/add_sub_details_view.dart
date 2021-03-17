@@ -28,6 +28,7 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
         return WillPopScope(
           onWillPop: () async {
             await model.resetpadding();
+            // TODO add dialogbox to confirm exit
             return true;
           },
           child: CupertinoPageScaffold(
@@ -39,9 +40,16 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                 style: kNavigationStyle,
               ),
               trailing: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  CupertinoIcons.plus,
+                  size: 30,
+                ),
+              ),
+              leading: GestureDetector(
                 onTap: model.pop,
                 child: Icon(
-                  CupertinoIcons.xmark_circle_fill,
+                  CupertinoIcons.chevron_down,
                   size: 30,
                 ),
               ),

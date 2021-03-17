@@ -53,8 +53,8 @@ class AddSubView extends StatelessWidget {
                   onTap: model.pop,
                   child: Icon(
                     model.data != 0.0
-                        ? CupertinoIcons.arrow_down_circle_fill
-                        : CupertinoIcons.xmark_circle_fill,
+                        ? CupertinoIcons.chevron_down
+                        : CupertinoIcons.xmark,
                     size: 30,
                   ),
                 ),

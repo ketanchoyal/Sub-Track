@@ -12,55 +12,70 @@ class SelectIconView extends StatelessWidget {
     return ViewModelBuilder<SelectIconViewModel>.reactive(
       viewModelBuilder: () => SelectIconViewModel(),
       builder: (context, model, child) => CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          // automaticallyImplyLeading: true,
-          automaticallyImplyLeading: false,
-          transitionBetweenRoutes: true,
-          middle: Text(
-            "Select Icon",
-            style: kNavigationStyle,
-          ),
-          trailing: GestureDetector(
-            onTap: () {},
-            child: Icon(
-              CupertinoIcons.plus,
-              size: 30,
-            ),
-          ),
-          leading: Padding(
-            padding: const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
-            child: GestureDetector(
-              onTap: () {
-                model.pop();
-              },
-              child: Text.rich(
-                TextSpan(
-                  text: String.fromCharCode(CupertinoIcons.back.codePoint),
-                  style: TextStyle(
-                    inherit: false,
-                    color: CupertinoTheme.of(context).primaryColor,
-                    fontSize: 30.0,
-                    fontFamily: CupertinoIcons.back.fontFamily,
-                    package: CupertinoIcons.back.fontPackage,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              CupertinoSliverNavigationBar(
+                automaticallyImplyLeading: false,
+                transitionBetweenRoutes: true,
+                largeTitle: STSegmentController(
+                  onValueChanged: (onValueChanged) {},
+                  children: {
+                    "Services": "Services",
+                    "Emoji": "Emoji",
+                  },
+                  selectedValue: "Services",
+                ),
+                middle: Text(
+                  "Select Icon",
+                  style: kNavigationStyle,
+                ),
+                trailing: GestureDetector(
+                  onTap: () {},
+                  child: Icon(
+                    CupertinoIcons.plus,
+                    size: 30,
+                  ),
+                ),
+                leading: Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                      start: 0, end: 0, top: 7),
+                  child: GestureDetector(
+                    onTap: () {
+                      model.pop();
+                    },
+                    child: Text.rich(
+                      TextSpan(
+                        text:
+                            String.fromCharCode(CupertinoIcons.back.codePoint),
+                        style: TextStyle(
+                          inherit: false,
+                          color: CupertinoTheme.of(context).primaryColor,
+                          fontSize: 30.0,
+                          fontFamily: CupertinoIcons.back.fontFamily,
+                          package: CupertinoIcons.back.fontPackage,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ];
+          },
+          body: Stack(
+            children: [
+              // STSegmentController(
+              //   onValueChanged: (onValueChanged) {},
+              //   children: {
+              //     "Services": "Services",
+              //     "Emoji": "Emoji",
+              //   },
+              //   selectedValue: "Services",
+              // ),
+            ],
           ),
         ),
-        child: Stack(
-          children: [
-            STSegmentController(
-              onValueChanged: (onValueChanged) {},
-              children: {
-                "Services": "Services",
-                "Emoji": "Emoji",
-              },
-              selectedValue: "Services",
-            ),
-          ],
-        ),
-      ).addNavigator().addModalContainer(additionalTopPadding: -10),
+      ).addModalContainer(additionalTopPadding: -10),
     );
   }
 }

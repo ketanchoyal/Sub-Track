@@ -33,7 +33,6 @@ class AddSubView extends StatelessWidget {
         child: NestedScrollView(
           controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            print("idhar se print hua hai ${model.data}");
             return <Widget>[
               CupertinoSliverNavigationBar(
                 stretch: false,
@@ -52,9 +51,7 @@ class AddSubView extends StatelessWidget {
                 trailing: GestureDetector(
                   onTap: model.pop,
                   child: Icon(
-                    model.data != 0.0
-                        ? CupertinoIcons.chevron_down
-                        : CupertinoIcons.xmark,
+                    CupertinoIcons.xmark,
                     size: 30,
                   ),
                 ),
@@ -91,6 +88,7 @@ class AddSubView extends StatelessWidget {
             context: context,
             removeTop: true,
             child: ListView.builder(
+              physics: ClampingScrollPhysics(),
               shrinkWrap: true,
               controller: ModalScrollController.of(context),
               // itemExtent: 20,

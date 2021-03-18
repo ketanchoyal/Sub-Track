@@ -40,14 +40,15 @@ class STTextFieldOutline extends StatelessWidget {
               if (icon != null)
                 Icon(
                   icon,
-                  size: 25,
+                  size: 24,
                   color: AppColor.STDark,
                 ),
               if (icon != null) horizontalSpaceTiny,
               Text(
                 title,
-                style: kHeader3Style.copyWith(
+                style: kBodyLargeStyle.copyWith(
                   color: AppColor.STDark,
+                  fontWeight: FontWeightX.bold,
                 ),
               ),
             ],

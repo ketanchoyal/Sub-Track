@@ -3,35 +3,35 @@
 import 'dart:async';
 
 class UIServices {
-  StreamController<double> _extraTopPadding =
-      StreamController<double>.broadcast(sync: true);
+  // StreamController<double> _extraTopPadding =
+  //     StreamController<double>.broadcast(sync: true);
 
-  // StreamController<bool> _streamController =
-  //     StreamController<bool>.broadcast(sync: true);
+  // // StreamController<bool> _streamController =
+  // //     StreamController<bool>.broadcast(sync: true);
 
-  UIServices() {
-    setExtraPadding(0);
-    // setIsDraggable(false);
-  }
-
-  // Stream<bool> get isDraggable {
-  //   return _streamController.stream;
+  // UIServices() {
+  //   setExtraPadding(0);
+  //   // setIsDraggable(false);
   // }
 
-  Stream<double> get getExtraPadding {
-    return _extraTopPadding.stream;
-  }
+  // // Stream<bool> get isDraggable {
+  // //   return _streamController.stream;
+  // // }
 
-  setExtraPadding(double value) async {
-    _extraTopPadding.sink.add(value);
-  }
-
-  // setIsDraggable(bool value) async {
-  //   _streamController.sink.add(value);
+  // Stream<double> get getExtraPadding {
+  //   return _extraTopPadding.stream;
   // }
 
-  dispose() {
-    _extraTopPadding.close();
-    // _streamController.close();
-  }
+  // setExtraPadding(double value) async {
+  //   _extraTopPadding.sink.add(value);
+  // }
+
+  // // setIsDraggable(bool value) async {
+  // //   _streamController.sink.add(value);
+  // // }
+
+  // dispose() {
+  //   _extraTopPadding.close();
+  //   // _streamController.close();
+  // }
 }

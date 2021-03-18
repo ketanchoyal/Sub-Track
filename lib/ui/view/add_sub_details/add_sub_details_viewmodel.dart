@@ -29,6 +29,6 @@ class AddSubDetailsViewModel extends BaseViewModel {
   }
 
   pop() {
-    _navigationService.back();
+    _navigationService.back(id: 2);
   }
 }

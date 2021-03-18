@@ -43,15 +43,11 @@ class AddSubView extends StatelessWidget {
                   'Add Subscription',
                 ),
                 automaticallyImplyLeading: false,
-                // leading: Text(
-                //   'Add Subscription',
-                //   style: kNavigationStyle,
-                // ),
-                // middle: null,
+                leading: SizedBox(),
                 trailing: GestureDetector(
                   onTap: model.pop,
                   child: Icon(
-                    CupertinoIcons.xmark,
+                    CupertinoIcons.xmark_circle_fill,
                     size: 30,
                   ),
                 ),
@@ -109,7 +105,7 @@ class AddSubView extends StatelessWidget {
             ),
           ),
         ),
-      ).addNavigator().addModalContainer(additionalTopPadding: -10),
+      ).addModalContainer(additionalTopPadding: -10),
     );
   }
 }

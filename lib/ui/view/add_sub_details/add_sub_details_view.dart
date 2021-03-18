@@ -27,11 +27,32 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
       builder: (context, model, child) {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            automaticallyImplyLeading: true,
+            automaticallyImplyLeading: false,
             transitionBetweenRoutes: true,
             middle: Text(
               "Apple",
               style: kNavigationStyle,
+            ),
+            leading: Padding(
+              padding:
+                  const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
+              child: GestureDetector(
+                onTap: () {
+                  model.pop();
+                },
+                child: Text.rich(
+                  TextSpan(
+                    text: String.fromCharCode(CupertinoIcons.back.codePoint),
+                    style: TextStyle(
+                      inherit: false,
+                      color: CupertinoTheme.of(context).primaryColor,
+                      fontSize: 30.0,
+                      fontFamily: CupertinoIcons.back.fontFamily,
+                      package: CupertinoIcons.back.fontPackage,
+                    ),
+                  ),
+                ),
+              ),
             ),
             trailing: GestureDetector(
               onTap: () {},

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
-import 'package:sub_track/ui/theme/app_colors.dart';
 import './select_icon_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 

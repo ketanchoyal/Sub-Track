@@ -21,6 +21,13 @@ class AddSubDetailsViewModel extends BaseViewModel {
     );
   }
 
+  navigateToSelectIcon() {
+    _navigationService.navigateTo(
+      NewSubscriptionRoutes.selectIconView,
+      id: 2,
+    );
+  }
+
   pop() {
     _navigationService.back();
   }

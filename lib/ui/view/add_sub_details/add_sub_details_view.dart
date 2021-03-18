@@ -25,193 +25,188 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
     return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
       viewModelBuilder: () => AddSubDetailsViewModel(),
       builder: (context, model, child) {
-        return WillPopScope(
-          onWillPop: () async {
-            // await model.resetpadding();
-            // TODO add dialogbox to confirm exit
-            return true;
-          },
-          child: CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-              automaticallyImplyLeading: true,
-              transitionBetweenRoutes: true,
-              middle: Text(
-                "Apple",
-                style: kNavigationStyle,
-              ),
-              trailing: GestureDetector(
-                onTap: () {},
-                child: Icon(
-                  CupertinoIcons.plus,
-                  size: 30,
-                ),
+        return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            automaticallyImplyLeading: true,
+            transitionBetweenRoutes: true,
+            middle: Text(
+              "Apple",
+              style: kNavigationStyle,
+            ),
+            trailing: GestureDetector(
+              onTap: () {},
+              child: Icon(
+                CupertinoIcons.plus,
+                size: 30,
               ),
             ),
-            child: ListView(
-              children: [
-                CupertinoFormSection.insetGrouped(
-                  margin: EdgeInsets.all(8),
-                  header: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
-                        height: 90,
-                        fit: BoxFit.fitHeight,
-                      ),
+          ),
+          child: ListView(
+            children: [
+              CupertinoFormSection.insetGrouped(
+                margin: EdgeInsets.all(8),
+                header: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(
+                      "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
+                      height: 90,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
-                  children: [
-                    STTextFieldOutline(
-                      enableDecoration: false,
-                      child: STTextField(
-                        focusNode: FocusNode(),
-                        type: TextFieldType.DEFAULT,
-                      ),
-                      title: "Name",
-                    ),
-                    STTextFieldOutline(
-                      enableDecoration: false,
-                      child: STTextField(
-                        focusNode: FocusNode(),
-                        type: TextFieldType.DEFAULT,
-                      ),
-                      title: "Cost",
-                    ),
-                    STTextFieldOutline(
-                      enableDecoration: false,
-                      child: STTextField(
-                        focusNode: FocusNode(),
-                        type: TextFieldType.DEFAULT,
-                      ),
-                      title: "Description",
-                    ),
-                  ],
                 ),
-                if (isExpanded)
-                  CupertinoFormSection.insetGrouped(
-                    margin: EdgeInsets.all(8),
-                    children: [
-                      CupertinoFormRow(
-                        padding: EdgeInsets.zero,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: STTextFieldOutline(
-                                title: "Icon",
-                                child: STDetailFormElement(
-                                  onTap: () {},
-                                  child: Image.asset(
-                                    AppIconsAssets.google,
-                                    height: 40,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: STTextFieldOutline(
-                                title: "Color",
-                                child: STDetailFormElement(
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      STTextFieldOutline(
-                        title: "Category",
-                        child: STDetailFormElement(
-                          child: Text(
-                            "None",
-                            style: kBodyBoldStyle.copyWith(
-                              color: AppColor.STDark,
-                            ),
-                          ),
-                        ),
-                      ),
-                      STTextFieldOutline(
-                        title: "Sub Started On",
-                        child: STDetailFormElement(
-                          child: Text(
-                            "2019-4-07",
-                            style: kBodyBoldStyle.copyWith(
-                              color: AppColor.STDark,
-                            ),
-                          ),
-                        ),
-                      ),
-                      STTextFieldOutline(
-                        title: "Renews Every",
-                        child: STDetailFormElement(
-                          child: Text(
-                            "Week",
-                            style: kBodyBoldStyle.copyWith(
-                              color: AppColor.STDark,
-                            ),
-                          ),
-                        ),
-                      ),
-                      STTextFieldOutline(
-                        title: "Notification",
-                        child: STDetailFormElement(
-                          child: Text(
-                            "Same Day",
-                            style: kBodyBoldStyle.copyWith(
-                              color: AppColor.STDark,
-                            ),
-                          ),
-                        ),
-                      ),
-                      STTextFieldOutline(
-                        title: "Shared With",
-                        child: STDetailFormElement(
-                          child: Text(
-                            "0",
-                            style: kBodyBoldStyle.copyWith(
-                              color: AppColor.STDark,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                children: [
+                  STTextFieldOutline(
+                    enableDecoration: false,
+                    child: STTextField(
+                      focusNode: FocusNode(),
+                      type: TextFieldType.DEFAULT,
+                    ),
+                    title: "Name",
                   ),
+                  STTextFieldOutline(
+                    enableDecoration: false,
+                    child: STTextField(
+                      focusNode: FocusNode(),
+                      type: TextFieldType.DEFAULT,
+                    ),
+                    title: "Cost",
+                  ),
+                  STTextFieldOutline(
+                    enableDecoration: false,
+                    child: STTextField(
+                      focusNode: FocusNode(),
+                      type: TextFieldType.DEFAULT,
+                    ),
+                    title: "Description",
+                  ),
+                ],
+              ),
+              if (isExpanded)
                 CupertinoFormSection.insetGrouped(
                   margin: EdgeInsets.all(8),
                   children: [
-                    CupertinoButton(
-                      onPressed: () {
-                        setState(() {
-                          isExpanded = !isExpanded;
-                        });
-                      },
+                    CupertinoFormRow(
+                      padding: EdgeInsets.zero,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 5,
-                              // vertical: 15,
+                          Flexible(
+                            child: STTextFieldOutline(
+                              title: "Icon",
+                              child: STDetailFormElement(
+                                onTap: () {
+                                  model.navigateToSelectIcon();
+                                },
+                                child: Image.asset(
+                                  AppIconsAssets.google,
+                                  height: 40,
+                                ),
+                              ),
                             ),
-                            child: Text(
-                              isExpanded ? "Basic" : "Advanced",
-                              style: kBodyLargeStyle.copyWith(
-                                fontWeight: FontWeightX.bold,
-                                color: AppColor.STFailure,
+                          ),
+                          Flexible(
+                            child: STTextFieldOutline(
+                              title: "Color",
+                              child: STDetailFormElement(
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
+                    STTextFieldOutline(
+                      title: "Category",
+                      child: STDetailFormElement(
+                        child: Text(
+                          "None",
+                          style: kBodyBoldStyle.copyWith(
+                            color: AppColor.STDark,
+                          ),
+                        ),
+                      ),
+                    ),
+                    STTextFieldOutline(
+                      title: "Sub Started On",
+                      child: STDetailFormElement(
+                        child: Text(
+                          "2019-4-07",
+                          style: kBodyBoldStyle.copyWith(
+                            color: AppColor.STDark,
+                          ),
+                        ),
+                      ),
+                    ),
+                    STTextFieldOutline(
+                      title: "Renews Every",
+                      child: STDetailFormElement(
+                        child: Text(
+                          "Week",
+                          style: kBodyBoldStyle.copyWith(
+                            color: AppColor.STDark,
+                          ),
+                        ),
+                      ),
+                    ),
+                    STTextFieldOutline(
+                      title: "Notification",
+                      child: STDetailFormElement(
+                        child: Text(
+                          "Same Day",
+                          style: kBodyBoldStyle.copyWith(
+                            color: AppColor.STDark,
+                          ),
+                        ),
+                      ),
+                    ),
+                    STTextFieldOutline(
+                      title: "Shared With",
+                      child: STDetailFormElement(
+                        child: Text(
+                          "0",
+                          style: kBodyBoldStyle.copyWith(
+                            color: AppColor.STDark,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
-                )
-              ],
-            ),
-          ).addModalContainer(additionalTopPadding: -10),
-        );
+                ),
+              CupertinoFormSection.insetGrouped(
+                margin: EdgeInsets.all(8),
+                children: [
+                  CupertinoButton(
+                    onPressed: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                            // vertical: 15,
+                          ),
+                          child: Text(
+                            isExpanded ? "Basic" : "Advanced",
+                            style: kBodyLargeStyle.copyWith(
+                              fontWeight: FontWeightX.bold,
+                              color: AppColor.STFailure,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ).addModalContainer(additionalTopPadding: -10);
       },
     );
   }

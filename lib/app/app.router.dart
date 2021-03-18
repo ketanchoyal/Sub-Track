@@ -18,6 +18,7 @@ import '../ui/view/home/home_view.dart';
 import '../ui/view/login/login_view.dart';
 import '../ui/view/on_boarding/on_boarding_view.dart';
 import '../ui/view/register/register_view.dart';
+import '../ui/view/select_icon/select_icon_view.dart';
 import '../ui/view/startup/startup_view.dart';
 import 'app.routerx.dart';
 
@@ -158,9 +159,11 @@ class OnBoardingViewRouter extends RouterBase {
 class NewSubscriptionRoutes {
   static const String addSubView = '/';
   static const String addSubDetailsView = '/add-sub-details-view';
+  static const String selectIconView = '/select-icon-view';
   static const all = <String>{
     addSubView,
     addSubDetailsView,
+    selectIconView,
   };
 }
 
@@ -170,6 +173,7 @@ class NewSubscriptionRouter extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(NewSubscriptionRoutes.addSubView, page: AddSubView),
     RouteDef(NewSubscriptionRoutes.addSubDetailsView, page: AddSubDetailsView),
+    RouteDef(NewSubscriptionRoutes.selectIconView, page: SelectIconView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -183,6 +187,12 @@ class NewSubscriptionRouter extends RouterBase {
     AddSubDetailsView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => AddSubDetailsView(),
+        settings: data,
+      );
+    },
+    SelectIconView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SelectIconView(),
         settings: data,
       );
     },

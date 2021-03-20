@@ -27,7 +27,7 @@ dependencies:
   #State Management
   stacked: ^1.9.7
   stacked_hooks: ^0.1.4
-  stacked_services: ^0.7.3
+  stacked_services: ^0.8.0-nullsafety
 
 dev_dependencies:
   flutter_test:

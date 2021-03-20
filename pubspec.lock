@@ -274,7 +274,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.25.6"
+    version: "4.0.0-nullsafety.2"
   get_it:
     dependency: transitive
     description:
@@ -587,7 +587,7 @@ packages:
       name: stacked_services
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.3"
+    version: "0.8.0-nullsafety"
   stream_channel:
     dependency: transitive
     description:

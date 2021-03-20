@@ -57,3 +57,25 @@ const BoxShadow kDefaultBoxShadow =
     BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5);
 
 // !SECTION
+
+// SECTION[epic=Card Shapes and Border]
+
+const BorderSide kDefaultCardBorderSide = BorderSide(
+  // This color is as per the native iOS
+  // NOTE DO NOT CHANGE
+  color: Color(0x4D000000),
+  width: 0.0, // One physical pixel.
+  style: BorderStyle.solid,
+);
+
+ShapeBorder kRoundedCardBorder(
+        {double radius = 12, BorderSide side = BorderSide.none}) =>
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius),
+      ),
+      side: side,
+    );
+
+
+// !SECTION

@@ -1,3 +1,4 @@
+import 'package:emojis/emoji.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -19,11 +20,6 @@ class SelectIconView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SelectIconViewModel>.reactive(
       viewModelBuilder: () => SelectIconViewModel(),
-      onModelReady: (model) => {
-        // _scrollController.addListener(() {
-        //   showSearchBar();
-        // })
-      },
       builder: (context, model, child) => CupertinoPageScaffold(
         // backgroundColor: AppColor.STPureWhite,
         child: NestedScrollView(
@@ -142,15 +138,32 @@ class SelectIconView extends StatelessWidget {
                   ).paddingA10(),
                 if (model.iconType == IconType.Emoji)
                   Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.STPureWhite,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
+                    decoration: BoxDecoration(
+                      color: AppColor.STPureWhite,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
                       ),
-                      child: Column(
-                        children: [],
-                      )),
+                    ),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 5,
+                      ),
+                      itemCount: model.emojiList.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          elevation: 0,
+                          shape:
+                              kRoundedCardBorder(side: kDefaultCardBorderSide),
+                          child: Center(
+                            child: Text(
+                              model.emojiList[index].toString(),
+                              style: kTitleStyle,
+                            ),
+                          ),
+                        );
+                      },
+                    ).paddingA10(),
+                  ).paddingA10(),
               ],
             ),
           ),

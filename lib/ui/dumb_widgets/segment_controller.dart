@@ -21,7 +21,7 @@ class STSegmentController<T> extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: screenWidth(context),
         child: CupertinoSlidingSegmentedControl<T>(
           // backgroundColor: AppColor.STAccent,
           thumbColor: AppColor.STAccent,

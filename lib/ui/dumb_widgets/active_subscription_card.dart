@@ -40,7 +40,7 @@ class STActiveSubCard extends StatelessWidget {
       ),
       child: SizedBox(
         height: 70,
-        width: MediaQuery.of(context).size.width,
+        width: screenWidth(context),
         child: Card(
           elevation: 5,
           color: colorHex.toColor() ?? AppColor.STAccent,

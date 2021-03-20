@@ -74,8 +74,8 @@ class HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: screenHeight(context),
+                    width: screenWidth(context) * 0.35,
                     color: AppColor.STPureWhite.withOpacity(0.5),
                   ),
                 ],
@@ -84,7 +84,7 @@ class HomeView extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 180,
-                    width: MediaQuery.of(context).size.width,
+                    width: screenWidth(context),
                     child: Card(
                       margin: EdgeInsets.zero,
                       elevation: 4,

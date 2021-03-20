@@ -32,8 +32,8 @@ class LoginView extends StatelessWidget with $LoginView {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  height: screenHeight(context),
+                  width: screenWidth(context) * 0.35,
                   color: AppColor.STPureWhite.withOpacity(0.5),
                 ),
               ],

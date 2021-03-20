@@ -37,7 +37,7 @@ class STAddSubCard extends StatelessWidget {
         ),
         child: SizedBox(
           height: 65,
-          width: MediaQuery.of(context).size.width,
+          width: screenWidth(context),
           child: Card(
             elevation: 0,
             margin: EdgeInsets.all(0),

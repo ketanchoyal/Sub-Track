@@ -3,13 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
-import 'package:sub_track/ui/dumb_widgets/buttons.dart';
-import 'package:sub_track/ui/dumb_widgets/cupertino_navigation_bar.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
-import 'package:sub_track/ui/resources/resources.dart';
-
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import './add_sub_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 

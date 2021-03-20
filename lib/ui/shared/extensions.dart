@@ -31,7 +31,7 @@ extension ColorExtension on String {
   }
 }
 
-extension ColorExtensions on Color {
+extension ColorX on Color {
   // ColorExtensions._();
 
   Color darken([int percent = 10]) {
@@ -45,10 +45,16 @@ extension ColorExtensions on Color {
     assert(1 <= percent && percent <= 100, '');
     final p = percent / 100;
     return Color.fromARGB(
-        this.alpha,
-        this.red + ((255 - this.red) * p).round(),
-        this.green + ((255 - this.green) * p).round(),
-        this.blue + ((255 - this.blue) * p).round());
+      this.alpha,
+      this.red + ((255 - this.red) * p).round(),
+      this.green + ((255 - this.green) * p).round(),
+      this.blue + ((255 - this.blue) * p).round(),
+    );
+  }
+
+  Color contrastOf(Color background) {
+    var brightness = ThemeData.estimateBrightnessForColor(background);
+    return brightness == Brightness.light ? Colors.black : Colors.white;
   }
 }
 

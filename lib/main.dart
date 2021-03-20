@@ -3,13 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
-import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
-
 import 'app/app.locator.dart';
-// import 'app/app.router.dart';
 import 'app/app.router.dart';
-import 'app/app.routerx.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

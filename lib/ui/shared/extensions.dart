@@ -100,3 +100,8 @@ extension ForBottomModalSheet on Widget {
               additionalTopPadding: additionalTopPadding)
           : this;
 }
+
+/// String extesions for enums
+extension IconTypeExtension on IconType {
+  String get convertToString => this.toString().split('.')[1];
+}

@@ -365,7 +365,7 @@ packages:
       name: logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.4"
+    version: "1.0.0"
   logging:
     dependency: transitive
     description:
@@ -545,7 +545,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:

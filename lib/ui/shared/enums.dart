@@ -1,3 +1,5 @@
+part of "shared.dart";
+
 enum TextFieldType {
   DEFAULT,
   ACTIVE,
@@ -6,4 +8,15 @@ enum TextFieldType {
   DISABLED,
 }
 
-enum ButtonType { PRIMARY, SECONDARY, TERTIARY, DISABLED, ICON }
+enum ButtonType {
+  PRIMARY,
+  SECONDARY,
+  TERTIARY,
+  DISABLED,
+  ICON,
+}
+
+enum IconType {
+  Services,
+  Emoji,
+}

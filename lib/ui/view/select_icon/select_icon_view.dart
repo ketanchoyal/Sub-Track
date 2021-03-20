@@ -17,13 +17,15 @@ class SelectIconView extends StatelessWidget {
               CupertinoSliverNavigationBar(
                 automaticallyImplyLeading: false,
                 transitionBetweenRoutes: true,
-                largeTitle: STSegmentController(
+                largeTitle: STSegmentController<IconType>(
                   onValueChanged: (onValueChanged) {},
-                  children: {
-                    "Services": "Services",
-                    "Emoji": "Emoji",
-                  },
-                  selectedValue: "Services",
+                  children: IconType.values
+                      .map((e) => {e: e.convertToString})
+                      .fold<Map<IconType, String>>(
+                          {},
+                          (previousValue, element) =>
+                              {...previousValue, ...element}),
+                  selectedValue: IconType.values.first,
                 ),
                 middle: Text(
                   "Select Icon",

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sub_track/ui/shared/enums.dart';
+
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 

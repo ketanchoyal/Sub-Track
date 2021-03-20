@@ -8,3 +8,5 @@ part "styles.dart";
 part "ui_helper.dart";
 
 part "extensions.dart";
+
+part "enums.dart";

@@ -4,7 +4,7 @@ version: 0.1.0+1
 homepage: https://github.com/FilledStacks/stacked
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -21,7 +21,7 @@ dependencies:
   flutter_facebook_login: ^3.0.0
 
   # logging
-  logger: ^0.9.0
+  logger: ^1.0.0
 
 dev_dependencies:
   flutter_test:

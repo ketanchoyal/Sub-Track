@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
@@ -10,7 +9,7 @@ import 'constants.dart';
 /// Wraps the firebase auth functionality into a service
 class FirebaseAuthenticationService {
   /// An Instance of Logger that can be used to log out what's happening in the service
-  final Logger log;
+  final Logger? log;
 
   /// The URI to which the authorization redirects. It must include a domain name, and can’t be an IP address or localhost.
   ///
@@ -33,8 +32,8 @@ class FirebaseAuthenticationService {
     this.log,
   });
 
-  String _pendingEmail;
-  AuthCredential _pendingCredential;
+  String? _pendingEmail;
+  AuthCredential? _pendingCredential;
 
   Future<UserCredential> _signInWithCredential(
     AuthCredential credential,
@@ -43,18 +42,18 @@ class FirebaseAuthenticationService {
   }
 
   /// Returns the latest userToken stored in the Firebase Auth lib
-  Future<String> get userToken {
+  Future<String>? get userToken {
     return _firebaseAuth.currentUser?.getIdToken();
   }
 
   /// Returns true when a user has logged in or signed on this device
   bool get hasUser {
-    return _firebaseAuth?.currentUser != null;
+    return _firebaseAuth.currentUser != null;
   }
 
-  Future<FirebaseAuthenticationResult> signInWithGoogle() async {
+  Future<FirebaseAuthenticationResult?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount googleSignInAccount =
+      final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
       if (googleSignInAccount == null) {
         log?.i('Process is canceled by the user');
@@ -72,13 +71,13 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user!.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
       return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
+        uid: result.user!.uid,
+        userToken: result.user!.refreshToken!,
       );
     } on FirebaseAuthException catch (e) {
       log?.e(e);
@@ -93,7 +92,7 @@ class FirebaseAuthenticationService {
     return await SignInWithApple.isAvailable();
   }
 
-  Future<FirebaseAuthenticationResult> signInWithApple() async {
+  Future<FirebaseAuthenticationResult?> signInWithApple() async {
     try {
       if (appleClientId == null) {
         throw FirebaseAuthException(
@@ -132,13 +131,13 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user!.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
       return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
+        uid: result.user!.uid,
+        userToken: result.user!.refreshToken!,
       );
     } on FirebaseAuthException catch (e) {
       log?.e(e);
@@ -153,7 +152,7 @@ class FirebaseAuthenticationService {
     }
   }
 
-  Future<FirebaseAuthenticationResult> signInWithFacebook() async {
+  Future<FirebaseAuthenticationResult?> signInWithFacebook() async {
     log?.i('');
 
     try {
@@ -179,13 +178,13 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user!.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
       return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
+        uid: result.user!.uid,
+        userToken: result.user!.refreshToken,
       );
     } on FirebaseAuthException catch (e) {
       log?.e(e);
@@ -197,8 +196,8 @@ class FirebaseAuthenticationService {
   }
 
   Future<FirebaseAuthenticationResult> loginWithEmail({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
     try {
       log?.d('email:$email');
@@ -211,13 +210,13 @@ class FirebaseAuthenticationService {
 
       // Link the pending credential with the existing account
       if (_pendingCredential != null) {
-        await result.user.linkWithCredential(_pendingCredential);
+        await result.user!.linkWithCredential(_pendingCredential!);
         _clearPendingData();
       }
 
       return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
+        uid: result.user!.uid,
+        userToken: result.user!.refreshToken,
       );
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
@@ -233,7 +232,7 @@ class FirebaseAuthenticationService {
 
   /// Uses `createUserWithEmailAndPassword` to sign up to the Firebase application
   Future<FirebaseAuthenticationResult> createAccountWithEmail(
-      {String email, String password}) async {
+      {required String email, required String password}) async {
     try {
       log?.d('email:$email');
       var result = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -245,8 +244,8 @@ class FirebaseAuthenticationService {
           'Create user with email result: ${result.credential} ${result.user}');
 
       return FirebaseAuthenticationResult(
-        uid: result.user.uid,
-        userToken: result.user.refreshToken,
+        uid: result.user!.uid,
+        userToken: result.user!.refreshToken,
       );
     } on FirebaseAuthException catch (e) {
       log?.e('A firebase exception has occured. $e');
@@ -272,7 +271,7 @@ class FirebaseAuthenticationService {
 
     // Fetch a list of what sign-in methods exist for the conflicting user
     List<String> userSignInMethods =
-        await _firebaseAuth.fetchSignInMethodsForEmail(_pendingEmail);
+        await _firebaseAuth.fetchSignInMethodsForEmail(_pendingEmail!);
 
     // If the user has several sign-in methods,
     // the first method in the list will be the "recommended" method to use.
@@ -353,11 +352,11 @@ class FirebaseAuthenticationService {
   Future validatePassword(String password) async {
     try {
       var authCredentials = EmailAuthProvider.credential(
-        email: _firebaseAuth.currentUser.email,
+        email: _firebaseAuth.currentUser!.email!,
         password: password,
       );
 
-      var authResult = await _firebaseAuth.currentUser
+      var authResult = await _firebaseAuth.currentUser!
           .reauthenticateWithCredential(authCredentials);
 
       return authResult.user != null;
@@ -370,19 +369,19 @@ class FirebaseAuthenticationService {
 
   /// Update the [password] of the Firebase User
   Future updatePassword(String password) async {
-    await _firebaseAuth.currentUser.updatePassword(password);
+    await _firebaseAuth.currentUser!.updatePassword(password);
   }
 }
 
 class FirebaseAuthenticationResult {
   /// The users unique id
-  final String uid;
+  final String? uid;
 
   /// The authentication token associated with the user
-  final String userToken;
+  final String? userToken;
 
   /// Contains the error message for the request
-  final String errorMessage;
+  final String? errorMessage;
 
   FirebaseAuthenticationResult({this.uid, this.userToken})
       : errorMessage = null;
@@ -392,7 +391,7 @@ class FirebaseAuthenticationResult {
         userToken = null;
 
   /// Returns true if the response has an error associated with it
-  bool get hasError => errorMessage != null && errorMessage.isNotEmpty;
+  bool get hasError => errorMessage != null && errorMessage!.isNotEmpty;
 }
 
 String getErrorMessageFromFirebaseException(FirebaseAuthException exception) {

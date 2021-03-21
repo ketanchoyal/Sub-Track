@@ -1,20 +1,17 @@
-import 'package:emojis/emoji.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import './select_icon_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
+import 'widgets/emoji_group.dart';
+
 class SelectIconView extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
-
-  showSearchBar() async {
-    await _scrollController.animateTo(50,
-        duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +89,7 @@ class SelectIconView extends StatelessWidget {
                           type: TextFieldType.DEFAULT,
                           textInputAction: TextInputAction.search,
                           placeholder: "Search",
+                          onChanged: model.searchKeyword,
                           prefix: Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Icon(
@@ -109,6 +107,7 @@ class SelectIconView extends StatelessWidget {
             ];
           },
           body: SafeArea(
+            bottom: false,
             child: Stack(
               children: [
                 if (model.iconType == IconType.Services)
@@ -121,49 +120,77 @@ class SelectIconView extends StatelessWidget {
                     ),
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
+                        crossAxisCount: screenWidth(context) ~/ 70,
                       ),
                       itemCount: 80,
                       itemBuilder: (context, index) {
-                        return SizedBox(
-                          height: 50,
-                          width: 50,
-                          child: Card(
-                            elevation: 0,
-                            color: Colors.black26,
-                          ),
+                        return Card(
+                          elevation: 0,
+                          color: Colors.black26,
                         );
                       },
                     ).paddingA10(),
                   ).paddingA10(),
                 if (model.iconType == IconType.Emoji)
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.STPureWhite,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                  SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // color: AppColor.STPureWhite,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                      ),
-                      itemCount: model.emojiList.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 0,
-                          shape:
-                              kRoundedCardBorder(side: kDefaultCardBorderSide),
-                          child: Center(
-                            child: Text(
-                              model.emojiList[index].toString(),
-                              style: kTitleStyle,
-                            ),
+                      child: Column(
+                        children: [
+                          EmojiGroup(
+                            categoryName: "Smiley",
+                            emojis: model.simileyEmojiList,
+                            onPressed: (emoji) {
+                              print(emoji);
+                            },
+                            onShowMorePressed: model.toogleShowMoreSmiley,
+                            showMore: model.showMoreSmiley,
                           ),
-                        );
-                      },
+                          EmojiGroup(
+                            categoryName: "Objects",
+                            emojis: model.objectEmojiList,
+                            onPressed: (emoji) {
+                              print(emoji);
+                            },
+                            onShowMorePressed: model.toogleShowMoreObjects,
+                            showMore: model.showMoreObject,
+                          ),
+                          EmojiGroup(
+                            categoryName: "Symbols",
+                            emojis: model.symbolEmojiList,
+                            onPressed: (emoji) {
+                              print(emoji);
+                            },
+                            onShowMorePressed: model.toogleShowMoreSymbols,
+                            showMore: model.showMoreSymbols,
+                          ),
+                          EmojiGroup(
+                            categoryName: "Flags",
+                            emojis: model.flagEmojiList,
+                            onPressed: (emoji) {
+                              print(emoji);
+                            },
+                            onShowMorePressed: model.toogleShowMoreFlags,
+                            showMore: model.showMoreFlags,
+                          ),
+                          EmojiGroup(
+                            categoryName: "People",
+                            emojis: model.peopleEmojiList,
+                            onPressed: (emoji) {
+                              print(emoji);
+                            },
+                            onShowMorePressed: model.toogleShowMorePeople,
+                            showMore: model.showMorePeople,
+                          ),
+                        ],
+                      ),
                     ).paddingA10(),
-                  ).paddingA10(),
+                  ),
               ],
             ),
           ),

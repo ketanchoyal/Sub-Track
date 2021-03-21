@@ -18,6 +18,7 @@ class STTextField extends StatefulWidget {
     this.onSubmitted,
     this.padding,
     this.prefix,
+    this.onChanged,
   }) : super(key: key);
 
   final TextFieldType type;
@@ -31,6 +32,7 @@ class STTextField extends StatefulWidget {
   final Function(String)? onSubmitted;
   final EdgeInsetsGeometry? padding;
   final Widget? prefix;
+  final Function(String)? onChanged;
 
   @override
   _STTextFieldState createState() => _STTextFieldState();
@@ -132,7 +134,8 @@ class _STTextFieldState extends State<STTextField> {
         FocusScope.of(context).requestFocus(widget.nextFocusNode);
         setState(() {});
       },
-      onChanged: (_) {
+      onChanged: (value) {
+        if (widget.onChanged != null) widget.onChanged!(value);
         _textFieldType = TextFieldType.ACTIVE;
         setState(() {});
       },

@@ -4,21 +4,19 @@
 
 import 'dart:convert';
 
-Subscriptions subscriptionsFromMap(String str) =>
-    Subscriptions.fromMap(json.decode(str));
+Brands brandsFromMap(String str) => Brands.fromMap(json.decode(str));
 
-String subscriptionsToMap(Subscriptions data) => json.encode(data.toMap());
+String brandsToMap(Brands data) => json.encode(data.toMap());
 
-class Subscriptions {
-  Subscriptions({
+class Brands {
+  Brands({
     required this.icons,
   });
 
-  final List<Subscription> icons;
+  final List<Brand> icons;
 
-  factory Subscriptions.fromMap(Map<String, dynamic> json) => Subscriptions(
-        icons: List<Subscription>.from(
-            json["icons"].map((x) => Subscription.fromMap(x))),
+  factory Brands.fromMap(Map<String, dynamic> json) => Brands(
+        icons: List<Brand>.from(json["icons"].map((x) => Brand.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -26,8 +24,8 @@ class Subscriptions {
       };
 }
 
-class Subscription {
-  Subscription({
+class Brand {
+  Brand({
     required this.title,
     required this.hex,
     required this.source,
@@ -41,14 +39,14 @@ class Subscription {
   final String iconName;
   final String iconUrl;
 
-  Subscription copyWith({
+  Brand copyWith({
     String? title,
     String? hex,
     String? source,
     String? iconName,
     String? iconUrl,
   }) =>
-      Subscription(
+      Brand(
         title: title ?? this.title,
         hex: hex ?? this.hex,
         source: source ?? this.source,
@@ -56,7 +54,7 @@ class Subscription {
         iconUrl: iconUrl ?? this.iconUrl,
       );
 
-  factory Subscription.fromMap(Map<String, dynamic> json) => Subscription(
+  factory Brand.fromMap(Map<String, dynamic> json) => Brand(
         title: json["title"],
         hex: json["hex"],
         source: json["source"],

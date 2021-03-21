@@ -15,21 +15,16 @@ import 'package:sub_track/ui/shared/shared.dart';
 
 class AddSubView extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
-  // scrollnavigationBar(context) {
-  //   double animateOffset = kMinInteractiveDimensionCupertino +
-  //       MediaQuery.of(context).padding.top +
-  //       10;
-  //   scrollController.animateTo(animateOffset,
-  //       duration: Duration(milliseconds: 200), curve: Curves.bounceIn);
-  // }
+  final FocusNode _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddSubViewModel>.reactive(
       viewModelBuilder: () => AddSubViewModel(),
-      // onModelReady: (model) => model.resetpadding(),
+      onModelReady: (model) => model.fetchBrands(),
       builder: (context, model, child) => CupertinoPageScaffold(
         backgroundColor: AppColor.STPureWhite,
+        resizeToAvoidBottomInset: false,
         child: NestedScrollView(
           controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -59,8 +54,9 @@ class AddSubView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: STTextField(
-                        focusNode: FocusNode(),
+                        focusNode: _focusNode,
                         padding: EdgeInsets.all(8),
+                        onChanged: model.searchKeyword,
                         type: TextFieldType.DEFAULT,
                         textInputAction: TextInputAction.search,
                         placeholder: "Search",
@@ -84,24 +80,18 @@ class AddSubView extends StatelessWidget {
             context: context,
             removeTop: true,
             child: ListView.builder(
-              physics: ClampingScrollPhysics(),
+              // physics: ClampingScrollPhysics(),
               shrinkWrap: true,
+              itemCount: model.brands?.length ?? 0,
               controller: ModalScrollController.of(context),
-              // itemExtent: 20,
               itemBuilder: (context, index) {
                 return STAddSubCard(
-                  // onTap: model.navigateToAddDetails,
                   onTap: () {
-                    // scrollnavigationBar(context);
-                    model.navigateToAddDetails();
+                    model.navigateToAddDetails(brand: model.brands![index]);
                   },
-                  name: "Apple",
-                  colorHex: "CF3A26",
-                  iconAsset:
-                      "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
+                  brand: model.brands![index],
                 );
               },
-              itemCount: 15,
             ),
           ),
         ),

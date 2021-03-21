@@ -52,9 +52,11 @@ extension ColorX on Color {
     );
   }
 
-  Color contrastOf(Color background) {
-    var brightness = ThemeData.estimateBrightnessForColor(background);
-    return brightness == Brightness.light ? Colors.black : Colors.white;
+  Color contrastOf() {
+    var brightness = ThemeData.estimateBrightnessForColor(this);
+    return brightness == Brightness.light
+        ? AppColor.STPureDark
+        : AppColor.STPureWhite;
   }
 }
 

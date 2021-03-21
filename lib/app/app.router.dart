@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../core/models/brands.dart';
 import '../ui/view/add_sub/add_sub_view.dart';
 import '../ui/view/add_sub/new_sub.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';
@@ -185,8 +186,14 @@ class NewSubscriptionRouter extends RouterBase {
       );
     },
     AddSubDetailsView: (data) {
+      var args = data.getArgs<AddSubDetailsViewArguments>(
+        nullOk: false,
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => AddSubDetailsView(),
+        builder: (context) => AddSubDetailsView(
+          key: args.key,
+          brand: args.brand,
+        ),
         settings: data,
       );
     },
@@ -197,4 +204,15 @@ class NewSubscriptionRouter extends RouterBase {
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// AddSubDetailsView arguments holder class
+class AddSubDetailsViewArguments {
+  final Key? key;
+  final Brand brand;
+  AddSubDetailsViewArguments({this.key, required this.brand});
 }

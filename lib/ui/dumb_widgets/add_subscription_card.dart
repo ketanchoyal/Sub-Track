@@ -1,28 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sub_track/core/models/brands.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
 class STAddSubCard extends StatelessWidget {
   STAddSubCard({
     Key? key,
-    required this.name,
-    required this.colorHex,
-    required this.iconAsset,
-    this.fontColor,
+    required this.brand,
     this.onTap,
   }) : super(key: key);
 
-  final String name;
-  final String colorHex;
-  late final Color? fontColor;
+  final Brand brand;
   final Function()? onTap;
-
-  // TODO if icon is null then make icon using initial of sub
-  final String iconAsset;
 
   @override
   Widget build(BuildContext context) {
-    Color? bgColor = colorHex.toColor();
+    Color? bgColor = brand.hex.toColor();
     if (bgColor != null) {
       // NOTE 0 for darkness and 1 for lightness
       // REVIEW
@@ -41,7 +36,7 @@ class STAddSubCard extends StatelessWidget {
           child: Card(
             elevation: 0,
             margin: EdgeInsets.all(0),
-            color: colorHex.toColor() ?? AppColor.STAccent,
+            color: (brand.hex.toColor() ?? AppColor.STAccent).darken(15),
             shape: kRoundedCardBorder(radius: 4),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,14 +48,22 @@ class STAddSubCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Image.asset(
-                        iconAsset,
-                        height: 30,
+                      child: SvgPicture.network(
+                        brand.iconUrl,
+                        height: 35,
+                        semanticsLabel: brand.title,
+                        placeholderBuilder: (BuildContext context) =>
+                            const CupertinoActivityIndicator(
+                          animating: true,
+                        ),
+                        color: brand.hex.toColor()!.brighten(80),
+                        // color: AppColor.STPureDark,
                       ),
                     ),
                     Text(
-                      name,
+                      brand.title,
                       style: kBodyBoldStyle.copyWith(
+                        // color: brand.hex.toColor()!.contrastOf(),
                         color: AppColor.STLight,
                       ),
                     ),

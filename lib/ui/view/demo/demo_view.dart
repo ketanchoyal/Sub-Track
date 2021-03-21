@@ -105,17 +105,17 @@ class _DemoViewState extends State<DemoView> {
                     "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
                 repeatEvery: "m",
               ),
-              STAddSubCard(
-                name: "Google",
-                colorHex: "000000",
-                iconAsset: AppIconsAssets.google,
-              ),
-              STAddSubCard(
-                name: "Apple",
-                colorHex: "CF3A26",
-                iconAsset:
-                    "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
-              ),
+              // STAddSubCard(
+              //   name: "Google",
+              //   colorHex: "000000",
+              //   iconAsset: AppIconsAssets.google,
+              // ),
+              // STAddSubCard(
+              //   name: "Apple",
+              //   colorHex: "CF3A26",
+              //   iconAsset:
+              //       "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
+              // ),
               STSegmentController<String>(
                 children: {
                   "Label 1": "Label 1",

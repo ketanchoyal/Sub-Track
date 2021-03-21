@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/models/brands.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/dumb_widgets/textfield_outline.dart';
@@ -12,12 +14,14 @@ import './add_sub_details_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
 class AddSubDetailsView extends StatefulWidget {
+  final Brand brand;
+
+  const AddSubDetailsView({Key? key, required this.brand}) : super(key: key);
   @override
   _AddSubDetailsViewState createState() => _AddSubDetailsViewState();
 }
 
 class _AddSubDetailsViewState extends State<AddSubDetailsView> {
-  final double _topPadding = 20;
   bool isExpanded = false;
 
   @override
@@ -30,7 +34,7 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
             automaticallyImplyLeading: false,
             transitionBetweenRoutes: true,
             middle: Text(
-              "Apple",
+              widget.brand.title,
               style: kNavigationStyle,
             ),
             leading: Padding(
@@ -69,9 +73,10 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                 header: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Image.asset(
-                      "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
+                    child: SvgPicture.network(
+                      widget.brand.iconUrl,
                       height: 90,
+                      color: widget.brand.hex.toColor() ?? AppColor.STAccent,
                       fit: BoxFit.fitHeight,
                     ),
                   ),

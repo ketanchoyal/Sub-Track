@@ -41,7 +41,7 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => CupertinoPageScaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[

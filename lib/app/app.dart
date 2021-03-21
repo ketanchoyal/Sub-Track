@@ -3,6 +3,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked/src/code_generation/router/transitions_builders.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import 'package:sub_track/ui/view/add_sub/new_sub.dart';
@@ -56,6 +57,7 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
   dependencies: [
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: DialogService),
+    LazySingleton(classType: BrandServiceStub, asType: BrandService),
     LazySingleton(
       classType: UIServices,
     ),

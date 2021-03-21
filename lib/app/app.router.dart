@@ -18,7 +18,9 @@ import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';
 import '../ui/view/login/login_view.dart';
 import '../ui/view/on_boarding/on_boarding_view.dart';
+import '../ui/view/other_select_view/other_select_view_view.dart';
 import '../ui/view/register/register_view.dart';
+import '../ui/view/select_category/select_category_view.dart';
 import '../ui/view/select_icon/select_icon_view.dart';
 import '../ui/view/startup/startup_view.dart';
 import 'app.routerx.dart';
@@ -161,10 +163,14 @@ class NewSubscriptionRoutes {
   static const String addSubView = '/';
   static const String addSubDetailsView = '/add-sub-details-view';
   static const String selectIconView = '/select-icon-view';
+  static const String selectCategoryView = '/select-category-view';
+  static const String otherSelectViewView = '/other-select-view-view';
   static const all = <String>{
     addSubView,
     addSubDetailsView,
     selectIconView,
+    selectCategoryView,
+    otherSelectViewView,
   };
 }
 
@@ -175,6 +181,10 @@ class NewSubscriptionRouter extends RouterBase {
     RouteDef(NewSubscriptionRoutes.addSubView, page: AddSubView),
     RouteDef(NewSubscriptionRoutes.addSubDetailsView, page: AddSubDetailsView),
     RouteDef(NewSubscriptionRoutes.selectIconView, page: SelectIconView),
+    RouteDef(NewSubscriptionRoutes.selectCategoryView,
+        page: SelectCategoryView),
+    RouteDef(NewSubscriptionRoutes.otherSelectViewView,
+        page: OtherSelectViewView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -200,6 +210,18 @@ class NewSubscriptionRouter extends RouterBase {
     SelectIconView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => SelectIconView(),
+        settings: data,
+      );
+    },
+    SelectCategoryView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SelectCategoryView(),
+        settings: data,
+      );
+    },
+    OtherSelectViewView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => OtherSelectViewView(),
         settings: data,
       );
     },

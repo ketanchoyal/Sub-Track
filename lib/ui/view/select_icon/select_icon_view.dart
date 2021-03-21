@@ -45,9 +45,7 @@ class SelectIconView extends StatelessWidget {
                   padding: const EdgeInsetsDirectional.only(
                       start: 0, end: 0, top: 7),
                   child: GestureDetector(
-                    onTap: () {
-                      model.pop();
-                    },
+                    onTap: model.pop,
                     child: Text.rich(
                       TextSpan(
                         text:

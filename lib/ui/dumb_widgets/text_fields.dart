@@ -117,8 +117,8 @@ class _STTextFieldState extends State<STTextField> {
           : widget.nextFocusNode != null
               ? TextInputAction.next
               : TextInputAction.done,
-      onSubmitted: (_) {
-        if (widget.onSubmitted != null) widget.onSubmitted!("");
+      onSubmitted: (value) {
+        if (widget.onSubmitted != null) widget.onSubmitted!(value);
         widget.focusNode.unfocus();
         _textFieldType = widget.type;
         FocusScope.of(context).requestFocus(widget.nextFocusNode);

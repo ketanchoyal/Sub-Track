@@ -147,6 +147,7 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                     STTextFieldOutline(
                       title: "Category",
                       child: STDetailFormElement(
+                        onTap: model.navigateToSelectCategory,
                         child: Text(
                           "None",
                           style: kBodyBoldStyle.copyWith(

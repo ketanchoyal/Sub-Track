@@ -28,6 +28,13 @@ class AddSubDetailsViewModel extends BaseViewModel {
     );
   }
 
+  navigateToSelectCategory() {
+    _navigationService.navigateTo(
+      NewSubscriptionRoutes.selectCategoryView,
+      id: 2,
+    );
+  }
+
   pop() {
     _navigationService.back(id: 2);
   }

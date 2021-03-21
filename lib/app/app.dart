@@ -1,7 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked/src/code_generation/router/transitions_builders.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
@@ -13,7 +12,9 @@ import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_viewmodel.dart';
+import 'package:sub_track/ui/view/other_select_view/other_select_view_view.dart';
 import 'package:sub_track/ui/view/register/register_view.dart';
+import 'package:sub_track/ui/view/select_category/select_category_view.dart';
 import 'package:sub_track/ui/view/select_icon/select_icon_view.dart';
 import 'package:sub_track/ui/view/startup/startup_view.dart';
 
@@ -47,6 +48,8 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
         CupertinoRoute(page: AddSubView, initial: true),
         CupertinoRoute(page: AddSubDetailsView),
         CupertinoRoute(page: SelectIconView),
+        CupertinoRoute(page: SelectCategoryView),
+        CupertinoRoute(page: OtherSelectViewView),
       ],
     ),
     CupertinoRoute(page: StartUpView, initial: true),

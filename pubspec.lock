@@ -244,13 +244,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_facebook_login:
-    dependency: transitive
-    description:
-      name: flutter_facebook_login
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   flutter_hooks:
     dependency: transitive
     description:
@@ -296,27 +289,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  google_sign_in:
-    dependency: transitive
-    description:
-      name: google_sign_in
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.0"
-  google_sign_in_platform_interface:
-    dependency: transitive
-    description:
-      name: google_sign_in_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
-  google_sign_in_web:
-    dependency: transitive
-    description:
-      name: google_sign_in_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
   graphs:
     dependency: transitive
     description:
@@ -366,13 +338,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   logging:
     dependency: transitive
     description:
@@ -499,13 +464,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.8"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   recase:
     dependency: transitive
     description:
@@ -527,13 +485,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.4+1"
-  sign_in_with_apple:
-    dependency: transitive
-    description:
-      name: sign_in_with_apple
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -552,7 +503,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   stack_trace:
     dependency: transitive
     description:
@@ -567,13 +518,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.7"
-  stacked_firebase_auth:
-    dependency: "direct main"
-    description:
-      path: "packages/stacked_firebase_auth"
-      relative: true
-    source: path
-    version: "0.1.0+1"
   stacked_generator:
     dependency: "direct dev"
     description:
@@ -681,4 +625,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  flutter: ">=1.24.0-7.0"

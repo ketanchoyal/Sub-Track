@@ -2,7 +2,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
 import 'package:sub_track/app/app.router.dart';
-import 'package:sub_track/core/models/subscription.dart';
+import 'package:sub_track/core/models/brands.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 
 class AddSubViewModel extends BaseViewModel {
@@ -20,7 +20,7 @@ class AddSubViewModel extends BaseViewModel {
   }
 
   // FIXME Subscription model is necessery
-  navigateToAddDetails({Subscription? subscription}) async {
+  navigateToAddDetails({Brands? brands}) async {
     _navigationService.navigateTo(
       NewSubscriptionRoutes.addSubDetailsView,
       id: 2,

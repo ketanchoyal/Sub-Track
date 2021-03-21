@@ -2,13 +2,37 @@ import 'package:emojis/emoji.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/core/models/brands.dart';
+import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
 // NOTE Merge all emoji and use that when emoji is searched instead of individual search of every group
 class SelectIconViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  IconType _iconType = IconType.Emoji;
+  final _brandService = locator<BrandService>();
+
+  IconType _iconType = IconType.Services;
   IconType get iconType => _iconType;
+
+  List<Brand>? get brands => _brandService.brands?.icons.where(
+        (element) {
+          if (_searchKeyword == null) {
+            return true;
+          }
+
+          if (_searchKeyword!.trim().isEmpty) {
+            return true;
+          }
+          return element.title.contains(_searchKeyword!) ||
+              element.iconName.contains(_searchKeyword!);
+        },
+      ).toList();
+
+  fetchBrands() async {
+    setBusy(true);
+    await _brandService.fetchBrands();
+    setBusy(false);
+  }
 
   String? _searchKeyword;
   bool isSearching = false;

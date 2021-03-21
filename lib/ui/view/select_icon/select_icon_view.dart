@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
@@ -17,6 +18,7 @@ class SelectIconView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SelectIconViewModel>.reactive(
       viewModelBuilder: () => SelectIconViewModel(),
+      onModelReady: (model) => model.fetchBrands(),
       builder: (context, model, child) => CupertinoPageScaffold(
         // backgroundColor: AppColor.STPureWhite,
         child: NestedScrollView(
@@ -31,20 +33,7 @@ class SelectIconView extends StatelessWidget {
                 backgroundColor: AppColor.STPureWhite,
                 automaticallyImplyLeading: false,
                 transitionBetweenRoutes: true,
-                largeTitle: STSegmentController<IconType>(
-                  onValueChanged: model.selectIconType,
-                  children: IconType.values
-                      .map((e) => {e: e.convertToString})
-                      .fold<Map<IconType, String>>(
-                          {},
-                          (previousValue, element) =>
-                              {...previousValue, ...element}),
-                  selectedValue: model.iconType,
-                ),
-                middle: Text(
-                  "Select Icon",
-                  style: kNavigationStyle,
-                ),
+                largeTitle: Text("Select Icon"),
                 trailing: GestureDetector(
                   onTap: () {},
                   child: Icon(
@@ -78,11 +67,26 @@ class SelectIconView extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Container(
                   color: AppColor.STPureWhite,
+                  child: STSegmentController<IconType>(
+                    onValueChanged: model.selectIconType,
+                    children: IconType.values
+                        .map((e) => {e: e.convertToString})
+                        .fold<Map<IconType, String>>(
+                            {},
+                            (previousValue, element) =>
+                                {...previousValue, ...element}),
+                    selectedValue: model.iconType,
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  color: AppColor.STPureWhite,
                   child: Column(
                     children: <Widget>[
                       verticalSpaceTiny,
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: STTextField(
                           focusNode: FocusNode(),
                           padding: EdgeInsets.all(8),
@@ -111,26 +115,48 @@ class SelectIconView extends StatelessWidget {
             child: Stack(
               children: [
                 if (model.iconType == IconType.Services)
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.STPureWhite,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                  if (model.isBusy)
+                    Center(
+                      child: CupertinoActivityIndicator(
+                        animating: model.isBusy,
+                        radius: 15,
                       ),
-                    ),
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: screenWidth(context) ~/ 70,
+                    )
+                  else
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColor.STPureWhite,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                       ),
-                      itemCount: 80,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 0,
-                          color: Colors.black26,
-                        );
-                      },
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: screenWidth(context) ~/ 70,
+                        ),
+                        itemCount: model.brands?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 0,
+                            // color: Colors.transparent,
+                            shape: kRoundedCardBorder(
+                                side: kDefaultCardBorderSide),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: SvgPicture.network(
+                                model.brands![index].iconUrl,
+                                semanticsLabel: model.brands![index].iconName,
+                                placeholderBuilder: (BuildContext context) =>
+                                    const CupertinoActivityIndicator(
+                                  animating: true,
+                                ),
+                                color: model.brands![index].hex.toColor(),
+                              ),
+                            ),
+                          );
+                        },
+                      ).paddingA10(),
                     ).paddingA10(),
-                  ).paddingA10(),
                 if (model.iconType == IconType.Emoji)
                   SingleChildScrollView(
                     child: Container(

@@ -1,13 +1,4 @@
-// To parse this JSON data, do
-//
-//     final subscriptions = subscriptionsFromMap(jsonString);
-
-import 'dart:convert';
-
-Brands brandsFromMap(String str) => Brands.fromMap(json.decode(str));
-
-String brandsToMap(Brands data) => json.encode(data.toMap());
-
+// String brandsToMap(Brands data) => json.encode(data.toMap());
 class Brands {
   Brands({
     required this.icons,
@@ -28,14 +19,14 @@ class Brand {
   Brand({
     required this.title,
     required this.hex,
-    required this.source,
+    this.source,
     required this.iconName,
     required this.iconUrl,
   });
 
   final String title;
   final String hex;
-  final String source;
+  final String? source;
   final String iconName;
   final String iconUrl;
 

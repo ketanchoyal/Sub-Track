@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:sub_track/core/models/brands.dart';
 import 'package:sub_track/ui/resources/resources.dart';
+import 'dart:convert';
 
 abstract class BrandService {
   Brands? _brands;
@@ -11,6 +12,8 @@ abstract class BrandService {
 
   fetchBrands({bool forceFetch = false});
 
+  Brands _brandsFromMap(String str);
+
   _fetchFromLocal();
 
   _fetchFromServer();
@@ -20,14 +23,14 @@ class BrandServiceStub with BrandService {
   @override
   _fetchFromLocal() async {
     String data = await rootBundle.loadString(SubData.iconss);
-    _brands = brandsFromMap(data);
+    _brands = _brandsFromMap(data);
   }
 
   @override
   _fetchFromServer() async {
     await Future.delayed(Duration(seconds: 2));
     String data = await rootBundle.loadString(SubData.iconss);
-    _brands = brandsFromMap(data);
+    _brands = _brandsFromMap(data);
   }
 
   @override
@@ -43,4 +46,7 @@ class BrandServiceStub with BrandService {
       await _fetchFromLocal();
     return _brands;
   }
+
+  @override
+  Brands _brandsFromMap(String str) => Brands.fromMap(json.decode(str));
 }

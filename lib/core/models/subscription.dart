@@ -1,65 +1,74 @@
+// To parse this JSON data, do
+//
+//     final subscriptions = subscriptionsFromMap(jsonString);
+
 import 'dart:convert';
 
-class Subscription {
-  Subscription({
-    required this.hexColor,
-    required this.id,
-    required this.appName,
-  }) {
-    icon = "assets/appIcons/$id.png";
-  }
+Subscriptions subscriptionsFromMap(String str) =>
+    Subscriptions.fromMap(json.decode(str));
 
-  final String hexColor;
-  final String id;
-  final String appName;
-  late final String icon;
+String subscriptionsToMap(Subscriptions data) => json.encode(data.toMap());
 
-  Subscription copyWith({
-    String? hexColor,
-    String? id,
-    String? appName,
-  }) =>
-      Subscription(
-        hexColor: hexColor ?? this.hexColor,
-        id: id ?? this.id,
-        appName: appName ?? this.appName,
-      );
+class Subscriptions {
+  Subscriptions({
+    required this.icons,
+  });
 
-  factory Subscription.fromJson(String str) =>
-      Subscription.fromMap(json.decode(str));
+  final List<Subscription> icons;
 
-  String toJson() => json.encode(toMap());
-
-  factory Subscription.fromMap(Map<String, dynamic> json) => Subscription(
-        hexColor: json["hexColor"],
-        id: json["id"],
-        appName: json["appName"],
+  factory Subscriptions.fromMap(Map<String, dynamic> json) => Subscriptions(
+        icons: List<Subscription>.from(
+            json["icons"].map((x) => Subscription.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "hexColor": hexColor,
-        "id": id,
-        "appName": appName,
+        "icons": List<dynamic>.from(icons.map((x) => x.toMap())),
       };
-
-  // List<Subscription> SubscriptionsFromMap(String str) => Map.from(
-  //         json.decode(str))
-  //     .map((k, v) => MapEntry<String, Subscription>(k, Subscription.fromMap(v)))
-  //     .entries
-  //     .map((entry) => entry.value)
-  //     .toList();
 }
 
-class Subscriptions {
-  final List<Subscription> subscriptions;
+class Subscription {
+  Subscription({
+    required this.title,
+    required this.hex,
+    required this.source,
+    required this.iconName,
+    required this.iconUrl,
+  });
 
-  Subscriptions({required this.subscriptions});
+  final String title;
+  final String hex;
+  final String source;
+  final String iconName;
+  final String iconUrl;
 
-  factory Subscriptions.fromJson(String str) => Subscriptions(
-      subscriptions: Map.from(json.decode(str))
-          .map((k, v) =>
-              MapEntry<String, Subscription>(k, Subscription.fromMap(v)))
-          .entries
-          .map((entry) => entry.value)
-          .toList());
+  Subscription copyWith({
+    String? title,
+    String? hex,
+    String? source,
+    String? iconName,
+    String? iconUrl,
+  }) =>
+      Subscription(
+        title: title ?? this.title,
+        hex: hex ?? this.hex,
+        source: source ?? this.source,
+        iconName: iconName ?? this.iconName,
+        iconUrl: iconUrl ?? this.iconUrl,
+      );
+
+  factory Subscription.fromMap(Map<String, dynamic> json) => Subscription(
+        title: json["title"],
+        hex: json["hex"],
+        source: json["source"],
+        iconName: json["iconName"],
+        iconUrl: json["iconUrl"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "title": title,
+        "hex": hex,
+        "source": source,
+        "iconName": iconName,
+        "iconUrl": iconUrl,
+      };
 }

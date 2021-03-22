@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  animator:
+    dependency: transitive
+    description:
+      name: animator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   args:
     dependency: transitive
     description:
@@ -29,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
+  auto_size_text_pk:
+    dependency: transitive
+    description:
+      name: auto_size_text_pk
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -551,6 +565,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.0-nullsafety"
+  states_rebuilder:
+    dependency: transitive
+    description:
+      name: states_rebuilder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0+1"
   stream_channel:
     dependency: transitive
     description:
@@ -607,6 +628,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  velocity_x:
+    dependency: "direct main"
+    description:
+      name: velocity_x
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.6.0"
+  vxstate:
+    dependency: transitive
+    description:
+      name: vxstate
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   watcher:
     dependency: transitive
     description:
@@ -637,4 +672,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.24.0-7.0"
+  flutter: ">=2.0.0"

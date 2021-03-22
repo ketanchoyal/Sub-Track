@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sub_track/core/models/subscription.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
 import 'remainig_days_widget.dart';
 
 class STUpcommingSub extends StatelessWidget {
-  const STUpcommingSub(
-      {Key? key,
-      required this.name,
-      required this.colorHex,
-      required this.percentage,
-      required this.remainingDays,
-      required this.price,
-      required this.iconAsset,
-      required this.repeatEvery})
-      : super(key: key);
+  const STUpcommingSub({
+    Key? key,
+    required this.subsription,
+  }) : super(key: key);
 
-  final String name;
-  final String colorHex;
-  final double percentage;
-  final int remainingDays;
-  final double price;
+  final Subsription subsription;
 
   // TODO if icon is null then make icon using initial of sub
-  final String iconAsset;
   // TODO Make enum for repatation
-  final String repeatEvery;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +23,7 @@ class STUpcommingSub extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 150,
-        width: 130,
+        width: 150,
         color: Colors.transparent,
         child: Stack(
           children: [
@@ -55,8 +45,8 @@ class STUpcommingSub extends StatelessWidget {
               right: 3,
               child: Card(
                 elevation: 0,
-                color:
-                    (colorHex.toColor() ?? AppColor.STAccent).withOpacity(0.1),
+                color: (subsription.brand.hex.toColor() ?? AppColor.STAccent)
+                    .withOpacity(0.1),
                 shape: kRoundedCardBorder(),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -75,8 +65,9 @@ class STUpcommingSub extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: Center(
-                                child: Image.asset(
-                                  iconAsset,
+                                child: SvgPicture.network(
+                                  subsription.brand.iconUrl,
+                                  height: 40,
                                   alignment: Alignment.center,
                                   fit: BoxFit.fitWidth,
                                 ),
@@ -85,7 +76,7 @@ class STUpcommingSub extends StatelessWidget {
                           ),
                           Expanded(
                             child: Text(
-                              name,
+                              subsription.brand.title,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
@@ -99,28 +90,30 @@ class STUpcommingSub extends StatelessWidget {
                         ],
                       ),
                       verticalSpaceSmall,
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "\$",
-                              style: kBodyBoldStyle.copyWith(
-                                color: AppColor.STDark,
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "\$",
+                                style: kBodyBoldStyle.copyWith(
+                                  color: AppColor.STDark,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: price.toString(),
-                              style: kBodyBoldStyle.copyWith(
-                                color: AppColor.STDark,
+                              TextSpan(
+                                text: subsription.cost.toString(),
+                                style: kBodyBoldStyle.copyWith(
+                                  color: AppColor.STDark,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: "/" + repeatEvery,
-                              style: kPreTitleStyle.copyWith(
-                                color: AppColor.STDarkLight,
+                              TextSpan(
+                                text: "/" + subsription.repeatEvery,
+                                style: kPreTitleStyle.copyWith(
+                                  color: AppColor.STDarkLight,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
@@ -140,9 +133,9 @@ class STUpcommingSub extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: STRemainingDaysWidget(
-                color: colorHex.toColor() ?? AppColor.STAccent,
-                percent: percentage / 100,
-                remainigDays: remainingDays.toString(),
+                color: subsription.brand.hex.toColor() ?? AppColor.STAccent,
+                percent: 20 / 100,
+                remainigDays: 20.toString(),
               ),
             ),
           ],

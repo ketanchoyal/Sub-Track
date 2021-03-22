@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/models/brands.dart';
+import 'package:sub_track/core/models/subscription.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
@@ -8,6 +10,7 @@ import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import './home_viewmodel.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatelessWidget {
   Widget graphElement(double height, String month) => Flexible(
@@ -158,22 +161,52 @@ class HomeView extends StatelessWidget {
                       )
                     ],
                   ).paddingH(20),
-                  verticalSpaceTiny,
                   Container(
-                    height: 160,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
+                    // height: 160,
+                    width: context.screenWidth,
+                    child: VxSwiper.builder(
+                      enableInfiniteScroll: false,
                       itemCount: 5,
+                      isFastScrollingEnabled: true,
+                      scrollDirection: Axis.horizontal,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.45,
+                      height: 185,
+                      autoPlayAnimationDuration: Duration(milliseconds: 400),
+                      initialPage: 1,
+                      // realPage: 0,
+                      // autoPlay: true,
                       itemBuilder: (contex, index) => STUpcommingSub(
-                        name: "Google",
-                        colorHex: "000000",
-                        iconAsset: AppIconsAssets.google,
-                        percentage: 30,
-                        price: 18.99,
-                        remainingDays: 18,
-                        repeatEvery: "Month",
+                        subsription: Subsription(
+                          brand: Brand(
+                            title: "Netflix",
+                            hex: "E50914",
+                            source:
+                                "https://brand.netflix.com/en/assets/brand-symbol",
+                            iconName: "netflix.svg",
+                            iconUrl:
+                                "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                          ),
+                          cost: 18.99,
+                          repeatEvery: "Month",
+                          startedOn: DateTime.now(),
+                          notificationOn: "Same Day",
+                        ),
                       ),
                     ),
+                    // ListView.builder(
+                    //   scrollDirection: Axis.horizontal,
+                    //   itemCount: 5,
+                    //   itemBuilder: (contex, index) => STUpcommingSub(
+                    //     name: "Google",
+                    //     colorHex: "000000",
+                    //     iconAsset: AppIconsAssets.google,
+                    //     percentage: 30,
+                    //     price: 18.99,
+                    //     remainingDays: 18,
+                    //     repeatEvery: "Month",
+                    //   ),
+                    // ),
                   ),
                   verticalSpaceSmall,
                   Row(

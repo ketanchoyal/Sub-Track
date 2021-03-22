@@ -14,6 +14,7 @@ Future main() async {
   runApp(MyApp());
 }
 
+// TODO Replace my widget extensions with velocityX extensions
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

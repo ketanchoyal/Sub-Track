@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/models/brands.dart';
+import 'package:sub_track/core/models/subscription.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
@@ -133,23 +135,38 @@ class _DemoViewState extends State<DemoView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   STUpcommingSub(
-                    name: "Apple",
-                    colorHex: "CF3A26",
-                    iconAsset:
-                        "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
-                    percentage: 20,
-                    price: 11.99,
-                    remainingDays: 21,
-                    repeatEvery: "Month",
+                    subsription: Subsription(
+                      brand: Brand(
+                        title: "Netflix",
+                        hex: "E50914",
+                        source:
+                            "https://brand.netflix.com/en/assets/brand-symbol",
+                        iconName: "netflix.svg",
+                        iconUrl:
+                            "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                      ),
+                      cost: 18.99,
+                      repeatEvery: "Month",
+                      startedOn: DateTime.now(),
+                      notificationOn: "Same Day",
+                    ),
                   ),
                   STUpcommingSub(
-                    name: "Google",
-                    colorHex: "000000",
-                    iconAsset: AppIconsAssets.google,
-                    percentage: 30,
-                    price: 18.99,
-                    remainingDays: 18,
-                    repeatEvery: "Month",
+                    subsription: Subsription(
+                      brand: Brand(
+                        title: "Netflix",
+                        hex: "E50914",
+                        source:
+                            "https://brand.netflix.com/en/assets/brand-symbol",
+                        iconName: "netflix.svg",
+                        iconUrl:
+                            "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                      ),
+                      cost: 18.99,
+                      repeatEvery: "Month",
+                      startedOn: DateTime.now(),
+                      notificationOn: "Same Day",
+                    ),
                   ),
                 ],
               ),

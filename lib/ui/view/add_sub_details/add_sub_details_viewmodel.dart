@@ -83,4 +83,8 @@ class AddSubDetailsViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {}
+
+  Future? saveData() {
+    // here we can run custom functionality to save to our api
+  }
 }

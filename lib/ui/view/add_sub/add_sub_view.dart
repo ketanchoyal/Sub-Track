@@ -95,7 +95,7 @@ class AddSubView extends StatelessWidget {
             ),
           ),
         ),
-      ).addModalContainer(additionalTopPadding: -10),
+      ),
     );
   }
 }

@@ -75,7 +75,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
           child: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
-              print("object");
+              // print("object");
               FocusScope.of(context).requestFocus(new FocusNode());
             },
             child: ListView(
@@ -97,7 +97,9 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                     STTextFieldOutline(
                       enableDecoration: false,
                       child: STTextField(
+                        controller: nameController,
                         focusNode: nameFocusNode,
+                        textInputAction: TextInputAction.next,
                         nextFocusNode: costFocusNode,
                         type: TextFieldType.DEFAULT,
                       ),
@@ -106,7 +108,9 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                     STTextFieldOutline(
                       enableDecoration: false,
                       child: STTextField(
+                        controller: costController,
                         focusNode: costFocusNode,
+                        textInputAction: TextInputAction.next,
                         nextFocusNode: descriptionFocusNode,
                         type: TextFieldType.DEFAULT,
                       ),
@@ -115,8 +119,11 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                     STTextFieldOutline(
                       enableDecoration: false,
                       child: STTextField(
+                        controller: descriptionController,
+                        textInputAction: TextInputAction.done,
                         focusNode: descriptionFocusNode,
                         type: TextFieldType.DEFAULT,
+                        onSubmitted: (_) => model.saveData(),
                       ),
                       title: "Description",
                     ),
@@ -259,7 +266,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
               ],
             ),
           ),
-        ).addModalContainer(additionalTopPadding: -10);
+        );
       },
     );
   }

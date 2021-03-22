@@ -13,6 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # TODO Use official stacked_firebase_auth package
   # stacked_firebase_auth:
@@ -23,6 +25,7 @@ dependencies:
     path: ./packages/emojis
 
   modal_bottom_sheet: ^2.0.0
+  flutter_rounded_date_picker: 1.0.5
 
   #Firebase
   firebase_auth: ^1.0.1

@@ -12,7 +12,7 @@ import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_viewmodel.dart';
-import 'package:sub_track/ui/view/other_select_view/other_select_view_view.dart';
+import 'package:sub_track/ui/view/other_select/other_select.dart';
 import 'package:sub_track/ui/view/register/register_view.dart';
 import 'package:sub_track/ui/view/select_category/select_category_view.dart';
 import 'package:sub_track/ui/view/select_icon/select_icon_view.dart';
@@ -49,7 +49,7 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
         CupertinoRoute(page: AddSubDetailsView),
         CupertinoRoute(page: SelectIconView),
         CupertinoRoute(page: SelectCategoryView),
-        CupertinoRoute(page: OtherSelectViewView),
+        CupertinoRoute(page: OtherSelectView),
       ],
     ),
     CupertinoRoute(page: StartUpView, initial: true),

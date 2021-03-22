@@ -1,27 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/ui/models/category.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'package:sub_track/ui/view/select_category/widgets/category_view_element.dart';
-import './select_category_viewmodel.dart';
+import 'other_select_viewmodel.dart';
+import 'widgets/other_option_element.dart';
 
-class SelectCategoryView extends StatelessWidget {
-  const SelectCategoryView({Key? key, this.selected}) : super(key: key);
-  final String? selected;
+class OtherSelectView extends StatelessWidget {
+  const OtherSelectView({Key? key, this.selected, required this.type})
+      : super(key: key);
+  final dynamic? selected;
+  final OtherDetailSelectType type;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SelectCategoryViewModel>.reactive(
-      viewModelBuilder: () => SelectCategoryViewModel(),
+    return ViewModelBuilder<OtherSelectViewModel>.reactive(
+      viewModelBuilder: () => OtherSelectViewModel(),
+      onModelReady: (model) => model.setupType(type, selected: selected),
       builder: (context, model, child) => CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           border: Border(bottom: BorderSide.none),
           backgroundColor: AppColor.STPureWhite,
           automaticallyImplyLeading: false,
           transitionBetweenRoutes: true,
-          middle: Text("Category"),
+          middle: Text(type.name),
           trailing: GestureDetector(
             onTap: () {},
             child: Icon(
@@ -33,7 +35,7 @@ class SelectCategoryView extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
             child: GestureDetector(
               onTap: () {
-                model.pop(category: selected);
+                model.pop(selected: selected);
               },
               child: Text.rich(
                 TextSpan(
@@ -55,19 +57,17 @@ class SelectCategoryView extends StatelessWidget {
             SingleChildScrollView(
               child: CupertinoFormSection.insetGrouped(
                 margin: EdgeInsets.all(8),
-                children: Category.categories
-                    .map(
-                      (e) => SingleCategoryViewElement(
-                        category: e,
-                        selected: selected,
-                        onTap: () {
-                          model.pop(category: e.name);
-                        },
-                      ),
-                    )
+                children: model
+                    .getOptions()
+                    .map((e) => OtherOptionViewElement(
+                          onTap: () {
+                            model.pop(selected: e[1]);
+                          },
+                          option: e[0],
+                        ))
                     .toList(),
               ),
-            ),
+            )
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/brands.dart';
 import 'package:sub_track/core/models/subscription.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
+import 'package:sub_track/ui/shared/shared.dart';
 
 class AddSubDetailsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
@@ -44,6 +45,20 @@ class AddSubDetailsViewModel extends BaseViewModel {
     );
     print(category);
   }
+
+  navigateToOtherSelectView({required OtherDetailSelectType type}) async {
+    var result;
+    result = await _navigationService.navigateTo(
+      NewSubscriptionRoutes.otherSelectViewView,
+      id: 2,
+      arguments: OtherSelectViewArguments(type: type),
+    );
+    print(result);
+  }
+
+  // navigateToRenewSelect() async {
+  //   print(renewsEvery);
+  // }
 
   pop() {
     _navigationService.back(id: 2);

@@ -4,8 +4,8 @@ import 'package:sub_track/ui/models/category.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
-class SingleCategoryView extends StatelessWidget {
-  const SingleCategoryView({
+class SingleCategoryViewElement extends StatelessWidget {
+  const SingleCategoryViewElement({
     Key? key,
     required this.category,
     required this.onTap,

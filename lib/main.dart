@@ -5,6 +5,7 @@ import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,10 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'Sub Track',
       color: AppColor.STAccent,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       theme: CupertinoThemeData(
         brightness: Brightness.light,
         scaffoldBackgroundColor: AppColor.STLight,

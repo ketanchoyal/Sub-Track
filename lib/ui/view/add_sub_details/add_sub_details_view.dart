@@ -171,6 +171,8 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                     STTextFieldOutline(
                       title: "Renews Every",
                       child: STDetailFormElement(
+                        onTap: () => model.navigateToOtherSelectView(
+                            type: OtherDetailSelectType.Renews_Every),
                         child: Text(
                           "Week",
                           style: kBodyBoldStyle.copyWith(
@@ -182,6 +184,8 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                     STTextFieldOutline(
                       title: "Notification",
                       child: STDetailFormElement(
+                        onTap: () => model.navigateToOtherSelectView(
+                            type: OtherDetailSelectType.Notification),
                         child: Text(
                           "Same Day",
                           style: kBodyBoldStyle.copyWith(

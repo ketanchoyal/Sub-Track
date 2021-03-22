@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/core/models/brands.dart';
@@ -160,8 +161,20 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
                     STTextFieldOutline(
                       title: "Sub Started On",
                       child: STDetailFormElement(
+                        onTap: () async {
+                          await CupertinoRoundedDatePicker.show(
+                            context,
+                            onDateTimeChanged: model.setDate,
+                            background:
+                                CupertinoTheme.of(context).barBackgroundColor,
+                            fontFamily: CupertinoTheme.of(context)
+                                .textTheme
+                                .textStyle
+                                .fontFamily,
+                          );
+                        },
                         child: Text(
-                          "2019-4-07",
+                          model.date,
                           style: kBodyBoldStyle.copyWith(
                             color: AppColor.STDark,
                           ),

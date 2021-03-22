@@ -24,13 +24,6 @@ class OtherSelectView extends StatelessWidget {
           automaticallyImplyLeading: false,
           transitionBetweenRoutes: true,
           middle: Text(type.name),
-          trailing: GestureDetector(
-            onTap: () {},
-            child: Icon(
-              CupertinoIcons.plus,
-              size: 30,
-            ),
-          ),
           leading: Padding(
             padding: const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
             child: GestureDetector(

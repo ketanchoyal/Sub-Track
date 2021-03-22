@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
@@ -11,8 +12,12 @@ class AddSubDetailsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
   final _uiServices = locator<UIServices>();
+  final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
   late Brand _brand;
   late Subsription _subsription;
+  DateTime _date = DateTime.now();
+
+  String get date => _dateFormatter.format(_date);
 
   setBrand(Brand brand) {
     _brand = brand;
@@ -20,7 +25,11 @@ class AddSubDetailsViewModel extends BaseViewModel {
 
   addSubScription() {}
 
-  // FIXME Unhandled Exception: No MaterialLocalizations found cupertino app
+  setDate(DateTime date) {
+    _date = date;
+    notifyListeners();
+  }
+
   willPopDialog() {
     _dialogService.showDialog(
       title: "Should Close",

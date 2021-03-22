@@ -15,15 +15,19 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  intl: ^0.17.0
 
   # TODO Use official stacked_firebase_auth package
   # stacked_firebase_auth:
   #   path: ./packages/stacked_firebase_auth
+
+  # Graphic related
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.21.0-nullsafety.0
   emojis:
     path: ./packages/emojis
 
+  # Helpers
   modal_bottom_sheet: ^2.0.0
   flutter_rounded_date_picker: 1.0.5
 

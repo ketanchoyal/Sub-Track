@@ -39,6 +39,8 @@ class HomeView extends StatelessWidget {
         ),
       );
 
+  final bool showGraph = false;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
@@ -132,11 +134,19 @@ class HomeView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                graphElement(50, "JAN"),
-                                graphElement(90, "FEB"),
-                                graphElement(40, "MAR"),
-                                graphElement(80, "APR"),
-                                graphElement(100, "MAY"),
+                                if (showGraph) graphElement(50, "JAN"),
+                                if (showGraph) graphElement(90, "FEB"),
+                                if (showGraph) graphElement(40, "MAR"),
+                                if (showGraph) graphElement(80, "APR"),
+                                if (showGraph) graphElement(100, "MAY"),
+                                if (!showGraph)
+                                  Expanded(
+                                    child: Text(
+                                      "Not enough data for graph",
+                                      style: kBodyStyle,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
                               ],
                             ).paddingA(20),
                           ),

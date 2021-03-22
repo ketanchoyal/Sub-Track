@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sub_track/core/models/subscription.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 
 class STActiveSubCard extends StatelessWidget {
   STActiveSubCard({
     Key? key,
-    required this.name,
-    required this.colorHex,
-    required this.price,
-    required this.iconAsset,
-    required this.repeatEvery,
-    this.fontColor,
+    required this.subsription,
   }) : super(key: key);
 
-  final String name;
-  final String colorHex;
-  final double price;
-
   // TODO set font color based on [liminance]
-  late final Color? fontColor;
-
   // TODO if icon is null then make icon using initial of sub
-  final String iconAsset;
   // TODO Make enum for repatation
-  final String repeatEvery;
+
+  final Subsription subsription;
 
   @override
   Widget build(BuildContext context) {
-    Color? bgColor = colorHex.toColor();
+    Color? bgColor = subsription.brand.hex.toColor();
     if (bgColor != null) {
       // NOTE 0 for darkness and 1 for lightness
       // REVIEW
@@ -43,7 +34,7 @@ class STActiveSubCard extends StatelessWidget {
         width: screenWidth(context),
         child: Card(
           elevation: 5,
-          color: colorHex.toColor() ?? AppColor.STAccent,
+          color: subsription.brand.hex.toColor() ?? AppColor.STAccent,
           shape: kRoundedCardBorder(),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,13 +46,13 @@ class STActiveSubCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Image.asset(
-                      iconAsset,
+                    child: SvgPicture.network(
+                      subsription.brand.iconUrl,
                       height: 30,
                     ),
                   ),
                   Text(
-                    name,
+                    subsription.brand.title,
                     style: kBodyBoldStyle.copyWith(
                       color: AppColor.STLight,
                     ),
@@ -78,11 +69,12 @@ class STActiveSubCard extends StatelessWidget {
                         style: kBodyBoldStyle.copyWith(color: AppColor.STLight),
                       ),
                       TextSpan(
-                        text: price.toString(),
+                        text: subsription.cost.toString(),
                         style: kBodyBoldStyle.copyWith(color: AppColor.STLight),
                       ),
                       TextSpan(
-                        text: "/" + repeatEvery,
+                        // TODO use only first letter here
+                        text: "/" + subsription.repeatEvery,
                         style: kPreTitleStyle.copyWith(color: AppColor.STLight),
                       ),
                     ],

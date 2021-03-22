@@ -174,8 +174,6 @@ class HomeView extends StatelessWidget {
                       height: 185,
                       autoPlayAnimationDuration: Duration(milliseconds: 400),
                       initialPage: 1,
-                      // realPage: 0,
-                      // autoPlay: true,
                       itemBuilder: (contex, index) => STUpcommingSub(
                         subsription: Subsription(
                           brand: Brand(
@@ -234,12 +232,21 @@ class HomeView extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: 5,
                         itemBuilder: (context, index) => STActiveSubCard(
-                          name: "Apple",
-                          colorHex: "CF3A26",
-                          price: 11.99,
-                          iconAsset:
-                              "assets/subIcons/7769dafa_2055_11eb_adc1_0242ac120002.png",
-                          repeatEvery: "m",
+                          subsription: Subsription(
+                            brand: Brand(
+                              title: "Netflix",
+                              hex: "E50914",
+                              source:
+                                  "https://brand.netflix.com/en/assets/brand-symbol",
+                              iconName: "netflix.svg",
+                              iconUrl:
+                                  "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                            ),
+                            cost: 18.99,
+                            repeatEvery: "Month",
+                            startedOn: DateTime.now(),
+                            notificationOn: "Same Day",
+                          ),
                         ),
                       ),
                     ),

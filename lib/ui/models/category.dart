@@ -13,7 +13,8 @@ class Category {
     required this.hex,
   });
 
-  final List<Category> categories = [
+  static final List<Category> categories = [
+    Category(name: "Default", icon: CupertinoIcons.question, hex: "8E8E93"),
     Category(name: "News", icon: CupertinoIcons.news_solid, hex: "8E8E93"),
     Category(
         name: "LisfeStyle", icon: CupertinoIcons.news_solid, hex: "5856D6"),
@@ -66,7 +67,6 @@ class Category {
         name: "Communication",
         icon: CupertinoIcons.bubble_left_bubble_right_fill,
         hex: "34C759"),
-    Category(name: "Default", icon: CupertinoIcons.question, hex: "8E8E93"),
     Category(name: "Shopping", icon: CupertinoIcons.bag_fill, hex: "007AFF"),
     Category(name: "Clothing", icon: CupertinoIcons.eyeglasses, hex: "007AFF"),
     Category(

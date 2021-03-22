@@ -5,5 +5,5 @@ import 'package:sub_track/app/app.locator.dart';
 class SelectCategoryViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
-  pop() => _navigationService.back(id: 2);
+  pop({String? category}) => _navigationService.back(id: 2, result: category);
 }

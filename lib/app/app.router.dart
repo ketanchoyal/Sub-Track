@@ -214,8 +214,14 @@ class NewSubscriptionRouter extends RouterBase {
       );
     },
     SelectCategoryView: (data) {
+      var args = data.getArgs<SelectCategoryViewArguments>(
+        orElse: () => SelectCategoryViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => SelectCategoryView(),
+        builder: (context) => SelectCategoryView(
+          key: args.key,
+          selected: args.selected,
+        ),
         settings: data,
       );
     },
@@ -237,4 +243,11 @@ class AddSubDetailsViewArguments {
   final Key? key;
   final Brand brand;
   AddSubDetailsViewArguments({this.key, required this.brand});
+}
+
+/// SelectCategoryView arguments holder class
+class SelectCategoryViewArguments {
+  final Key? key;
+  final String? selected;
+  SelectCategoryViewArguments({this.key, this.selected});
 }

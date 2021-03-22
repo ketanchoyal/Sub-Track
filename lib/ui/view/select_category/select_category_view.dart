@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/ui/models/category.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/select_category/widgets/category_view.dart';
 import './select_category_viewmodel.dart';
 
 class SelectCategoryView extends StatelessWidget {
+  const SelectCategoryView({Key? key, this.selected}) : super(key: key);
+  final String? selected;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SelectCategoryViewModel>.reactive(
@@ -27,7 +32,9 @@ class SelectCategoryView extends StatelessWidget {
           leading: Padding(
             padding: const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
             child: GestureDetector(
-              onTap: model.pop,
+              onTap: () {
+                model.pop(category: selected);
+              },
               child: Text.rich(
                 TextSpan(
                   text: String.fromCharCode(CupertinoIcons.back.codePoint),
@@ -45,32 +52,21 @@ class SelectCategoryView extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            CupertinoFormSection.insetGrouped(
-              margin: EdgeInsets.all(8),
-              children: [
-                CupertinoFormRow(
-                  padding: EdgeInsets.zero,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.redAccent,
-                        child: Center(
-                          child: Icon(
-                            CupertinoIcons.news_solid,
-                            color: AppColor.STPureWhite,
-                          ),
-                        ),
+            SingleChildScrollView(
+              child: CupertinoFormSection.insetGrouped(
+                margin: EdgeInsets.all(8),
+                children: Category.categories
+                    .map(
+                      (e) => SingleCategoryView(
+                        category: e,
+                        selected: selected,
+                        onTap: () {
+                          model.pop(category: e.name);
+                        },
                       ),
-                      horizontalSpaceSmall,
-                      Text(
-                        "Gaming",
-                        style: kBodyBoldStyle,
-                      ),
-                    ],
-                  ),
-                ).paddingH(10).paddingV(8),
-              ],
+                    )
+                    .toList(),
+              ),
             ),
           ],
         ),

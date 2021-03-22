@@ -28,6 +28,7 @@ class _AddSubDetailsViewState extends State<AddSubDetailsView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
       viewModelBuilder: () => AddSubDetailsViewModel(),
+      onModelReady: (model) => model.setBrand(widget.brand),
       builder: (context, model, child) {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(

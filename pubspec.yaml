@@ -29,7 +29,7 @@ dependencies:
 
   # Helpers
   modal_bottom_sheet: ^2.0.0
-  flutter_rounded_date_picker: 1.0.5
+  flutter_rounded_date_picker: ^2.0.0
 
   #Firebase
   firebase_auth: ^1.0.1

@@ -8,7 +8,7 @@ import 'package:sub_track/core/models/subscription.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-class AddSubDetailsViewModel extends BaseViewModel {
+class AddSubDetailsViewModel extends FormViewModel {
   final _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
   final _uiServices = locator<UIServices>();
@@ -16,8 +16,16 @@ class AddSubDetailsViewModel extends BaseViewModel {
   late Brand _brand;
   late Subsription _subsription;
   DateTime _date = DateTime.now();
+  bool _isExpanded = false;
+
+  bool get isExpanded => _isExpanded;
 
   String get date => _dateFormatter.format(_date);
+
+  toggleIsExpanded() {
+    _isExpanded = !_isExpanded;
+    notifyListeners();
+  }
 
   setBrand(Brand brand) {
     _brand = brand;
@@ -72,4 +80,7 @@ class AddSubDetailsViewModel extends BaseViewModel {
   pop() {
     _navigationService.back(id: 2);
   }
+
+  @override
+  void setFormStatus() {}
 }

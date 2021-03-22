@@ -19,6 +19,7 @@ class STTextField extends StatefulWidget {
     this.padding,
     this.prefix,
     this.onChanged,
+    this.textInputType,
   }) : super(key: key);
 
   final TextFieldType type;
@@ -33,6 +34,7 @@ class STTextField extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final Widget? prefix;
   final Function(String)? onChanged;
+  final TextInputType? textInputType;
 
   @override
   _STTextFieldState createState() => _STTextFieldState();
@@ -88,7 +90,7 @@ class _STTextFieldState extends State<STTextField> {
     return CupertinoTextField(
       controller: widget.controller,
       focusNode: widget.focusNode,
-      keyboardType: TextInputType.text,
+      keyboardType: widget.textInputType ?? TextInputType.text,
       placeholder: widget.placeholder,
       enabled: _textFieldType == TextFieldType.DISABLED ? false : true,
       decoration: BoxDecoration(

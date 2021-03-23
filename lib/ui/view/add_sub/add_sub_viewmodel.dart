@@ -2,7 +2,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locator.dart';
 import 'package:sub_track/app/app.router.dart';
-import 'package:sub_track/core/models/brands.dart';
+import 'package:sub_track/core/models/brand/brands.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 

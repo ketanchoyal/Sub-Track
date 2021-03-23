@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-import '../core/models/brands.dart';
+import '../core/models/brand/brands.dart';
 import '../ui/view/add_sub/add_sub_view.dart';
 import '../ui/view/add_sub/new_sub.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';

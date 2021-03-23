@@ -1,4 +1,4 @@
-import 'package:sub_track/core/models/brands.dart';
+import 'package:sub_track/core/models/brand/brands.dart';
 
 class Subsription {
   final Brand brand;

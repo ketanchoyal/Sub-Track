@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:sub_track/core/models/brands.dart';
+import 'package:sub_track/core/models/brand/brands.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'dart:convert';
 
@@ -12,7 +12,15 @@ abstract class BrandService {
 
   fetchBrands({bool forceFetch = false});
 
-  Brands _brandsFromMap(String str);
+  Brands _brandsFromJson(String str);
+
+  addCustomBrand(Brand brand);
+
+  _addCustomBrandToLocal(Brand brand);
+
+  _addCustomBrandToServer(Brand brand);
+
+  fetchCustomBrands();
 
   _fetchFromLocal();
 
@@ -23,14 +31,14 @@ class BrandServiceStub with BrandService {
   @override
   _fetchFromLocal() async {
     String data = await rootBundle.loadString(SubData.iconss);
-    _brands = _brandsFromMap(data);
+    _brands = _brandsFromJson(data);
   }
 
   @override
   _fetchFromServer() async {
     await Future.delayed(Duration(seconds: 2));
     String data = await rootBundle.loadString(SubData.iconss);
-    _brands = _brandsFromMap(data);
+    _brands = _brandsFromJson(data);
   }
 
   @override
@@ -48,5 +56,29 @@ class BrandServiceStub with BrandService {
   }
 
   @override
-  Brands _brandsFromMap(String str) => Brands.fromMap(json.decode(str));
+  Brands _brandsFromJson(String str) => Brands.fromMap(json.decode(str));
+
+  @override
+  _addCustomBrandToLocal(Brand brand) {
+    // TODO: implement _addCustomBrandToLocal
+    throw UnimplementedError();
+  }
+
+  @override
+  _addCustomBrandToServer(Brand brand) {
+    // TODO: implement _addCustomBrandToServer
+    throw UnimplementedError();
+  }
+
+  @override
+  addCustomBrand(Brand brand) {
+    // TODO: implement addCustomBrand
+    throw UnimplementedError();
+  }
+
+  @override
+  fetchCustomBrands() {
+    // TODO: implement fetchCustomBrands
+    throw UnimplementedError();
+  }
 }

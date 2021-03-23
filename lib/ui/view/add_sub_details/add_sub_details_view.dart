@@ -103,7 +103,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SvgPicture.network(
-                        brand.iconUrl,
+                        brand.iconUrl!,
                         height: 90,
                         color: brand.hex.toColor() ?? AppColor.STAccent,
                         fit: BoxFit.fitHeight,

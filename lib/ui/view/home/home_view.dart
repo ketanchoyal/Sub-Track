@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brands.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
@@ -196,9 +197,9 @@ class HomeView extends StatelessWidget {
                                 "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
                           ),
                           cost: 18.99,
-                          repeatEvery: "Month",
+                          renewsEvery: RenewsEvery.Monthly,
                           startedOn: DateTime.now(),
-                          notificationOn: "Same Day",
+                          notificationOn: NotifyOn.One_Week_Before,
                         ),
                       ),
                     ),
@@ -253,9 +254,9 @@ class HomeView extends StatelessWidget {
                                   "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
                             ),
                             cost: 18.99,
-                            repeatEvery: "Month",
+                            renewsEvery: RenewsEvery.Monthly,
                             startedOn: DateTime.now(),
-                            notificationOn: "Same Day",
+                            notificationOn: NotifyOn.One_Day_Before,
                           ),
                         ),
                       ),

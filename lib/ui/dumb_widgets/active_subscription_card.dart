@@ -47,7 +47,7 @@ class STActiveSubCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: SvgPicture.network(
-                      subsription.brand.iconUrl,
+                      subsription.brand.iconUrl!,
                       height: 30,
                     ),
                   ),
@@ -73,8 +73,7 @@ class STActiveSubCard extends StatelessWidget {
                         style: kBodyBoldStyle.copyWith(color: AppColor.STLight),
                       ),
                       TextSpan(
-                        // TODO use only first letter here
-                        text: "/" + subsription.repeatEvery,
+                        text: "/" + subsription.renewsEveryInitial,
                         style: kPreTitleStyle.copyWith(color: AppColor.STLight),
                       ),
                     ],

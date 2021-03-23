@@ -142,7 +142,7 @@ class SelectIconView extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: SvgPicture.network(
-                                model.brands![index].iconUrl,
+                                model.brands![index].iconUrl!,
                                 semanticsLabel: model.brands![index].iconName,
                                 placeholderBuilder: (BuildContext context) =>
                                     const CupertinoActivityIndicator(

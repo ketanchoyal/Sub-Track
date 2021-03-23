@@ -32,9 +32,9 @@ class OtherSelectViewModel extends BaseViewModel {
   List getOptions() {
     switch (_type) {
       case OtherDetailSelectType.Renews_Every:
-        return RenewsEvery.values.map((e) => [e.name, e]).toList();
+        return RenewsEvery.values.map((e) => [e.value, e]).toList();
       case OtherDetailSelectType.Notification:
-        return NotifyOn.values.map((e) => [e.name, e]).toList();
+        return NotifyOn.values.map((e) => [e.value, e]).toList();
     }
   }
 }

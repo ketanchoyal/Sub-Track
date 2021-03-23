@@ -49,7 +49,7 @@ class STAddSubCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: SvgPicture.network(
-                        brand.iconUrl,
+                        brand.iconUrl!,
                         height: 35,
                         semanticsLabel: brand.title,
                         placeholderBuilder: (BuildContext context) =>

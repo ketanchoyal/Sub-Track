@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brands.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
@@ -103,9 +104,9 @@ class _DemoViewState extends State<DemoView> {
                         "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
                   ),
                   cost: 18.99,
-                  repeatEvery: "Month",
+                  renewsEvery: RenewsEvery.Weekly,
                   startedOn: DateTime.now(),
-                  notificationOn: "Same Day",
+                  notificationOn: NotifyOn.One_Day_Before,
                 ),
               ),
               STActiveSubCard(
@@ -119,9 +120,9 @@ class _DemoViewState extends State<DemoView> {
                         "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
                   ),
                   cost: 18.99,
-                  repeatEvery: "Month",
+                  renewsEvery: RenewsEvery.Weekly,
                   startedOn: DateTime.now(),
-                  notificationOn: "Same Day",
+                  notificationOn: NotifyOn.One_Day_Before,
                 ),
               ),
               // STAddSubCard(
@@ -163,9 +164,9 @@ class _DemoViewState extends State<DemoView> {
                             "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
                       ),
                       cost: 18.99,
-                      repeatEvery: "Month",
+                      renewsEvery: RenewsEvery.Weekly,
                       startedOn: DateTime.now(),
-                      notificationOn: "Same Day",
+                      notificationOn: NotifyOn.One_Day_Before,
                     ),
                   ),
                   STUpcommingSub(
@@ -180,9 +181,9 @@ class _DemoViewState extends State<DemoView> {
                             "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
                       ),
                       cost: 18.99,
-                      repeatEvery: "Month",
+                      renewsEvery: RenewsEvery.Weekly,
                       startedOn: DateTime.now(),
-                      notificationOn: "Same Day",
+                      notificationOn: NotifyOn.One_Day_Before,
                     ),
                   ),
                 ],

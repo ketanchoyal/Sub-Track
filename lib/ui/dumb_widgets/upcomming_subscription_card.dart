@@ -66,7 +66,7 @@ class STUpcommingSub extends StatelessWidget {
                               padding: const EdgeInsets.all(3.0),
                               child: Center(
                                 child: SvgPicture.network(
-                                  subsription.brand.iconUrl,
+                                  subsription.brand.iconUrl!,
                                   height: 40,
                                   alignment: Alignment.center,
                                   fit: BoxFit.fitWidth,
@@ -107,7 +107,7 @@ class STUpcommingSub extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: "/" + subsription.repeatEvery,
+                                text: "/" + subsription.renewsEveryInitial,
                                 style: kPreTitleStyle.copyWith(
                                   color: AppColor.STDarkLight,
                                 ),

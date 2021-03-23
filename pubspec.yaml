@@ -37,7 +37,12 @@ dependencies:
 
   #Firebase
   firebase_auth: ^1.0.1
-  firebase_core: ^1.0.1
+  firebase_core: ^1.0.2
+  cloud_firestore: ^1.0.2
+
+  #Local Storage
+  hive: ^2.0.0
+  hive_flutter: ^1.0.0
 
   #State Management
   stacked: ^1.9.7
@@ -49,6 +54,7 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   stacked_generator: ^0.2.6
+  hive_generator: ^1.0.0
 
 # The following section is specific to Flutter.
 flutter:

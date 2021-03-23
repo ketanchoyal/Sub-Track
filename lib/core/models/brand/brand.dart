@@ -13,7 +13,7 @@ class Brand {
   final String hex;
   final String? source;
   final String iconName;
-  final String iconUrl;
+  final String? iconUrl;
 
   Brand copyWith({
     String? title,

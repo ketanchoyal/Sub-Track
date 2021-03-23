@@ -10,7 +10,7 @@ enum RenewsEvery {
 }
 
 extension RenewsEveryX on RenewsEvery {
-  String get name {
+  String get value {
     switch (this) {
       case RenewsEvery.Never:
         return "Never";
@@ -30,6 +30,27 @@ extension RenewsEveryX on RenewsEvery {
         return "Yearly";
     }
   }
+
+  String get initial {
+    switch (this) {
+      case RenewsEvery.Never:
+        return "";
+      case RenewsEvery.Daily:
+        return "day";
+      case RenewsEvery.Weekly:
+        return "week";
+      case RenewsEvery.Biweekly:
+        return "biweek";
+      case RenewsEvery.Monthly:
+        return "m";
+      case RenewsEvery.Quarterly:
+        return "quat";
+      case RenewsEvery.Half_yearly:
+        return "halfyear";
+      case RenewsEvery.Yearly:
+        return "yr";
+    }
+  }
 }
 
 enum NotifyOn {
@@ -40,7 +61,7 @@ enum NotifyOn {
 }
 
 extension NotifyOnX on NotifyOn {
-  String get name {
+  String get value {
     switch (this) {
       case NotifyOn.Never:
         return "Never";
@@ -53,3 +74,5 @@ extension NotifyOnX on NotifyOn {
     }
   }
 }
+
+enum IconType { SVG, EMOJI }

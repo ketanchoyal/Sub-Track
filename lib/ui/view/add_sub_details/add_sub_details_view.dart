@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:keyboard_actions/external/keyboard_avoider/bottom_area_avoider.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:keyboard_actions/keyboard_custom.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:sub_track/core/models/brands.dart';
@@ -11,16 +15,17 @@ import 'package:sub_track/ui/resources/resources.dart';
 
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.form.dart';
+import 'package:sub_track/ui/view/add_sub_details/widgets/color_picker.dart';
 import 'package:sub_track/ui/view/add_sub_details/widgets/detail_form_element.dart';
 import './add_sub_details_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-@FormView(fields: [
-  FormTextField(name: 'name'),
-  FormTextField(name: 'cost'),
-  FormTextField(name: 'description'),
-  FormTextField(name: 'sharedWith'),
-])
+// @FormView(fields: [
+//   FormTextField(name: 'name'),
+//   FormTextField(name: 'cost'),
+//   FormTextField(name: 'description'),
+//   FormTextField(name: 'sharedWith'),
+// ])
 class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
   final Brand brand;
 
@@ -32,6 +37,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
       viewModelBuilder: () => AddSubDetailsViewModel(),
       onModelReady: (model) {
         listenToFormUpdated(model);
+        model.setBrand(brand);
       },
       builder: (context, model, child) {
         return CupertinoPageScaffold(
@@ -72,12 +78,23 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
               ),
             ),
           ),
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              // print("object");
-              FocusScope.of(context).requestFocus(new FocusNode());
-            },
+          child: KeyboardActions(
+            tapOutsideToDismiss: true,
+            disableScroll: true,
+            config: KeyboardActionsConfig(
+              keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
+              keyboardBarColor: Colors.grey[200],
+              nextFocus: false,
+              actions: [
+                KeyboardActionsItem(
+                  focusNode: colorFocusNode,
+                  displayDoneButton: true,
+                  footerBuilder: (_) => ColorPickerKeyboard(
+                    notifier: model.colorChangeNotifier,
+                  ),
+                ),
+              ],
+            ),
             child: ListView(
               children: [
                 CupertinoFormSection.insetGrouped(
@@ -155,10 +172,16 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                             Flexible(
                               child: STTextFieldOutline(
                                 title: "Color",
-                                child: STDetailFormElement(
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                  ),
+                                child: KeyboardCustomInput<Color>(
+                                  focusNode: colorFocusNode,
+                                  notifier: model.colorChangeNotifier,
+                                  builder: (context, val, hasFocus) {
+                                    return STDetailFormElement(
+                                      child: CircleAvatar(
+                                        backgroundColor: val,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -271,3 +294,5 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
     );
   }
 }
+
+/// A quick example "keyboard" widget for picking a color.

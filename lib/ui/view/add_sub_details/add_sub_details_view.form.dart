@@ -23,6 +23,7 @@ mixin $AddSubDetailsView on StatelessWidget {
   final FocusNode costFocusNode = FocusNode();
   final FocusNode descriptionFocusNode = FocusNode();
   final FocusNode sharedWithFocusNode = FocusNode();
+  final FocusNode colorFocusNode = FocusNode();
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values

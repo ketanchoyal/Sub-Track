@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -13,6 +15,7 @@ class AddSubDetailsViewModel extends FormViewModel {
   final _dialogService = locator<DialogService>();
   final _uiServices = locator<UIServices>();
   final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
+  late final ValueNotifier<Color> colorChangeNotifier;
   late Brand _brand;
   late Subsription _subsription;
   DateTime _date = DateTime.now();
@@ -29,6 +32,8 @@ class AddSubDetailsViewModel extends FormViewModel {
 
   setBrand(Brand brand) {
     _brand = brand;
+    colorChangeNotifier = ValueNotifier(brand.hex.toColor()!);
+    notifyListeners();
   }
 
   addSubScription() {}

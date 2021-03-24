@@ -12,7 +12,7 @@ class STUpcommingSub extends StatelessWidget {
     required this.subsription,
   }) : super(key: key);
 
-  final Subsription subsription;
+  final Subscription subsription;
 
   // TODO if icon is null then make icon using initial of sub
   // TODO Make enum for repatation

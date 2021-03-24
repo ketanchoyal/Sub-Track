@@ -1,11 +1,12 @@
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brands.dart';
 
-class Subsription {
+class Subscription {
   final Brand brand;
   final double cost;
   final String? description;
 
+  final String subscriptionId;
   final RenewsEvery renewsEvery;
   final String? category;
   final int? sharedWith;
@@ -15,13 +16,14 @@ class Subsription {
   late int? remaningDays;
   // TODO Research how to store amount paid until now with the date(hint: use map)
 
-  Subsription({
+  Subscription({
     required this.brand,
     required this.cost,
     this.description,
     required this.renewsEvery,
     this.category,
     this.sharedWith,
+    required this.subscriptionId,
     required this.startedOn,
     required this.notificationOn,
   }) {
@@ -34,7 +36,7 @@ class Subsription {
   String get renewsEveryInitial => renewsEvery.initial;
   String get notificationOnValue => notificationOn.value;
 
-  Subsription copyWith({
+  Subscription copyWith({
     Brand? brand,
     double? cost,
     String? description,
@@ -42,9 +44,10 @@ class Subsription {
     String? category,
     int? sharedWith,
     DateTime? startedOn,
+    required String subscriptionId,
     NotifyOn? notificationOn,
   }) =>
-      Subsription(
+      Subscription(
         brand: brand ?? this.brand,
         cost: cost ?? this.cost,
         description: description ?? this.description,
@@ -52,6 +55,7 @@ class Subsription {
         category: category ?? this.category,
         sharedWith: sharedWith ?? this.sharedWith,
         startedOn: startedOn ?? this.startedOn,
+        subscriptionId: subscriptionId,
         notificationOn: notificationOn ?? this.notificationOn,
       );
 }

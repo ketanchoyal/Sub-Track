@@ -14,7 +14,7 @@ class STActiveSubCard extends StatelessWidget {
   // TODO if icon is null then make icon using initial of sub
   // TODO Make enum for repatation
 
-  final Subsription subsription;
+  final Subscription subsription;
 
   @override
   Widget build(BuildContext context) {

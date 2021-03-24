@@ -94,7 +94,8 @@ class _DemoViewState extends State<DemoView> {
                 ],
               ),
               STActiveSubCard(
-                subsription: Subsription(
+                subsription: Subscription(
+                  subscriptionId: "sfihewruiw",
                   brand: Brand(
                     title: "Netflix",
                     hex: "E50914",
@@ -110,7 +111,8 @@ class _DemoViewState extends State<DemoView> {
                 ),
               ),
               STActiveSubCard(
-                subsription: Subsription(
+                subsription: Subscription(
+                  subscriptionId: "sfihewruiw",
                   brand: Brand(
                     title: "Netflix",
                     hex: "E50914",
@@ -153,7 +155,8 @@ class _DemoViewState extends State<DemoView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   STUpcommingSub(
-                    subsription: Subsription(
+                    subsription: Subscription(
+                      subscriptionId: "sfihewruiw",
                       brand: Brand(
                         title: "Netflix",
                         hex: "E50914",
@@ -170,7 +173,8 @@ class _DemoViewState extends State<DemoView> {
                     ),
                   ),
                   STUpcommingSub(
-                    subsription: Subsription(
+                    subsription: Subscription(
+                      subscriptionId: "sfihewruiw",
                       brand: Brand(
                         title: "Netflix",
                         hex: "E50914",

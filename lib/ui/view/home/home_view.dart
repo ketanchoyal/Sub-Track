@@ -186,7 +186,8 @@ class HomeView extends StatelessWidget {
                       autoPlayAnimationDuration: Duration(milliseconds: 400),
                       initialPage: 1,
                       itemBuilder: (contex, index) => STUpcommingSub(
-                        subsription: Subsription(
+                        subsription: Subscription(
+                          subscriptionId: "srwerw",
                           brand: Brand(
                             title: "Netflix",
                             hex: "E50914",
@@ -243,7 +244,8 @@ class HomeView extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: 5,
                         itemBuilder: (context, index) => STActiveSubCard(
-                          subsription: Subsription(
+                          subsription: Subscription(
+                            subscriptionId: "reyrtg",
                             brand: Brand(
                               title: "Netflix",
                               hex: "E50914",

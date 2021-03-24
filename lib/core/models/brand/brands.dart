@@ -3,16 +3,16 @@ part 'brand.dart';
 
 class Brands {
   Brands({
-    required this.icons,
+    required this.brands,
   });
 
-  final List<Brand> icons;
+  final List<Brand> brands;
 
   factory Brands.fromMap(Map<String, dynamic> json) => Brands(
-        icons: List<Brand>.from(json["icons"].map((x) => Brand.fromMap(x))),
+        brands: List<Brand>.from(json["icons"].map((x) => Brand.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "icons": List<dynamic>.from(icons.map((x) => x.toMap())),
+        "icons": List<dynamic>.from(brands.map((x) => x.toMap())),
       };
 }

@@ -17,7 +17,7 @@ class AddSubDetailsViewModel extends FormViewModel {
   final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
   late final ValueNotifier<Color> colorChangeNotifier;
   late Brand _brand;
-  late Subsription _subsription;
+  late Subscription _subsription;
   DateTime _date = DateTime.now();
   bool _isExpanded = false;
 

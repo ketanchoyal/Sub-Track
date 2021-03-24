@@ -19,7 +19,7 @@ class AddSubViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<Brand>? get brands => _brandService.brands?.icons.where(
+  List<Brand>? get brands => _brandService.brands?.brands.where(
         (element) {
           if (_searchKeyword == null) {
             return true;

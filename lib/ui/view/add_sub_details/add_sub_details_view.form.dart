@@ -36,12 +36,13 @@ mixin $AddSubDetailsView on StatelessWidget {
 
   /// Updates the formData on the FormViewModel
   void _updateFormData(FormViewModel model) => model.setData(
-        {
-          NameValueKey: nameController.text,
-          CostValueKey: costController.text,
-          DescriptionValueKey: descriptionController.text,
-          SharedWithValueKey: sharedWithController.text,
-        },
+        model.formValueMap
+          ..addAll({
+            NameValueKey: nameController.text,
+            CostValueKey: costController.text,
+            DescriptionValueKey: descriptionController.text,
+            SharedWithValueKey: sharedWithController.text,
+          }),
       );
 
   /// Calls dispose on all the generated controllers and focus nodes
@@ -56,8 +57,15 @@ mixin $AddSubDetailsView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String get nameValue => this.formValueMap[NameValueKey];
-  String get costValue => this.formValueMap[CostValueKey];
-  String get descriptionValue => this.formValueMap[DescriptionValueKey];
-  String get sharedWithValue => this.formValueMap[SharedWithValueKey];
+  String? get nameValue => this.formValueMap[NameValueKey];
+  String? get costValue => this.formValueMap[CostValueKey];
+  String? get descriptionValue => this.formValueMap[DescriptionValueKey];
+  String? get sharedWithValue => this.formValueMap[SharedWithValueKey];
+
+  bool get hasName => this.formValueMap.containsKey(NameValueKey);
+  bool get hasCost => this.formValueMap.containsKey(CostValueKey);
+  bool get hasDescription => this.formValueMap.containsKey(DescriptionValueKey);
+  bool get hasSharedWith => this.formValueMap.containsKey(SharedWithValueKey);
 }
+
+extension Methods on FormViewModel {}

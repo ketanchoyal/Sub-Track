@@ -60,7 +60,10 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
   dependencies: [
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: DialogService),
-    LazySingleton(classType: BrandServiceStub, asType: BrandService),
+    LazySingleton(
+      classType: BrandServiceStub,
+      // asType: BrandService,
+    ),
     LazySingleton(
       classType: UIServices,
     ),

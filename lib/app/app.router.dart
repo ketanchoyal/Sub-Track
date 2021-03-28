@@ -9,9 +9,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/ui/shared/shared.dart';
 
 import '../core/models/brand/brands.dart';
+import '../ui/shared/shared.dart';
 import '../ui/view/add_sub/add_sub_view.dart';
 import '../ui/view/add_sub/new_sub.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';
@@ -165,13 +165,13 @@ class NewSubscriptionRoutes {
   static const String addSubDetailsView = '/add-sub-details-view';
   static const String selectIconView = '/select-icon-view';
   static const String selectCategoryView = '/select-category-view';
-  static const String otherSelectViewView = '/other-select-view-view';
+  static const String otherSelectView = '/other-select-view';
   static const all = <String>{
     addSubView,
     addSubDetailsView,
     selectIconView,
     selectCategoryView,
-    otherSelectViewView,
+    otherSelectView,
   };
 }
 
@@ -184,7 +184,7 @@ class NewSubscriptionRouter extends RouterBase {
     RouteDef(NewSubscriptionRoutes.selectIconView, page: SelectIconView),
     RouteDef(NewSubscriptionRoutes.selectCategoryView,
         page: SelectCategoryView),
-    RouteDef(NewSubscriptionRoutes.otherSelectViewView, page: OtherSelectView),
+    RouteDef(NewSubscriptionRoutes.otherSelectView, page: OtherSelectView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -196,9 +196,7 @@ class NewSubscriptionRouter extends RouterBase {
       );
     },
     AddSubDetailsView: (data) {
-      var args = data.getArgs<AddSubDetailsViewArguments>(
-        nullOk: false,
-      );
+      var args = data.getArgs<AddSubDetailsViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => AddSubDetailsView(
           key: args.key,
@@ -226,9 +224,7 @@ class NewSubscriptionRouter extends RouterBase {
       );
     },
     OtherSelectView: (data) {
-      var args = data.getArgs<OtherSelectViewArguments>(
-        nullOk: false,
-      );
+      var args = data.getArgs<OtherSelectViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
         builder: (context) => OtherSelectView(
           key: args.key,
@@ -259,10 +255,10 @@ class SelectCategoryViewArguments {
   SelectCategoryViewArguments({this.key, this.selected});
 }
 
-/// OtherSelectViewView arguments holder class
+/// OtherSelectView arguments holder class
 class OtherSelectViewArguments {
   final Key? key;
-  final dynamic? selected;
+  final dynamic selected;
   final OtherDetailSelectType type;
   OtherSelectViewArguments({this.key, this.selected, required this.type});
 }

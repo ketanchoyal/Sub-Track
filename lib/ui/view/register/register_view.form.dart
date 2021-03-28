@@ -31,11 +31,12 @@ mixin $RegisterView on StatelessWidget {
 
   /// Updates the formData on the FormViewModel
   void _updateFormData(FormViewModel model) => model.setData(
-        {
-          NameValueKey: nameController.text,
-          EmailValueKey: emailController.text,
-          PasswordValueKey: passwordController.text,
-        },
+        model.formValueMap
+          ..addAll({
+            NameValueKey: nameController.text,
+            EmailValueKey: emailController.text,
+            PasswordValueKey: passwordController.text,
+          }),
       );
 
   /// Calls dispose on all the generated controllers and focus nodes
@@ -49,7 +50,13 @@ mixin $RegisterView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String get nameValue => this.formValueMap[NameValueKey];
-  String get emailValue => this.formValueMap[EmailValueKey];
-  String get passwordValue => this.formValueMap[PasswordValueKey];
+  String? get nameValue => this.formValueMap[NameValueKey];
+  String? get emailValue => this.formValueMap[EmailValueKey];
+  String? get passwordValue => this.formValueMap[PasswordValueKey];
+
+  bool get hasName => this.formValueMap.containsKey(NameValueKey);
+  bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
+  bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
 }
+
+extension Methods on FormViewModel {}

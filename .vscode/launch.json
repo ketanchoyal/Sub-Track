@@ -3,14 +3,20 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "sub_track",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--no-sound-null-safety"
-            ]
-        }
-    ]
+        "configurations": [
+            {
+                "name": "no-sound-null-safety",
+                "request": "launch",
+                "type": "dart",
+                "args": [
+                    "--no-sound-null-safety"
+                ]
+            },
+            {
+                "name": "sound-null-safety",
+                "request": "launch",
+                "type": "dart",
+                "args": []
+            },
+        ]
 }

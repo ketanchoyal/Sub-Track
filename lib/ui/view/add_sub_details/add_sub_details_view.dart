@@ -20,12 +20,12 @@ import 'package:sub_track/ui/view/add_sub_details/widgets/detail_form_element.da
 import './add_sub_details_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-// @FormView(fields: [
-//   FormTextField(name: 'name'),
-//   FormTextField(name: 'cost'),
-//   FormTextField(name: 'description'),
-//   FormTextField(name: 'sharedWith'),
-// ])
+@FormView(fields: [
+  FormTextField(name: 'name'),
+  FormTextField(name: 'cost'),
+  FormTextField(name: 'description'),
+  FormTextField(name: 'sharedWith'),
+])
 class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
   final Brand brand;
 

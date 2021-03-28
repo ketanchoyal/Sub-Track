@@ -21,7 +21,8 @@ class OnBoardingView extends StatelessWidget {
       // backgroundColor: AppColor.STLight,
       body: ExtendedNavigator<OnBoardingViewRouter>(
         router: OnBoardingViewRouter(),
-        navigatorKey: StackedService.nestedNavigationKey(1),
+        initialRoute: OnBoardingViewRoutes.view1,
+        navigatorKey: StackedService.nestedNavigationKey(1)!,
       ),
     );
   }

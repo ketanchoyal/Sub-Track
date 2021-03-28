@@ -71,7 +71,7 @@ class AddSubDetailsViewModel extends FormViewModel {
   navigateToOtherSelectView({required OtherDetailSelectType type}) async {
     var result;
     result = await _navigationService.navigateTo(
-      NewSubscriptionRoutes.otherSelectViewView,
+      NewSubscriptionRoutes.otherSelectView,
       id: 2,
       arguments: OtherSelectViewArguments(type: type),
     );

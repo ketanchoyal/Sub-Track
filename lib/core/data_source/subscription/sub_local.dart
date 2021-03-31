@@ -9,7 +9,7 @@ abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
   updateCache(List<Subscription> subscriptions);
 }
 
-class SubscriptionLocalDataSourceStub with SubscriptionLocalDataSource {
+class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   @override
   addSubscription(Subscription subscription) {
     // TODO: implement addSubscription

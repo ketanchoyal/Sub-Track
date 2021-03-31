@@ -14,7 +14,7 @@ abstract class BrandService {
   Brands _brandsFromJson(String str);
 }
 
-class BrandServiceStub with BrandService {
+class BrandServiceImpl with BrandService {
   @override
   fetchBrands({bool forceFetch = false}) async {
     if (_brands == null) {

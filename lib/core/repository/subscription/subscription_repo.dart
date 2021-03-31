@@ -9,7 +9,7 @@ abstract class SubscriptionRepo {
   updateSubscription({required Subscription subsription});
 }
 
-class SubscriptionRepoStub with SubscriptionRepo {
+class SubscriptionRepoImpl with SubscriptionRepo {
   @override
   addSubscription({required Subscription subsription}) {
     // TODO: implement addSubscription

@@ -10,7 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
-  setupLocator();
+  await setupLocator();
   runApp(MyApp());
 }
 

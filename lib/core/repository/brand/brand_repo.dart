@@ -6,7 +6,7 @@ abstract class BrandRepo {
   fetchBrands({bool forceFetch = false});
 }
 
-class BrandRepoStub with BrandRepo {
+class BrandRepoImpl with BrandRepo {
   @override
   fetchBrands({bool forceFetch = false}) {}
 }

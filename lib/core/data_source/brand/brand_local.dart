@@ -9,7 +9,7 @@ abstract class BrandLocalDataSource implements BrandDataSource {
   updateCache(Brands brands);
 }
 
-class BrandLocalDataSourceStub with BrandLocalDataSource {
+class BrandLocalDataSourceImpl with BrandLocalDataSource {
   @override
   fetchBrands() {
     // TODO: implement fetchBrands

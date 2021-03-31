@@ -8,7 +8,7 @@ abstract class BrandRemoteDataSource implements BrandDataSource {
   sendDataToLocalSource();
 }
 
-class BrandRemoteDataSourceStub with BrandRemoteDataSource {
+class BrandRemoteDataSourceImpl with BrandRemoteDataSource {
   @override
   fetchBrands() {
     // TODO: implement fetchBrands

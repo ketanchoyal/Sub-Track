@@ -8,7 +8,7 @@ abstract class SubscriptionRemoteDataSource implements SubscriptionDataSource {
   cacheSubscriptions();
 }
 
-class SubscriptionRemoteDataSourceStub with SubscriptionRemoteDataSource {
+class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
   @override
   addSubscription(Subscription subscription) {
     // TODO : implement addSubscription

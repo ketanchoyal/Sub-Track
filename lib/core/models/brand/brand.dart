@@ -26,8 +26,8 @@ class Brand extends HiveObject {
     required this.title,
     required this.hex,
     this.source,
-    required this.iconName,
-    required this.iconUrl,
+    this.iconName,
+    this.iconUrl,
     // this.id,
   });
 
@@ -38,7 +38,7 @@ class Brand extends HiveObject {
   @HiveField(2)
   final String? source;
   @HiveField(3)
-  final String iconName;
+  final String? iconName;
   @HiveField(4)
   final String? iconUrl;
   // final String? id;

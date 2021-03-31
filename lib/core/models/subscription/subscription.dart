@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
+part 'subscription.gx.dart';
 
 @HiveType(typeId: 1)
 class Subscription {
@@ -42,21 +43,24 @@ class Subscription {
     required this.notificationOn,
   }) {
     if (brand.iconUrl == null) {
-      iconType = IconType.EMOJI;
+      if (brand.iconName == null)
+        iconType = IconType.NONE;
+      else
+        iconType = IconType.EMOJI;
     }
   }
 
   /// Meant to only use by Hive Adaptor
   factory Subscription.noEnum({
-    Brand? brand,
-    double? cost,
+    required Brand brand,
+    required double cost,
     String? description,
-    String? subscriptionId,
-    String? renewsEvery,
+    required String subscriptionId,
+    required String renewsEvery,
     String? category,
     int? sharedWith,
-    DateTime? startedOn,
-    String? notificationOn,
+    required DateTime startedOn,
+    required String notificationOn,
     String? iconType,
     int? remaningDays,
   }) =>
@@ -64,17 +68,18 @@ class Subscription {
         category: category,
         description: description,
         sharedWith: sharedWith,
-        brand: brand!,
-        cost: cost!,
-        renewsEvery: RenewsEvery.Biweekly,
-        subscriptionId: subscriptionId!,
-        startedOn: startedOn!,
-        notificationOn: NotifyOn.Never,
+        brand: brand,
+        cost: cost,
+        renewsEvery: renewsEvery.enumRE,
+        subscriptionId: subscriptionId,
+        startedOn: startedOn,
+        notificationOn: notificationOn.enumNO,
       );
 
   String get renewsEveryValue => renewsEvery.value;
   String get renewsEveryInitial => renewsEvery.initial;
   String get notificationOnValue => notificationOn.value;
+  String get iconTypeValue => iconType.value;
 
   Subscription copyWith({
     Brand? brand,

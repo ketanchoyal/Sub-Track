@@ -56,19 +56,20 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
     StackedRoute(page: RegisterView),
     StackedRoute(page: HomeView),
   ],
-  dependencies: [
-    LazySingleton(classType: NavigationService),
-    LazySingleton(classType: DialogService),
-    LazySingleton(
-      classType: BrandServiceStub,
-      // asType: BrandService,
-    ),
-    LazySingleton(
-      classType: UIServices,
-    ),
-    Singleton(classType: OnBoardingViewModel),
-    // Singleton(classType: FirebaseAuthenticationService),
-  ],
+  // no asType function in null safety version
+  // dependencies: [
+  //   LazySingleton(classType: NavigationService),
+  //   LazySingleton(classType: DialogService),
+  //   LazySingleton(
+  //     classType: BrandServiceStub,
+  //     // asType: BrandService,
+  //   ),
+  //   LazySingleton(
+  //     classType: UIServices,
+  //   ),
+  //   Singleton(classType: OnBoardingViewModel),
+  //   // Singleton(classType: FirebaseAuthenticationService),
+  // ],
 )
 class AppSetup {
   /** Serves no purpose besides having an annotation attached to it */

@@ -1,7 +1,7 @@
 import 'package:emojis/emoji.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/shared/shared.dart';
@@ -24,7 +24,7 @@ class SelectIconViewModel extends BaseViewModel {
             return true;
           }
           return element.title.contains(_searchKeyword!) ||
-              element.iconName.contains(_searchKeyword!);
+              element.iconName!.contains(_searchKeyword!);
         },
       ).toList();
 

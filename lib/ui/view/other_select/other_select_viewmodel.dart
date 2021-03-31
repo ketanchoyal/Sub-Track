@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 

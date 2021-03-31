@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'app/app.locator.dart';
+import 'app/app.locatorx.dart';
 import 'app/app.router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

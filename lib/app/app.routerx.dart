@@ -1,13 +1,3 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-// import 'package:stacked/stacked.dart';
-// import 'package:sub_track/ui/shared/shared.dart';
-// import 'package:sub_track/ui/view/add_sub/new_sub.dart';
-// import 'package:sub_track/ui/view/demo/demo_view.dart';
-// import 'package:sub_track/ui/view/home/home_view.dart';
-
-// import 'app.router.dart';
 part of 'app.router.dart';
 
 // NOTE This file contains custom page map which are to be replaced in _pagesMap variable in app.router.dart file

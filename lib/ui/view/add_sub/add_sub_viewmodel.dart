@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:sub_track/app/app.locator.dart';
+import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/brand_service.dart';
@@ -29,7 +29,7 @@ class AddSubViewModel extends BaseViewModel {
             return true;
           }
           return element.title.contains(_searchKeyword!) ||
-              element.iconName.contains(_searchKeyword!);
+              element.iconName!.contains(_searchKeyword!);
         },
       ).toList();
 

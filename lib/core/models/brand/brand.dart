@@ -1,10 +1,13 @@
-part of "brands.dart";
+import 'package:hive/hive.dart';
+
+part "brand.g.dart";
 
 // NOTE ID for Custom brand has to be created at the time of creating custom brand
 // while ID for brands from server can be defined as there title
 // REVIEW Do I really need id in Brand, Brand object can be stored in Subscription document?
 // REVIEW Will it make any difference if I don't have id in brand
-class Brand {
+@HiveType(typeId: 0)
+class Brand extends HiveObject {
   // Brand({
   //   required this.title,
   //   required this.hex,
@@ -28,10 +31,15 @@ class Brand {
     // this.id,
   });
 
+  @HiveField(0)
   final String title;
+  @HiveField(1)
   final String hex;
+  @HiveField(2)
   final String? source;
+  @HiveField(3)
   final String iconName;
+  @HiveField(4)
   final String? iconUrl;
   // final String? id;
 

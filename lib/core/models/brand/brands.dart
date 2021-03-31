@@ -1,5 +1,5 @@
+import 'brand.dart';
 // String brandsToMap(Brands data) => json.encode(data.toMap());
-part 'brand.dart';
 
 class Brands {
   Brands({

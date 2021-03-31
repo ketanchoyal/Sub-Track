@@ -75,4 +75,7 @@ extension NotifyOnX on NotifyOn {
   }
 }
 
-enum IconType { SVG, EMOJI }
+enum IconType {
+  SVG,
+  EMOJI,
+}

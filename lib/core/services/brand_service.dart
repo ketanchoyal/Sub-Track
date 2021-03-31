@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/models/brand/brands.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'dart:convert';

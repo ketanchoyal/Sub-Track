@@ -2,12 +2,13 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
+import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
 import 'login_view.form.dart';
 
-class LoginViewModel extends FormViewModel {
-  final _navigationService = locator<NavigationService>();
+class LoginViewModel extends FormViewModel with $SharedVariables {
+  // final $navigationService = locator<NavigationService>();
   TextFieldType emailTextFieldType = TextFieldType.DEFAULT;
   TextFieldType passwordTextFieldType = TextFieldType.DEFAULT;
   @override
@@ -28,11 +29,11 @@ class LoginViewModel extends FormViewModel {
   }
 
   void register() {
-    _navigationService.navigateTo(Routes.registerView);
+    $navigationService.navigateTo(Routes.registerView);
   }
 
   void skip() {
     // TODO Anonymous Login here
-    _navigationService.clearStackAndShow(Routes.homeView);
+    $navigationService.clearStackAndShow(Routes.homeView);
   }
 }

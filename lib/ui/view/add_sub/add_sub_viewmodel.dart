@@ -5,9 +5,9 @@ import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
+import 'package:sub_track/ui/shared/mixins.dart';
 
-class AddSubViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+class AddSubViewModel extends BaseViewModel with $SharedVariables {
   final _uiServices = locator<UIServices>();
   final _brandService = locator<BrandService>();
 
@@ -42,16 +42,16 @@ class AddSubViewModel extends BaseViewModel {
   bool haveSubscriptions = false;
 
   // navigateToAddSub() {
-  //   _navigationService.navigateTo(NewSubscriptionRoutes.addSubView, id: 2);
+  //   $navigationService.navigateTo(NewSubscriptionRoutes.addSubView, id: 2);
   // }
 
   pop() {
-    _navigationService.back();
+    $navigationService.back();
   }
 
   // FIXME Subscription model is necessery
   navigateToAddDetails({required Brand brand}) async {
-    _navigationService.navigateTo(NewSubscriptionRoutes.addSubDetailsView,
+    $navigationService.navigateTo(NewSubscriptionRoutes.addSubDetailsView,
         id: 2, arguments: AddSubDetailsViewArguments(brand: brand));
   }
 }

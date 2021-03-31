@@ -2,10 +2,10 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/enums/enums.dart';
+import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-class OtherSelectViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+class OtherSelectViewModel extends BaseViewModel with $SharedVariables {
   late OtherDetailSelectType _type;
   late dynamic? _selected;
   late List _options;
@@ -13,7 +13,7 @@ class OtherSelectViewModel extends BaseViewModel {
   List get options => _options;
   get selected => _selected;
 
-  pop({dynamic? selected}) => _navigationService.back(id: 2, result: selected);
+  pop({dynamic? selected}) => $navigationService.back(id: 2, result: selected);
 
   setupType(OtherDetailSelectType value, {dynamic? selected}) {
     _type = value;

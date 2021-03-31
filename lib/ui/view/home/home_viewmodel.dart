@@ -2,13 +2,12 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
+import 'package:sub_track/ui/shared/mixins.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
-
+class HomeViewModel extends BaseViewModel with $SharedVariables {
   bool haveSubscriptions = false;
 
   navigateToAddSub() {
-    _navigationService.navigateTo(Routes.newSubscription);
+    $navigationService.navigateTo(Routes.newSubscription);
   }
 }

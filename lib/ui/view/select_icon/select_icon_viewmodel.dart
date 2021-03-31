@@ -4,11 +4,11 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/brand_service.dart';
+import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
 // NOTE Merge all emoji and use that when emoji is searched instead of individual search of every group
-class SelectIconViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
+class SelectIconViewModel extends BaseViewModel with $SharedVariables {
   final _brandService = locator<BrandService>();
 
   IconType _iconType = IconType.Services;
@@ -58,7 +58,7 @@ class SelectIconViewModel extends BaseViewModel {
   }
 
   pop() {
-    _navigationService.back(id: 2);
+    $navigationService.back(id: 2);
   }
 
   List<Emoji> get filteredEmojiList => Emoji.all().where(

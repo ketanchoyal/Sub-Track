@@ -8,10 +8,10 @@ import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
+import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-class AddSubDetailsViewModel extends FormViewModel {
-  final _navigationService = locator<NavigationService>();
+class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
   final _dialogService = locator<DialogService>();
   final _uiServices = locator<UIServices>();
   final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
@@ -54,14 +54,14 @@ class AddSubDetailsViewModel extends FormViewModel {
   }
 
   navigateToSelectIcon() {
-    _navigationService.navigateTo(
+    $navigationService.navigateTo(
       NewSubscriptionRoutes.selectIconView,
       id: 2,
     );
   }
 
   navigateToSelectCategory() async {
-    var category = await _navigationService.navigateTo(
+    var category = await $navigationService.navigateTo(
       NewSubscriptionRoutes.selectCategoryView,
       id: 2,
     );
@@ -70,7 +70,7 @@ class AddSubDetailsViewModel extends FormViewModel {
 
   navigateToOtherSelectView({required OtherDetailSelectType type}) async {
     var result;
-    result = await _navigationService.navigateTo(
+    result = await $navigationService.navigateTo(
       NewSubscriptionRoutes.otherSelectView,
       id: 2,
       arguments: OtherSelectViewArguments(type: type),
@@ -83,7 +83,7 @@ class AddSubDetailsViewModel extends FormViewModel {
   // }
 
   pop() {
-    _navigationService.back(id: 2);
+    $navigationService.back(id: 2);
   }
 
   @override

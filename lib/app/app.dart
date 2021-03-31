@@ -1,6 +1,5 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked/src/code_generation/router/transitions_builders.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';

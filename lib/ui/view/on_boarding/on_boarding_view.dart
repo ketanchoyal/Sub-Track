@@ -19,11 +19,15 @@ class OnBoardingView extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       // backgroundColor: AppColor.STLight,
-      body: ExtendedNavigator<OnBoardingViewRouter>(
-        router: OnBoardingViewRouter(),
-        initialRoute: OnBoardingViewRoutes.view1,
-        navigatorKey: StackedService.nestedNavigationKey(1)!,
+      body: Navigator(
+        onGenerateRoute: OnBoardingViewRouter().onGenerateRoute,
+        key: StackedService.nestedNavigationKey(1)!,
       ),
+      // body: ExtendedNavigator<OnBoardingViewRouter>(
+      //   router: OnBoardingViewRouter(),
+      //   initialRoute: OnBoardingViewRoutes.view1,
+      //   navigatorKey: StackedService.nestedNavigationKey(1)!,
+      // ),
     );
   }
 }

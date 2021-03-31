@@ -11,10 +11,14 @@ class NewSubscription extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: AppColor.STPureWhite,
-      child: ExtendedNavigator<NewSubscriptionRouter>(
-        router: NewSubscriptionRouter(),
-        navigatorKey: StackedService.nestedNavigationKey(2),
+      child: Navigator(
+        onGenerateRoute: NewSubscriptionRouter().onGenerateRoute,
+        key: StackedService.nestedNavigationKey(2),
       ),
+      // child: ExtendedNavigator<NewSubscriptionRouter>(
+      //   router: NewSubscriptionRouter(),
+      //   navigatorKey: StackedService.nestedNavigationKey(2),
+      // ),
     ).addModalContainer();
   }
 }

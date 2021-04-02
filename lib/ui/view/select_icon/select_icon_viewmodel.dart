@@ -14,7 +14,7 @@ class SelectIconViewModel extends BaseViewModel with $SharedVariables {
   IconType _iconType = IconType.Services;
   IconType get iconType => _iconType;
 
-  List<Brand>? get brands => _brandService.brands?.brands.where(
+  List<Brand>? get brands => _brandService.brands!.where(
         (element) {
           if (_searchKeyword == null) {
             return true;

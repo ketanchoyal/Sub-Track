@@ -1,10 +1,10 @@
 import 'package:sub_track/core/data_source/brand/brand_abstract.dart';
-import 'package:sub_track/core/models/brand/brands.dart';
+import 'package:sub_track/core/models/brand/brand.dart';
 
 abstract class BrandRemoteDataSource implements BrandDataSource {
-  late Brands _brands;
+  late List<Brand>? _brands;
   @override
-  Brands get brands => _brands;
+  List<Brand>? get brands => _brands;
   sendDataToLocalSource();
 }
 

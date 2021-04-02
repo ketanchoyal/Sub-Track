@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:sub_track/ui/resources/resources.dart';
-import 'package:test/test.dart';
 
 void main() {
   test('app_icons_assets assets test', () {

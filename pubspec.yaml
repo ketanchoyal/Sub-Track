@@ -34,6 +34,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   flutter_rounded_date_picker: ^2.0.0
   keyboard_actions: ^3.4.0
+  image_picker: ^0.7.4
 
   #Firebase
   firebase_auth: ^1.0.1

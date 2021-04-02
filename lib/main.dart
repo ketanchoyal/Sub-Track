@@ -7,6 +7,7 @@ import 'app/app.locatorx.dart';
 import 'app/app.router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+// FIXME Rename all abstract class (add interface to there name) and Remove Impl from there implemented classes
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
@@ -52,5 +53,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// NOTE Edit original stacked package

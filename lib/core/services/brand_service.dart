@@ -5,18 +5,18 @@ import 'package:sub_track/ui/resources/resources.dart';
 import 'dart:convert';
 
 abstract class BrandService {
-  Brands? _brands;
+  List<Brand>? _brands;
 
-  Brands? get brands => _brands;
+  List<Brand>? get brands => _brands;
 
-  fetchBrands({bool forceFetch = false});
+  fetchBrands();
 
-  Brands _brandsFromJson(String str);
+  List<Brand>? _brandsFromJson(String str);
 }
 
 class BrandServiceImpl with BrandService {
   @override
-  fetchBrands({bool forceFetch = false}) async {
+  fetchBrands() async {
     if (_brands == null) {
       await Future.delayed(Duration(seconds: 2));
       String data = await rootBundle.loadString(SubData.iconss);
@@ -26,5 +26,6 @@ class BrandServiceImpl with BrandService {
   }
 
   @override
-  Brands _brandsFromJson(String str) => Brands.fromMap(json.decode(str));
+  List<Brand>? _brandsFromJson(String str) =>
+      Brands.fromMap(json.decode(str)).brands;
 }

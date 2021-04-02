@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/core/data_source/brand/brand_local.dart';
@@ -16,6 +17,7 @@ import 'package:sub_track/core/data_source/subscription/sub_remote.dart';
 import 'package:sub_track/core/repository/brand/brand_repo.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
+import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/core/services/stoppable_services.dart';
 import 'package:sub_track/core/services/subscription_service.dart';
 
@@ -34,9 +36,12 @@ setupLocator() async {
   // App Dependencies
   // **************************************************************************
   // Services
+  locator.registerSingleton<FileService>(FileServiceImpl());
   locator.registerLazySingleton<StoppableService>(() => ConnectivityService());
   locator.registerSingleton<BrandService>(BrandServiceImpl());
   locator.registerSingleton<SubscriptionService>(SubscriptionServiceImpl());
+
+  locator.registerLazySingleton<HiveInterface>(() => Hive);
 
   // Data Sources
   locator.registerSingleton<SubscriptionLocalDataSource>(

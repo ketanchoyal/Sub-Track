@@ -1,6 +1,6 @@
-import 'package:sub_track/core/models/brand/brands.dart';
+import 'package:sub_track/core/models/brand/brand.dart';
 
 abstract class BrandDataSource {
-  Brands get brands;
-  fetchBrands();
+  List<Brand>? get brands;
+  Future fetchBrands();
 }

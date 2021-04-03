@@ -10,7 +10,7 @@ class BrandRemoteDataSourceImpl with BrandRemoteDataSource {
   BrandService get _brandService => locator<BrandService>();
 
   BrandLocalDataSourceImpl get _brandLocalDataSource =>
-      locator<BrandLocalDataSourceImpl>();
+      locator<BrandLocalDataSource>() as BrandLocalDataSourceImpl;
 
   _cacheBrands() {
     if (brands != null) _brandLocalDataSource.updateCache(brands!);

@@ -14,10 +14,10 @@ abstract class BrandLocalDataSource implements BrandDataSource {
 
 class BrandLocalDataSourceImpl with BrandLocalDataSource {
   List<Brand>? _brands;
-  final _fileServices = locator<FileService>();
-  final _hiveService = locator<HiveInterface>();
+  FileService get _fileServices => locator<FileService>();
+  HiveInterface get _hiveService => locator<HiveInterface>();
   final _brandBoxName = "brands";
-  get _brandBoxIsOpen => _hiveService.isBoxOpen(_brandBoxName);
+  bool get _brandBoxIsOpen => _hiveService.isBoxOpen(_brandBoxName);
   Box<Brand> get _brandBox => _hiveService.box<Brand>(_brandBoxName);
 
   @override
@@ -35,9 +35,9 @@ class BrandLocalDataSourceImpl with BrandLocalDataSource {
   @override
   fetchBrands() async {
     if (_brandBoxIsOpen) {
-      Map<dynamic, Brand> brands = _brandBox.toMap();
+      List<Brand> brands = _brandBox.values.toList();
       if (brands.isNotEmpty) {
-        _brands = brands.entries.map((e) => e.value).toList();
+        _brands = brands;
         return;
       }
     }

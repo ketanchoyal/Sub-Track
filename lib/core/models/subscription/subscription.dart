@@ -4,7 +4,7 @@ import 'package:sub_track/core/models/brand/brand.dart';
 part 'subscription.gx.dart';
 
 @HiveType(typeId: 1)
-class Subscription {
+class Subscription extends HiveObject {
   @HiveField(0)
   final Brand brand;
   @HiveField(1)

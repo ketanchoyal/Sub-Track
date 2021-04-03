@@ -1,41 +1,45 @@
+import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
+import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
+import 'package:sub_track/core/services/subscription_service.dart';
 
 abstract class SubscriptionRemoteDataSource implements SubscriptionDataSource {
-  late List<Subscription> _subscriptions;
-  @override
-  List<Subscription> get subscriptions => _subscriptions;
-  cacheSubscriptions();
+  // cacheSubscriptions();
 }
 
 class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
+  SubscriptionService get _subscriptionService =>
+      locator<SubscriptionService>();
+
+  SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
+      locator<SubscriptionLocalDataSource>();
+
   @override
-  addSubscription(Subscription subscription) {
-    // TODO : implement addSubscription
-    throw UnimplementedError();
+  List<Subscription>? get subscriptions => _subscriptionService.subscriptions;
+
+  @override
+  addSubscription(Subscription subscription) async {
+    await _subscriptionService.addSubscription(subscription);
+  }
+
+  // @override
+  _cacheSubscriptions() async {
+    // _subscriptionLocalDataSource.
   }
 
   @override
-  cacheSubscriptions() {
-    // TODO : implement cacheSubscriptions
-    throw UnimplementedError();
+  deleteSubscription(Subscription subscription) async {
+    await _subscriptionService.deleteSubscription(subscription);
   }
 
   @override
-  deleteSubscription(Subscription subscription) {
-    // TODO : implement deleteSubscription
-    throw UnimplementedError();
+  fetchSubscriptions() async {
+    await _subscriptionService.fetchSubscriptions();
   }
 
   @override
-  fetchSubscriptions() {
-    // TODO : implement fetchSubscriptions
-    throw UnimplementedError();
-  }
-
-  @override
-  updateSubscription(Subscription updatedSubscription) {
-    // TODO : implement updateSubscription
-    throw UnimplementedError();
+  updateSubscription(Subscription updatedSubscription) async {
+    await _subscriptionService.updateSubscription(updatedSubscription);
   }
 }

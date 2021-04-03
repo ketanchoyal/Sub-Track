@@ -9,6 +9,9 @@ abstract class BrandRemoteDataSource implements BrandDataSource {}
 class BrandRemoteDataSourceImpl with BrandRemoteDataSource {
   BrandService get _brandService => locator<BrandService>();
 
+  @override
+  List<Brand>? get brands => _brandService.brands;
+
   BrandLocalDataSourceImpl get _brandLocalDataSource =>
       locator<BrandLocalDataSource>() as BrandLocalDataSourceImpl;
 
@@ -21,7 +24,4 @@ class BrandRemoteDataSourceImpl with BrandRemoteDataSource {
     await _brandService.fetchBrands();
     _cacheBrands();
   }
-
-  @override
-  List<Brand>? get brands => _brandService.brands;
 }

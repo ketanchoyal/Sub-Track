@@ -10,19 +10,18 @@ import 'package:sub_track/ui/resources/resources.dart';
 
 abstract class BrandLocalDataSource implements BrandDataSource {
   Future init();
-  late List<Brand>? _brands;
-  @override
-  List<Brand>? get brands => _brands;
-  Future updateCache(List<Brand> brands);
-  List<Brand>? _brandsFromJson(String str);
 }
 
 class BrandLocalDataSourceImpl with BrandLocalDataSource {
+  List<Brand>? _brands;
   final _fileServices = locator<FileService>();
   final _hiveService = locator<HiveInterface>();
   final _brandBoxName = "brands";
   get _brandBoxIsOpen => _hiveService.isBoxOpen(_brandBoxName);
   Box<Brand> get _brandBox => _hiveService.box<Brand>(_brandBoxName);
+
+  @override
+  List<Brand>? get brands => _brands;
 
   @override
   Future init() async {
@@ -47,14 +46,13 @@ class BrandLocalDataSourceImpl with BrandLocalDataSource {
     return;
   }
 
-  @override
+  // @override
   updateCache(List<Brand> brands) async {
     await _brandBox.putAll(
       {for (Brand brand in brands) brand.title: brand},
     );
   }
 
-  @override
   List<Brand>? _brandsFromJson(String str) =>
       Brands.fromMap(json.decode(str)).brands;
 }

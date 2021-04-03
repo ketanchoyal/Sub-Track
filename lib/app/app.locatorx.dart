@@ -44,12 +44,12 @@ setupLocator() async {
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
   // Data Sources
+  locator.registerSingleton<BrandLocalDataSource>(BrandLocalDataSourceImpl());
+  locator.registerSingleton<BrandRemoteDataSource>(BrandRemoteDataSourceImpl());
   locator.registerSingleton<SubscriptionLocalDataSource>(
       SubscriptionLocalDataSourceImpl());
   locator.registerSingleton<SubscriptionRemoteDataSource>(
       SubscriptionRemoteDataSourceImpl());
-  locator.registerSingleton<BrandLocalDataSource>(BrandLocalDataSourceImpl());
-  locator.registerSingleton<BrandRemoteDataSource>(BrandRemoteDataSourceImpl());
 
   // Repositories
   locator.registerSingleton<BrandRepo>(BrandRepoImpl());

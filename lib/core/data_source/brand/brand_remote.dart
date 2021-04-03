@@ -1,23 +1,27 @@
+import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/data_source/brand/brand_abstract.dart';
+import 'package:sub_track/core/data_source/brand/brand_local.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
+import 'package:sub_track/core/services/brand_service.dart';
 
-abstract class BrandRemoteDataSource implements BrandDataSource {
-  late List<Brand>? _brands;
-  @override
-  List<Brand>? get brands => _brands;
-  sendDataToLocalSource();
-}
+abstract class BrandRemoteDataSource implements BrandDataSource {}
 
 class BrandRemoteDataSourceImpl with BrandRemoteDataSource {
-  @override
-  fetchBrands() {
-    // TODO: implement fetchBrands
-    throw UnimplementedError();
+  BrandService get _brandService => locator<BrandService>();
+
+  BrandLocalDataSourceImpl get _brandLocalDataSource =>
+      locator<BrandLocalDataSourceImpl>();
+
+  _cacheBrands() {
+    if (brands != null) _brandLocalDataSource.updateCache(brands!);
   }
 
   @override
-  sendDataToLocalSource() {
-    // TODO: implement sendDataToLocalSource
-    throw UnimplementedError();
+  fetchBrands() async {
+    await _brandService.fetchBrands();
+    _cacheBrands();
   }
+
+  @override
+  List<Brand>? get brands => _brandService.brands;
 }

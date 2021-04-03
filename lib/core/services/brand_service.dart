@@ -5,16 +5,13 @@ import 'package:sub_track/ui/resources/resources.dart';
 import 'dart:convert';
 
 abstract class BrandService {
-  List<Brand>? _brands;
-
-  List<Brand>? get brands => _brands;
-
+  List<Brand>? get brands;
   fetchBrands();
-
-  List<Brand>? _brandsFromJson(String str);
 }
 
 class BrandServiceImpl with BrandService {
+  List<Brand>? _brands;
+
   @override
   fetchBrands() async {
     if (_brands == null) {
@@ -26,6 +23,8 @@ class BrandServiceImpl with BrandService {
   }
 
   @override
+  List<Brand>? get brands => _brands;
+
   List<Brand>? _brandsFromJson(String str) =>
       Brands.fromMap(json.decode(str)).brands;
 }

@@ -6,7 +6,7 @@ abstract class SubscriptionService {
   Stream<List<Subscription>> fetchSubscriptions();
   addSubscription(Subscription subscription);
   updateSubscription(Subscription updatedSubscription);
-  deleteSubscription(Subscription subscription);
+  deleteSubscription(String subscriptionId);
 }
 
 // NOTE Do not use await/async for Firestore transactions
@@ -20,7 +20,7 @@ class SubscriptionServiceImpl implements SubscriptionService {
   }
 
   @override
-  deleteSubscription(Subscription subscription) {
+  deleteSubscription(String subscriptionId) {
     // TODO: implement deleteSubscription
     throw UnimplementedError();
   }

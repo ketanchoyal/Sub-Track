@@ -24,7 +24,7 @@ class ConnectivityService extends StoppableService {
   }
 
   /// To check the connectivity once
-  Future<bool> checkConnectivity() {
+  Future<bool> checkConnectivity() async {
     start();
     return _connectivity!.checkConnection();
   }

@@ -5,10 +5,11 @@ import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
 
 abstract class SubscriptionRepo {
-  Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false});
-  Future addSubscription({required Subscription subsription});
+  Future<Stream<List<Subscription>>> fetchSubscriptions(
+      {bool forceFetch = false});
+  Future addSubscription({required Subscription subscription});
   Future deleteSubscription({required String subscriptionId});
-  Future updateSubscription({required Subscription subsription});
+  Future updateSubscription({required Subscription subscription});
 }
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
@@ -20,30 +21,31 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   ConnectivityService get _connectivityService =>
       locator<ConnectivityService>();
 
-  List<Subscription>? _subscriptions;
   @override
-  List<Subscription>? get subscriptions => _subscriptions;
-
-  @override
-  Future addSubscription({required Subscription subsription}) async {
-    // _brandRemoteDataSource.
+  Future<Stream<List<Subscription>>> fetchSubscriptions(
+      {bool forceFetch = false}) async {
+    if (await _connectivityService.checkConnectivity() && forceFetch) {
+      return _brandRemoteDataSource.fetchSubscriptions();
+    } else {
+      return _brandLocalDataSource.fetchSubscriptions();
+    }
   }
 
   @override
-  Future deleteSubscription({required String subscriptionId}) {
-    // TODO: implement deleteSubscription
-    throw UnimplementedError();
+  Future addSubscription({required Subscription subscription}) async {
+    await _brandLocalDataSource.addSubscription(subscription);
+    _brandRemoteDataSource.addSubscription(subscription);
   }
 
   @override
-  Future updateSubscription({required Subscription subsription}) {
-    // TODO: implement updateSubscription
-    throw UnimplementedError();
+  Future deleteSubscription({required String subscriptionId}) async {
+    await _brandLocalDataSource.deleteSubscription(subscriptionId);
+    _brandRemoteDataSource.deleteSubscription(subscriptionId);
   }
 
   @override
-  Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false}) {
-    // TODO: implement fetchSubscriptions
-    throw UnimplementedError();
+  Future updateSubscription({required Subscription subscription}) async {
+    await _brandLocalDataSource.updateSubscription(subscription);
+    _brandRemoteDataSource.updateSubscription(subscription);
   }
 }

@@ -26,8 +26,8 @@ class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
   }
 
   @override
-  deleteSubscription(Subscription subscription) async {
-    await _subscriptionService.deleteSubscription(subscription);
+  deleteSubscription(String subscriptionId) async {
+    await _subscriptionService.deleteSubscription(subscriptionId);
   }
 
   @override

@@ -75,9 +75,9 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   }
 
   @override
-  deleteSubscription(Subscription subscription) async {
+  deleteSubscription(String subscriptionId) async {
     if (_subscriptionsBoxIsOpen) {
-      await _subscriptionBox.delete(subscription.subscriptionId);
+      await _subscriptionBox.delete(subscriptionId);
     }
   }
 

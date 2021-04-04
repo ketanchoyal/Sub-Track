@@ -173,18 +173,41 @@ class HomeView extends StatelessWidget {
                     ],
                   ).paddingH(20),
                   Container(
-                    // height: 160,
+                    height: 160,
                     width: context.screenWidth,
-                    child: VxSwiper.builder(
-                      enableInfiniteScroll: false,
-                      itemCount: 5,
-                      isFastScrollingEnabled: true,
+                    child:
+                        // VxSwiper.builder(
+                        //   enableInfiniteScroll: false,
+                        //   itemCount: 5,
+                        //   isFastScrollingEnabled: true,
+                        //   scrollDirection: Axis.horizontal,
+                        //   enlargeCenterPage: true,
+                        //   viewportFraction: 0.45,
+                        //   height: 185,
+                        //   autoPlayAnimationDuration: Duration(milliseconds: 400),
+                        //   initialPage: 1,
+                        //   itemBuilder: (contex, index) => STUpcommingSub(
+                        //     subsription: Subscription(
+                        //       subscriptionId: "srwerw",
+                        //       brand: Brand(
+                        //         title: "Netflix",
+                        //         hex: "E50914",
+                        //         source:
+                        //             "https://brand.netflix.com/en/assets/brand-symbol",
+                        //         iconName: "netflix.svg",
+                        //         iconUrl:
+                        //             "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                        //       ),
+                        //       cost: 18.99,
+                        //       renewsEvery: RenewsEvery.Monthly,
+                        //       startedOn: DateTime.now(),
+                        //       notificationOn: NotifyOn.One_Week_Before,
+                        //     ),
+                        //   ),
+                        // ),
+                        ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      enlargeCenterPage: true,
-                      viewportFraction: 0.45,
-                      height: 185,
-                      autoPlayAnimationDuration: Duration(milliseconds: 400),
-                      initialPage: 1,
+                      itemCount: 5,
                       itemBuilder: (contex, index) => STUpcommingSub(
                         subsription: Subscription(
                           subscriptionId: "srwerw",
@@ -204,19 +227,6 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // ListView.builder(
-                    //   scrollDirection: Axis.horizontal,
-                    //   itemCount: 5,
-                    //   itemBuilder: (contex, index) => STUpcommingSub(
-                    //     name: "Google",
-                    //     colorHex: "000000",
-                    //     iconAsset: AppIconsAssets.google,
-                    //     percentage: 30,
-                    //     price: 18.99,
-                    //     remainingDays: 18,
-                    //     repeatEvery: "Month",
-                    //   ),
-                    // ),
                   ),
                   verticalSpaceSmall,
                   Row(

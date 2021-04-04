@@ -23,7 +23,7 @@ class STUpcommingSub extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 150,
-        width: 150,
+        width: 140,
         color: Colors.transparent,
         child: Stack(
           children: [

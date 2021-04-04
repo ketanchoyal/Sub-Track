@@ -1,39 +1,43 @@
+import 'dart:async';
+
 import 'package:sub_track/core/models/subscription/subscription.dart';
 
 abstract class SubscriptionService {
-  List<Subscription>? get subscriptions;
-  Future fetchSubscriptions();
-  Future addSubscription(Subscription subscription);
-  Future updateSubscription(Subscription updatedSubscription);
-  Future deleteSubscription(Subscription subscription);
+  Stream<List<Subscription>> fetchSubscriptions();
+  addSubscription(Subscription subscription);
+  updateSubscription(Subscription updatedSubscription);
+  deleteSubscription(Subscription subscription);
 }
 
+// NOTE Do not use await/async for Firestore transactions
 class SubscriptionServiceImpl implements SubscriptionService {
+  final StreamController<Subscription> _streamController =
+      StreamController<Subscription>.broadcast();
   @override
-  // TODO: implement subscriptions
-  List<Subscription>? get subscriptions => throw UnimplementedError();
-
-  @override
-  Future addSubscription(Subscription subscription) async {
+  addSubscription(Subscription subscription) {
     // TODO: implement addSubscription
     throw UnimplementedError();
   }
 
   @override
-  Future deleteSubscription(Subscription subscription) async {
+  deleteSubscription(Subscription subscription) {
     // TODO: implement deleteSubscription
     throw UnimplementedError();
   }
 
   @override
-  Future fetchSubscriptions() async {
-    // TODO: implement fetchSubscriptions
+  updateSubscription(Subscription updatedSubscription) {
+    // TODO: implement updateSubscription
     throw UnimplementedError();
   }
 
   @override
-  Future updateSubscription(Subscription updatedSubscription) async {
-    // TODO: implement updateSubscription
+  Stream<List<Subscription>> fetchSubscriptions() {
+    // TODO: implement fetchSubscriptions
     throw UnimplementedError();
+  }
+
+  destroy() {
+    _streamController.close();
   }
 }

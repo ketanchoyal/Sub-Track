@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hive/hive.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
@@ -10,7 +12,8 @@ abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
 }
 
 class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
-  List<Subscription>? _subscriptions;
+  final StreamController<List<Subscription>> _streamController =
+      StreamController<List<Subscription>>.broadcast();
   final _fileServices = locator<FileService>();
   final _hiveService = locator<HiveInterface>();
   final _subscriptionsBoxName = "subscriptions";
@@ -19,8 +22,7 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   Box<Subscription> get _subscriptionBox =>
       _hiveService.box<Subscription>(_subscriptionsBoxName);
 
-  @override
-  List<Subscription>? get subscriptions => _subscriptions;
+  // Map<String, Subscription> _map = Map();
 
   @override
   Future init() async {
@@ -43,15 +45,18 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   }
 
   @override
-  fetchSubscriptions() async {
+  Stream<List<Subscription>> fetchSubscriptions() {
+    _listenToSubscription();
+    return _streamController.stream;
+  }
+
+  //Real stuff here
+  _listenToSubscription() {
     if (_subscriptionsBoxIsOpen) {
-      List<Subscription> subscriptions = _subscriptionBox.values.toList();
-      if (subscriptions.isNotEmpty) {
-        _subscriptions = subscriptions;
-        return;
-      }
+      _subscriptionBox.watch().listen((event) {
+        _streamController.add(_subscriptionBox.values.toList());
+      });
     }
-    return;
   }
 
   // @override
@@ -74,5 +79,9 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
     if (_subscriptionsBoxIsOpen) {
       await _subscriptionBox.delete(subscription.subscriptionId);
     }
+  }
+
+  destroy() {
+    _streamController.close();
   }
 }

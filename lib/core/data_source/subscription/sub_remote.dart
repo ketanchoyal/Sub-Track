@@ -16,9 +16,6 @@ class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
       locator<SubscriptionLocalDataSource>();
 
   @override
-  List<Subscription>? get subscriptions => _subscriptionService.subscriptions;
-
-  @override
   addSubscription(Subscription subscription) async {
     await _subscriptionService.addSubscription(subscription);
   }
@@ -34,12 +31,12 @@ class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
   }
 
   @override
-  fetchSubscriptions() async {
-    await _subscriptionService.fetchSubscriptions();
+  updateSubscription(Subscription updatedSubscription) async {
+    await _subscriptionService.updateSubscription(updatedSubscription);
   }
 
   @override
-  updateSubscription(Subscription updatedSubscription) async {
-    await _subscriptionService.updateSubscription(updatedSubscription);
+  Stream<List<Subscription>> fetchSubscriptions() {
+    return _subscriptionService.fetchSubscriptions();
   }
 }

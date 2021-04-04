@@ -2,6 +2,7 @@ import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/data_source/brand/brand_local.dart';
 import 'package:sub_track/core/data_source/brand/brand_remote.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
+import 'package:sub_track/core/services/connectivity_service.dart';
 
 abstract class BrandRepo {
   List<Brand>? get brands;
@@ -14,6 +15,9 @@ class BrandRepoImpl implements BrandRepo {
   BrandRemoteDataSource get _brandRemoteDataSource =>
       locator<BrandRemoteDataSource>();
 
+  ConnectivityService get _connectivityService =>
+      locator<ConnectivityService>();
+
   List<Brand>? _brands;
 
   @override
@@ -21,10 +25,12 @@ class BrandRepoImpl implements BrandRepo {
 
   @override
   fetchBrands({bool forceFetch = false}) async {
-    if (forceFetch) {
-      await _brandRemoteDataSource.fetchBrands();
-      _brands = _brandRemoteDataSource.brands;
-      if (_brands == null) fetchBrands(forceFetch: false);
+    if (await _connectivityService.checkConnectivity()) {
+      if (forceFetch) {
+        await _brandRemoteDataSource.fetchBrands();
+        _brands = _brandRemoteDataSource.brands;
+        if (_brands == null) fetchBrands(forceFetch: false);
+      }
     } else {
       await _brandLocalDataSource.fetchBrands();
       _brands = _brandLocalDataSource.brands;

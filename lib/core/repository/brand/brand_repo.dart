@@ -25,12 +25,10 @@ class BrandRepoImpl implements BrandRepo {
 
   @override
   fetchBrands({bool forceFetch = false}) async {
-    if (await _connectivityService.checkConnectivity()) {
-      if (forceFetch) {
-        await _brandRemoteDataSource.fetchBrands();
-        _brands = _brandRemoteDataSource.brands;
-        if (_brands == null) fetchBrands(forceFetch: false);
-      }
+    if (await _connectivityService.checkConnectivity() && forceFetch) {
+      await _brandRemoteDataSource.fetchBrands();
+      _brands = _brandRemoteDataSource.brands;
+      if (_brands == null) fetchBrands(forceFetch: false);
     } else {
       await _brandLocalDataSource.fetchBrands();
       _brands = _brandLocalDataSource.brands;

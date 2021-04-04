@@ -32,7 +32,7 @@ dependencies:
 
   # Helpers
   modal_bottom_sheet: ^2.0.0
-  flutter_rounded_date_picker: ^2.0.0
+  flutter_rounded_date_picker: ^2.0.1
   keyboard_actions: ^3.4.0
   image_picker: ^0.7.4
 
@@ -45,19 +45,19 @@ dependencies:
   cross_connectivity: ^3.0.2
 
   #Local Storage
-  hive: ^2.0.1
+  hive: ^2.0.2
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.0.0
+  stacked: ^2.0.2
   stacked_hooks: ^0.2.0
-  stacked_services: ^0.8.0-nullsafety.1
+  stacked_services: ^0.8.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  stacked_generator: ^0.3.1-nullsafety.3
+  stacked_generator: ^0.3.2
   hive_generator: ^1.0.0
 
 # The following section is specific to Flutter.

@@ -17,7 +17,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
   final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
   late final ValueNotifier<Color> colorChangeNotifier;
   late Brand _brand;
-  late Subscription _subsription;
+  late Subscription _subscription;
   DateTime _date = DateTime.now();
   bool _isExpanded = false;
 
@@ -32,6 +32,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
 
   setBrand(Brand brand) {
     _brand = brand;
+    //Set color Chnage notifier on model ready
     colorChangeNotifier = ValueNotifier(brand.hex.toColor()!);
     notifyListeners();
   }

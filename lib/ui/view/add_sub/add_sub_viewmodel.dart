@@ -19,19 +19,21 @@ class AddSubViewModel extends BaseViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  List<Brand>? get brands => _brandService.brands!.where(
-        (element) {
-          if (_searchKeyword == null) {
-            return true;
-          }
+  List<Brand>? get brands => _brandService.brands == null
+      ? []
+      : _brandService.brands!.where(
+          (element) {
+            if (_searchKeyword == null) {
+              return true;
+            }
 
-          if (_searchKeyword!.trim().isEmpty) {
-            return true;
-          }
-          return element.title.contains(_searchKeyword!) ||
-              element.iconName!.contains(_searchKeyword!);
-        },
-      ).toList();
+            if (_searchKeyword!.trim().isEmpty) {
+              return true;
+            }
+            return element.title.contains(_searchKeyword!) ||
+                element.iconName!.contains(_searchKeyword!);
+          },
+        ).toList();
 
   fetchBrands() async {
     setBusy(true);

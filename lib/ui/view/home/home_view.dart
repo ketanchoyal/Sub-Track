@@ -280,6 +280,7 @@ class HomeView extends StatelessWidget {
                 bottom: 20,
                 right: 20,
                 child: FloatingActionButton(
+                  heroTag: "plusButton",
                   backgroundColor: AppColor.STPureWhite,
                   autofocus: true,
                   child: Padding(

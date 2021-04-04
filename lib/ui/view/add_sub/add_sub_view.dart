@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/cupertino_navigation_bar.dart';
+import 'package:sub_track/ui/dumb_widgets/loading.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 
@@ -76,24 +77,37 @@ class AddSubView extends StatelessWidget {
             ];
           },
           floatHeaderSlivers: true,
-          body: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: ListView.builder(
-              // physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: model.brands?.length ?? 0,
-              controller: ModalScrollController.of(context),
-              itemBuilder: (context, index) {
-                return STAddSubCard(
-                  onTap: () {
-                    model.navigateToAddDetails(brand: model.brands![index]);
-                  },
-                  brand: model.brands![index],
-                );
-              },
-            ),
-          ),
+          body: model.isBusy
+              ? Stack(
+                  children: [
+                    Center(
+                      child: Hero(
+                        tag: "plusButton",
+                        transitionOnUserGestures: true,
+                        child: STLoading(),
+                      ),
+                    ),
+                  ],
+                )
+              : MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView.builder(
+                    // physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model.brands?.length ?? 0,
+                    controller: ModalScrollController.of(context),
+                    itemBuilder: (context, index) {
+                      return STAddSubCard(
+                        onTap: () {
+                          model.navigateToAddDetails(
+                              brand: model.brands![index]);
+                        },
+                        brand: model.brands![index],
+                      );
+                    },
+                  ),
+                ),
         ),
       ),
     );

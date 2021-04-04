@@ -9,16 +9,9 @@ import 'package:sub_track/ui/theme/app_colors.dart';
 class NewSubscription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      backgroundColor: AppColor.STPureWhite,
-      child: Navigator(
-        onGenerateRoute: NewSubscriptionRouter().onGenerateRoute,
-        key: StackedService.nestedNavigationKey(2),
-      ),
-      // child: ExtendedNavigator<NewSubscriptionRouter>(
-      //   router: NewSubscriptionRouter(),
-      //   navigatorKey: StackedService.nestedNavigationKey(2),
-      // ),
+    return Navigator(
+      onGenerateRoute: NewSubscriptionRouter().onGenerateRoute,
+      key: StackedService.nestedNavigationKey(2),
     ).addModalContainer();
   }
 }

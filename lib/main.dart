@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 // FIXME Rename all abstract class (add interface to there name) and Remove Impl from there implemented classes
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays(
+      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   // await Firebase.initializeApp();
   await setupLocator();
   runApp(MyApp());

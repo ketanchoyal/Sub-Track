@@ -59,6 +59,14 @@ dev_dependencies:
   build_runner:
   stacked_generator: ^0.3.2
   hive_generator: ^1.0.0
+  flutter_launcher_icons: ^0.9.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "assets/launcher_icons/launcher_icon_android.png"
+  image_path_ios: "assets/launcher_icons/launcher_icon_ios.png"
+  adaptive_icon_background: "#ffffff"
 
 # The following section is specific to Flutter.
 flutter:
@@ -72,6 +80,7 @@ flutter:
     - assets/appIcons/
     - assets/json/
     - assets/images/3x/
+    - assets/launcher_icons/
     # - assets/images/button_icons
     # - assets/images/3x
 

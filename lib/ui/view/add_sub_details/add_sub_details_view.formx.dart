@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/models/brand/brand.dart';
 
 const String NameValueKey = 'name';
 const String CostValueKey = 'cost';
@@ -15,33 +16,42 @@ const String DescriptionValueKey = 'description';
 const String SharedWithValueKey = 'sharedWith';
 
 mixin $AddSubDetailsView on StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController costController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController sharedWithController = TextEditingController();
+  TextEditingController? nameController;
+  TextEditingController? costController;
+  TextEditingController? descriptionController;
+  TextEditingController? sharedWithController;
   final FocusNode nameFocusNode = FocusNode();
   final FocusNode costFocusNode = FocusNode();
   final FocusNode descriptionFocusNode = FocusNode();
   final FocusNode sharedWithFocusNode = FocusNode();
   final FocusNode colorFocusNode = FocusNode();
 
+  initControllers(FormViewModel model, Brand brand) {
+    model.setBusy(true);
+    nameController = TextEditingController(text: brand.title);
+    costController = TextEditingController(text: "0.0");
+    descriptionController = TextEditingController();
+    sharedWithController = TextEditingController();
+    model.setBusy(false);
+  }
+
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
   void listenToFormUpdated(FormViewModel model) {
-    nameController.addListener(() => _updateFormData(model));
-    costController.addListener(() => _updateFormData(model));
-    descriptionController.addListener(() => _updateFormData(model));
-    sharedWithController.addListener(() => _updateFormData(model));
+    nameController!.addListener(() => _updateFormData(model));
+    costController!.addListener(() => _updateFormData(model));
+    descriptionController!.addListener(() => _updateFormData(model));
+    sharedWithController!.addListener(() => _updateFormData(model));
   }
 
   /// Updates the formData on the FormViewModel
   void _updateFormData(FormViewModel model) => model.setData(
         model.formValueMap
           ..addAll({
-            NameValueKey: nameController.text,
-            CostValueKey: costController.text,
-            DescriptionValueKey: descriptionController.text,
-            SharedWithValueKey: sharedWithController.text,
+            NameValueKey: nameController!.text,
+            CostValueKey: costController!.text,
+            DescriptionValueKey: descriptionController!.text,
+            SharedWithValueKey: sharedWithController!.text,
           }),
       );
 
@@ -49,10 +59,10 @@ mixin $AddSubDetailsView on StatelessWidget {
   void disposeForm() {
     // The dispose function for a TextEditingController sets all listeners to null
 
-    nameController.dispose();
-    costController.dispose();
-    descriptionController.dispose();
-    sharedWithController.dispose();
+    nameController!.dispose();
+    costController!.dispose();
+    descriptionController!.dispose();
+    sharedWithController!.dispose();
   }
 }
 

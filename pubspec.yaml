@@ -35,6 +35,7 @@ dependencies:
   flutter_rounded_date_picker: ^2.0.1
   keyboard_actions: ^3.4.0
   image_picker: ^0.7.4
+  uuid: ^3.0.3
 
   #Firebase
   firebase_auth: ^1.0.1

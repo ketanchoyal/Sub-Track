@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class ColorPickerKeyboard extends StatelessWidget
-    with KeyboardCustomPanelMixin<Color>
+    with KeyboardCustomPanelMixin<Color?>
     implements PreferredSizeWidget {
-  final ValueNotifier<Color> notifier;
+  final ValueNotifier<Color?> notifier;
   static const double _kKeyboardHeight = 300;
 
   ColorPickerKeyboard({Key? key, required this.notifier}) : super(key: key);

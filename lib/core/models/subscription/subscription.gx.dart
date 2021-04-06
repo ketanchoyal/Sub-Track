@@ -26,14 +26,13 @@ class SubscriptionAdapter extends TypeAdapter<Subscription> {
       subscriptionId: fields[3] as String,
       startedOn: fields[7] as DateTime,
       notificationOn: fields[8],
-      iconType: fields[9],
     );
   }
 
   @override
   void write(BinaryWriter writer, Subscription obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.brand)
       ..writeByte(1)
@@ -51,9 +50,7 @@ class SubscriptionAdapter extends TypeAdapter<Subscription> {
       ..writeByte(7)
       ..write(obj.startedOn)
       ..writeByte(8)
-      ..write(obj.notificationOnValue)
-      ..writeByte(9)
-      ..write(obj.iconTypeValue);
+      ..write(obj.notificationOnValue);
   }
 
   @override

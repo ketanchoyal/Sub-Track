@@ -1,3 +1,4 @@
+import 'package:emojis/emoji.dart';
 import 'package:hive/hive.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
@@ -25,8 +26,8 @@ class Subscription extends HiveObject {
   final DateTime startedOn;
   @HiveField(8)
   final NotifyOn notificationOn;
-  @HiveField(9)
-  late final IconType iconType;
+
+  late final SubIconType iconType;
   late int? remaningDays;
 
   // TODO Research how to store amount paid until now with the date(hint: use map)
@@ -44,9 +45,13 @@ class Subscription extends HiveObject {
   }) {
     if (brand.iconUrl == null) {
       if (brand.iconName == null)
-        iconType = IconType.NONE;
+        iconType = SubIconType.NONE;
       else
-        iconType = IconType.EMOJI;
+        iconType = Emoji.isEmoji(brand.iconName!)
+            ? SubIconType.EMOJI
+            : SubIconType.NONE;
+    } else {
+      iconType = SubIconType.SVG;
     }
   }
 

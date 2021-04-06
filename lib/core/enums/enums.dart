@@ -18,7 +18,7 @@ enum NotifyOn {
   One_Week_Before,
 }
 
-enum IconType {
+enum SubIconType {
   SVG,
   EMOJI,
   NONE,

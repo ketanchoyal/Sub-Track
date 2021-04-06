@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/ui/dumb_widgets/buttons.dart';
+import 'package:sub_track/ui/dumb_widgets/loading.dart';
 import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
@@ -115,10 +115,7 @@ class SelectIconView extends StatelessWidget {
                 if (model.iconType == IconType.Services)
                   if (model.isBusy)
                     Center(
-                      child: CupertinoActivityIndicator(
-                        animating: model.isBusy,
-                        radius: 15,
-                      ),
+                      child: STLoading(),
                     )
                   else
                     Container(
@@ -134,21 +131,26 @@ class SelectIconView extends StatelessWidget {
                         ),
                         itemCount: model.brands?.length ?? 0,
                         itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 0,
-                            // color: Colors.transparent,
-                            shape: kRoundedCardBorder(
-                                side: kDefaultCardBorderSide),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.network(
-                                model.brands![index].iconUrl!,
-                                semanticsLabel: model.brands![index].iconName,
-                                placeholderBuilder: (BuildContext context) =>
-                                    const CupertinoActivityIndicator(
-                                  animating: true,
+                          return GestureDetector(
+                            onTap: () {
+                              model.selectService(model.brands![index]);
+                            },
+                            child: Card(
+                              elevation: 0,
+                              // color: Colors.transparent,
+                              shape: kRoundedCardBorder(
+                                  side: kDefaultCardBorderSide),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: SvgPicture.network(
+                                  model.brands![index].iconUrl!,
+                                  semanticsLabel: model.brands![index].iconName,
+                                  placeholderBuilder: (BuildContext context) =>
+                                      const CupertinoActivityIndicator(
+                                    animating: true,
+                                  ),
+                                  color: model.brands![index].hex.toColor(),
                                 ),
-                                color: model.brands![index].hex.toColor(),
                               ),
                             ),
                           );
@@ -166,48 +168,38 @@ class SelectIconView extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          EmojiGroup(
+                          EmojisGroup(
                             categoryName: "Smiley",
                             emojis: model.simileyEmojiList,
-                            onPressed: (emoji) {
-                              print(emoji);
-                            },
+                            onPressed: model.selectEmoji,
                             onShowMorePressed: model.toogleShowMoreSmiley,
                             showMore: model.showMoreSmiley,
                           ),
-                          EmojiGroup(
+                          EmojisGroup(
                             categoryName: "Objects",
                             emojis: model.objectEmojiList,
-                            onPressed: (emoji) {
-                              print(emoji);
-                            },
+                            onPressed: model.selectEmoji,
                             onShowMorePressed: model.toogleShowMoreObjects,
                             showMore: model.showMoreObject,
                           ),
-                          EmojiGroup(
+                          EmojisGroup(
                             categoryName: "Symbols",
                             emojis: model.symbolEmojiList,
-                            onPressed: (emoji) {
-                              print(emoji);
-                            },
+                            onPressed: model.selectEmoji,
                             onShowMorePressed: model.toogleShowMoreSymbols,
                             showMore: model.showMoreSymbols,
                           ),
-                          EmojiGroup(
+                          EmojisGroup(
                             categoryName: "Flags",
                             emojis: model.flagEmojiList,
-                            onPressed: (emoji) {
-                              print(emoji);
-                            },
+                            onPressed: model.selectEmoji,
                             onShowMorePressed: model.toogleShowMoreFlags,
                             showMore: model.showMoreFlags,
                           ),
-                          EmojiGroup(
+                          EmojisGroup(
                             categoryName: "People",
                             emojis: model.peopleEmojiList,
-                            onPressed: (emoji) {
-                              print(emoji);
-                            },
+                            onPressed: model.selectEmoji,
                             onShowMorePressed: model.toogleShowMorePeople,
                             showMore: model.showMorePeople,
                           ),

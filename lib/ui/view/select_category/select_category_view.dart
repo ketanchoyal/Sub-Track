@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/ui/models/category.dart';
-import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/select_category/widgets/category_view_element.dart';
 import './select_category_viewmodel.dart';
@@ -55,7 +53,7 @@ class SelectCategoryView extends StatelessWidget {
             SingleChildScrollView(
               child: CupertinoFormSection.insetGrouped(
                 margin: EdgeInsets.all(8),
-                children: Category.categories
+                children: model.categories
                     .map(
                       (e) => SingleCategoryViewElement(
                         category: e,

@@ -1,10 +1,10 @@
+import 'package:emojis/emoji.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-class EmojiGroup extends StatelessWidget {
-  const EmojiGroup({
+class EmojisGroup extends StatelessWidget {
+  const EmojisGroup({
     Key? key,
     required this.emojis,
     required this.showMore,
@@ -15,9 +15,9 @@ class EmojiGroup extends StatelessWidget {
 
   // Approx box size
   final double iconBoxSize = 60;
-  final List emojis;
+  final List<Emoji> emojis;
   final bool showMore;
-  final Function(dynamic) onPressed;
+  final Function(Emoji) onPressed;
   final Function() onShowMorePressed;
   final String categoryName;
 

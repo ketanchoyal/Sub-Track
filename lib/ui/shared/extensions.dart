@@ -33,6 +33,9 @@ extension ColorExtension on String {
 
 extension ColorX on Color {
   // ColorExtensions._();
+  String toHex() {
+    return '#${this.value.toRadixString(16)}';
+  }
 
   Color darken([int percent = 10]) {
     assert(1 <= percent && percent <= 100, '');

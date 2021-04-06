@@ -34,6 +34,14 @@ class SelectIconViewModel extends BaseViewModel with $SharedVariables {
     setBusy(false);
   }
 
+  selectEmoji(Emoji emoji) {
+    pop(result: emoji.char);
+  }
+
+  selectService(Brand brand) {
+    pop(result: brand);
+  }
+
   String? _searchKeyword;
   bool isSearching = false;
 
@@ -57,8 +65,12 @@ class SelectIconViewModel extends BaseViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  pop() {
-    $navigationService.back(id: 2);
+  selectNone() {
+    pop(result: "none");
+  }
+
+  pop({result}) {
+    $navigationService.back(id: 2, result: result);
   }
 
   List<Emoji> get filteredEmojiList => Emoji.all().where(

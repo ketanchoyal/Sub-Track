@@ -60,14 +60,14 @@ extension NotifyOnX on NotifyOn {
   }
 }
 
-extension IconTypeX on IconType {
+extension IconTypeX on SubIconType {
   String get value {
     switch (this) {
-      case IconType.SVG:
+      case SubIconType.SVG:
         return "svg";
-      case IconType.EMOJI:
+      case SubIconType.EMOJI:
         return "emoji";
-      case IconType.NONE:
+      case SubIconType.NONE:
         return "none";
     }
   }
@@ -119,16 +119,16 @@ extension EnumString on String? {
   }
 
   /// IconType enum from String
-  IconType get enumIT {
+  SubIconType get enumIT {
     switch (this) {
       case "svg":
-        return IconType.SVG;
+        return SubIconType.SVG;
       case "emoji":
-        return IconType.EMOJI;
+        return SubIconType.EMOJI;
       case "none":
-        return IconType.NONE;
+        return SubIconType.NONE;
       default:
-        return IconType.NONE;
+        return SubIconType.NONE;
     }
   }
 }

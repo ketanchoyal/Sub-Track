@@ -31,7 +31,7 @@ mixin $AddSubDetailsView on StatelessWidget {
     nameController = TextEditingController(text: brand.title);
     costController = TextEditingController(text: "0.0");
     descriptionController = TextEditingController();
-    sharedWithController = TextEditingController();
+    sharedWithController = TextEditingController(text: "0");
     model.setBusy(false);
   }
 

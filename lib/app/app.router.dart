@@ -20,7 +20,7 @@ import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';
 import '../ui/view/login/login_view.dart';
 import '../ui/view/on_boarding/on_boarding_view.dart';
-import '../ui/view/other_select/other_select.dart';
+import '../ui/view/other_select/other_select_view.dart';
 import '../ui/view/register/register_view.dart';
 import '../ui/view/select_category/select_category_view.dart';
 import '../ui/view/select_icon/select_icon_view.dart';

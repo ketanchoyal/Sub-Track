@@ -357,6 +357,12 @@ class Emoji {
         orElse: () => Emoji.inCaseOfNull());
   }
 
+  /// Returns if [char] is emoji or not.
+  /// use [Emoji.char]
+  static bool isEmoji(String char) {
+    return emojis.where((Emoji emoji) => emoji.char == char).isNotEmpty;
+  }
+
   /// Returns Emoji by [name]
   factory Emoji.byName(String name) {
     name = name.toLowerCase(); // todo: searchable name

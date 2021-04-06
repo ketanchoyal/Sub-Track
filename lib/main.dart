@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import 'app/app.locatorx.dart';
 import 'app/app.router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -50,9 +51,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      // home: AddSubDetailsView(),
+      // home: AddSubView(),
       navigatorKey: StackedService.navigatorKey,
-      onGenerateRoute: StackedRouterX().onGenerateRoute,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }
+
+// NOTE Find a way to use Cupertino Bottom modal sheet
+// without afffecting CupertinoTextField Focus Node thing
+// FIXME

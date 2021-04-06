@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
@@ -10,6 +11,7 @@ import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import './home_viewmodel.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -289,6 +291,12 @@ class HomeView extends StatelessWidget {
                   ),
                   onPressed: () {
                     model.navigateToAddSub();
+                    // showCupertinoModalBottomSheet(
+                    //   expand: true,
+                    //   context: context,
+                    //   backgroundColor: Colors.transparent,
+                    //   builder: (context) => AddSubView(),
+                    // );
                   },
                 ),
               ),

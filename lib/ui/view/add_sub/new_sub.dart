@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/shared/shared.dart';
-import 'package:sub_track/ui/theme/app_colors.dart';
 
 class NewSubscription extends StatelessWidget {
   @override
@@ -12,6 +10,6 @@ class NewSubscription extends StatelessWidget {
     return Navigator(
       onGenerateRoute: NewSubscriptionRouter().onGenerateRoute,
       key: StackedService.nestedNavigationKey(2),
-    ).addModalContainer();
+    );
   }
 }

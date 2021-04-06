@@ -88,13 +88,25 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                   ],
                 )
               : KeyboardActions(
-                  tapOutsideToDismiss: true,
-                  disableScroll: true,
+                  // tapOutsideToDismiss: true,
+                  // disableScroll: true,
                   config: KeyboardActionsConfig(
                     keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
                     keyboardBarColor: Colors.grey[200],
-                    nextFocus: false,
+                    nextFocus: true,
                     actions: [
+                      KeyboardActionsItem(
+                        focusNode: nameFocusNode,
+                        displayArrows: true,
+                      ),
+                      KeyboardActionsItem(
+                        focusNode: costFocusNode,
+                        displayArrows: true,
+                      ),
+                      KeyboardActionsItem(
+                        focusNode: descriptionFocusNode,
+                        displayArrows: true,
+                      ),
                       KeyboardActionsItem(
                         focusNode: colorFocusNode,
                         displayDoneButton: true,
@@ -102,6 +114,10 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                           notifier: model.colorChangeNotifier,
                         ),
                       ),
+                      // KeyboardActionsItem(
+                      //   focusNode: sharedWithFocusNode,
+                      //   displayArrows: true,
+                      // ),
                     ],
                   ),
                   child: ListView(

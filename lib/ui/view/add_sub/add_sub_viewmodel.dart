@@ -1,9 +1,7 @@
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
-import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/shared/mixins.dart';

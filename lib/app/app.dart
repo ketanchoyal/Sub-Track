@@ -1,16 +1,12 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:sub_track/core/services/brand_service.dart';
-import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
-import 'package:sub_track/ui/view/add_sub/new_sub.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
+import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
 import 'package:sub_track/ui/view/on_boarding/on_boarding_view.dart';
-import 'package:sub_track/ui/view/on_boarding/on_boarding_viewmodel.dart';
 import 'package:sub_track/ui/view/other_select/other_select_view.dart';
 import 'package:sub_track/ui/view/register/register_view.dart';
 import 'package:sub_track/ui/view/select_category/select_category_view.dart';

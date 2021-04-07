@@ -10,11 +10,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/cupertino_modal_transition.dart';
+import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
 
 import '../core/models/brand/brand.dart';
 import '../ui/shared/shared.dart';
 import '../ui/view/add_sub/add_sub_view.dart';
-import '../ui/view/add_sub/new_sub.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';
 import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';

@@ -12,6 +12,8 @@ class AddSubViewModel extends BaseViewModel with $SharedVariables {
   final _uiServices = locator<UIServices>();
   final _brandService = locator<BrandService>();
 
+  UIServices get uiService => _uiServices;
+
   String? _searchKeyword;
 
   searchKeyword(String? value) {

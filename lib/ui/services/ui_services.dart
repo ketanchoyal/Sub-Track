@@ -2,7 +2,17 @@
 // for some animation or streams etc..
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:sub_track/ui/view/home/home_view.dart';
+
 class UIServices {
+  late ScrollController _scrollController;
+
+  set scrollController(value) => _scrollController = value;
+
+  ScrollController get scrollController => _scrollController;
+
+  // static late final GlobalKey<HomeViewState> homeViewKey;
   // StreamController<double> _extraTopPadding =
   //     StreamController<double>.broadcast(sync: true);
 

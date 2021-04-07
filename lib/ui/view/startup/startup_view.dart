@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/dumb_widgets/loading.dart';
-import 'package:sub_track/ui/shared/shared.dart';
 import './startup_viewmodel.dart';
 
 class StartUpView extends StatelessWidget {

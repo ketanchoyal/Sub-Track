@@ -8,8 +8,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import '../core/models/brand/brand.dart';
 import '../ui/shared/shared.dart';
@@ -25,6 +25,11 @@ import '../ui/view/register/register_view.dart';
 import '../ui/view/select_category/select_category_view.dart';
 import '../ui/view/select_icon/select_icon_view.dart';
 import '../ui/view/startup/startup_view.dart';
+
+import 'dart:ui';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+
 part 'app.routerx.dart';
 
 class Routes {
@@ -260,5 +265,6 @@ class OtherSelectViewArguments {
   final Key? key;
   final dynamic selected;
   final OtherDetailSelectType type;
-  OtherSelectViewArguments({this.key, this.selected, required this.type});
+  OtherSelectViewArguments(
+      {this.key, required this.selected, required this.type});
 }

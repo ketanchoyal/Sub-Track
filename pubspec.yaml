@@ -31,7 +31,7 @@ dependencies:
     path: ./packages/emojis
 
   # Helpers
-  modal_bottom_sheet: ^2.0.0
+  # modal_bottom_sheet: ^2.0.0
   flutter_rounded_date_picker: ^2.0.1
   keyboard_actions: ^3.4.0
   image_picker: ^0.7.4

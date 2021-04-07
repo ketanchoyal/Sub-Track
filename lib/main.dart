@@ -53,11 +53,11 @@ class MyApp extends StatelessWidget {
       ),
       // home: AddSubView(),
       navigatorKey: StackedService.navigatorKey,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
+      onGenerateRoute: StackedRouterX().onGenerateRoute,
     );
   }
 }
 
-// NOTE Find a way to use Cupertino Bottom modal sheet
-// without afffecting CupertinoTextField Focus Node thing
+// NOTE
+// Why HomeView state get reset on modal pop up
 // FIXME

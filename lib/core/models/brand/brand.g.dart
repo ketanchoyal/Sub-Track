@@ -20,7 +20,7 @@ class BrandAdapter extends TypeAdapter<Brand> {
       title: fields[0] as String,
       hex: fields[1] as String,
       source: fields[2] as String?,
-      iconName: fields[3] as String,
+      iconName: fields[3] as String?,
       iconUrl: fields[4] as String?,
     );
   }

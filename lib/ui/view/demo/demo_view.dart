@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
-import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/segment_controller.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
@@ -195,7 +192,7 @@ class _DemoViewState extends State<DemoView> {
             ],
           ),
         ),
-      ).addModalContainer(additionalTopPadding: 100),
+      ),
     );
   }
 }

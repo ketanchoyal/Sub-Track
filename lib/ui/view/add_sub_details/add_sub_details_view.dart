@@ -10,7 +10,6 @@ import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/ui/dumb_widgets/loading.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/dumb_widgets/textfield_outline.dart';
-import 'package:sub_track/ui/resources/resources.dart';
 
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.formx.dart';
@@ -121,6 +120,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                     ],
                   ),
                   child: ListView(
+                    controller: model.scrollController,
                     children: [
                       CupertinoFormSection.insetGrouped(
                         margin: EdgeInsets.all(8),

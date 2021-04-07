@@ -7,22 +7,24 @@ import 'package:sub_track/ui/shared/shared.dart';
 
 class OtherSelectViewModel extends BaseViewModel with $SharedVariables {
   late OtherDetailSelectType _type;
-  late dynamic? _selected;
+  late String _selected;
   late List _options;
 
   List get options => _options;
-  get selected => _selected;
+  String get selected => _selected;
 
-  pop({dynamic? selected}) => $navigationService.back(id: 2, result: selected);
+  pop({dynamic? selected}) =>
+      $navigationService.back(id: 2, result: selected ?? _selected);
 
-  setupType(OtherDetailSelectType value, {dynamic? selected}) {
+  setupType(OtherDetailSelectType value, {dynamic selected}) {
     _type = value;
-    _selected = selected;
     switch (_type) {
       case OtherDetailSelectType.Renews_Every:
+        _selected = (selected as RenewsEvery).value;
         _options = RenewsEvery.values;
         break;
       case OtherDetailSelectType.Notification:
+        _selected = (selected as NotifyOn).value;
         _options = NotifyOn.values;
         break;
     }

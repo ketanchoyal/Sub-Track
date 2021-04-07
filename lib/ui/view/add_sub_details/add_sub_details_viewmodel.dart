@@ -8,6 +8,7 @@ import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
+import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:uuid/uuid.dart';
@@ -18,7 +19,8 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     setBusy(true);
   }
   final _dialogService = locator<DialogService>();
-  // final _uiServices = locator<UIServices>();
+  final _uiServices = locator<UIServices>();
+  get scrollController => _uiServices.scrollController;
   // final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
   late final ValueNotifier<Color?> colorChangeNotifier;
   late Brand _brand;
@@ -151,7 +153,12 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     var result = await $navigationService.navigateTo(
       NewSubscriptionRoutes.otherSelectView,
       id: 2,
-      arguments: OtherSelectViewArguments(type: type),
+      arguments: OtherSelectViewArguments(
+        type: type,
+        selected: type == OtherDetailSelectType.Notification
+            ? _subscription.notificationOn
+            : _subscription.renewsEvery,
+      ),
     );
     switch (type) {
       case OtherDetailSelectType.Renews_Every:

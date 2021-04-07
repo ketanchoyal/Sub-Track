@@ -7,12 +7,12 @@ class OtherOptionViewElement extends StatelessWidget {
     Key? key,
     required this.option,
     required this.onTap,
-    this.selected,
+    this.selected = "",
   }) : super(key: key);
 
   final String option;
   final Function()? onTap;
-  final dynamic? selected;
+  final String selected;
 
   @override
   Widget build(BuildContext context) {

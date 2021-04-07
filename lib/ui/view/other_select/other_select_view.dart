@@ -7,9 +7,9 @@ import 'other_select_viewmodel.dart';
 import 'widgets/other_option_element.dart';
 
 class OtherSelectView extends StatelessWidget {
-  const OtherSelectView({Key? key, this.selected, required this.type})
+  const OtherSelectView({Key? key, required this.selected, required this.type})
       : super(key: key);
-  final dynamic? selected;
+  final dynamic selected;
   final OtherDetailSelectType type;
 
   @override
@@ -53,6 +53,7 @@ class OtherSelectView extends StatelessWidget {
                 children: model
                     .getOptions()
                     .map((e) => OtherOptionViewElement(
+                          selected: model.selected,
                           onTap: () {
                             model.pop(selected: e[1]);
                           },

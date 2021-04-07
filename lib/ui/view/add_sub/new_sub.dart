@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
+import 'package:sub_track/ui/dumb_widgets/cupertino_modal_container.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
-import 'package:sub_track/ui/shared/shared.dart';
 
 class NewSubscription extends StatefulWidget {
   @override

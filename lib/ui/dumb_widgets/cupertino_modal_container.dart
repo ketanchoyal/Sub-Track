@@ -1,54 +1,51 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:sub_track/ui/shared/shared.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-// /// Cupertino Bottom Sheet Container
-// ///
-// /// Clip the child widget to rectangle with top rounded corners and adds
-// /// top padding(+safe area padding). This padding [_kPreviousPageVisibleOffset]
-// /// is the height that will be displayed from previous route.
+/// Inspiration taken from [modal_bottom_sheet](https://github.com/jamesblasco/modal_bottom_sheet)
+class CupertinoBottomSheetContainer extends StatelessWidget {
+  /// Widget to render
+  final Widget child;
+  final Color? backgroundColor;
 
-// class CupertinoModalContainer extends StatelessWidget {
-//   final Widget child;
-//   final Color? backgroundColor;
-//   final Radius topRadius;
-//   final BoxShadow? shadow;
-//   final double? additionalTopPadding;
+  /// Add padding to the top of [child], this is also the height of visible
+  /// content behind [child]
+  ///
+  /// Defaults to 10
+  final double topPadding;
+  const CupertinoBottomSheetContainer(
+      {Key? key,
+      required this.child,
+      this.backgroundColor,
+      this.topPadding = 10})
+      : super(key: key);
 
-//   const CupertinoModalContainer({
-//     Key? key,
-//     required this.child,
-//     this.backgroundColor,
-//     required this.topRadius,
-//     this.shadow,
-//     this.additionalTopPadding,
-//   }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final topSafeAreaPadding = MediaQuery.of(context).padding.top;
+    final topPadding = this.topPadding + topSafeAreaPadding;
+    final radius = Radius.circular(12);
+    final shadow =
+        BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5);
+    final backgroundColor = this.backgroundColor ??
+        CupertinoTheme.of(context).scaffoldBackgroundColor;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final topSafeAreaPadding = MediaQuery.of(context).padding.top;
-//     final topPadding = kPreviousPageVisibleOffset +
-//         topSafeAreaPadding +
-//         (additionalTopPadding ?? 0);
+    final decoration =
+        BoxDecoration(color: backgroundColor, boxShadow: [shadow]);
 
-//     final _shadow = shadow ?? kDefaultBoxShadow;
-//     // BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5);
-//     final _backgroundColor =
-//         backgroundColor ?? CupertinoTheme.of(context).scaffoldBackgroundColor;
-//     return Padding(
-//       padding: EdgeInsets.only(top: topPadding),
-//       child: ClipRRect(
-//         borderRadius: BorderRadius.vertical(top: topRadius),
-//         child: Container(
-//           decoration:
-//               BoxDecoration(color: _backgroundColor, boxShadow: [_shadow]),
-//           width: double.infinity,
-//           child: MediaQuery.removePadding(
-//             context: context,
-//             removeTop: true, //Remove top Safe Area
-//             child: child,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+    return Padding(
+      padding: EdgeInsets.only(top: topPadding),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: radius, topRight: radius),
+        child: Container(
+          decoration: decoration,
+          width: double.infinity,
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true, // Remove top Safe Area
+            child: child,
+          ),
+        ),
+      ),
+    );
+  }
+}

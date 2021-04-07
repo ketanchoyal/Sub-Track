@@ -200,7 +200,7 @@ class _STOnBoarding extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment(-0.9, 1.0),
+            alignment: Alignment(-0.9, 0.98),
             child: Hero(
               tag: "counter",
               transitionOnUserGestures: true,
@@ -242,7 +242,7 @@ class _STOnBoarding extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment(0.9, 1.0),
+            alignment: Alignment(0.9, 0.95),
             child: Hero(
               tag: "nextBtn",
               transitionOnUserGestures: true,

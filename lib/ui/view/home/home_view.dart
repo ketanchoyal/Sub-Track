@@ -8,7 +8,6 @@ import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
 import 'package:sub_track/ui/resources/resources.dart';
-import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import './home_viewmodel.dart';
@@ -42,11 +41,6 @@ class HomeView extends StatelessWidget {
       );
 
   final bool showGraph = false;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // UIServices.homeViewKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {

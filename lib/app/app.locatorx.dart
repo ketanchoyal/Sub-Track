@@ -18,6 +18,7 @@ import 'package:sub_track/core/repository/brand/brand_repo.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
 import 'package:sub_track/core/services/file_service.dart';
+import 'package:sub_track/core/services/notification_service.dart';
 import 'package:sub_track/core/services/stoppable_services.dart';
 import 'package:sub_track/core/services/subscription_service.dart';
 
@@ -36,6 +37,7 @@ setupLocator() async {
   // App Dependencies
   // **************************************************************************
   // Services
+  locator.registerSingleton<NotificationService>(NotificationServiceImpl());
   locator.registerSingleton<FileService>(FileServiceImpl());
   locator.registerLazySingleton<StoppableService>(() => ConnectivityService());
   locator.registerSingleton<BrandService>(BrandServiceImpl());

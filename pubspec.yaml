@@ -27,6 +27,7 @@ dependencies:
   # Graphic related
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.21.0-nullsafety.0
+  bitmap: ^0.1.2
   emojis:
     path: ./packages/emojis
 
@@ -36,6 +37,7 @@ dependencies:
   keyboard_actions: ^3.4.0
   image_picker: ^0.7.4
   uuid: ^3.0.3
+  flutter_local_notifications: ^5.0.0+1
 
   #Firebase
   firebase_auth: ^1.0.1

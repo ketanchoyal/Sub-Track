@@ -35,16 +35,25 @@ class Subscription extends HiveObject {
   Map<DateTime, double> _payments = {};
 
   calculatePayments() async {
+    double paidCost = cost;
+    if (sharedWith != null) {
+      if (sharedWith == 0) {
+        paidCost = cost;
+      } else {
+        paidCost = (cost / sharedWith!);
+      }
+    }
+
     switch (renewsEvery) {
       case RenewsEvery.Never:
-        _payments.addAll({startedOn.date: cost});
+        _payments.addAll({startedOn.date: paidCost});
         break;
       case RenewsEvery.Daily:
         // Shows Latest Upcomming RENEW: yes
         Duration duration = DateTime.now().difference(startedOn);
         int noOfPaymentsMadeUntilNow = duration.inDays.abs();
         for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
-          _payments.addAll({startedOn.add(Duration(days: i)).date: cost});
+          _payments.addAll({startedOn.add(Duration(days: i)).date: paidCost});
         }
         break;
       case RenewsEvery.Weekly:
@@ -52,7 +61,8 @@ class Subscription extends HiveObject {
         Duration duration = DateTime.now().difference(startedOn);
         int noOfPaymentsMadeUntilNow = duration.inWeeks.abs();
         for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
-          _payments.addAll({startedOn.add(Duration(days: i * 7)).date: cost});
+          _payments
+              .addAll({startedOn.add(Duration(days: i * 7)).date: paidCost});
         }
         break;
       case RenewsEvery.Biweekly:
@@ -60,7 +70,8 @@ class Subscription extends HiveObject {
         Duration duration = DateTime.now().difference(startedOn);
         int noOfPaymentsMadeUntilNow = duration.inBiWeekly.abs();
         for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
-          _payments.addAll({startedOn.add(Duration(days: i * 14)).date: cost});
+          _payments
+              .addAll({startedOn.add(Duration(days: i * 14)).date: paidCost});
         }
         break;
       case RenewsEvery.Monthly:
@@ -68,7 +79,7 @@ class Subscription extends HiveObject {
         DateTime temp = startedOn.addMonths(-1);
         do {
           temp = temp.addMonths(1);
-          _payments.addAll({temp.date: cost});
+          _payments.addAll({temp.date: paidCost});
         } while (!temp.isAtSameMonthAs(DateTime.now()) && !temp.isToday);
         break;
       case RenewsEvery.Quarterly:
@@ -76,7 +87,7 @@ class Subscription extends HiveObject {
         DateTime temp = startedOn.addQuarters(-1);
         do {
           temp = temp.addQuarters(1);
-          _payments.addAll({temp.date: cost});
+          _payments.addAll({temp.date: paidCost});
         } while (temp.difference(DateTime.now()).isNegative &&
             !temp.isAtSameMonthAs(DateTime.now()));
         break;
@@ -85,7 +96,7 @@ class Subscription extends HiveObject {
         DateTime temp = startedOn.addHalfYear(-1);
         do {
           temp = temp.addHalfYear(1);
-          _payments.addAll({temp.date: cost});
+          _payments.addAll({temp.date: paidCost});
         } while (!temp.isAtSameMonthAs(DateTime.now()) &&
             !temp.isToday &&
             !temp.isAtSameYearAs(DateTime.now()));
@@ -96,7 +107,7 @@ class Subscription extends HiveObject {
         DateTime temp = startedOn.addYears(-1);
         do {
           temp = temp.addYears(1);
-          _payments.addAll({temp.date: cost});
+          _payments.addAll({temp.date: paidCost});
         } while (!temp.isAtSameMonthAs(DateTime.now()) &&
             !temp.isToday &&
             !temp.isAtSameYearAs(DateTime.now()));
@@ -104,7 +115,7 @@ class Subscription extends HiveObject {
     }
   }
 
-  calulateRemaningDays() async {
+  calculateRemaningDays() async {
     if (_payments.isEmpty) await calculatePayments();
 
     DateTime latestPayment = _payments.entries.last.key;

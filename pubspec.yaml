@@ -37,6 +37,8 @@ dependencies:
   keyboard_actions: ^3.4.0
   image_picker: ^0.7.4
   uuid: ^3.0.3
+  time: ^2.0.0
+  dart_date: ^1.1.0-nullsafety.0
   flutter_local_notifications: ^5.0.0+1
 
   #Firebase

@@ -103,3 +103,86 @@ extension ForBottomModalSheet on Widget {
         ),
       );
 }
+
+// From time package
+extension DurationX on Duration {
+  static const int daysPerWeek = 7;
+
+  int get inBiWeekly => (inDays / (daysPerWeek * 2)).ceil();
+
+  int get inWeeks => (inDays / daysPerWeek).ceil();
+}
+
+// From dart_date package
+extension DateTimeX on DateTime {
+  DateTime get clone => DateTime.fromMicrosecondsSinceEpoch(
+        microsecondsSinceEpoch,
+        isUtc: isUtc,
+      );
+  DateTime get date => DateTime(year, month, day);
+
+  DateTime addMonths(int amount) => clone._setMonth(month + amount);
+
+  DateTime addHalfYear(int amount) => addMonths(amount * 6);
+
+  DateTime addYears(int amount) => clone._setYear(year + amount);
+
+  /// Add a certain amount of quarters to this date
+  DateTime addQuarters(int amount) => addMonths(amount * 3);
+
+  bool isAtSameYearAs(DateTime other) => year == other.year;
+  bool isAtSameMonthAs(DateTime other) =>
+      isAtSameYearAs(other) && month == other.month;
+
+  bool get isToday {
+    return _calculateDifference(this) == 0;
+  }
+
+  static int _calculateDifference(DateTime date) {
+    final now = DateTime.now();
+    return DateTime(date.year, date.month, date.day)
+        .difference(DateTime(now.year, now.month, now.day))
+        .inDays;
+  }
+
+  DateTime _setMonth(
+    int month, [
+    int? day,
+    int? hour,
+    int? minute,
+    int? second,
+    int? millisecond,
+    int? microsecond,
+  ]) =>
+      DateTime(
+        year,
+        month,
+        day ?? this.day,
+        hour ?? this.hour,
+        minute ?? this.minute,
+        second ?? this.second,
+        millisecond ?? this.millisecond,
+        microsecond ?? this.microsecond,
+      );
+
+  DateTime _setYear(
+    int year, [
+    int? month,
+    int? day,
+    int? hour,
+    int? minute,
+    int? second,
+    int? millisecond,
+    int? microsecond,
+  ]) =>
+      DateTime(
+        year,
+        month ?? this.month,
+        day ?? this.day,
+        hour ?? this.hour,
+        minute ?? this.minute,
+        second ?? this.second,
+        millisecond ?? this.millisecond,
+        microsecond ?? this.microsecond,
+      );
+}

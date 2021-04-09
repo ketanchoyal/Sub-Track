@@ -1,7 +1,10 @@
 import 'package:emojis/emoji.dart';
 import 'package:hive/hive.dart';
 import 'package:sub_track/core/enums/enums.dart';
+import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
+// import 'package:time/time.dart';
+// import 'package:dart_date/dart_date.dart' show addMonths;
 part 'subscription.gx.dart';
 
 @HiveType(typeId: 1)
@@ -29,8 +32,79 @@ class Subscription extends HiveObject {
 
   late final SubIconType iconType;
   late int? remaningDays;
+  Map<DateTime, double> _payments = {};
 
   // TODO Research how to store amount paid until now with the date(hint: use map)
+  // FIXME move all the extensions on extensions.dart (extensions from packages)
+  void calculateRemainingDays() async {
+    switch (renewsEvery) {
+      case RenewsEvery.Never:
+        _payments.addAll({startedOn.date: cost});
+        break;
+      case RenewsEvery.Daily:
+        // Shows Latest Upcomming RENEW: yes
+        Duration duration = DateTime.now().difference(startedOn);
+        int noOfPaymentsMadeUntilNow = duration.inDays.abs();
+        for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
+          _payments.addAll({startedOn.add(Duration(days: i)).date: cost});
+        }
+        break;
+      case RenewsEvery.Weekly:
+        // Shows Latest Upcomming RENEW: yes
+        Duration duration = DateTime.now().difference(startedOn);
+        int noOfPaymentsMadeUntilNow = duration.inWeeks.abs();
+        for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
+          _payments.addAll({startedOn.add(Duration(days: i * 7)).date: cost});
+        }
+        break;
+      case RenewsEvery.Biweekly:
+        // Shows Latest Upcomming RENEW: yes
+        Duration duration = DateTime.now().difference(startedOn);
+        int noOfPaymentsMadeUntilNow = duration.inBiWeekly.abs();
+        for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
+          _payments.addAll({startedOn.add(Duration(days: i * 14)).date: cost});
+        }
+        break;
+      case RenewsEvery.Monthly:
+        // Shows Latest Upcomming RENEW: yes
+        DateTime temp = startedOn.addMonths(-1);
+        do {
+          temp = temp.addMonths(1);
+          _payments.addAll({temp.date: cost});
+        } while (!temp.isAtSameMonthAs(DateTime.now()) && !temp.isToday);
+        break;
+      case RenewsEvery.Quarterly:
+        // Shows Latest Upcomming RENEW: yes
+        DateTime temp = startedOn.addQuarters(-1);
+        do {
+          temp = temp.addQuarters(1);
+          _payments.addAll({temp.date: cost});
+        } while (temp.difference(DateTime.now()).isNegative &&
+            !temp.isAtSameMonthAs(DateTime.now()));
+        break;
+      case RenewsEvery.Half_yearly:
+        // Shows Latest Upcomming RENEW: no
+        DateTime temp = startedOn.addHalfYear(-1);
+        do {
+          temp = temp.addHalfYear(1);
+          _payments.addAll({temp.date: cost});
+        } while (!temp.isAtSameMonthAs(DateTime.now()) &&
+            !temp.isToday &&
+            !temp.isAtSameYearAs(DateTime.now()));
+        break;
+      case RenewsEvery.Yearly:
+        // Shows Latest or Upcomming RENEW: yes
+        //(set condition if latest Subscription has happened or not)
+        DateTime temp = startedOn.addYears(-1);
+        do {
+          temp = temp.addYears(1);
+          _payments.addAll({temp.date: cost});
+        } while (!temp.isAtSameMonthAs(DateTime.now()) &&
+            !temp.isToday &&
+            !temp.isAtSameYearAs(DateTime.now()));
+        break;
+    }
+  }
 
   Subscription({
     required this.brand,

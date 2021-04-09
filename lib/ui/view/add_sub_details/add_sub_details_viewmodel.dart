@@ -8,6 +8,7 @@ import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
+import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
@@ -45,6 +46,8 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
         renewsEvery: RenewsEvery.Never,
         subscriptionId: uuid.v1(),
         startedOn: DateTime.now(),
+        sharedWith: 0,
+        category: "Default",
         notificationOn: NotifyOn.Never,
       ),
     );
@@ -69,8 +72,6 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     _subscription = subscription;
     notifyListeners();
   }
-
-  addSubScription() {}
 
   setDate(DateTime date) {
     _setSubscriptionData(
@@ -200,6 +201,13 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
         sharedWith: int.parse(hasSharedWith ? sharedWithValue ?? "0" : "0"),
       ),
     );
+  }
+
+  addSubscription() async {
+    // print(_subscription);
+    await locator<SubscriptionRepo>()
+        .addSubscription(subscription: _subscription);
+    $navigationService.back();
   }
 
   // Future? savedData() {

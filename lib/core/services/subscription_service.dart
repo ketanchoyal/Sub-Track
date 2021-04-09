@@ -16,25 +16,25 @@ class SubscriptionServiceImpl implements SubscriptionService {
   @override
   addSubscription(Subscription subscription) {
     // TODO: implement addSubscription
-    throw UnimplementedError();
+    return;
   }
 
   @override
   deleteSubscription(String subscriptionId) {
     // TODO: implement deleteSubscription
-    throw UnimplementedError();
+    return;
   }
 
   @override
   updateSubscription(Subscription updatedSubscription) {
     // TODO: implement updateSubscription
-    throw UnimplementedError();
+    return;
   }
 
   @override
   Stream<List<Subscription>> fetchSubscriptions() {
     // TODO: implement fetchSubscriptions
-    throw UnimplementedError();
+    return Stream.empty();
   }
 
   destroy() {

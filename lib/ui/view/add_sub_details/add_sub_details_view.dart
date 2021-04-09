@@ -71,7 +71,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
               ),
             ),
             trailing: GestureDetector(
-              onTap: () {},
+              onTap: () => model.addSubscription(),
               child: Icon(
                 CupertinoIcons.plus,
                 size: 30,

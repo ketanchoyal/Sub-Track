@@ -30,17 +30,23 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
     _hiveService.init(path);
     _hiveService.registerAdapter<Subscription>(SubscriptionAdapter());
 
-    if (_subscriptionsBoxIsOpen)
+    if (!_subscriptionsBoxIsOpen)
       await _hiveService.openBox<Subscription>(_subscriptionsBoxName);
   }
 
   @override
   addSubscription(Subscription subscription) async {
+    print("Here");
+
     if (_subscriptionsBoxIsOpen) {
-      _subscriptionBox.containsKey(subscription.subscriptionId)
+      print(_subscriptionBox.values.length);
+      !_subscriptionBox.containsKey(subscription.subscriptionId)
           ? await _subscriptionBox.put(
               subscription.subscriptionId, subscription)
           : {};
+      print(_subscriptionBox.values);
+    } else {
+      print("Sub box Not Open");
     }
   }
 

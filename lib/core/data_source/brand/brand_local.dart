@@ -29,7 +29,7 @@ class BrandLocalDataSourceImpl with BrandLocalDataSource {
     _hiveService.init(path);
     _hiveService.registerAdapter<Brand>(BrandAdapter());
 
-    if (_brandBoxIsOpen) await _hiveService.openBox<Brand>(_brandBoxName);
+    if (!_brandBoxIsOpen) await _hiveService.openBox<Brand>(_brandBoxName);
   }
 
   @override

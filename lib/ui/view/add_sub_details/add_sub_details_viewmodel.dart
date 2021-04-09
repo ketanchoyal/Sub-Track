@@ -196,9 +196,17 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
       _subscription.copyWith(
         subscriptionId: uuid.v1(),
         brand: _subscription.brand.copyWith(title: nameValue),
-        cost: double.parse(hasCost ? costValue ?? "0.0" : "0.0"),
+        cost: double.parse(hasCost
+            ? costValue == ""
+                ? "0.0"
+                : costValue ?? "0.0"
+            : "0.0"),
         description: descriptionValue,
-        sharedWith: int.parse(hasSharedWith ? sharedWithValue ?? "0" : "0"),
+        sharedWith: int.parse(hasSharedWith
+            ? sharedWithValue == ""
+                ? "0"
+                : sharedWithValue ?? "0"
+            : "0"),
       ),
     );
   }

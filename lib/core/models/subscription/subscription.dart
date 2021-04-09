@@ -34,9 +34,7 @@ class Subscription extends HiveObject {
   late int? remaningDays;
   Map<DateTime, double> _payments = {};
 
-  // TODO Research how to store amount paid until now with the date(hint: use map)
-  // FIXME move all the extensions on extensions.dart (extensions from packages)
-  void calculateRemainingDays() async {
+  calculatePayments() async {
     switch (renewsEvery) {
       case RenewsEvery.Never:
         _payments.addAll({startedOn.date: cost});
@@ -104,6 +102,13 @@ class Subscription extends HiveObject {
             !temp.isAtSameYearAs(DateTime.now()));
         break;
     }
+  }
+
+  calulateRemaningDays() async {
+    if (_payments.isEmpty) await calculatePayments();
+
+    DateTime latestPayment = _payments.entries.last.key;
+    remaningDays = latestPayment.difference(DateTime.now().date).inDays.abs();
   }
 
   Subscription({

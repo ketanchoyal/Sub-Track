@@ -259,6 +259,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                                   await CupertinoRoundedDatePicker.show(
                                     context,
                                     onDateTimeChanged: model.setDate,
+                                    maximumDate: DateTime.now(),
                                     background: CupertinoTheme.of(context)
                                         .barBackgroundColor,
                                     fontFamily: CupertinoTheme.of(context)

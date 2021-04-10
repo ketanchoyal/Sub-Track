@@ -10,6 +10,7 @@ import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/home/widgets/graph.dart';
 import './home_viewmodel.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -40,7 +41,7 @@ class HomeView extends StatelessWidget {
         ),
       );
 
-  final bool showGraph = false;
+  final bool showGraph = true;
 
   @override
   Widget build(BuildContext context) {
@@ -136,19 +137,20 @@ class HomeView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                if (showGraph) graphElement(50, "JAN"),
-                                if (showGraph) graphElement(90, "FEB"),
-                                if (showGraph) graphElement(40, "MAR"),
-                                if (showGraph) graphElement(80, "APR"),
-                                if (showGraph) graphElement(100, "MAY"),
-                                if (!showGraph)
-                                  Expanded(
-                                    child: Text(
-                                      "Not enough data for graph",
-                                      style: kBodyStyle,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  )
+                                Expanded(child: BarChartSample4())
+                                // if (showGraph) graphElement(50, "JAN"),
+                                // if (showGraph) graphElement(90, "FEB"),
+                                // if (showGraph) graphElement(40, "MAR"),
+                                // if (showGraph) graphElement(80, "APR"),
+                                // if (showGraph) graphElement(100, "MAY"),
+                                // if (!showGraph)
+                                //   Expanded(
+                                //     child: Text(
+                                //       "Not enough data for graph",
+                                //       style: kBodyStyle,
+                                //       textAlign: TextAlign.center,
+                                //     ),
+                                //   )
                               ],
                             ).paddingA(20),
                           ),

@@ -4,6 +4,12 @@ import 'package:sub_track/core/data_source/subscription/sub_remote.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
 
+/// Require
+/// [SubscriptionLocalDataSource],
+///
+/// [SubscriptionRemoteDataSource] and
+///
+/// [ConnectivityService]
 abstract class SubscriptionRepo {
   Future<Stream<List<Subscription>>> fetchSubscriptions(
       {bool forceFetch = false});

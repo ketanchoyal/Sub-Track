@@ -8,6 +8,12 @@ import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 
+/// Require
+///
+/// [FileService]
+///
+/// [HiveInterface]
+///
 abstract class BrandLocalDataSource implements BrandDataSource {
   Future init();
 }

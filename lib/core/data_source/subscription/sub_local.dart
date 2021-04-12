@@ -6,6 +6,11 @@ import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/file_service.dart';
 
+/// Require
+///
+/// [FileService]
+///
+/// [HiveInterface]
 abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
   Future init();
   // Future updateCache(Subscription subscriptions);

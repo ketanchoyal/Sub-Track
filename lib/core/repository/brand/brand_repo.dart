@@ -4,6 +4,12 @@ import 'package:sub_track/core/data_source/brand/brand_remote.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
 
+/// Require
+/// [BrandLocalDataSource],
+///
+/// [BrandRemoteDataSource] and
+///
+/// [ConnectivityService]
 abstract class BrandRepo {
   List<Brand>? get brands;
   Future fetchBrands({bool forceFetch = false});

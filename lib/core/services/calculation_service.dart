@@ -4,6 +4,9 @@ import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
+/// Require
+///
+/// [SubscriptionRepo]
 abstract class CalculationService {
   Stream<double> getTotalExpense();
   Future<double> getCurrentMonthExpense();

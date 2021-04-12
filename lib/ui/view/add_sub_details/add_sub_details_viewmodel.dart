@@ -77,7 +77,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     _setSubscriptionData(
       _subscription.copyWith(
         subscriptionId: uuid.v1(),
-        startedOn: date,
+        startedOn: date.date,
       ),
     );
   }

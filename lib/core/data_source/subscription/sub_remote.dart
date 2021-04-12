@@ -4,6 +4,11 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/subscription_service.dart';
 
+/// Require
+///
+/// [SubscriptionService]
+///
+///  [SubscriptionLocalDataSource]
 abstract class SubscriptionRemoteDataSource implements SubscriptionDataSource {
   // cacheSubscriptions();
 }

@@ -29,98 +29,12 @@ class Subscription extends HiveObject {
   final DateTime startedOn;
   @HiveField(8)
   final NotifyOn notificationOn;
+  @HiveField(9)
+  final Map<DateTime, double>? payments;
+  @HiveField(10)
+  final int? remaningDays;
 
   late final SubIconType iconType;
-  late int? remaningDays;
-  Map<DateTime, double> _payments = {};
-
-  calculatePayments() async {
-    double paidCost = cost;
-    if (sharedWith != null) {
-      if (sharedWith == 0) {
-        paidCost = cost;
-      } else {
-        paidCost = (cost / sharedWith!);
-      }
-    }
-
-    switch (renewsEvery) {
-      case RenewsEvery.Never:
-        _payments.addAll({startedOn.date: paidCost});
-        break;
-      case RenewsEvery.Daily:
-        // Shows Latest Upcomming RENEW: yes
-        Duration duration = DateTime.now().difference(startedOn);
-        int noOfPaymentsMadeUntilNow = duration.inDays.abs();
-        for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
-          _payments.addAll({startedOn.add(Duration(days: i)).date: paidCost});
-        }
-        break;
-      case RenewsEvery.Weekly:
-        // Shows Latest Upcomming RENEW: yes
-        Duration duration = DateTime.now().difference(startedOn);
-        int noOfPaymentsMadeUntilNow = duration.inWeeks.abs();
-        for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
-          _payments
-              .addAll({startedOn.add(Duration(days: i * 7)).date: paidCost});
-        }
-        break;
-      case RenewsEvery.Biweekly:
-        // Shows Latest Upcomming RENEW: yes
-        Duration duration = DateTime.now().difference(startedOn);
-        int noOfPaymentsMadeUntilNow = duration.inBiWeekly.abs();
-        for (int i = 0; i <= noOfPaymentsMadeUntilNow; i++) {
-          _payments
-              .addAll({startedOn.add(Duration(days: i * 14)).date: paidCost});
-        }
-        break;
-      case RenewsEvery.Monthly:
-        // Shows Latest Upcomming RENEW: yes
-        DateTime temp = startedOn.addMonths(-1);
-        do {
-          temp = temp.addMonths(1);
-          _payments.addAll({temp.date: paidCost});
-        } while (!temp.isAtSameMonthAs(DateTime.now()) && !temp.isToday);
-        break;
-      case RenewsEvery.Quarterly:
-        // Shows Latest Upcomming RENEW: yes
-        DateTime temp = startedOn.addQuarters(-1);
-        do {
-          temp = temp.addQuarters(1);
-          _payments.addAll({temp.date: paidCost});
-        } while (temp.difference(DateTime.now()).isNegative &&
-            !temp.isAtSameMonthAs(DateTime.now()));
-        break;
-      case RenewsEvery.Half_yearly:
-        // Shows Latest Upcomming RENEW: no
-        DateTime temp = startedOn.addHalfYear(-1);
-        do {
-          temp = temp.addHalfYear(1);
-          _payments.addAll({temp.date: paidCost});
-        } while (!temp.isAtSameMonthAs(DateTime.now()) &&
-            !temp.isToday &&
-            !temp.isAtSameYearAs(DateTime.now()));
-        break;
-      case RenewsEvery.Yearly:
-        // Shows Latest or Upcomming RENEW: yes
-        //(set condition if latest Subscription has happened or not)
-        DateTime temp = startedOn.addYears(-1);
-        do {
-          temp = temp.addYears(1);
-          _payments.addAll({temp.date: paidCost});
-        } while (!temp.isAtSameMonthAs(DateTime.now()) &&
-            !temp.isToday &&
-            !temp.isAtSameYearAs(DateTime.now()));
-        break;
-    }
-  }
-
-  calculateRemaningDays() async {
-    if (_payments.isEmpty) await calculatePayments();
-
-    DateTime latestPayment = _payments.entries.last.key;
-    remaningDays = latestPayment.difference(DateTime.now().date).inDays.abs();
-  }
 
   Subscription({
     required this.brand,
@@ -132,6 +46,8 @@ class Subscription extends HiveObject {
     required this.subscriptionId,
     required this.startedOn,
     required this.notificationOn,
+    this.payments,
+    this.remaningDays,
   }) {
     if (brand.iconUrl == null) {
       if (brand.iconName == null)
@@ -158,6 +74,7 @@ class Subscription extends HiveObject {
     required String notificationOn,
     String? iconType,
     int? remaningDays,
+    Map<DateTime, double>? payments,
   }) =>
       Subscription(
         category: category,
@@ -169,6 +86,8 @@ class Subscription extends HiveObject {
         subscriptionId: subscriptionId,
         startedOn: startedOn,
         notificationOn: notificationOn.enumNO,
+        remaningDays: remaningDays,
+        payments: payments,
       );
 
   String get renewsEveryValue => renewsEvery.value;
@@ -184,8 +103,10 @@ class Subscription extends HiveObject {
     String? category,
     int? sharedWith,
     DateTime? startedOn,
-    required String subscriptionId,
+    String? subscriptionId,
     NotifyOn? notificationOn,
+    Map<DateTime, double>? payments,
+    int? remaningDays,
   }) =>
       Subscription(
         brand: brand ?? this.brand,
@@ -195,7 +116,9 @@ class Subscription extends HiveObject {
         category: category ?? this.category,
         sharedWith: sharedWith ?? this.sharedWith,
         startedOn: startedOn ?? this.startedOn,
-        subscriptionId: subscriptionId,
+        subscriptionId: subscriptionId ?? this.subscriptionId,
         notificationOn: notificationOn ?? this.notificationOn,
+        payments: payments ?? this.payments,
+        remaningDays: remaningDays ?? this.remaningDays,
       );
 }

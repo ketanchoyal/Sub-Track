@@ -21,13 +21,13 @@ class SubscriptionAdapter extends TypeAdapter<Subscription> {
       cost: fields[1] as double,
       description: fields[2] as String?,
       subscriptionId: fields[3] as String,
-      renewsEvery: fields[4],
+      renewsEvery: fields[4] as String,
       category: fields[5] as String?,
       sharedWith: fields[6] as int?,
       startedOn: fields[7] as DateTime,
-      notificationOn: fields[8],
-      payments: fields[9] as Map<DateTime, double>?,
-      remaningDays: fields[10],
+      notificationOn: fields[8] as String,
+      payments: (fields[9] as Map?)?.cast<DateTime, double>(),
+      remaningDays: fields[10] as int?,
     );
   }
 

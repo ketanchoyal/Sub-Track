@@ -25,7 +25,7 @@ class CalculationServiceImpl extends CalculationService {
 
     await for (List<Subscription> subs in subStream) {
       Map<DateTime, double> data = {};
-      subs.forEach((subscription) async {
+      await Future.forEach<Subscription>(subs, (subscription) async {
         if (subscription.payments != null) {
           if (data.isEmpty) {
             data = subscription.payments!;
@@ -52,7 +52,7 @@ class CalculationServiceImpl extends CalculationService {
 
     await for (List<Subscription> subs in subStream) {
       double totalExpense = 0;
-      subs.forEach((subscription) async {
+      await Future.forEach<Subscription>(subs, (subscription) async {
         double singleExpense =
             await _getTotalExpenseOfSingleSubscriptionOfCurrentMonth(
                 subscription);
@@ -72,22 +72,20 @@ class CalculationServiceImpl extends CalculationService {
     await for (List<Subscription> subs in subStream) {
       print("setting totalExpense : 0");
       double totalExpense = 0;
-      subs.forEach((subscription) async {
+      await Future.forEach<Subscription>(subs, (subscription) async {
         double singleExpense =
             await _getTotalExpenseOfSingleSubscription(subscription);
         print("singleExpense : $singleExpense");
         totalExpense += singleExpense;
         print("totalExpense: $totalExpense");
       });
-      print("yield totalExpense");
+      print("yield totalExpense : $totalExpense");
       yield totalExpense;
     }
   }
 
   Future<double> _getTotalExpenseOfSingleSubscription(
       Subscription subscription) async {
-    print(
-        "Calculating _getTotalExpenseOfSingleSubscription of ${subscription.brand.title}");
     double totalExpense = 0.0;
     if (subscription.payments == null) {
       await _calculatePayments(subscription);
@@ -98,13 +96,13 @@ class CalculationServiceImpl extends CalculationService {
         if (!element.key.isAfter(DateTime.now())) totalExpense += element.value;
       });
     }
+    print(
+        "Calculating _getTotalExpenseOfSingleSubscription of ${subscription.brand.title} : $totalExpense");
     return totalExpense;
   }
 
   Future<double> _getTotalExpenseOfSingleSubscriptionOfCurrentMonth(
       Subscription subscription) async {
-    print(
-        "Calculating   Future<double> _getTotalExpenseOfSingleSubscriptionOfCurrentMonth of ${subscription.brand.title}");
     double totalExpense = 0.0;
     if (subscription.payments != null && subscription.payments!.isNotEmpty) {
       await Future.forEach<MapEntry<DateTime, double>>(
@@ -114,6 +112,8 @@ class CalculationServiceImpl extends CalculationService {
           totalExpense += element.value;
       });
     }
+    print(
+        "Calculating _getTotalExpenseOfSingleSubscriptionOfCurrentMonth of ${subscription.brand.title} : $totalExpense");
     return totalExpense;
   }
 

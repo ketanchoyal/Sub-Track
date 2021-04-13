@@ -26,7 +26,7 @@ class SubscriptionAdapter extends TypeAdapter<Subscription> {
       sharedWith: fields[6] as int?,
       startedOn: fields[7] as DateTime,
       notificationOn: fields[8],
-      payments: fields[9],
+      payments: fields[9] as Map<DateTime, double>?,
       remaningDays: fields[10],
     );
   }

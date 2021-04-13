@@ -16,6 +16,7 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/data_source/subscription/sub_remote.dart';
 import 'package:sub_track/core/repository/brand/brand_repo.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
+import 'package:sub_track/core/services/calculation_service.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
 import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/core/services/notification_service.dart';
@@ -56,6 +57,8 @@ setupLocator() async {
   // Repositories
   locator.registerSingleton<BrandRepo>(BrandRepoImpl());
   locator.registerSingleton<SubscriptionRepo>(SubscriptionRepoImpl());
+
+  locator.registerSingleton<CalculationService>(CalculationServiceImpl());
 
   // **************************************************************************
   // Front End

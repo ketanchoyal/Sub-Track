@@ -27,7 +27,7 @@ dependencies:
   # Graphic related
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.21.0-nullsafety.0
-  bitmap: ^0.1.2
+  simple_icons: ^4.18.5
   emojis:
     path: ./packages/emojis
 

@@ -13,6 +13,7 @@ import 'package:sub_track/core/services/file_service.dart';
 /// [HiveInterface]
 abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
   Future init();
+  Future cleanEverything();
   // Future updateCache(Subscription subscriptions);
 }
 
@@ -31,8 +32,8 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
 
   @override
   Future init() async {
-    final path = await _fileServices.getApplicationDocumentsDirectoryPath();
-    _hiveService.init(path);
+    // final path = await _fileServices.getApplicationDocumentsDirectoryPath();
+    // _hiveService.init(path);
     _hiveService.registerAdapter<Subscription>(SubscriptionAdapter());
 
     if (!_subscriptionsBoxIsOpen)
@@ -64,8 +65,11 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   //Real stuff here
   _listenToSubscription() {
     if (_subscriptionsBoxIsOpen) {
+      print("listening To Subscription local");
+      _streamController.add(_subscriptionBox.values.toList());
       _subscriptionBox.watch().listen((event) {
         _streamController.add(_subscriptionBox.values.toList());
+        print("listening To Subscription local");
       });
     }
   }
@@ -94,5 +98,13 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
 
   destroy() {
     _streamController.close();
+  }
+
+  @override
+  Future cleanEverything() async {
+    if (_subscriptionsBoxIsOpen) {
+      var someData = await _subscriptionBox.clear();
+      print("Everyting is clear Now : $someData");
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'package:sub_track/core/data_source/brand/brand_local.dart';
 import 'package:sub_track/core/data_source/brand/brand_remote.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
+import 'package:sub_track/core/services/stoppable_services.dart';
 
 /// Require
 /// [BrandLocalDataSource],
@@ -22,7 +23,7 @@ class BrandRepoImpl implements BrandRepo {
       locator<BrandRemoteDataSource>();
 
   ConnectivityService get _connectivityService =>
-      locator<ConnectivityService>();
+      locator<StoppableService>() as ConnectivityService;
 
   List<Brand>? _brands;
 

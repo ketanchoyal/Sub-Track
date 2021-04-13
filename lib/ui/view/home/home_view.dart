@@ -47,6 +47,9 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
+      onModelReady: (model) {
+        model.startupTasks();
+      },
       builder: (context, model, child) => CupertinoPageScaffold(
         // key: UIServices.homeViewKey,
         resizeToAvoidBottomInset: false,
@@ -60,14 +63,17 @@ class HomeView extends StatelessWidget {
                   'Summary',
                 ),
                 padding: EdgeInsetsDirectional.only(end: 5),
-                trailing: CircleAvatar(
-                  backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
-                  radius: 18,
-                  child: Center(
-                    child: Text(
-                      "KC",
-                      style: kBodyBoldStyle.copyWith(
-                        color: AppColor.STDark,
+                trailing: GestureDetector(
+                  onLongPress: model.clean,
+                  child: CircleAvatar(
+                    backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
+                    radius: 18,
+                    child: Center(
+                      child: Text(
+                        "KC",
+                        style: kBodyBoldStyle.copyWith(
+                          color: AppColor.STDark,
+                        ),
                       ),
                     ),
                   ),
@@ -109,12 +115,12 @@ class HomeView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Paid this month",
+                                  "Paid so far",
                                   style: kSmallStyle.copyWith(
                                       color: AppColor.STDarkLight),
                                 ),
                                 Text(
-                                  "\$55.2",
+                                  "\$${model.totalExpense}",
                                   style: kHeader2Style.copyWith(
                                     color: AppColor.STDark,
                                     letterSpacing: -1,
@@ -230,6 +236,13 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    //     ListView.builder(
+                    //   scrollDirection: Axis.horizontal,
+                    //   itemCount: model.subscriptions.length,
+                    //   itemBuilder: (contex, index) => STUpcommingSub(
+                    //     subsription: model.subscriptions[index],
+                    //   ),
+                    // ),
                   ),
                   verticalSpaceSmall,
                   Row(
@@ -255,24 +268,9 @@ class HomeView extends StatelessWidget {
                       removeTop: true,
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 5,
+                        itemCount: model.subscriptions.length,
                         itemBuilder: (context, index) => STActiveSubCard(
-                          subsription: Subscription(
-                            subscriptionId: "reyrtg",
-                            brand: Brand(
-                              title: "Netflix",
-                              hex: "E50914",
-                              source:
-                                  "https://brand.netflix.com/en/assets/brand-symbol",
-                              iconName: "netflix.svg",
-                              iconUrl:
-                                  "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
-                            ),
-                            cost: 18.99,
-                            renewsEvery: RenewsEvery.Monthly,
-                            startedOn: DateTime.now(),
-                            notificationOn: NotifyOn.One_Day_Before,
-                          ),
+                          subsription: model.subscriptions[index],
                         ),
                       ),
                     ),

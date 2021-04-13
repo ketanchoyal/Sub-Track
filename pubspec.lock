@@ -50,13 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  bitmap:
-    dependency: "direct main"
-    description:
-      name: bitmap
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -742,6 +735,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  simple_icons:
+    dependency: "direct main"
+    description:
+      name: simple_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.18.5"
   sky_engine:
     dependency: transitive
     description: flutter

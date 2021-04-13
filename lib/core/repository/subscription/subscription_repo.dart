@@ -3,6 +3,7 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/data_source/subscription/sub_remote.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
+import 'package:sub_track/core/services/stoppable_services.dart';
 
 /// Require
 /// [SubscriptionLocalDataSource],
@@ -25,14 +26,16 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       locator<SubscriptionRemoteDataSource>();
 
   ConnectivityService get _connectivityService =>
-      locator<ConnectivityService>();
+      locator<StoppableService>() as ConnectivityService;
 
   @override
   Future<Stream<List<Subscription>>> fetchSubscriptions(
       {bool forceFetch = false}) async {
     if (await _connectivityService.checkConnectivity() && forceFetch) {
+      print("Fetching subs from Remote Data Source");
       return _brandRemoteDataSource.fetchSubscriptions();
     } else {
+      print("Fetching subs from Local Data Source");
       return _brandLocalDataSource.fetchSubscriptions();
     }
   }

@@ -120,7 +120,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                     ],
                   ),
                   child: ListView(
-                    controller: model.scrollController,
+                    // controller: model.scrollController,
                     children: [
                       CupertinoFormSection.insetGrouped(
                         margin: EdgeInsets.all(8),

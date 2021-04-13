@@ -21,7 +21,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
   }
   final _dialogService = locator<DialogService>();
   final _uiServices = locator<UIServices>();
-  get scrollController => _uiServices.scrollController;
+  // get scrollController => _uiServices.scrollController;
   // final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
   late final ValueNotifier<Color?> colorChangeNotifier;
   late Brand _brand;
@@ -215,7 +215,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     // print(_subscription);
     await locator<SubscriptionRepo>()
         .addSubscription(subscription: _subscription);
-    $navigationService.back();
+    $navigationService.back(id: 2);
   }
 
   // Future? savedData() {

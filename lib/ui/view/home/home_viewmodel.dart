@@ -18,7 +18,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   List<Subscription> get subscriptions => _subscriptions;
 
   double _totalExpense = 0.0;
-  double get totalExpense => _totalExpense;
+  String get totalExpense => _totalExpense.toStringAsFixed(2);
 
   navigateToAddSub() {
     $navigationService.navigateTo(Routes.newSubscription);
@@ -31,6 +31,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   startupTasks() {
     _fetchSubs();
     _getTotalExpense();
+    notifyListeners();
   }
 
   _fetchSubs() async {

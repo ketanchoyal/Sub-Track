@@ -49,6 +49,7 @@ class STActiveSubCard extends StatelessWidget {
                     child: SvgPicture.network(
                       subsription.brand.iconUrl!,
                       height: 30,
+                      color: subsription.brand.hex.toColor()!.contrastOf(),
                     ),
                   ),
                   Text(

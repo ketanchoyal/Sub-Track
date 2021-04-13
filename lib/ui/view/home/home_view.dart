@@ -214,35 +214,35 @@ class HomeView extends StatelessWidget {
                         //     ),
                         //   ),
                         // ),
+                        //     ListView.builder(
+                        //   scrollDirection: Axis.horizontal,
+                        //   itemCount: 5,
+                        //   itemBuilder: (contex, index) => STUpcommingSub(
+                        //     subsription: Subscription(
+                        //       subscriptionId: "srwerw",
+                        //       brand: Brand(
+                        //         title: "Netflix",
+                        //         hex: "E50914",
+                        //         source:
+                        //             "https://brand.netflix.com/en/assets/brand-symbol",
+                        //         iconName: "netflix.svg",
+                        //         iconUrl:
+                        //             "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                        //       ),
+                        //       cost: 18.99,
+                        //       renewsEvery: RenewsEvery.Monthly,
+                        //       startedOn: DateTime.now(),
+                        //       notificationOn: NotifyOn.One_Week_Before,
+                        //     ),
+                        //   ),
+                        // ),
                         ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: model.subscriptions.length,
                       itemBuilder: (contex, index) => STUpcommingSub(
-                        subsription: Subscription(
-                          subscriptionId: "srwerw",
-                          brand: Brand(
-                            title: "Netflix",
-                            hex: "E50914",
-                            source:
-                                "https://brand.netflix.com/en/assets/brand-symbol",
-                            iconName: "netflix.svg",
-                            iconUrl:
-                                "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
-                          ),
-                          cost: 18.99,
-                          renewsEvery: RenewsEvery.Monthly,
-                          startedOn: DateTime.now(),
-                          notificationOn: NotifyOn.One_Week_Before,
-                        ),
+                        subsription: model.subscriptions[index],
                       ),
                     ),
-                    //     ListView.builder(
-                    //   scrollDirection: Axis.horizontal,
-                    //   itemCount: model.subscriptions.length,
-                    //   itemBuilder: (contex, index) => STUpcommingSub(
-                    //     subsription: model.subscriptions[index],
-                    //   ),
-                    // ),
                   ),
                   verticalSpaceSmall,
                   Row(

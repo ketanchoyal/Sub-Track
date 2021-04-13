@@ -209,6 +209,9 @@ class CalculationServiceImpl extends CalculationService {
 
   @override
   Future<int?> calculateRemainingDays(Subscription subscription) async {
+    if (subscription.renewsEvery == RenewsEvery.Never) {
+      return null;
+    }
     if (subscription.payments == null) {
       await _calculatePayments(subscription);
     }

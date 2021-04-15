@@ -122,7 +122,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                           children: [
                             Expanded(
                               child: STButton(
-                                onPressed: () {},
+                                onPressed: model.saveData,
                                 buttonText: "Create account",
                               ),
                             ),
@@ -136,7 +136,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                               Expanded(
                                 child: STButton(
                                   buttonType: ButtonType.TERTIARY,
-                                  onPressed: () {},
+                                  onPressed: model.useAppleAuthentication,
                                   icon: Image.asset(
                                     AppIconsAssets.apple,
                                     color: Colors.black,
@@ -148,7 +148,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                             Expanded(
                               child: STButton(
                                 buttonType: ButtonType.TERTIARY,
-                                onPressed: () {},
+                                onPressed: model.useGoogleAuthentication,
                                 icon: Image.asset(AppIconsAssets.google),
                                 buttonText: "Google",
                               ),

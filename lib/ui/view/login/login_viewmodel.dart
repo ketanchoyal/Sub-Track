@@ -22,14 +22,6 @@ class LoginViewModel extends AuthenticationViewModel {
     } else {
       emailTextFieldType = TextFieldType.ERROR;
     }
-    // TODO change form type here
-    // if (emailValue.length > 0) {
-    //   if (emailValue.contains("@")) {
-    //     emailTextFieldType = TextFieldType.VALID;
-    //   } else {
-    //     emailTextFieldType = TextFieldType.ERROR;
-    //   }
-    // }
     notifyListeners();
   }
 

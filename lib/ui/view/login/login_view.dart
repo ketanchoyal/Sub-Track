@@ -119,7 +119,7 @@ class LoginView extends StatelessWidget with $LoginView {
                               Expanded(
                                 child: STButton(
                                   buttonType: ButtonType.TERTIARY,
-                                  onPressed: () {},
+                                  onPressed: model.useAppleAuthentication,
                                   icon: Image.asset(
                                     AppIconsAssets.apple,
                                     color: Colors.black,
@@ -131,7 +131,7 @@ class LoginView extends StatelessWidget with $LoginView {
                             Expanded(
                               child: STButton(
                                 buttonType: ButtonType.TERTIARY,
-                                onPressed: () {},
+                                onPressed: model.useGoogleAuthentication,
                                 icon: Image.asset(AppIconsAssets.google),
                                 buttonText: "Google",
                               ),

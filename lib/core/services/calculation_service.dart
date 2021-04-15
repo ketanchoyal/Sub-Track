@@ -8,7 +8,7 @@ import 'package:sub_track/ui/shared/shared.dart';
 ///
 /// [SubscriptionRepo]
 abstract class CalculationService {
-  Stream<double> getTotalExpense();
+  Future<double> getTotalExpense();
   Future<double> getCurrentMonthExpense();
   Stream<Map<DateTime, double>> getChartData();
   // Future calculatePayments(Subscription subscription);
@@ -65,35 +65,47 @@ class CalculationServiceImpl extends CalculationService {
 
   //NOTE needs testing
   @override
-  Stream<double> getTotalExpense() async* {
-    final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+  Future<double> getTotalExpense() async {
+    final List<Subscription> subs =
+        await (await _subscriptionRepo.fetchSubscriptions()).first;
     print("Subscribed to getTotalExpense");
-    await for (List<Subscription> subs in subStream) {
-      print("setting totalExpense : 0");
-      double totalExpense = 0;
-      await Future.forEach<Subscription>(subs, (subscription) async {
-        double singleExpense =
-            await _getTotalExpenseOfSingleSubscription(subscription);
-        print("singleExpense : $singleExpense");
-        totalExpense += singleExpense;
-        print("totalExpense: $totalExpense");
-      });
-      print("yield totalExpense : $totalExpense");
-      yield totalExpense;
-    }
+    print("setting totalExpense : 0");
+    double totalExpense = 0;
+    await Future.forEach<Subscription>(subs, (subscription) async {
+      double singleExpense =
+          await _getTotalExpenseOfSingleSubscription(subscription);
+      print("singleExpense : $singleExpense");
+      totalExpense += singleExpense;
+      print("totalExpense: $totalExpense");
+    });
+    print("yield totalExpense : $totalExpense");
+    return totalExpense;
   }
 
   Future<double> _getTotalExpenseOfSingleSubscription(
-      Subscription subscription) async {
+      Subscription oldsubscription,
+      [bool currentYear = false]) async {
+    Subscription subscription = oldsubscription;
     double totalExpense = 0.0;
     if (subscription.payments == null) {
-      await _calculatePayments(subscription);
+      subscription = await _calculatePayments(subscription);
     }
+    DateTime latestPayment = subscription.payments!.entries.last.key;
+    if (latestPayment.isAfter(DateTime.now())) {
+      subscription = await _calculatePayments(subscription);
+    }
+
     if (subscription.payments != null && subscription.payments!.isNotEmpty) {
       await Future.forEach<MapEntry<DateTime, double>>(
           subscription.payments!.entries, (element) async {
-        if (!element.key.isAfter(DateTime.now())) totalExpense += element.value;
+        if (currentYear) {
+          if (!element.key.isAfter(DateTime.now()) &&
+              element.key.isAtSameYearAs(DateTime.now()))
+            totalExpense += element.value;
+        } else {
+          if (!element.key.isAfter(DateTime.now()))
+            totalExpense += element.value;
+        }
       });
     }
     print(
@@ -117,7 +129,7 @@ class CalculationServiceImpl extends CalculationService {
     return totalExpense;
   }
 
-  Future _calculatePayments(Subscription subscription) async {
+  Future<Subscription> _calculatePayments(Subscription subscription) async {
     print("Calculating payments for ${subscription.brand.title}");
     Map<DateTime, double> _payments = {};
     double paidCost = subscription.cost;
@@ -205,21 +217,31 @@ class CalculationServiceImpl extends CalculationService {
         subscription.copyWith(payments: _payments);
     await _subscriptionRepo.updateSubscription(
         subscription: updatesSubscription);
+    return updatesSubscription;
   }
 
   @override
-  Future<int?> calculateRemainingDays(Subscription subscription) async {
+  Future<int?> calculateRemainingDays(Subscription oldSubscription) async {
+    Subscription subscription = oldSubscription;
     print("Calculating Remaning Days for : ${subscription.brand.title}");
     if (subscription.renewsEvery == RenewsEvery.Never) {
       return null;
     }
+    if (subscription.renewsEvery == RenewsEvery.Daily) {
+      return 1;
+    }
     if (subscription.payments == null) {
-      await _calculatePayments(subscription);
+      subscription = await _calculatePayments(subscription);
+    }
+    if (subscription.payments!.entries.last.key.isBefore(DateTime.now())) {
+      subscription = await _calculatePayments(subscription);
     }
     if (subscription.payments != null && subscription.payments!.isNotEmpty) {
       DateTime latestPayment = subscription.payments!.entries.last.key;
+      print(latestPayment);
       int remaningDays =
           latestPayment.difference(DateTime.now().date).inDays.abs();
+      print(latestPayment.difference(DateTime.now().date).inDays);
       // await _subscriptionRepo.updateSubscription(
       //     subscription: subscription.copyWith(remaningDays: remaningDays));
       return remaningDays;

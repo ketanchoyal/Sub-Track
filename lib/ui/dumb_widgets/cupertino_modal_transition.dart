@@ -2,16 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
 
+FileService _fileService = locator<FileService>();
 cupertinoModalTransition(
   animation,
   child,
 ) {
   return _CupertinoModalTransition(
     animation: animation,
-    behindChild: HomeView()
-      ..build(StackedService.navigatorKey!.currentState!.context),
+    behindChild: Image.file(_fileService.homeScreen!),
     child: child,
   );
 }

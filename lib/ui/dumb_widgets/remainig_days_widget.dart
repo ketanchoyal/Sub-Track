@@ -38,6 +38,7 @@ class _STRemainingDaysWidgetState extends State<STRemainingDaysWidget>
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
@@ -5,6 +6,7 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/calculation_service.dart';
+import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
 class HomeViewModel extends BaseViewModel with $SharedVariables {
@@ -13,6 +15,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   SubscriptionLocalDataSource _subscriptionLocalDataSource =
       locator<SubscriptionLocalDataSource>();
   CalculationService _calculationService = locator<CalculationService>();
+  FileService _fileService = locator<FileService>();
 
   List<Subscription> _subscriptions = [];
   List<Subscription> get subscriptions => _subscriptions;
@@ -44,20 +47,26 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
     _fetchSubs();
     _getTotalExpense();
     notifyListeners();
-    notifyListeners();
   }
 
   _fetchSubs() async {
-    (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
-      _subscriptions = event;
-      notifyListeners();
-    });
+    if (_subscriptions.isEmpty)
+      (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
+        _subscriptions = event;
+        notifyListeners();
+      });
   }
 
-  _getTotalExpense() {
-    _calculationService.getTotalExpense().listen((event) {
-      _totalExpense = event;
-      notifyListeners();
-    });
+  _getTotalExpense() async {
+    _totalExpense = await _calculationService.getTotalExpense();
+    notifyListeners();
+  }
+
+  File? _image;
+  File? get image => _image;
+
+  saveImage(image) {
+    _fileService.saveHomeScreen(image);
+    notifyListeners();
   }
 }

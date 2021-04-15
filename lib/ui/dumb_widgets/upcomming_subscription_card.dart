@@ -137,25 +137,29 @@ class STUpcommingSub extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: STRemainingDaysWidget(
                 color: subsription.brand.hex.toColor() ?? AppColor.STAccent,
-                percent: subsription.renewsEvery == RenewsEvery.Never
+                percent: remaningDays == null
                     ? null
-                    : (remaningDays!) /
-                        (subsription.renewsEvery == RenewsEvery.Weekly
-                            ? 7.0
-                            : subsription.renewsEvery == RenewsEvery.Biweekly
-                                ? 14.0
-                                : subsription.renewsEvery == RenewsEvery.Monthly
-                                    ? 30.5
+                    : subsription.renewsEvery == RenewsEvery.Never
+                        ? null
+                        : (remaningDays!) /
+                            (subsription.renewsEvery == RenewsEvery.Weekly
+                                ? 7.0
+                                : subsription.renewsEvery ==
+                                        RenewsEvery.Biweekly
+                                    ? 14.0
                                     : subsription.renewsEvery ==
-                                            RenewsEvery.Quarterly
-                                        ? 90.0
+                                            RenewsEvery.Monthly
+                                        ? 30.5
                                         : subsription.renewsEvery ==
-                                                RenewsEvery.Half_yearly
-                                            ? 182.5
+                                                RenewsEvery.Quarterly
+                                            ? 90.0
                                             : subsription.renewsEvery ==
-                                                    RenewsEvery.Yearly
-                                                ? 365.0
-                                                : 1.0),
+                                                    RenewsEvery.Half_yearly
+                                                ? 182.5
+                                                : subsription.renewsEvery ==
+                                                        RenewsEvery.Yearly
+                                                    ? 365.0
+                                                    : 1.0),
                 remainigDays: (remaningDays ?? "N.A").toString(),
               ),
             ),

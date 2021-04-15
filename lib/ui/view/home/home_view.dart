@@ -94,212 +94,164 @@ class HomeView extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 180,
-                    width: screenWidth(context),
-                    child: Card(
-                      margin: EdgeInsets.zero,
-                      elevation: 4,
-                      shape: kRoundedCardBorder(radius: 20),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          verticalSpaceSmall,
-                          Flexible(
-                            flex: 6,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Paid so far",
-                                  style: kSmallStyle.copyWith(
-                                      color: AppColor.STDarkLight),
-                                ),
-                                Text(
-                                  "\$${model.totalExpense}",
-                                  style: kHeader2Style.copyWith(
-                                    color: AppColor.STDark,
-                                    letterSpacing: -1,
+              if (model.subscriptions.length > 0)
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 180,
+                      width: screenWidth(context),
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 4,
+                        shape: kRoundedCardBorder(radius: 20),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            verticalSpaceSmall,
+                            Flexible(
+                              flex: 6,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Paid so far",
+                                    style: kSmallStyle.copyWith(
+                                        color: AppColor.STDarkLight),
                                   ),
-                                ),
-                                Text(
-                                  "avg. \$84.9/m",
-                                  style: kSmallStyle.copyWith(
-                                    color: AppColor.STDarkLight,
+                                  Text(
+                                    "\$${model.totalExpense}",
+                                    style: kHeader2Style.copyWith(
+                                      color: AppColor.STDark,
+                                      letterSpacing: -1,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    "avg. \$84.9/m",
+                                    style: kSmallStyle.copyWith(
+                                      color: AppColor.STDarkLight,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          // verticalSpaceLarge,
-                          Flexible(
-                            flex: 9,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Expanded(child: BarChartSample4())
-                                // if (showGraph) graphElement(50, "JAN"),
-                                // if (showGraph) graphElement(90, "FEB"),
-                                // if (showGraph) graphElement(40, "MAR"),
-                                // if (showGraph) graphElement(80, "APR"),
-                                // if (showGraph) graphElement(100, "MAY"),
-                                // if (!showGraph)
-                                //   Expanded(
-                                //     child: Text(
-                                //       "Not enough data for graph",
-                                //       style: kBodyStyle,
-                                //       textAlign: TextAlign.center,
-                                //     ),
-                                //   )
-                              ],
-                            ).paddingA(20),
-                          ),
-                          // verticalSpaceTiny,
-                        ],
-                      ),
-                    ).paddingH(15).paddingV(10),
-                  ),
-                  verticalSpaceSmall,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        "Upcomming",
-                        style: kHeader3Style,
-                      ),
-                      Text(
-                        "See all",
-                        style:
-                            kBodyBoldStyle.copyWith(color: AppColor.STAccent),
-                      )
-                    ],
-                  ).paddingH(20),
-                  Container(
-                    height: 160,
-                    width: context.screenWidth,
-                    child:
-                        // VxSwiper.builder(
-                        //   enableInfiniteScroll: false,
-                        //   itemCount: 5,
-                        //   isFastScrollingEnabled: true,
-                        //   scrollDirection: Axis.horizontal,
-                        //   enlargeCenterPage: true,
-                        //   viewportFraction: 0.45,
-                        //   height: 185,
-                        //   autoPlayAnimationDuration: Duration(milliseconds: 400),
-                        //   initialPage: 1,
-                        //   itemBuilder: (contex, index) => STUpcommingSub(
-                        //     subsription: Subscription(
-                        //       subscriptionId: "srwerw",
-                        //       brand: Brand(
-                        //         title: "Netflix",
-                        //         hex: "E50914",
-                        //         source:
-                        //             "https://brand.netflix.com/en/assets/brand-symbol",
-                        //         iconName: "netflix.svg",
-                        //         iconUrl:
-                        //             "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
-                        //       ),
-                        //       cost: 18.99,
-                        //       renewsEvery: RenewsEvery.Monthly,
-                        //       startedOn: DateTime.now(),
-                        //       notificationOn: NotifyOn.One_Week_Before,
-                        //     ),
-                        //   ),
-                        // ),
-                        //     ListView.builder(
-                        //   scrollDirection: Axis.horizontal,
-                        //   itemCount: 5,
-                        //   itemBuilder: (contex, index) => STUpcommingSub(
-                        //     subsription: Subscription(
-                        //       subscriptionId: "srwerw",
-                        //       brand: Brand(
-                        //         title: "Netflix",
-                        //         hex: "E50914",
-                        //         source:
-                        //             "https://brand.netflix.com/en/assets/brand-symbol",
-                        //         iconName: "netflix.svg",
-                        //         iconUrl:
-                        //             "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
-                        //       ),
-                        //       cost: 18.99,
-                        //       renewsEvery: RenewsEvery.Monthly,
-                        //       startedOn: DateTime.now(),
-                        //       notificationOn: NotifyOn.One_Week_Before,
-                        //     ),
-                        //   ),
-                        // ),
-                        ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: model.subscriptions.length,
-                      itemBuilder: (contex, index) => STUpcommingSub(
-                        subsription: model.subscriptions[index],
+                            // verticalSpaceLarge,
+                            Flexible(
+                              flex: 9,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(child: BarChartSample4())
+                                  // if (showGraph) graphElement(50, "JAN"),
+                                  // if (showGraph) graphElement(90, "FEB"),
+                                  // if (showGraph) graphElement(40, "MAR"),
+                                  // if (showGraph) graphElement(80, "APR"),
+                                  // if (showGraph) graphElement(100, "MAY"),
+                                  // if (!showGraph)
+                                  //   Expanded(
+                                  //     child: Text(
+                                  //       "Not enough data for graph",
+                                  //       style: kBodyStyle,
+                                  //       textAlign: TextAlign.center,
+                                  //     ),
+                                  //   )
+                                ],
+                              ).paddingA(20),
+                            ),
+                            // verticalSpaceTiny,
+                          ],
+                        ),
+                      ).paddingH(15).paddingV(10),
+                    ),
+                    verticalSpaceSmall,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          "Upcomming",
+                          style: kHeader3Style,
+                        ),
+                        Text(
+                          "See all",
+                          style:
+                              kBodyBoldStyle.copyWith(color: AppColor.STAccent),
+                        )
+                      ],
+                    ).paddingH(20),
+                    Container(
+                      height: 160,
+                      width: context.screenWidth,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: model.subscriptions.length,
+                        itemBuilder: (contex, index) => STUpcommingSub(
+                            subsription: model.subscriptions[index],
+                            remaningDays: model.remainingDays(
+                                subscription: model.subscriptions[index])),
                       ),
                     ),
-                  ),
-                  verticalSpaceSmall,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        "Active",
-                        style: kHeader3Style,
-                      ),
-                      Text(
-                        "See all",
-                        style:
-                            kBodyBoldStyle.copyWith(color: AppColor.STAccent),
-                      )
-                    ],
-                  ).paddingH(20),
-                  verticalSpaceSmall,
-                  Flexible(
-                    fit: FlexFit.tight,
-                    child: MediaQuery.removePadding(
-                      context: context,
-                      removeTop: true,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: model.subscriptions.length,
-                        itemBuilder: (context, index) => STActiveSubCard(
-                          subsription: model.subscriptions[index],
+                    verticalSpaceSmall,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          "Active",
+                          style: kHeader3Style,
+                        ),
+                        Text(
+                          "See all",
+                          style:
+                              kBodyBoldStyle.copyWith(color: AppColor.STAccent),
+                        )
+                      ],
+                    ).paddingH(20),
+                    verticalSpaceSmall,
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: model.subscriptions.length,
+                          itemBuilder: (context, index) => STActiveSubCard(
+                            subsription: model.subscriptions[index],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: FloatingActionButton(
-                  heroTag: "plusButton",
-                  backgroundColor: AppColor.STPureWhite,
-                  autofocus: true,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Image.asset(Assets.addIcon),
-                  ),
-                  onPressed: () {
-                    model.navigateToAddSub();
-                    // showCupertinoModalBottomSheet(
-                    //   expand: true,
-                    //   context: context,
-                    //   backgroundColor: Colors.transparent,
-                    //   builder: (context) => AddSubView(),
-                    // );
-                  },
+                    )
+                  ],
                 ),
-              ),
-              if (model.haveSubscriptions)
+              if (model.subscriptions.length > 0)
+                Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: FloatingActionButton(
+                    heroTag: "plusButton",
+                    backgroundColor: AppColor.STPureWhite,
+                    autofocus: true,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Image.asset(Assets.addIcon),
+                    ),
+                    onPressed: () {
+                      model.navigateToAddSub();
+                      // showCupertinoModalBottomSheet(
+                      //   expand: true,
+                      //   context: context,
+                      //   backgroundColor: Colors.transparent,
+                      //   builder: (context) => AddSubView(),
+                      // );
+                    },
+                  ),
+                ),
+              if (model.subscriptions.length == 0)
                 Align(
                   alignment: Alignment.center,
                   child: Column(

@@ -16,6 +16,18 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   List<Subscription> _subscriptions = [];
   List<Subscription> get subscriptions => _subscriptions;
+  Map<String, int?> _remaningDays = {};
+
+  int? remainingDays({required Subscription subscription}) {
+    if (!_remaningDays.containsKey(subscription.subscriptionId)) {
+      _calculationService.calculateRemainingDays(subscription).then((value) {
+        _remaningDays.addAll({subscription.subscriptionId: value});
+        notifyListeners();
+      });
+      return null;
+    }
+    return _remaningDays[subscription.subscriptionId];
+  }
 
   double _totalExpense = 0.0;
   String get totalExpense => _totalExpense.toStringAsFixed(2);
@@ -31,6 +43,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   startupTasks() {
     _fetchSubs();
     _getTotalExpense();
+    notifyListeners();
     notifyListeners();
   }
 

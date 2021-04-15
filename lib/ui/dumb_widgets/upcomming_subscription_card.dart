@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
@@ -10,9 +11,11 @@ class STUpcommingSub extends StatelessWidget {
   const STUpcommingSub({
     Key? key,
     required this.subsription,
+    this.remaningDays,
   }) : super(key: key);
 
   final Subscription subsription;
+  final int? remaningDays;
 
   // TODO if icon is null then make icon using initial of sub
   // TODO Make enum for repatation
@@ -134,8 +137,26 @@ class STUpcommingSub extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: STRemainingDaysWidget(
                 color: subsription.brand.hex.toColor() ?? AppColor.STAccent,
-                percent: 20 / 100,
-                remainigDays: 20.toString(),
+                percent: subsription.renewsEvery == RenewsEvery.Never
+                    ? null
+                    : (remaningDays!) /
+                        (subsription.renewsEvery == RenewsEvery.Weekly
+                            ? 7.0
+                            : subsription.renewsEvery == RenewsEvery.Biweekly
+                                ? 14.0
+                                : subsription.renewsEvery == RenewsEvery.Monthly
+                                    ? 30.5
+                                    : subsription.renewsEvery ==
+                                            RenewsEvery.Quarterly
+                                        ? 90.0
+                                        : subsription.renewsEvery ==
+                                                RenewsEvery.Half_yearly
+                                            ? 182.5
+                                            : subsription.renewsEvery ==
+                                                    RenewsEvery.Yearly
+                                                ? 365.0
+                                                : 1.0),
+                remainigDays: (remaningDays ?? "N.A").toString(),
               ),
             ),
           ],

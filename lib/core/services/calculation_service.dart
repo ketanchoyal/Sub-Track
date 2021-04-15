@@ -209,6 +209,7 @@ class CalculationServiceImpl extends CalculationService {
 
   @override
   Future<int?> calculateRemainingDays(Subscription subscription) async {
+    print("Calculating Remaning Days for : ${subscription.brand.title}");
     if (subscription.renewsEvery == RenewsEvery.Never) {
       return null;
     }
@@ -219,8 +220,8 @@ class CalculationServiceImpl extends CalculationService {
       DateTime latestPayment = subscription.payments!.entries.last.key;
       int remaningDays =
           latestPayment.difference(DateTime.now().date).inDays.abs();
-      await _subscriptionRepo.updateSubscription(
-          subscription: subscription.copyWith(remaningDays: remaningDays));
+      // await _subscriptionRepo.updateSubscription(
+      //     subscription: subscription.copyWith(remaningDays: remaningDays));
       return remaningDays;
     } else {
       return null;

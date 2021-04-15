@@ -5,12 +5,12 @@ import 'package:sub_track/ui/shared/shared.dart';
 
 class STRemainingDaysWidget extends StatefulWidget {
   final String remainigDays;
-  final double percent;
+  final double? percent;
   final Color? color;
 
   STRemainingDaysWidget({
     required this.remainigDays,
-    this.percent = 0.0,
+    this.percent,
     this.color = Colors.white,
   });
 
@@ -31,7 +31,7 @@ class _STRemainingDaysWidgetState extends State<STRemainingDaysWidget>
       setState(() {});
     });
 
-    _controller.animateTo(widget.percent);
+    _controller.animateTo(widget.percent ?? 1.0);
 
     super.initState();
   }
@@ -43,8 +43,11 @@ class _STRemainingDaysWidgetState extends State<STRemainingDaysWidget>
 
   @override
   void didUpdateWidget(STRemainingDaysWidget oldWidget) {
+    if (widget.percent == null) {
+      _controller.animateTo(1.0);
+    }
     if (oldWidget.percent != widget.percent) {
-      _controller.animateTo(widget.percent);
+      _controller.animateTo(widget.percent ?? 1.0);
     }
     super.didUpdateWidget(oldWidget);
   }

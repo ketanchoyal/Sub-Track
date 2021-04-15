@@ -1,18 +1,27 @@
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:sub_track/app/app.locatorx.dart';
+// ignore: implementation_imports
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:sub_track/app/app.router.dart';
-import 'package:sub_track/ui/shared/mixins.dart';
+import 'package:sub_track/ui/shared/auth_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
-
+import 'package:email_validator/email_validator.dart';
 import 'login_view.form.dart';
 
-class LoginViewModel extends FormViewModel with $SharedVariables {
+class LoginViewModel extends AuthenticationViewModel {
   // final $navigationService = locator<NavigationService>();
   TextFieldType emailTextFieldType = TextFieldType.DEFAULT;
   TextFieldType passwordTextFieldType = TextFieldType.DEFAULT;
+
+  LoginViewModel() : super(successRoute: Routes.homeView);
   @override
   void setFormStatus() {
+    if (emailValue != null) {
+      if (EmailValidator.validate(emailValue!))
+        emailTextFieldType = TextFieldType.VALID;
+      else
+        emailTextFieldType = TextFieldType.ERROR;
+    } else {
+      emailTextFieldType = TextFieldType.ERROR;
+    }
     // TODO change form type here
     // if (emailValue.length > 0) {
     //   if (emailValue.contains("@")) {
@@ -21,11 +30,7 @@ class LoginViewModel extends FormViewModel with $SharedVariables {
     //     emailTextFieldType = TextFieldType.ERROR;
     //   }
     // }
-    // notifyListeners();
-  }
-
-  Future? saveData() {
-    // here we can run custom functionality to save to our api
+    notifyListeners();
   }
 
   void register() {
@@ -33,7 +38,13 @@ class LoginViewModel extends FormViewModel with $SharedVariables {
   }
 
   void skip() {
-    // TODO Anonymous Login here
     $navigationService.clearStackAndShow(Routes.homeView);
   }
+
+  @override
+  Future<FirebaseAuthenticationResult> runAuthentication() =>
+      firebaseAuthenticationService.loginWithEmail(
+        email: emailValue!,
+        password: passwordValue!,
+      );
 }

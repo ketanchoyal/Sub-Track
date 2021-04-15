@@ -105,7 +105,7 @@ class LoginView extends StatelessWidget with $LoginView {
                           children: [
                             Expanded(
                               child: STButton(
-                                onPressed: () {},
+                                onPressed: model.saveData,
                                 buttonText: "Login to my account",
                               ),
                             ),

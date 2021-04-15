@@ -1,10 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
+import 'package:sub_track/ui/shared/snackbar_ui.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
-import 'package:sub_track/ui/view/home/widgets/graph.dart';
 import 'app/app.locatorx.dart';
 import 'app/app.router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,8 +15,9 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays(
       [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   await setupLocator();
+  setupSnackbarUi();
   runApp(MyApp());
 }
 

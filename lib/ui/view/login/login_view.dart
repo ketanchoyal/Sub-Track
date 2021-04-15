@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -113,14 +115,19 @@ class LoginView extends StatelessWidget with $LoginView {
                         verticalSpaceSmall,
                         Row(
                           children: [
-                            Expanded(
-                              child: STButton(
-                                buttonType: ButtonType.TERTIARY,
-                                onPressed: () {},
-                                buttonText: "Mobile",
+                            if (Platform.isIOS)
+                              Expanded(
+                                child: STButton(
+                                  buttonType: ButtonType.TERTIARY,
+                                  onPressed: () {},
+                                  icon: Image.asset(
+                                    AppIconsAssets.apple,
+                                    color: Colors.black,
+                                  ),
+                                  buttonText: "Apple",
+                                ),
                               ),
-                            ),
-                            horizontalSpaceRegular,
+                            if (Platform.isIOS) horizontalSpaceRegular,
                             Expanded(
                               child: STButton(
                                 buttonType: ButtonType.TERTIARY,
@@ -152,7 +159,7 @@ class LoginView extends StatelessWidget with $LoginView {
               ),
             ),
             Align(
-              alignment: Alignment(0.95, -1.0),
+              alignment: Alignment.topRight,
               child: SafeArea(
                 child: Hero(
                   tag: "skip",

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -130,14 +132,19 @@ class RegisterView extends StatelessWidget with $RegisterView {
                         verticalSpaceSmall,
                         Row(
                           children: [
-                            Expanded(
-                              child: STButton(
-                                buttonType: ButtonType.TERTIARY,
-                                onPressed: () {},
-                                buttonText: "Mobile",
+                            if (Platform.isIOS)
+                              Expanded(
+                                child: STButton(
+                                  buttonType: ButtonType.TERTIARY,
+                                  onPressed: () {},
+                                  icon: Image.asset(
+                                    AppIconsAssets.apple,
+                                    color: Colors.black,
+                                  ),
+                                  buttonText: "Apple",
+                                ),
                               ),
-                            ),
-                            horizontalSpaceRegular,
+                            if (Platform.isIOS) horizontalSpaceRegular,
                             Expanded(
                               child: STButton(
                                 buttonType: ButtonType.TERTIARY,
@@ -154,8 +161,24 @@ class RegisterView extends StatelessWidget with $RegisterView {
                 ),
               ),
             ),
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Hero(
+                  tag: "back",
+                  transitionOnUserGestures: true,
+                  child: STButton(
+                    buttonType: ButtonType.SECONDARY,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    buttonText: "Back",
+                  ),
+                ),
+              ),
+            ),
             Align(
-              alignment: Alignment(0.95, -1.0),
+              alignment: Alignment.topRight,
               child: SafeArea(
                 child: Hero(
                   tag: "skip",

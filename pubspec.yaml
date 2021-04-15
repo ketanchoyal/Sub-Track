@@ -26,7 +26,7 @@ dependencies:
 
   # Graphic related
   cupertino_icons: ^1.0.2
-  flutter_svg: ^0.21.0-nullsafety.0
+  flutter_svg: ^0.21.0+1
   simple_icons: ^4.18.5
   emojis:
     path: ./packages/emojis
@@ -43,21 +43,21 @@ dependencies:
   fl_chart: ^0.35.0
 
   #Firebase
-  firebase_auth: ^1.0.1
-  firebase_core: ^1.0.2
-  cloud_firestore: ^1.0.3
+  firebase_core: ^1.0.3
+  cloud_firestore: ^1.0.5
+  stacked_firebase_auth: ^0.2.2+1
 
   #Connectivity
   cross_connectivity: ^3.0.2
 
   #Local Storage
-  hive: ^2.0.2
+  hive: ^2.0.3
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.0.2
+  stacked: ^2.0.4
   stacked_hooks: ^0.2.0
-  stacked_services: ^0.8.1
+  stacked_services: ^0.8.3
 
 dev_dependencies:
   flutter_test:

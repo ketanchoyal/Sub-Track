@@ -46,7 +46,10 @@ dependencies:
   #Firebase
   firebase_core: ^1.0.3
   cloud_firestore: ^1.0.5
-  stacked_firebase_auth: ^0.2.2+1
+  stacked_firebase_auth:
+    git:
+        url: https://github.com/ketanchoyal/stacked.git
+        path: packages/stacked_firebase_auth
 
   #Connectivity
   cross_connectivity: ^3.0.2

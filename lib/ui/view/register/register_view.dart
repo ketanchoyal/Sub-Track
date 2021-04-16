@@ -170,7 +170,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                   child: STButton(
                     buttonType: ButtonType.SECONDARY,
                     onPressed: () {
-                      Navigator.pop(context);
+                      model.back();
                     },
                     buttonText: "Back",
                   ),
@@ -185,7 +185,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                   transitionOnUserGestures: true,
                   child: STButton(
                     buttonType: ButtonType.SECONDARY,
-                    onPressed: model.skip,
+                    onPressed: model.useAnonymousLogin,
                     buttonText: "Skip",
                   ),
                 ),

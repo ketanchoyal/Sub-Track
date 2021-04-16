@@ -166,7 +166,7 @@ class LoginView extends StatelessWidget with $LoginView {
                   transitionOnUserGestures: true,
                   child: STButton(
                     buttonType: ButtonType.SECONDARY,
-                    onPressed: model.skip,
+                    onPressed: model.useAnonymousLogin,
                     buttonText: "Skip",
                   ),
                 ),

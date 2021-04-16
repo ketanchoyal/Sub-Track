@@ -32,10 +32,6 @@ class RegisterViewModel extends AuthenticationViewModel {
     $navigationService.back();
   }
 
-  void skip() {
-    $navigationService.clearStackAndShow(Routes.homeView);
-  }
-
   @override
   Future<FirebaseAuthenticationResult> runAuthentication() =>
       firebaseAuthenticationService.createAccountWithEmail(

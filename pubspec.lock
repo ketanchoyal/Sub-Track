@@ -827,10 +827,12 @@ packages:
   stacked_firebase_auth:
     dependency: "direct main"
     description:
-      name: stacked_firebase_auth
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2+1"
+      path: "packages/stacked_firebase_auth"
+      ref: HEAD
+      resolved-ref: "6a7d1b387787b3ac29812f993af2bff6b7a6e9ff"
+      url: "https://github.com/ketanchoyal/stacked.git"
+    source: git
+    version: "0.2.4"
   stacked_generator:
     dependency: "direct dev"
     description:

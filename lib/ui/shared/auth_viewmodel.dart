@@ -31,6 +31,11 @@ abstract class AuthenticationViewModel extends FormViewModel
     _handleAuthenticationResponse(result);
   }
 
+  Future<void> useAnonymousLogin() async {
+    final result = await firebaseAuthenticationService.loginAnonymously();
+    _handleAuthenticationResponse(result);
+  }
+
   Future<void> useAppleAuthentication() async {
     final result = await firebaseAuthenticationService.signInWithApple(
       appleClientId: '',

@@ -29,10 +29,6 @@ class LoginViewModel extends AuthenticationViewModel {
     $navigationService.navigateTo(Routes.registerView);
   }
 
-  void skip() {
-    $navigationService.clearStackAndShow(Routes.homeView);
-  }
-
   @override
   Future<FirebaseAuthenticationResult> runAuthentication() =>
       firebaseAuthenticationService.loginWithEmail(

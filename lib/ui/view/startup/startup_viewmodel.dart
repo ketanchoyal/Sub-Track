@@ -15,6 +15,6 @@ class StartUpViewModel extends BaseViewModel {
     await locator<NotificationService>().init();
     await locator<BrandLocalDataSource>().init();
     await locator<SubscriptionLocalDataSource>().init();
-    $navigationService.navigateTo(Routes.onBoardingView);
+    $navigationService.replaceWith(Routes.onBoardingView);
   }
 }

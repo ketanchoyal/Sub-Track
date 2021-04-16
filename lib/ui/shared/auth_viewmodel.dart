@@ -56,7 +56,7 @@ abstract class AuthenticationViewModel extends FormViewModel
         variant: SnackbarType.Success,
         title: "Welcome, ${(authResult.user!.displayName) ?? ""}",
       );
-      $navigationService.replaceWith(successRoute);
+      $navigationService.clearStackAndShow(successRoute);
     } else {
       setValidationMessage(authResult.errorMessage);
       _snackbarService.showCustomSnackBar(

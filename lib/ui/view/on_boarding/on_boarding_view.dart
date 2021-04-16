@@ -150,9 +150,7 @@ class _STOnBoarding extends StatelessWidget {
                 transitionOnUserGestures: true,
                 child: STButton(
                   buttonType: ButtonType.SECONDARY,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: onBackPressed,
                   buttonText: "Back",
                 ),
               ),

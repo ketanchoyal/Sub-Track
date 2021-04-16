@@ -33,9 +33,13 @@ class RegisterViewModel extends AuthenticationViewModel {
   }
 
   @override
-  Future<FirebaseAuthenticationResult> runAuthentication() =>
-      firebaseAuthenticationService.createAccountWithEmail(
-        email: emailValue!,
-        password: passwordValue!,
-      );
+  Future<FirebaseAuthenticationResult> runAuthentication() async {
+    FirebaseAuthenticationResult result =
+        await firebaseAuthenticationService.createAccountWithEmail(
+      email: emailValue!,
+      password: passwordValue!,
+    );
+    if (result.user != null) result.user!.updateProfile(displayName: nameValue);
+    return result;
+  }
 }

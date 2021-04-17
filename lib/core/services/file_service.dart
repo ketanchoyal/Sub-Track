@@ -6,8 +6,6 @@ import 'package:image_picker/image_picker.dart';
 abstract class FileService {
   Future<String> getApplicationDocumentsDirectoryPath();
   Future<File?> getImage({bool fromGallery = true});
-  Future saveHomeScreen(Uint8List image);
-  File? get homeScreen;
 }
 
 class FileServiceImpl implements FileService {
@@ -25,17 +23,4 @@ class FileServiceImpl implements FileService {
     if (pickedFile != null) return File(pickedFile.path);
     return null;
   }
-
-  File? _homescreen;
-
-  @override
-  saveHomeScreen(Uint8List image) async {
-    final tempDir = await getApplicationDocumentsDirectory();
-    final file = await new File('${tempDir.path}/homescreen.png').create();
-    file.writeAsBytesSync(image);
-    _homescreen = file;
-  }
-
-  @override
-  File? get homeScreen => _homescreen;
 }

@@ -10,7 +10,7 @@ import 'package:sub_track/ui/shared/shared.dart';
 abstract class CalculationService {
   Future<double> getTotalExpense({bool currentYear = true});
   Future<double> getCurrentMonthExpense();
-  Stream<Map<DateTime, double>> getChartData();
+  Future<Map<DateTime, double>> getGraphData();
   Future<double> getExpenseOf({required DateTime month});
   Future<int?> calculateRemainingDays(Subscription subscription);
 }
@@ -19,29 +19,30 @@ class CalculationServiceImpl extends CalculationService {
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
 
   @override
-  Stream<Map<DateTime, double>> getChartData() async* {
+  Future<Map<DateTime, double>> getGraphData() async {
     final Stream<List<Subscription>> subStream =
         (await _subscriptionRepo.fetchSubscriptions());
 
     await for (List<Subscription> subs in subStream) {
       Map<DateTime, double> data = {};
-      await Future.forEach<Subscription>(subs, (subscription) async {
+      await Future.forEach<Subscription>(subs, (oldsubscription) async {
+        Subscription subscription = oldsubscription;
+        if (subscription.payments == null) {
+          subscription = await _calculatePayments(subscription);
+        }
         if (subscription.payments != null) {
-          if (data.isEmpty) {
-            data = subscription.payments!;
-          } else {
-            subscription.payments!.forEach((key, newValue) {
-              data.update(
-                key,
-                (value) => value + newValue,
-                ifAbsent: () => newValue,
-              );
-            });
-          }
+          subscription.payments!.forEach((key, newValue) {
+            data.update(
+              key.date,
+              (value) => value + newValue,
+              ifAbsent: () => newValue,
+            );
+          });
         }
       });
-      yield data;
+      return data;
     }
+    return {};
   }
 
   @override

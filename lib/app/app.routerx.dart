@@ -16,11 +16,12 @@ class StackedRouterX extends StackedRouter {
         settings: data,
         barrierDismissible: true,
         barrierLabel: data.name,
-        barrierColor: Colors.black,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return cupertinoModalTransition(animation, child);
-        },
+        opaque: false,
+        transitionDuration: Duration(milliseconds: 335),
+        reverseTransitionDuration: Duration(milliseconds: 335),
+        barrierColor: Colors.transparent,
         pageBuilder: (context, animation, secondaryAnimation) {
+          // return NewSubscription();
           return CupertinoFullscreenDialogTransition(
             primaryRouteAnimation: animation,
             secondaryRouteAnimation: secondaryAnimation,

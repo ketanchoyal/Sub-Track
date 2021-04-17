@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
+import 'package:sub_track/ui/dumb_widgets/cupertino_modal_transition.dart';
 import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
@@ -16,63 +17,47 @@ import './home_viewmodel.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatelessWidget {
-  Widget graphElement(double height, String month) => Flexible(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              month,
-              style: kPreTitleStyle.copyWith(
-                color: AppColor.STDarkLight,
-              ),
-            ),
-            Flexible(
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                color: AppColor.STAccent,
-                child: SizedBox(
-                  height: height,
-                  width: double.infinity,
-                ),
-              ),
-            )
-          ],
-        ),
-      );
+  // Widget graphElement(double height, String month) => Flexible(
+  //       child: Column(
+  //         mainAxisSize: MainAxisSize.max,
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         crossAxisAlignment: CrossAxisAlignment.center,
+  //         children: [
+  //           Text(
+  //             month,
+  //             style: kPreTitleStyle.copyWith(
+  //               color: AppColor.STDarkLight,
+  //             ),
+  //           ),
+  //           Flexible(
+  //             child: Card(
+  //               margin: EdgeInsets.symmetric(horizontal: 8),
+  //               color: AppColor.STAccent,
+  //               child: SizedBox(
+  //                 height: height,
+  //                 width: double.infinity,
+  //               ),
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     );
 
   final bool showGraph = true;
-  final GlobalKey _globalKey = new GlobalKey();
-
-  _capturePng(HomeViewModel model) async {
-    try {
-      print('inside');
-      RenderRepaintBoundary boundary = _globalKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
-      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      var pngBytes = byteData!.buffer.asUint8List();
-      model.saveImage(pngBytes);
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      key: _globalKey,
-      child: ViewModelBuilder<HomeViewModel>.reactive(
-        viewModelBuilder: () => HomeViewModel(),
-        onModelReady: (model) {
-          model.startupTasks();
-        },
-        createNewModelOnInsert: false,
-        initialiseSpecialViewModelsOnce: true,
-        fireOnModelReadyOnce: true,
-        builder: (context, model, child) => CupertinoPageScaffold(
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      viewModelBuilder: () => HomeViewModel(),
+      onModelReady: (model) {
+        model.startupTasks();
+      },
+      createNewModelOnInsert: false,
+      initialiseSpecialViewModelsOnce: true,
+      fireOnModelReadyOnce: true,
+      builder: (context, model, child) => CupertinoModalTransition(
+        animatorKey: model.animatorKey,
+        child: CupertinoPageScaffold(
           // key: UIServices.homeViewKey,
           resizeToAvoidBottomInset: false,
           child: NestedScrollView(
@@ -87,8 +72,15 @@ class HomeView extends StatelessWidget {
                   ),
                   padding: EdgeInsetsDirectional.only(end: 5),
                   trailing: GestureDetector(
-                    onLongPress: model.clean,
+                    // onLongPress: model.clean,
                     onTap: model.startupTasks,
+                    // onTap: () {
+                    //   if (model.animatorKey.controller.status ==
+                    //       AnimationStatus.completed) {
+                    //     model.animatorKey.controller.reverse();
+                    //   } else
+                    //     model.animatorKey.controller.forward();
+                    // },
                     child: CircleAvatar(
                       backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
                       radius: 18,
@@ -162,32 +154,10 @@ class HomeView extends StatelessWidget {
                                 ),
                               ),
                               // verticalSpaceLarge,
-                              Flexible(
+                              Expanded(
                                 flex: 9,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Expanded(child: BarChartSample4())
-                                    // if (showGraph) graphElement(50, "JAN"),
-                                    // if (showGraph) graphElement(90, "FEB"),
-                                    // if (showGraph) graphElement(40, "MAR"),
-                                    // if (showGraph) graphElement(80, "APR"),
-                                    // if (showGraph) graphElement(100, "MAY"),
-                                    // if (!showGraph)
-                                    //   Expanded(
-                                    //     child: Text(
-                                    //       "Not enough data for graph",
-                                    //       style: kBodyStyle,
-                                    //       textAlign: TextAlign.center,
-                                    //     ),
-                                    //   )
-                                  ],
-                                ).paddingA(20),
+                                child: BarChartSample4(),
                               ),
-                              // verticalSpaceTiny,
                             ],
                           ),
                         ).paddingH(15).paddingV(10),
@@ -277,16 +247,7 @@ class HomeView extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: Image.asset(Assets.addIcon),
                       ),
-                      onPressed: () {
-                        _capturePng(model);
-                        model.navigateToAddSub();
-                        // showCupertinoModalBottomSheet(
-                        //   expand: true,
-                        //   context: context,
-                        //   backgroundColor: Colors.transparent,
-                        //   builder: (context) => AddSubView(),
-                        // );
-                      },
+                      onPressed: model.navigateToAddSub,
                     ),
                   ),
                 if (model.subscriptions.length == 0)
@@ -310,7 +271,7 @@ class HomeView extends StatelessWidget {
                         verticalSpaceSmall,
                         STButton(
                           buttonText: "Add Subscription",
-                          onPressed: () {},
+                          onPressed: model.navigateToAddSub,
                         )
                       ],
                     ),

@@ -42,6 +42,7 @@ dependencies:
   flutter_local_notifications: ^5.0.0+1
   fl_chart: ^0.35.0
   email_validator: ^2.0.1
+  animator: ^3.0.0
 
   #Firebase
   firebase_core: ^1.0.3

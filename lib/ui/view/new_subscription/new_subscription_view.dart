@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/dumb_widgets/cupertino_modal_container.dart';
+import 'package:velocity_x/velocity_x.dart';
 import './new_subscription_viewmodel.dart';
 
 class NewSubscription extends StatelessWidget {
@@ -19,11 +20,14 @@ class NewSubscription extends StatelessWidget {
         builder: (context, controller) {
           model.scrollController = controller;
           return CupertinoBottomSheetContainer(
+            backgroundColor: Colors.transparent,
             child: NotificationListener<DraggableScrollableNotification>(
               onNotification: (DraggableScrollableNotification notification) {
+                (model.animator as AnimatorKey)
+                    .controller
+                    .animateBack(notification.extent);
                 if (!model.isDialogPopped &&
                     notification.extent == notification.minExtent) {
-                  model.isDialogPopped = true;
                   model.pop();
                 }
                 return false;

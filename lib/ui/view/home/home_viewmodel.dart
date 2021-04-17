@@ -27,6 +27,8 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   double _average = 0.0;
   String get average => _average.toStringAsFixed(2);
 
+  get animatorKey => $uiServices.animatorKey;
+
   int? remainingDays({required Subscription subscription}) {
     if (!_remaningDays.containsKey(subscription.subscriptionId)) {
       _calculationService.calculateRemainingDays(subscription).then((value) {
@@ -39,6 +41,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   }
 
   navigateToAddSub() {
+    $uiServices.forward();
     $navigationService.navigateTo(Routes.newSubscription);
   }
 

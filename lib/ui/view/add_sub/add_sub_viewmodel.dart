@@ -49,6 +49,7 @@ class AddSubViewModel extends BaseViewModel with $SharedVariables {
   // }
 
   pop() {
+    $uiServices.animateBackToZero();
     $navigationService.back();
   }
 

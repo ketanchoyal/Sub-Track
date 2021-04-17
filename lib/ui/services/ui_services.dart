@@ -1,9 +1,7 @@
 // This Service contains all the variables which are to be shared across UI
 // for some animation or streams etc..
-import 'dart:async';
-
+import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
-import 'package:sub_track/ui/view/home/home_view.dart';
 
 class UIServices {
   late ScrollController _scrollController;
@@ -11,6 +9,22 @@ class UIServices {
   set scrollController(value) => _scrollController = value;
 
   ScrollController get scrollController => _scrollController;
+
+  final AnimatorKey _animatorKey = AnimatorKey<double>();
+
+  AnimatorKey get animatorKey => _animatorKey;
+
+  forward() {
+    _animatorKey.controller.forward();
+  }
+
+  reverse() {
+    _animatorKey.controller.reverse();
+  }
+
+  animateBackToZero() {
+    _animatorKey.controller.animateBack(0.0);
+  }
 
   // static late final GlobalKey<HomeViewState> homeViewKey;
   // StreamController<double> _extraTopPadding =

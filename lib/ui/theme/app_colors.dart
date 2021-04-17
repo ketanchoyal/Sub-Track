@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppColor {
   // SECTION[epic=Light Colors]
-
+  //Use this to defin dynamic color
+  static const RC = CupertinoDynamicColor.withBrightness(
+      color: Colors.white, darkColor: Colors.black);
   static const STGrey = Color(0xff4a5358);
   static const STLight = Color(0xffecf1f4);
   static const STFailure = Color(0xffc54045);

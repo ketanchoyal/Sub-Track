@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
@@ -17,34 +18,6 @@ import './home_viewmodel.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatelessWidget {
-  // Widget graphElement(double height, String month) => Flexible(
-  //       child: Column(
-  //         mainAxisSize: MainAxisSize.max,
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         crossAxisAlignment: CrossAxisAlignment.center,
-  //         children: [
-  //           Text(
-  //             month,
-  //             style: kPreTitleStyle.copyWith(
-  //               color: AppColor.STDarkLight,
-  //             ),
-  //           ),
-  //           Flexible(
-  //             child: Card(
-  //               margin: EdgeInsets.symmetric(horizontal: 8),
-  //               color: AppColor.STAccent,
-  //               child: SizedBox(
-  //                 height: height,
-  //                 width: double.infinity,
-  //               ),
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     );
-
-  final bool showGraph = true;
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
@@ -55,6 +28,7 @@ class HomeView extends StatelessWidget {
       createNewModelOnInsert: false,
       initialiseSpecialViewModelsOnce: true,
       fireOnModelReadyOnce: true,
+      disposeViewModel: false,
       builder: (context, model, child) => CupertinoModalTransition(
         animatorKey: model.animatorKey,
         child: CupertinoPageScaffold(
@@ -156,7 +130,7 @@ class HomeView extends StatelessWidget {
                               Expanded(
                                 flex: 9,
                                 child: model.graphData.isEmpty
-                                    ? Text("No Data Available")
+                                    ? Center(child: Text("No Data Available"))
                                     : ExpenseGraph(
                                         data: model.graphData,
                                       ),
@@ -205,35 +179,70 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            "Active",
-                            style: kHeader3Style,
+                          Hero(
+                            tag: "active",
+                            transitionOnUserGestures: true,
+                            child: Text(
+                              "Active",
+                              style: kHeader3Style,
+                            ),
                           ),
-                          Text(
-                            "See all",
-                            style: kBodyBoldStyle.copyWith(
-                                color: AppColor.STAccent),
+                          GestureDetector(
+                            onTap: () {
+                              // model.$navigationService.navigateWithTransition(
+                              //   ActiveSubscriptionView(model),
+                              //   popGesture: true,
+                              //   opaque: true,
+                              // );
+                            },
+                            child: Text(
+                              "See all",
+                              style: kBodyBoldStyle.copyWith(
+                                  color: AppColor.STAccent),
+                            ),
                           )
                         ],
                       ).paddingH(20),
                       verticalSpaceSmall,
                       Flexible(
                         fit: FlexFit.tight,
-                        child: MediaQuery.removePadding(
-                          context: context,
-                          removeTop: true,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: model.subscriptions.length,
-                              itemBuilder: (context, index) {
-                                if (model.subscriptions[index].renewsEvery ==
-                                    RenewsEvery.Never) {
-                                  return Container();
-                                }
-                                return STActiveSubCard(
-                                  subsription: model.subscriptions[index],
-                                );
-                              }),
+                        child: Stack(
+                          children: [
+                            Hero(
+                              tag: "background",
+                              transitionOnUserGestures: true,
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: AppColor.STPureWhite,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: Hero(
+                                tag: "list",
+                                transitionOnUserGestures: true,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: model.subscriptions.length,
+                                    itemBuilder: (context, index) {
+                                      if (model.subscriptions[index]
+                                              .renewsEvery ==
+                                          RenewsEvery.Never) {
+                                        return Container();
+                                      }
+                                      return STActiveSubCard(
+                                        subsription: model.subscriptions[index],
+                                      );
+                                    }),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],
@@ -287,3 +296,82 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
+// class ActiveSubscriptionView extends StatelessWidget {
+//   const ActiveSubscriptionView(this.model, {Key? key}) : super(key: key);
+//   final HomeViewModel model;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoPageScaffold(
+//       child: SafeArea(
+//         child: Stack(
+//           children: [
+//             Hero(
+//               tag: "background",
+//               transitionOnUserGestures: true,
+//               child: Container(
+//                 margin: EdgeInsets.symmetric(horizontal: 10),
+//                 decoration: BoxDecoration(
+//                   color: AppColor.STPureWhite,
+//                   borderRadius: BorderRadius.all(
+//                     Radius.circular(15),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Column(
+//               children: [
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   mainAxisSize: MainAxisSize.max,
+//                   children: [
+//                     Hero(
+//                       tag: "active",
+//                       transitionOnUserGestures: true,
+//                       child: Text(
+//                         "Active",
+//                         style: kTitleStyle.copyWith(color: AppColor.STDark),
+//                       ),
+//                     ),
+//                     GestureDetector(
+//                       onTap: model.$navigationService.back,
+//                       child: Icon(
+//                         CupertinoIcons.xmark_circle_fill,
+//                         size: 30,
+//                       ),
+//                     ),
+//                   ],
+//                 ).paddingH(20),
+//                 verticalSpaceSmall,
+//                 Flexible(
+//                   fit: FlexFit.tight,
+//                   child: MediaQuery.removePadding(
+//                     context: context,
+//                     removeTop: true,
+//                     child: Hero(
+//                       tag: "list",
+//                       transitionOnUserGestures: true,
+//                       child: ListView.builder(
+//                           shrinkWrap: true,
+//                           itemCount: model.subscriptions.length,
+//                           itemBuilder: (context, index) {
+//                             if (model.subscriptions[index].renewsEvery ==
+//                                 RenewsEvery.Never) {
+//                               return Container();
+//                             }
+//                             return STActiveSubCard(
+//                               subsription: model.subscriptions[index],
+//                             );
+//                           }),
+//                     ),
+//                   ),
+//                 )
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

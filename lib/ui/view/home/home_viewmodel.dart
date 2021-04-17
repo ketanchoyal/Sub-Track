@@ -8,7 +8,7 @@ import 'package:sub_track/core/services/calculation_service.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
 class HomeViewModel extends BaseViewModel with $SharedVariables {
-  bool haveSubscriptions = false;
+  // bool haveSubscriptions = false;
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
   SubscriptionLocalDataSource _subscriptionLocalDataSource =
       locator<SubscriptionLocalDataSource>();

@@ -72,7 +72,7 @@ class HomeView extends StatelessWidget {
                   ),
                   padding: EdgeInsetsDirectional.only(end: 5),
                   trailing: GestureDetector(
-                    // onLongPress: model.clean,
+                    onLongPress: model.clean,
                     onTap: model.startupTasks,
                     // onTap: () {
                     //   if (model.animatorKey.controller.status ==
@@ -110,7 +110,6 @@ class HomeView extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (model.image != null) Image.file(model.image!),
                 if (model.subscriptions.length > 0)
                   Column(
                     children: [
@@ -156,7 +155,11 @@ class HomeView extends StatelessWidget {
                               // verticalSpaceLarge,
                               Expanded(
                                 flex: 9,
-                                child: BarChartSample4(),
+                                child: model.graphData.isEmpty
+                                    ? Text("No Data Available")
+                                    : ExpenseGraph(
+                                        data: model.graphData,
+                                      ),
                               ),
                             ],
                           ),

@@ -1,14 +1,22 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import "package:collection/collection.dart";
 
-class BarChartSample4 extends StatefulWidget {
+class ExpenseGraph extends StatefulWidget {
+  final Map<DateTime, double> data;
+
+  const ExpenseGraph({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
   @override
-  State<StatefulWidget> createState() => BarChartSample4State();
+  State<StatefulWidget> createState() => ExpenseGraphState();
 }
 
-class BarChartSample4State extends State<BarChartSample4> {
+class ExpenseGraphState extends State<ExpenseGraph> {
   final Color dark = const Color(0xff3b8c75);
   final Color normal = const Color(0xff64caad);
   final Color light = const Color(0xff73e8c9);
@@ -22,30 +30,33 @@ class BarChartSample4State extends State<BarChartSample4> {
           alignment: BarChartAlignment.center,
           barTouchData: BarTouchData(
             enabled: true,
+            touchTooltipData: BarTouchTooltipData(
+                fitInsideHorizontally: false,
+                fitInsideVertically: true,
+                maxContentWidth: 50,
+                tooltipMargin: 0,
+                tooltipPadding: EdgeInsets.all(5),
+                tooltipBgColor: AppColor.STLight,
+                getTooltipItem: (chartData, index, rodData, index2) {
+                  return BarTooltipItem(
+                    "\$${rodData.y.toStringAsFixed(2)}",
+                    kSmallStyle.copyWith(color: AppColor.STDark),
+                  );
+                }),
           ),
           titlesData: FlTitlesData(
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
               getTextStyles: (value) => kPreTitleStyle.copyWith(
-                color: AppColor.STDarkLight,
+                color: AppColor.STDark,
               ),
               margin: 10,
+              reservedSize: 20,
               getTitles: (double value) {
-                switch (value.toInt()) {
-                  case 0:
-                    return 'JAN';
-                  case 1:
-                    return 'FEB';
-                  case 2:
-                    return 'MAR';
-                  case 3:
-                    return 'APR';
-                  case 4:
-                    return 'MAY';
-                  default:
-                    return '';
-                }
+                return DateFormat('MMM')
+                    .format(DateTime(0, value.toInt()))
+                    .toUpperCase();
               },
             ),
             leftTitles: SideTitles(
@@ -66,84 +77,62 @@ class BarChartSample4State extends State<BarChartSample4> {
   }
 
   List<BarChartGroupData> getData() {
-    return [
-      BarChartGroupData(
-        x: 0,
-        barRods: [
-          BarChartRodData(
-            y: 1700,
-            width: 15,
-            rodStackItems: [
-              BarChartRodStackItem(0, 200, dark),
-              BarChartRodStackItem(200, 1200, normal),
-              BarChartRodStackItem(1200, 1700, light),
-            ],
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(2),
-            ),
-          ),
-        ],
-      ),
-      BarChartGroupData(
-        x: 1,
-        barRods: [
-          BarChartRodData(
-            y: 3100,
-            width: 15,
-            rodStackItems: [
-              BarChartRodStackItem(0, 1100, dark),
-              BarChartRodStackItem(1100, 1800, normal),
-              BarChartRodStackItem(1800, 3100, light),
-            ],
-            borderRadius: const BorderRadius.all(Radius.zero),
-          ),
-        ],
-      ),
-      BarChartGroupData(
-        x: 2,
-        barRods: [
-          BarChartRodData(
-            y: 3400,
-            width: 15,
-            rodStackItems: [
-              BarChartRodStackItem(0, 600, dark),
-              BarChartRodStackItem(600, 2300, normal),
-              BarChartRodStackItem(2300, 3400, light),
-            ],
-            borderRadius: const BorderRadius.all(Radius.zero),
-          ),
-        ],
-      ),
-      BarChartGroupData(
-        x: 3,
-        barRods: [
-          BarChartRodData(
-            y: 1400,
-            width: 15,
-            rodStackItems: [
-              BarChartRodStackItem(0, 150.5, dark),
-              BarChartRodStackItem(150.5, 1200, normal),
-              BarChartRodStackItem(1200, 1400, light),
-            ],
-            borderRadius: const BorderRadius.all(Radius.zero),
-          ),
-        ],
-      ),
-      BarChartGroupData(
-        x: 4,
-        barRods: [
-          BarChartRodData(
-            y: 1400,
-            width: 15,
-            rodStackItems: [
-              BarChartRodStackItem(0, 100.5, dark),
-              BarChartRodStackItem(100.5, 1200, normal),
-              BarChartRodStackItem(1200, 1400, light),
-            ],
-            borderRadius: const BorderRadius.all(Radius.zero),
-          ),
-        ],
-      ),
-    ];
+    //Logic to filter data here
+    var data = widget.data.entries
+        .sorted((a, b) => b.key.compareTo(a.key))
+        .groupListsBy((element) {
+      return element.key.year;
+    });
+    Map<int, Map<int, List<MapEntry<int, double>>>> groupedData = {};
+    data.forEach((key, value) {
+      var newData = value.groupListsBy((element) => element.key.month);
+      var moreFiltered = newData.map((key, value) {
+        return MapEntry(
+            key, value.map((e) => MapEntry(e.key.day, e.value)).toList());
+      });
+      groupedData.addAll({key: moreFiltered});
+    });
+
+    groupedData.forEach((key, value) {
+      print("$key : ");
+      value.forEach((key, value) {
+        print("$key : ");
+        value.forEach((element) {
+          print(element);
+        });
+      });
+    });
+
+    List<BarChartGroupData> finalData = groupedData.entries
+        .map(
+          (ee) {
+            return ee.value.entries.map((e) {
+              double y = 0.0;
+              e.value.forEach((element) {
+                y += element.value;
+              });
+              return BarChartGroupData(
+                x: e.key,
+                barRods: [
+                  BarChartRodData(
+                    colors: [
+                      AppColor.STAccent,
+                    ],
+                    y: y,
+                    width: 16.5,
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(5),
+                    ),
+                  ),
+                ],
+              );
+            }).toList();
+          },
+        )
+        .toList()
+        .expand((element) => element)
+        .toList();
+
+    return finalData.take(5).toList().reversed.toList();
   }
 }

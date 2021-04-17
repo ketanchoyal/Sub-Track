@@ -8,7 +8,7 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/services/notification_service.dart';
 
 class StartUpViewModel extends BaseViewModel {
-  final NavigationService $navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   wait() async {
     await Future.delayed(Duration(seconds: 1));
@@ -23,8 +23,8 @@ class StartUpViewModel extends BaseViewModel {
         locator<FirebaseAuthenticationService>();
 
     if (firebaseAuthenticationService.hasUser)
-      $navigationService.clearStackAndShow(Routes.homeView);
+      _navigationService.clearStackAndShow(Routes.homeView);
     else
-      $navigationService.replaceWith(Routes.onBoardingView);
+      _navigationService.replaceWith(Routes.onBoardingView);
   }
 }

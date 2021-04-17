@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
@@ -6,7 +5,6 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/calculation_service.dart';
-import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
 class HomeViewModel extends BaseViewModel with $SharedVariables {
@@ -15,7 +13,6 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   SubscriptionLocalDataSource _subscriptionLocalDataSource =
       locator<SubscriptionLocalDataSource>();
   CalculationService _calculationService = locator<CalculationService>();
-  FileService _fileService = locator<FileService>();
 
   List<Subscription> _subscriptions = [];
   List<Subscription> get subscriptions => _subscriptions;
@@ -26,6 +23,9 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   double _average = 0.0;
   String get average => _average.toStringAsFixed(2);
+
+  Map<DateTime, double> _graphData = {};
+  Map<DateTime, double> get graphData => _graphData;
 
   get animatorKey => $uiServices.animatorKey;
 
@@ -52,6 +52,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   startupTasks() {
     _fetchSubs();
     _getCurrentMonthExpense();
+    _getGraphData();
     notifyListeners();
   }
 
@@ -69,11 +70,8 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  File? _image;
-  File? get image => _image;
-
-  saveImage(image) {
-    _fileService.saveHomeScreen(image);
+  _getGraphData() async {
+    _graphData = await _calculationService.getGraphData();
     notifyListeners();
   }
 }

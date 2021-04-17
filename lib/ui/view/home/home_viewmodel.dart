@@ -21,6 +21,12 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   List<Subscription> get subscriptions => _subscriptions;
   Map<String, int?> _remaningDays = {};
 
+  double _currentMonthExpense = 0.0;
+  String get currentMonthExpense => _currentMonthExpense.toStringAsFixed(2);
+
+  double _average = 0.0;
+  String get average => _average.toStringAsFixed(2);
+
   int? remainingDays({required Subscription subscription}) {
     if (!_remaningDays.containsKey(subscription.subscriptionId)) {
       _calculationService.calculateRemainingDays(subscription).then((value) {
@@ -32,9 +38,6 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
     return _remaningDays[subscription.subscriptionId];
   }
 
-  double _totalExpense = 0.0;
-  String get totalExpense => _totalExpense.toStringAsFixed(2);
-
   navigateToAddSub() {
     $navigationService.navigateTo(Routes.newSubscription);
   }
@@ -45,7 +48,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   startupTasks() {
     _fetchSubs();
-    _getTotalExpense();
+    _getCurrentMonthExpense();
     notifyListeners();
   }
 
@@ -57,8 +60,9 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
       });
   }
 
-  _getTotalExpense() async {
-    _totalExpense = await _calculationService.getTotalExpense();
+  _getCurrentMonthExpense() async {
+    _currentMonthExpense = await _calculationService.getCurrentMonthExpense();
+    _average = _currentMonthExpense / DateTime.now().month;
     notifyListeners();
   }
 

@@ -8,7 +8,7 @@ import 'package:sub_track/ui/shared/shared.dart';
 ///
 /// [SubscriptionRepo]
 abstract class CalculationService {
-  Future<double> getTotalExpense();
+  Future<double> getTotalExpense({bool currentYear = true});
   Future<double> getCurrentMonthExpense();
   Stream<Map<DateTime, double>> getChartData();
   // Future calculatePayments(Subscription subscription);
@@ -65,7 +65,7 @@ class CalculationServiceImpl extends CalculationService {
 
   //NOTE needs testing
   @override
-  Future<double> getTotalExpense() async {
+  Future<double> getTotalExpense({bool currentYear = true}) async {
     final List<Subscription> subs =
         await (await _subscriptionRepo.fetchSubscriptions()).first;
     print("Subscribed to getTotalExpense");
@@ -73,7 +73,7 @@ class CalculationServiceImpl extends CalculationService {
     double totalExpense = 0;
     await Future.forEach<Subscription>(subs, (subscription) async {
       double singleExpense =
-          await _getTotalExpenseOfSingleSubscription(subscription);
+          await _getTotalExpenseOfSingleSubscription(subscription, currentYear);
       print("singleExpense : $singleExpense");
       totalExpense += singleExpense;
       print("totalExpense: $totalExpense");
@@ -84,7 +84,7 @@ class CalculationServiceImpl extends CalculationService {
 
   Future<double> _getTotalExpenseOfSingleSubscription(
       Subscription oldsubscription,
-      [bool currentYear = false]) async {
+      [bool currentYear = true]) async {
     Subscription subscription = oldsubscription;
     double totalExpense = 0.0;
     if (subscription.payments == null) {

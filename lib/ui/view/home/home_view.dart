@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'dart:io' as io;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
@@ -13,7 +13,6 @@ import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/home/widgets/graph.dart';
 import './home_viewmodel.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatelessWidget {
@@ -44,7 +43,7 @@ class HomeView extends StatelessWidget {
       );
 
   final bool showGraph = true;
-  GlobalKey _globalKey = new GlobalKey();
+  final GlobalKey _globalKey = new GlobalKey();
 
   _capturePng(HomeViewModel model) async {
     try {
@@ -142,19 +141,19 @@ class HomeView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Paid so far",
+                                      "Paid this month",
                                       style: kSmallStyle.copyWith(
                                           color: AppColor.STDarkLight),
                                     ),
                                     Text(
-                                      "\$${model.totalExpense}",
+                                      "\$${model.currentMonthExpense}",
                                       style: kHeader2Style.copyWith(
                                         color: AppColor.STDark,
                                         letterSpacing: -1,
                                       ),
                                     ),
                                     Text(
-                                      "avg. \$84.9/m",
+                                      "avg. \$${model.average}/m",
                                       style: kSmallStyle.copyWith(
                                         color: AppColor.STDarkLight,
                                       ),
@@ -213,15 +212,20 @@ class HomeView extends StatelessWidget {
                         height: 160,
                         width: context.screenWidth,
                         child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: model.subscriptions.length,
-                          itemBuilder: (contex, index) => STUpcommingSub(
-                            subsription: model.subscriptions[index],
-                            remaningDays: model.remainingDays(
-                              subscription: model.subscriptions[index],
-                            ),
-                          ),
-                        ),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: model.subscriptions.length,
+                            itemBuilder: (contex, index) {
+                              if (model.subscriptions[index].renewsEvery ==
+                                  RenewsEvery.Never) {
+                                return Container();
+                              }
+                              return STUpcommingSub(
+                                subsription: model.subscriptions[index],
+                                remaningDays: model.remainingDays(
+                                  subscription: model.subscriptions[index],
+                                ),
+                              );
+                            }),
                       ),
                       verticalSpaceSmall,
                       Row(
@@ -246,12 +250,17 @@ class HomeView extends StatelessWidget {
                           context: context,
                           removeTop: true,
                           child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: model.subscriptions.length,
-                            itemBuilder: (context, index) => STActiveSubCard(
-                              subsription: model.subscriptions[index],
-                            ),
-                          ),
+                              shrinkWrap: true,
+                              itemCount: model.subscriptions.length,
+                              itemBuilder: (context, index) {
+                                if (model.subscriptions[index].renewsEvery ==
+                                    RenewsEvery.Never) {
+                                  return Container();
+                                }
+                                return STActiveSubCard(
+                                  subsription: model.subscriptions[index],
+                                );
+                              }),
                         ),
                       )
                     ],

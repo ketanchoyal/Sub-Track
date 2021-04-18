@@ -25,7 +25,8 @@ jobs:
     - run: flutter pub get
     # - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
     # - run: flutter build appbundle --target-platform android-arm,android-arm64
-    - run: flutter build appbundle
+    # - run: flutter build appbundle
+    - run: flutter build apk --release
       env:
         KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -35,7 +36,8 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: apk-build
-        path: build/app/outputs/bundle/release
+        # path: build/app/outputs/bundle/release
+        path: build/app/outputs/apk/release
   # Publishing Action
   beta_apk:
     name: Upload Android Beta to Firebase App Distribution
@@ -57,7 +59,8 @@ jobs:
         appId: ${{secrets.FIREBASE_ANDROID_APPID}}
         token: ${{secrets.FIREBASE_TOKEN}}
         group: testers
-        file: app-release.aab
+        file: app-release.apk
+        # file: app-release.aab
   # build_web:
   #   name: Build Flutter (Web)
   #   runs-on: ubuntu-latest

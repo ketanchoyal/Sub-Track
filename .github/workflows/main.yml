@@ -35,7 +35,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: apk-build
-        path: build/app/outputs/apk/release
+        path: build/app/outputs/bundle/release
   # Publishing Action
   beta_apk:
     name: Upload Android Beta to Firebase App Distribution

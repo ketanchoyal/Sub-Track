@@ -30,7 +30,7 @@ jobs:
         KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         ALIAS: ${{ secrets.ALIAS }}
-        KEY_PATH: key.jks
+        KEY_PATH: ${{ secrets.KEY_PATH }}
     - name: Upload APK
       uses: actions/upload-artifact@master
       with:

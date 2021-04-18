@@ -1,5 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked_annotations.dart';
+import 'package:sub_track/ui/view/active_subscription/active_subscription_view.dart';
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
@@ -51,6 +52,11 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
     StackedRoute(page: LoginView),
     StackedRoute(page: RegisterView),
     StackedRoute(page: HomeView),
+    AdaptiveRoute(
+      page: ActiveSubscriptionView,
+      fullscreenDialog: true,
+      maintainState: true,
+    )
   ],
   // no asType function in null safety version
   // dependencies: [

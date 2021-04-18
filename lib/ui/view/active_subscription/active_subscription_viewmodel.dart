@@ -17,11 +17,12 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   }
 
   _fetchSubs() async {
-    if (_subscriptions.isEmpty)
-      (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
-        _subscriptions = event;
-        notifyListeners();
-      });
+    (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
+      _subscriptions = event;
+      print("Data fetched");
+      print(_subscriptions);
+      notifyListeners();
+    });
   }
 
   pop() {

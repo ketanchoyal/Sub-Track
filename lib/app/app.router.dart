@@ -9,7 +9,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/ui/dumb_widgets/cupertino_modal_transition.dart';
+import 'package:sub_track/ui/view/active_subscription/active_subscription_view.dart';
 import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
 
 import '../core/models/brand/brand.dart';
@@ -36,6 +36,7 @@ class Routes {
   static const String loginView = '/login-view';
   static const String registerView = '/register-view';
   static const String homeView = '/home-view';
+  static const String activeSubscriptionView = '/active-subscription-view';
   static const all = <String>{
     demoView,
     onBoardingView,
@@ -44,6 +45,7 @@ class Routes {
     loginView,
     registerView,
     homeView,
+    activeSubscriptionView,
   };
 }
 
@@ -66,6 +68,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.registerView, page: RegisterView),
     RouteDef(Routes.homeView, page: HomeView),
+    RouteDef(Routes.activeSubscriptionView, page: ActiveSubscriptionView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -110,6 +113,14 @@ class StackedRouter extends RouterBase {
       return MaterialPageRoute<dynamic>(
         builder: (context) => HomeView(),
         settings: data,
+      );
+    },
+    ActiveSubscriptionView: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => ActiveSubscriptionView(),
+        settings: data,
+        maintainState: true,
+        fullscreenDialog: true,
       );
     },
   };

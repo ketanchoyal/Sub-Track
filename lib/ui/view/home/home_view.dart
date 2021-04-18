@@ -189,6 +189,7 @@ class HomeView extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
+                              model.navigateToActiveSub();
                               // model.$navigationService.navigateWithTransition(
                               //   ActiveSubscriptionView(model),
                               //   popGesture: true,

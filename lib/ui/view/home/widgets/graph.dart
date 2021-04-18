@@ -93,15 +93,15 @@ class ExpenseGraphState extends State<ExpenseGraph> {
       groupedData.addAll({key: moreFiltered});
     });
 
-    groupedData.forEach((key, value) {
-      print("$key : ");
-      value.forEach((key, value) {
-        print("$key : ");
-        value.forEach((element) {
-          print(element);
-        });
-      });
-    });
+    // groupedData.forEach((key, value) {
+    //   print("$key : ");
+    //   value.forEach((key, value) {
+    //     print("$key : ");
+    //     value.forEach((element) {
+    //       print(element);
+    //     });
+    //   });
+    // });
 
     List<BarChartGroupData> finalData = groupedData.entries
         .map(

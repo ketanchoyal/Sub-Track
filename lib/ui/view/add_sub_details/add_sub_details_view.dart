@@ -256,17 +256,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                               title: "Sub Started On",
                               child: STDetailFormElement(
                                 onTap: () async {
-                                  await CupertinoRoundedDatePicker.show(
-                                    context,
-                                    onDateTimeChanged: model.setDate,
-                                    maximumDate: DateTime.now(),
-                                    background: CupertinoTheme.of(context)
-                                        .barBackgroundColor,
-                                    fontFamily: CupertinoTheme.of(context)
-                                        .textTheme
-                                        .textStyle
-                                        .fontFamily,
-                                  );
+                                  _showDatePicker(context, model);
                                 },
                                 child: Text(
                                   model.subscription.startedOn
@@ -347,6 +337,34 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                 ),
         );
       },
+    );
+  }
+
+  void _showDatePicker(ctx, model) {
+    // showCupertinoModalPopup is a built-in function of the cupertino library
+    showCupertinoModalPopup(
+      context: ctx,
+      builder: (context) => Container(
+        color: AppColor.STLight,
+        height: 400,
+        child: Column(
+          children: [
+            Container(
+              height: 300,
+              child: CupertinoDatePicker(
+                initialDateTime: DateTime.now(),
+                onDateTimeChanged: model.setDate,
+                mode: CupertinoDatePickerMode.date,
+              ),
+            ),
+            // Close the modal
+            CupertinoButton(
+              child: Text('Close'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

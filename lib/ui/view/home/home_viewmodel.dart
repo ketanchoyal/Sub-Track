@@ -74,4 +74,8 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
     _graphData = await _calculationService.getGraphData();
     notifyListeners();
   }
+
+  navigateToActiveSub() async {
+    $navigationService.navigateTo(Routes.activeSubscriptionView);
+  }
 }

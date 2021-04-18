@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-java@v1
       with:
-        java-version: '12.x'
+        java-version: '11.x'
     - run: echo $GOOGLE_SERVICE_JSON | base64 -d > android/app/google-services.json
       env:
         SIGNING_KEY: ${{ secrets.GOOGLE_SERVICE_JSON }}

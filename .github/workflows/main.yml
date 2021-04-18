@@ -57,7 +57,7 @@ jobs:
         appId: ${{secrets.FIREBASE_ANDROID_APPID}}
         token: ${{secrets.FIREBASE_TOKEN}}
         group: testers
-        file: app-release.aap
+        file: app-release.aab
   # build_web:
   #   name: Build Flutter (Web)
   #   runs-on: ubuntu-latest

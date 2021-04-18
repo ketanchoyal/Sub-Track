@@ -18,5 +18,13 @@
                 "type": "dart",
                 "args": []
             },
+            {
+                "name": "Release",
+                "request": "launch",
+                "type": "dart",
+                "args": [
+                    "--release"
+                ]
+            }
         ]
 }

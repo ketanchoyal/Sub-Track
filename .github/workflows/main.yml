@@ -23,7 +23,7 @@ jobs:
     - run: flutter pub get
     - run: |
         mkdir $HOME/private
-        gpg --quiet --batch --yes --decrypt --passphrase=$FIREBASE_SECRET \
+        gpg --quiet --batch --yes --decrypt --passphrase= echo $FIREBASE_SECRET \
         --output $HOME/private/services.tar services.tar.gpg
         tar xvf $HOME/private/services.tar
       env:

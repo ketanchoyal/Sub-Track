@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ketanchoyal.sub_track">
    <application
-        android:label="sub_track"
+        android:label="Sub Track"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -62,18 +62,18 @@ jobs:
       with:
         name: apk-build
     - uses: actions/download-artifact@master
-        with:
-          name: mapping.txt
+      with:
+        name: mapping.txt
     - name: Publish to Play Store internal test track
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          # 3
-          packageName: com.ketanchoyal.sub_track
-          releaseFiles: app-release.aab
-          track: internal
-          mappingFile: mapping.txt
-          # userFraction: 0.50 #Percentage of user which should get the update
+      uses: r0adkll/upload-google-play@v1
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+        # 3
+        packageName: com.ketanchoyal.sub_track
+        releaseFiles: app-release.aab
+        track: internal
+        mappingFile: mapping.txt
+        # userFraction: 0.50 #Percentage of user which should get the update
   # build_web:
   #   name: Build Flutter (Web)
   #   runs-on: ubuntu-latest

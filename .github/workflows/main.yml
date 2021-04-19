@@ -29,8 +29,8 @@ jobs:
     - run: flutter pub get
     # - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
     # - run: flutter build appbundle --target-platform android-arm,android-arm64
-    # - run: flutter build appbundle
-    - run: flutter build apk --release
+    - run: flutter build appbundle
+    # - run: flutter build apk --release
       env:
         KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -40,11 +40,15 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: apk-build
-        # path: build/app/outputs/bundle/release
-        path: build/app/outputs/apk/release
+        path: build/app/outputs/bundle/release
+        # path: build/app/outputs/apk/release
+    - uses: actions/upload-artifact@master
+        with:
+          name: mapping.txt
+          path: build/outputs/mapping/release/mapping.txt
   # Publishing Action
-  beta_apk:
-    name: Upload Android Beta to Firebase App Distribution
+  deploy-play-store:
+    name: Upload Android App Bundle to playstore
     needs: [build_apk]
     runs-on: ubuntu-latest
     steps:
@@ -57,14 +61,19 @@ jobs:
       uses: actions/download-artifact@master
       with:
         name: apk-build
-    - name: Upload APK
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
-      with:
-        appId: ${{secrets.FIREBASE_ANDROID_APPID}}
-        token: ${{secrets.FIREBASE_TOKEN}}
-        groups: testers
-        file: app-release.apk
-        # file: app-release.aab
+    - uses: actions/download-artifact@master
+        with:
+          name: mapping.txt
+    - name: Publish to Play Store internal test track
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          # 3
+          packageName: com.ketanchoyal.sub_track
+          releaseFiles: app-release.aab
+          track: internal
+          mappingFile: mapping.txt
+          # userFraction: 0.50 #Percentage of user which should get the update
   # build_web:
   #   name: Build Flutter (Web)
   #   runs-on: ubuntu-latest

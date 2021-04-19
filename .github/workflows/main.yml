@@ -27,7 +27,7 @@ jobs:
         --output $HOME/private/services.tar services.tar.gpg
         tar xvf $HOME/private/services.tar
       env:
-        SIGNING_KEY: ${{ secrets.FIREBASE_SECRET }}
+        SIGNING_KEY: ${{ secrets.GOOGLE_SERVICE_JSON_DECRYPT_KEY }}
     # - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
     # - run: flutter build appbundle --target-platform android-arm,android-arm64
     # - run: flutter build appbundle

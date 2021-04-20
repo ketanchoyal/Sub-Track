@@ -19,7 +19,8 @@ class NewSubscription extends StatelessWidget {
         initialChildSize: 1,
         builder: (context, controller) {
           model.scrollController = controller;
-          return CupertinoBottomSheetContainer(
+
+          return PlatformContainer(
             backgroundColor: Colors.transparent,
             child: NotificationListener<DraggableScrollableNotification>(
               onNotification: (DraggableScrollableNotification notification) {

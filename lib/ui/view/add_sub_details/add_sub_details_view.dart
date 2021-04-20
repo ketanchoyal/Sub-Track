@@ -30,6 +30,74 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
 
   AddSubDetailsView({Key? key, required this.brand}) : super(key: key);
 
+  Widget appbar(model, context) {
+    return Platform.isIOS
+        ? CupertinoNavigationBar(
+            automaticallyImplyLeading: false,
+            transitionBetweenRoutes: true,
+            backgroundColor: AppColor.STPureWhite,
+            middle: Text(
+              brand.title,
+              style: kNavigationStyle,
+            ),
+            leading: Padding(
+              padding:
+                  const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
+              child: GestureDetector(
+                onTap: () {
+                  model.pop();
+                },
+                child: Text.rich(
+                  TextSpan(
+                    text: String.fromCharCode(CupertinoIcons.back.codePoint),
+                    style: TextStyle(
+                      inherit: false,
+                      color: CupertinoTheme.of(context).primaryColor,
+                      fontSize: 30.0,
+                      fontFamily: CupertinoIcons.back.fontFamily,
+                      package: CupertinoIcons.back.fontPackage,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            trailing: GestureDetector(
+              onTap: () => model.addSubscription(),
+              child: Icon(
+                CupertinoIcons.plus,
+                size: 30,
+              ),
+            ),
+          )
+        : AppBar(
+            backgroundColor: AppColor.STAccent,
+            title: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  brand.title,
+                  style: kHeader3Style,
+                ),
+                GestureDetector(
+                  onTap: () => model.addSubscription(),
+                  child: Text(
+                    "Save",
+                    style: kBodyBoldStyle,
+                  ),
+                ),
+              ],
+            ),
+            leading: GestureDetector(
+              onTap: model.pop,
+              child: Icon(
+                Icons.arrow_back,
+                size: 25,
+              ),
+            ),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
@@ -41,380 +109,267 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
         model.setBrand(brand);
       },
       builder: (context, model, child) {
-        return CupertinoPageScaffold(
+        return Scaffold(
           resizeToAvoidBottomInset: false,
-          // navigationBar: CupertinoNavigationBar(
-          //   automaticallyImplyLeading: false,
-          //   transitionBetweenRoutes: true,
-          //   middle: Text(
-          //     brand.title,
-          //     style: kNavigationStyle,
-          //   ),
-          //   leading: Padding(
-          //     padding:
-          //         const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
-          //     child: GestureDetector(
-          //       onTap: () {
-          //         model.pop();
-          //       },
-          //       child: Text.rich(
-          //         TextSpan(
-          //           text: String.fromCharCode(CupertinoIcons.back.codePoint),
-          //           style: TextStyle(
-          //             inherit: false,
-          //             color: CupertinoTheme.of(context).primaryColor,
-          //             fontSize: 30.0,
-          //             fontFamily: CupertinoIcons.back.fontFamily,
-          //             package: CupertinoIcons.back.fontPackage,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          //   trailing: GestureDetector(
-          //     onTap: () => model.addSubscription(),
-          //     child: Icon(
-          //       CupertinoIcons.plus,
-          //       size: 30,
-          //     ),
-          //   ),
-          // ),
-          child: NestedScrollView(
-            floatHeaderSlivers: true,
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                if (Platform.isAndroid)
-                  SliverToBoxAdapter(
-                    child: AppBar(
-                      backgroundColor: AppColor.STAccent,
-                      title: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            brand.title,
-                            style: kHeader3Style,
+          backgroundColor: AppColor.STLight,
+          appBar: appbar(model, context) as PreferredSizeWidget,
+          body: model.isBusy
+              ? Stack(
+                  children: [
+                    const Center(
+                      child: const STLoading(),
+                    )
+                  ],
+                )
+              : KeyboardActions(
+                  // tapOutsideToDismiss: true,
+                  // disableScroll: true,
+                  config: KeyboardActionsConfig(
+                    keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
+                    keyboardBarColor: Colors.grey[200],
+                    nextFocus: true,
+                    actions: [
+                      KeyboardActionsItem(
+                        focusNode: nameFocusNode,
+                        displayArrows: true,
+                      ),
+                      KeyboardActionsItem(
+                        focusNode: costFocusNode,
+                        displayArrows: true,
+                      ),
+                      KeyboardActionsItem(
+                        focusNode: descriptionFocusNode,
+                        displayArrows: true,
+                      ),
+                      KeyboardActionsItem(
+                        focusNode: colorFocusNode,
+                        displayDoneButton: true,
+                        footerBuilder: (_) => ColorPickerKeyboard(
+                          notifier: model.colorChangeNotifier,
+                        ),
+                      ),
+                      // KeyboardActionsItem(
+                      //   focusNode: sharedWithFocusNode,
+                      //   displayArrows: true,
+                      // ),
+                    ],
+                  ),
+                  child: ListView(
+                    // controller: model.scrollController,
+                    children: [
+                      CupertinoFormSection.insetGrouped(
+                        margin: EdgeInsets.all(8),
+                        header: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child:
+                                model.subscription.iconType == SubIconType.SVG
+                                    ? SvgPicture.network(
+                                        model.subscription.brand.iconUrl!,
+                                        height: 90,
+                                        color: model.subscription.brand.hex
+                                                .toColor() ??
+                                            AppColor.STAccent,
+                                        fit: BoxFit.fitHeight,
+                                      )
+                                    : Text(
+                                        model.subscription.brand.iconName ??
+                                            model.subscription.brand.title[0],
+                                        style: kTitleStyle,
+                                      ),
                           ),
-                          GestureDetector(
-                            onTap: () => model.addSubscription(),
-                            child: Text(
-                              "Save",
-                              style: kBodyBoldStyle,
+                        ),
+                        children: [
+                          STTextFieldOutline(
+                            enableDecoration: false,
+                            child: STTextField(
+                              controller: nameController,
+                              focusNode: nameFocusNode,
+                              textInputAction: TextInputAction.next,
+                              nextFocusNode: costFocusNode,
+                              type: TextFieldType.DEFAULT,
                             ),
+                            title: "Name",
+                          ),
+                          STTextFieldOutline(
+                            enableDecoration: false,
+                            child: STTextField(
+                              controller: costController,
+                              focusNode: costFocusNode,
+                              textInputAction: TextInputAction.next,
+                              nextFocusNode: descriptionFocusNode,
+                              type: TextFieldType.DEFAULT,
+                              textInputType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                            ),
+                            title: "Cost",
+                          ),
+                          STTextFieldOutline(
+                            enableDecoration: false,
+                            child: STTextField(
+                              controller: descriptionController,
+                              textInputAction: TextInputAction.done,
+                              focusNode: descriptionFocusNode,
+                              type: TextFieldType.DEFAULT,
+                            ),
+                            title: "Description",
                           ),
                         ],
                       ),
-                      leading: GestureDetector(
-                        onTap: model.pop,
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                if (Platform.isIOS)
-                  SliverToBoxAdapter(
-                    child: CupertinoNavigationBar(
-                      automaticallyImplyLeading: false,
-                      transitionBetweenRoutes: true,
-                      middle: Text(
-                        brand.title,
-                        style: kNavigationStyle,
-                      ),
-                      leading: Padding(
-                        padding: const EdgeInsetsDirectional.only(
-                            start: 0, end: 0, top: 7),
-                        child: GestureDetector(
-                          onTap: () {
-                            model.pop();
-                          },
-                          child: Text.rich(
-                            TextSpan(
-                              text: String.fromCharCode(
-                                  CupertinoIcons.back.codePoint),
-                              style: TextStyle(
-                                inherit: false,
-                                color: CupertinoTheme.of(context).primaryColor,
-                                fontSize: 30.0,
-                                fontFamily: CupertinoIcons.back.fontFamily,
-                                package: CupertinoIcons.back.fontPackage,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      trailing: GestureDetector(
-                        onTap: () => model.addSubscription(),
-                        child: Icon(
-                          CupertinoIcons.plus,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                  ),
-              ];
-            },
-            body: model.isBusy
-                ? Stack(
-                    children: [
-                      Center(
-                        child: STLoading(),
-                      )
-                    ],
-                  )
-                : KeyboardActions(
-                    // tapOutsideToDismiss: true,
-                    // disableScroll: true,
-                    config: KeyboardActionsConfig(
-                      keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-                      keyboardBarColor: Colors.grey[200],
-                      nextFocus: true,
-                      actions: [
-                        KeyboardActionsItem(
-                          focusNode: nameFocusNode,
-                          displayArrows: true,
-                        ),
-                        KeyboardActionsItem(
-                          focusNode: costFocusNode,
-                          displayArrows: true,
-                        ),
-                        KeyboardActionsItem(
-                          focusNode: descriptionFocusNode,
-                          displayArrows: true,
-                        ),
-                        KeyboardActionsItem(
-                          focusNode: colorFocusNode,
-                          displayDoneButton: true,
-                          footerBuilder: (_) => ColorPickerKeyboard(
-                            notifier: model.colorChangeNotifier,
-                          ),
-                        ),
-                        // KeyboardActionsItem(
-                        //   focusNode: sharedWithFocusNode,
-                        //   displayArrows: true,
-                        // ),
-                      ],
-                    ),
-                    child: ListView(
-                      // controller: model.scrollController,
-                      children: [
-                        CupertinoFormSection.insetGrouped(
-                          margin: EdgeInsets.all(8),
-                          header: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child:
-                                  model.subscription.iconType == SubIconType.SVG
-                                      ? SvgPicture.network(
-                                          model.subscription.brand.iconUrl!,
-                                          height: 90,
-                                          color: model.subscription.brand.hex
-                                                  .toColor() ??
-                                              AppColor.STAccent,
-                                          fit: BoxFit.fitHeight,
-                                        )
-                                      : Text(
-                                          model.subscription.brand.iconName ??
-                                              model.subscription.brand.title[0],
-                                          style: kTitleStyle,
-                                        ),
-                            ),
-                          ),
-                          children: [
-                            STTextFieldOutline(
-                              enableDecoration: false,
-                              child: STTextField(
-                                controller: nameController,
-                                focusNode: nameFocusNode,
-                                textInputAction: TextInputAction.next,
-                                nextFocusNode: costFocusNode,
-                                type: TextFieldType.DEFAULT,
-                              ),
-                              title: "Name",
-                            ),
-                            STTextFieldOutline(
-                              enableDecoration: false,
-                              child: STTextField(
-                                controller: costController,
-                                focusNode: costFocusNode,
-                                textInputAction: TextInputAction.next,
-                                nextFocusNode: descriptionFocusNode,
-                                type: TextFieldType.DEFAULT,
-                                textInputType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                              ),
-                              title: "Cost",
-                            ),
-                            STTextFieldOutline(
-                              enableDecoration: false,
-                              child: STTextField(
-                                controller: descriptionController,
-                                textInputAction: TextInputAction.done,
-                                focusNode: descriptionFocusNode,
-                                type: TextFieldType.DEFAULT,
-                              ),
-                              title: "Description",
-                            ),
-                          ],
-                        ),
-                        if (model.isExpanded)
-                          CupertinoFormSection.insetGrouped(
-                            margin: EdgeInsets.all(8),
-                            children: [
-                              CupertinoFormRow(
-                                padding: EdgeInsets.zero,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: STTextFieldOutline(
-                                        title: "Icon",
-                                        child: STDetailFormElement(
-                                          onTap: () {
-                                            model.navigateToSelectIcon();
-                                          },
-                                          child: model.subscription.iconType ==
-                                                  SubIconType.SVG
-                                              ? SvgPicture.network(
-                                                  model.subscription.brand
-                                                      .iconUrl!,
-                                                  height: 40,
-                                                  color: model.subscription
-                                                          .brand.hex
-                                                          .toColor() ??
-                                                      AppColor.STAccent,
-                                                  fit: BoxFit.fitHeight,
-                                                )
-                                              : Text(
-                                                  model.subscription.brand
-                                                          .iconName ??
-                                                      model.subscription.brand
-                                                          .title[0],
-                                                  style: kTitleStyle,
-                                                ),
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: STTextFieldOutline(
-                                        title: "Color",
-                                        child: KeyboardCustomInput<Color?>(
-                                          focusNode: colorFocusNode,
-                                          notifier: model.colorChangeNotifier,
-                                          builder: (context, val, hasFocus) {
-                                            // model.setColor(val);
-                                            return STDetailFormElement(
-                                              child: CircleAvatar(
-                                                backgroundColor: val,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              STTextFieldOutline(
-                                title: "Category",
-                                child: STDetailFormElement(
-                                  onTap: model.navigateToSelectCategory,
-                                  child: Text(
-                                    model.subscription.category ?? "None",
-                                    style: kBodyBoldStyle.copyWith(
-                                      color: AppColor.STDark,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              STTextFieldOutline(
-                                title: "Sub Started On",
-                                child: STDetailFormElement(
-                                  onTap: () async {
-                                    _showDatePicker(context, model);
-                                  },
-                                  child: Text(
-                                    model.subscription.startedOn
-                                        .toString()
-                                        .split(" ")[0],
-                                    style: kBodyBoldStyle.copyWith(
-                                      color: AppColor.STDark,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              STTextFieldOutline(
-                                title: "Renews Every",
-                                child: STDetailFormElement(
-                                  onTap: () => model.navigateToOtherSelectView(
-                                      type: OtherDetailSelectType.Renews_Every),
-                                  child: Text(
-                                    model.subscription.renewsEveryValue,
-                                    style: kBodyBoldStyle.copyWith(
-                                      color: AppColor.STDark,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              STTextFieldOutline(
-                                title: "Notification",
-                                child: STDetailFormElement(
-                                  onTap: () => model.navigateToOtherSelectView(
-                                      type: OtherDetailSelectType.Notification),
-                                  child: Text(
-                                    model.subscription.notificationOnValue,
-                                    style: kBodyBoldStyle.copyWith(
-                                      color: AppColor.STDark,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              STTextFieldOutline(
-                                title: "Shared With",
-                                child: STTextField(
-                                  controller: sharedWithController,
-                                  textInputType:
-                                      TextInputType.numberWithOptions(
-                                          signed: false, decimal: false),
-                                  focusNode: sharedWithFocusNode,
-                                  textInputAction: TextInputAction.done,
-                                  type: TextFieldType.DEFAULT,
-                                ),
-                              ),
-                            ],
-                          ),
+                      if (model.isExpanded)
                         CupertinoFormSection.insetGrouped(
                           margin: EdgeInsets.all(8),
                           children: [
-                            CupertinoButton(
-                              onPressed: model.toggleIsExpanded,
+                            CupertinoFormRow(
+                              padding: EdgeInsets.zero,
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 5,
-                                      // vertical: 15,
+                                  Flexible(
+                                    child: STTextFieldOutline(
+                                      title: "Icon",
+                                      child: STDetailFormElement(
+                                        onTap: () {
+                                          model.navigateToSelectIcon();
+                                        },
+                                        child: model.subscription.iconType ==
+                                                SubIconType.SVG
+                                            ? SvgPicture.network(
+                                                model.subscription.brand
+                                                    .iconUrl!,
+                                                height: 40,
+                                                color: model
+                                                        .subscription.brand.hex
+                                                        .toColor() ??
+                                                    AppColor.STAccent,
+                                                fit: BoxFit.fitHeight,
+                                              )
+                                            : Text(
+                                                model.subscription.brand
+                                                        .iconName ??
+                                                    model.subscription.brand
+                                                        .title[0],
+                                                style: kTitleStyle,
+                                              ),
+                                      ),
                                     ),
-                                    child: Text(
-                                      model.isExpanded ? "Basic" : "Advanced",
-                                      style: kBodyLargeStyle.copyWith(
-                                        fontWeight: FontWeightX.bold,
-                                        color: AppColor.STFailure,
+                                  ),
+                                  Flexible(
+                                    child: STTextFieldOutline(
+                                      title: "Color",
+                                      child: KeyboardCustomInput<Color?>(
+                                        focusNode: colorFocusNode,
+                                        notifier: model.colorChangeNotifier,
+                                        builder: (context, val, hasFocus) {
+                                          // model.setColor(val);
+                                          return STDetailFormElement(
+                                            child: CircleAvatar(
+                                              backgroundColor: val,
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
+                            STTextFieldOutline(
+                              title: "Category",
+                              child: STDetailFormElement(
+                                onTap: model.navigateToSelectCategory,
+                                child: Text(
+                                  model.subscription.category ?? "None",
+                                  style: kBodyBoldStyle.copyWith(
+                                    color: AppColor.STDark,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            STTextFieldOutline(
+                              title: "Sub Started On",
+                              child: STDetailFormElement(
+                                onTap: () async {
+                                  _showDatePicker(context, model);
+                                },
+                                child: Text(
+                                  model.subscription.startedOn
+                                      .toString()
+                                      .split(" ")[0],
+                                  style: kBodyBoldStyle.copyWith(
+                                    color: AppColor.STDark,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            STTextFieldOutline(
+                              title: "Renews Every",
+                              child: STDetailFormElement(
+                                onTap: () => model.navigateToOtherSelectView(
+                                    type: OtherDetailSelectType.Renews_Every),
+                                child: Text(
+                                  model.subscription.renewsEveryValue,
+                                  style: kBodyBoldStyle.copyWith(
+                                    color: AppColor.STDark,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            STTextFieldOutline(
+                              title: "Notification",
+                              child: STDetailFormElement(
+                                onTap: () => model.navigateToOtherSelectView(
+                                    type: OtherDetailSelectType.Notification),
+                                child: Text(
+                                  model.subscription.notificationOnValue,
+                                  style: kBodyBoldStyle.copyWith(
+                                    color: AppColor.STDark,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            STTextFieldOutline(
+                              title: "Shared With",
+                              child: STTextField(
+                                controller: sharedWithController,
+                                textInputType: TextInputType.numberWithOptions(
+                                    signed: false, decimal: false),
+                                focusNode: sharedWithFocusNode,
+                                textInputAction: TextInputAction.done,
+                                type: TextFieldType.DEFAULT,
+                              ),
+                            ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      CupertinoFormSection.insetGrouped(
+                        margin: EdgeInsets.all(8),
+                        children: [
+                          CupertinoButton(
+                            onPressed: model.toggleIsExpanded,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 5,
+                                    // vertical: 15,
+                                  ),
+                                  child: Text(
+                                    model.isExpanded ? "Basic" : "Advanced",
+                                    style: kBodyLargeStyle.copyWith(
+                                      fontWeight: FontWeightX.bold,
+                                      color: AppColor.STFailure,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-          ),
+                ),
         );
       },
     );

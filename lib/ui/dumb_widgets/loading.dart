@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class STLoading extends StatefulWidget {
+  const STLoading({this.height = 50});
   @override
   _STLoadingState createState() => _STLoadingState();
   final double height;
-
-  STLoading({this.height = 50});
 }
 
 class _STLoadingState extends State<STLoading>

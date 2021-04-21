@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/shared/shared.dart';
@@ -25,7 +26,7 @@ class STUpcommingSub extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 150,
+        height: 160,
         width: 140,
         color: Colors.transparent,
         child: Stack(
@@ -119,9 +120,24 @@ class STUpcommingSub extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: SizedBox(),
+                      verticalSpaceSmall,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.repeat_rounded,
+                            size: 12,
+                            color: AppColor.STDarkLight,
+                          ),
+                          Text(
+                            "${DateFormat('dd MMMM').format(subsription.startedOn)}",
+                            style: kPreTitleStyle.copyWith(
+                              color: AppColor.STDarkLight,
+                            ),
+                          ),
+                        ],
                       ),
+                      verticalSpaceTiny,
                       Text(
                         "Days \nRemaning",
                         style: kPreTitleStyle.copyWith(

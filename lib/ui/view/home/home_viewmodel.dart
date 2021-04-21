@@ -52,6 +52,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   startupTasks() {
     _fetchSubs();
     _getCurrentMonthExpense();
+    _getCurentYearExpense();
     _getGraphData();
     notifyListeners();
   }
@@ -66,7 +67,12 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   _getCurrentMonthExpense() async {
     _currentMonthExpense = await _calculationService.getCurrentMonthExpense();
-    _average = _currentMonthExpense / DateTime.now().month;
+    notifyListeners();
+  }
+
+  _getCurentYearExpense() async {
+    double currentYearExpense = await _calculationService.getTotalExpense();
+    _average = currentYearExpense / DateTime.now().month;
     notifyListeners();
   }
 

@@ -156,7 +156,7 @@ class HomeView extends StatelessWidget {
                         ],
                       ).paddingH(20),
                       Container(
-                        height: 160,
+                        height: 170,
                         width: context.screenWidth,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,

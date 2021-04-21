@@ -89,8 +89,11 @@ PageRoute<T> buildAdaptiveSheetRoute<T>({
       pageBuilder: (context, animation, secondaryAnimation) {
         return FadeTransition(
           opacity: animation,
-          child: ScaleTransition(
-            scale: animation,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 0.5),
+              end: Offset.zero,
+            ).animate(animation),
             child: child,
           ),
         );

@@ -11,8 +11,6 @@ import 'package:sub_track/ui/shared/mixins.dart';
 class HomeViewModel extends BaseViewModel with $SharedVariables {
   // bool haveSubscriptions = false;
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
-  final _firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
   SubscriptionLocalDataSource _subscriptionLocalDataSource =
       locator<SubscriptionLocalDataSource>();
   CalculationService _calculationService = locator<CalculationService>();
@@ -89,7 +87,11 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   }
 
   logout() async {
-    await _firebaseAuthenticationService.logout();
+    await $firebaseAuthenticationService.logout();
     $navigationService.clearStackAndShow(Routes.onBoardingView);
+  }
+
+  navigateToSettingView() {
+    $navigationService.navigateTo(Routes.settingView);
   }
 }

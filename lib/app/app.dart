@@ -12,6 +12,7 @@ import 'package:sub_track/ui/view/other_select/other_select_view.dart';
 import 'package:sub_track/ui/view/register/register_view.dart';
 import 'package:sub_track/ui/view/select_category/select_category_view.dart';
 import 'package:sub_track/ui/view/select_icon/select_icon_view.dart';
+import 'package:sub_track/ui/view/setting/setting_view.dart';
 import 'package:sub_track/ui/view/startup/startup_view.dart';
 
 @StackedApp(
@@ -56,7 +57,11 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
       page: ActiveSubscriptionView,
       fullscreenDialog: true,
       maintainState: true,
-    )
+    ),
+    AdaptiveRoute(
+      page: SettingView,
+      maintainState: true,
+    ),
   ],
   // no asType function in null safety version
   // dependencies: [

@@ -46,10 +46,10 @@ class HomeView extends StatelessWidget {
                   ),
                   padding: EdgeInsetsDirectional.only(end: 5),
                   trailing: GestureDetector(
-                    onLongPress: model.clean,
-                    onTap: model.startupTasks,
-                    onDoubleTap: () async {
-                      await model.logout();
+                    onLongPress: model.startupTasks,
+                    onTap: model.navigateToSettingView,
+                    onDoubleTap: () {
+                      model.clean();
                     },
                     // onTap: () {
                     //   if (model.animatorKey.controller.status ==
@@ -62,11 +62,9 @@ class HomeView extends StatelessWidget {
                       backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
                       radius: 18,
                       child: Center(
-                        child: Text(
-                          "KC",
-                          style: kBodyBoldStyle.copyWith(
-                            color: AppColor.STDark,
-                          ),
+                        child: Icon(
+                          Icons.person,
+                          // size: 40,
                         ),
                       ),
                     ),

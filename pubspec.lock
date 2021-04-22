@@ -380,11 +380,9 @@ packages:
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
-      path: flutter_local_notifications_platform_interface
-      ref: ios-swift
-      resolved-ref: "2bfa53ebbee77948934a78778d2da8e85739bb34"
-      url: "https://github.com/ketanchoyal/flutter_local_notifications.git"
-    source: git
+      path: "packages/flutter_local_notifications/flutter_local_notifications_platform_interface"
+      relative: true
+    source: path
     version: "3.0.0"
   flutter_localizations:
     dependency: "direct main"
@@ -758,6 +756,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.26.0"
+  settings_ui:
+    dependency: "direct main"
+    description:
+      name: settings_ui
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   shelf:
     dependency: transitive
     description:

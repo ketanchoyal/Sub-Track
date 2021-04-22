@@ -1,4 +1,5 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
@@ -10,6 +11,8 @@ import 'package:sub_track/ui/shared/mixins.dart';
 class HomeViewModel extends BaseViewModel with $SharedVariables {
   // bool haveSubscriptions = false;
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
+  final _firebaseAuthenticationService =
+      locator<FirebaseAuthenticationService>();
   SubscriptionLocalDataSource _subscriptionLocalDataSource =
       locator<SubscriptionLocalDataSource>();
   CalculationService _calculationService = locator<CalculationService>();
@@ -83,5 +86,10 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   navigateToActiveSub() async {
     $navigationService.navigateTo(Routes.activeSubscriptionView);
+  }
+
+  logout() async {
+    await _firebaseAuthenticationService.logout();
+    $navigationService.clearStackAndShow(Routes.onBoardingView);
   }
 }

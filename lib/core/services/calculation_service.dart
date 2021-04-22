@@ -153,6 +153,8 @@ class CalculationServiceImpl extends CalculationService {
     return totalExpense;
   }
 
+  // FIXME Subscription are renews every 30 day so instead of adding month add 30days
+  // Reference: https://transform-hq.helpscoutdocs.com/article/21-exact-interval-for-a-monthly-subscription
   Future<Subscription> _calculatePayments(Subscription subscription) async {
     print("Calculating payments for ${subscription.brand.title}");
     Map<DateTime, double> _payments = {};

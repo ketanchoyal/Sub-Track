@@ -48,6 +48,9 @@ class HomeView extends StatelessWidget {
                   trailing: GestureDetector(
                     onLongPress: model.clean,
                     onTap: model.startupTasks,
+                    onDoubleTap: () async {
+                      await model.logout();
+                    },
                     // onTap: () {
                     //   if (model.animatorKey.controller.status ==
                     //       AnimationStatus.completed) {

@@ -256,9 +256,11 @@ packages:
   dismissible_page:
     dependency: "direct main"
     description:
-      path: "packages/dismissible_page"
-      relative: true
-    source: path
+      path: "."
+      ref: null-safety
+      resolved-ref: be6396c9f01a70289bf313e2d6e48ef11f727a9b
+      url: "https://github.com/ketanchoyal/Flutter_dismissible_page.git"
+    source: git
     version: "0.6.1"
   email_validator:
     dependency: "direct main"
@@ -380,16 +382,20 @@ packages:
   flutter_local_notifications:
     dependency: "direct main"
     description:
-      path: "packages/flutter_local_notifications/flutter_local_notifications"
-      relative: true
-    source: path
+      path: "flutter_local_notifications/"
+      ref: ios-swift
+      resolved-ref: "55f7ecb526713f502fe0ee3bd4737f59135cae43"
+      url: "https://github.com/ketanchoyal/flutter_local_notifications.git"
+    source: git
     version: "5.0.0+1"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
-      path: "packages/flutter_local_notifications/flutter_local_notifications_platform_interface"
-      relative: true
-    source: path
+      path: "flutter_local_notifications_platform_interface/"
+      ref: ios-swift
+      resolved-ref: "55f7ecb526713f502fe0ee3bd4737f59135cae43"
+      url: "https://github.com/ketanchoyal/flutter_local_notifications.git"
+    source: git
     version: "3.0.0"
   flutter_localizations:
     dependency: "direct main"

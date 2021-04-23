@@ -39,13 +39,18 @@ dependencies:
   time: ^2.0.0
   dart_date: ^1.1.0-nullsafety.0
   flutter_local_notifications:
-    path: ./packages/flutter_local_notifications/flutter_local_notifications
+    git:
+      url: https://github.com/ketanchoyal/flutter_local_notifications.git
+      path: flutter_local_notifications/
+      ref: ios-swift
   fl_chart: ^0.35.0
   email_validator: ^2.0.1
   animator: ^3.0.0
   settings_ui: ^1.0.0
   dismissible_page:
-    path: ./packages/dismissible_page
+    git:
+      url: https://github.com/ketanchoyal/Flutter_dismissible_page.git
+      ref: null-safety
 
   #Firebase
   firebase_core: ^1.0.4

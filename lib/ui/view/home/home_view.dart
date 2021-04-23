@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:coast/coast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -180,13 +181,9 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Hero(
-                            tag: "active",
-                            transitionOnUserGestures: true,
-                            child: Text(
-                              "Active",
-                              style: kHeader3Style,
-                            ),
+                          Text(
+                            "Active",
+                            style: kHeader3Style,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -210,39 +207,31 @@ class HomeView extends StatelessWidget {
                         fit: FlexFit.tight,
                         child: Stack(
                           children: [
-                            Hero(
-                              tag: "background",
-                              transitionOnUserGestures: true,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: AppColor.STPureWhite,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: AppColor.STPureWhite,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
                                 ),
                               ),
                             ),
                             MediaQuery.removePadding(
                               context: context,
                               removeTop: true,
-                              child: Hero(
-                                tag: "list",
-                                transitionOnUserGestures: true,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: model.subscriptions.length,
-                                    itemBuilder: (context, index) {
-                                      if (model.subscriptions[index]
-                                              .renewsEvery ==
-                                          RenewsEvery.Never) {
-                                        return Container();
-                                      }
-                                      return STActiveSubCard(
-                                        subsription: model.subscriptions[index],
-                                      );
-                                    }),
-                              ),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: model.subscriptions.length,
+                                  itemBuilder: (context, index) {
+                                    if (model
+                                            .subscriptions[index].renewsEvery ==
+                                        RenewsEvery.Never) {
+                                      return Container();
+                                    }
+                                    return STActiveSubCard(
+                                      subsription: model.subscriptions[index],
+                                    );
+                                  }),
                             ),
                           ],
                         ),
@@ -298,82 +287,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
-// class ActiveSubscriptionView extends StatelessWidget {
-//   const ActiveSubscriptionView(this.model, {Key? key}) : super(key: key);
-//   final HomeViewModel model;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoPageScaffold(
-//       child: SafeArea(
-//         child: Stack(
-//           children: [
-//             Hero(
-//               tag: "background",
-//               transitionOnUserGestures: true,
-//               child: Container(
-//                 margin: EdgeInsets.symmetric(horizontal: 10),
-//                 decoration: BoxDecoration(
-//                   color: AppColor.STPureWhite,
-//                   borderRadius: BorderRadius.all(
-//                     Radius.circular(15),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             Column(
-//               children: [
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   mainAxisSize: MainAxisSize.max,
-//                   children: [
-//                     Hero(
-//                       tag: "active",
-//                       transitionOnUserGestures: true,
-//                       child: Text(
-//                         "Active",
-//                         style: kTitleStyle.copyWith(color: AppColor.STDark),
-//                       ),
-//                     ),
-//                     GestureDetector(
-//                       onTap: model.$navigationService.back,
-//                       child: Icon(
-//                         CupertinoIcons.xmark_circle_fill,
-//                         size: 30,
-//                       ),
-//                     ),
-//                   ],
-//                 ).paddingH(20),
-//                 verticalSpaceSmall,
-//                 Flexible(
-//                   fit: FlexFit.tight,
-//                   child: MediaQuery.removePadding(
-//                     context: context,
-//                     removeTop: true,
-//                     child: Hero(
-//                       tag: "list",
-//                       transitionOnUserGestures: true,
-//                       child: ListView.builder(
-//                           shrinkWrap: true,
-//                           itemCount: model.subscriptions.length,
-//                           itemBuilder: (context, index) {
-//                             if (model.subscriptions[index].renewsEvery ==
-//                                 RenewsEvery.Never) {
-//                               return Container();
-//                             }
-//                             return STActiveSubCard(
-//                               subsription: model.subscriptions[index],
-//                             );
-//                           }),
-//                     ),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

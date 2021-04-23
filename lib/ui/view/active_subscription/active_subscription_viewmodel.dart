@@ -8,22 +8,8 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
   // CalculationService _calculationService = locator<CalculationService>();
 
-  List<Subscription> _subscriptions = [];
-  List<Subscription> get subscriptions => _subscriptions;
-
-  startupTasks() {
-    _fetchSubs();
-    notifyListeners();
-  }
-
-  _fetchSubs() async {
-    (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
-      _subscriptions = event;
-      print("Data fetched");
-      print(_subscriptions);
-      notifyListeners();
-    });
-  }
+  List<Subscription> get subscriptions =>
+      _subscriptionRepo.getSubscriptionsOnce();
 
   pop() {
     $navigationService.back();

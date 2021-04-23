@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,22 +30,12 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
 
   AddSubDetailsView({Key? key, required this.brand}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
-      viewModelBuilder: () => AddSubDetailsViewModel(),
-      fireOnModelReadyOnce: true,
-      onModelReady: (model) {
-        initControllers(model, brand);
-        listenToFormUpdated(model);
-        model.setBrand(brand);
-      },
-      builder: (context, model, child) {
-        return CupertinoPageScaffold(
-          resizeToAvoidBottomInset: false,
-          navigationBar: CupertinoNavigationBar(
+  Widget appbar(model, context) {
+    return Platform.isIOS
+        ? CupertinoNavigationBar(
             automaticallyImplyLeading: false,
             transitionBetweenRoutes: true,
+            backgroundColor: AppColor.STPureWhite,
             middle: Text(
               brand.title,
               style: kNavigationStyle,
@@ -76,12 +68,56 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                 size: 30,
               ),
             ),
-          ),
-          child: model.isBusy
+          )
+        : AppBar(
+            backgroundColor: AppColor.STAccent,
+            title: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  brand.title,
+                  style: kHeader3Style,
+                ),
+                GestureDetector(
+                  onTap: () => model.addSubscription(),
+                  child: Text(
+                    "Save",
+                    style: kBodyBoldStyle,
+                  ),
+                ),
+              ],
+            ),
+            leading: GestureDetector(
+              onTap: model.pop,
+              child: Icon(
+                Icons.arrow_back,
+                size: 25,
+              ),
+            ),
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
+      viewModelBuilder: () => AddSubDetailsViewModel(),
+      fireOnModelReadyOnce: true,
+      onModelReady: (model) {
+        initControllers(model, brand);
+        listenToFormUpdated(model);
+        model.setBrand(brand);
+      },
+      builder: (context, model, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: AppColor.STLight,
+          appBar: appbar(model, context) as PreferredSizeWidget,
+          body: model.isBusy
               ? Stack(
                   children: [
-                    Center(
-                      child: STLoading(),
+                    const Center(
+                      child: const STLoading(),
                     )
                   ],
                 )

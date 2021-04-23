@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Inspiration taken from [modal_bottom_sheet](https://github.com/jamesblasco/modal_bottom_sheet)
-class CupertinoBottomSheetContainer extends StatelessWidget {
+
+class PlatformContainer extends StatelessWidget {
   /// Widget to render
   final Widget child;
   final Color? backgroundColor;
@@ -12,7 +15,38 @@ class CupertinoBottomSheetContainer extends StatelessWidget {
   ///
   /// Defaults to 10
   final double topPadding;
-  const CupertinoBottomSheetContainer(
+
+  const PlatformContainer(
+      {Key? key,
+      required this.child,
+      this.backgroundColor,
+      this.topPadding = 10})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Platform.isIOS
+        ? _CupertinoBottomSheetContainer(
+            child: child,
+            backgroundColor: backgroundColor,
+            topPadding: topPadding,
+            key: key,
+          )
+        : child;
+  }
+}
+
+class _CupertinoBottomSheetContainer extends StatelessWidget {
+  /// Widget to render
+  final Widget child;
+  final Color? backgroundColor;
+
+  /// Add padding to the top of [child], this is also the height of visible
+  /// content behind [child]
+  ///
+  /// Defaults to 10
+  final double topPadding;
+  const _CupertinoBottomSheetContainer(
       {Key? key,
       required this.child,
       this.backgroundColor,

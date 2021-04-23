@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -46,8 +44,11 @@ class HomeView extends StatelessWidget {
                   ),
                   padding: EdgeInsetsDirectional.only(end: 5),
                   trailing: GestureDetector(
-                    onLongPress: model.clean,
-                    onTap: model.startupTasks,
+                    onLongPress: model.startupTasks,
+                    onTap: model.navigateToSettingView,
+                    onDoubleTap: () {
+                      model.clean();
+                    },
                     // onTap: () {
                     //   if (model.animatorKey.controller.status ==
                     //       AnimationStatus.completed) {
@@ -59,11 +60,9 @@ class HomeView extends StatelessWidget {
                       backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
                       radius: 18,
                       child: Center(
-                        child: Text(
-                          "KC",
-                          style: kBodyBoldStyle.copyWith(
-                            color: AppColor.STDark,
-                          ),
+                        child: Icon(
+                          Icons.person,
+                          // size: 40,
                         ),
                       ),
                     ),
@@ -156,7 +155,7 @@ class HomeView extends StatelessWidget {
                         ],
                       ).paddingH(20),
                       Container(
-                        height: 160,
+                        height: 170,
                         width: context.screenWidth,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -179,13 +178,9 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Hero(
-                            tag: "active",
-                            transitionOnUserGestures: true,
-                            child: Text(
-                              "Active",
-                              style: kHeader3Style,
-                            ),
+                          Text(
+                            "Active",
+                            style: kHeader3Style,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -209,25 +204,21 @@ class HomeView extends StatelessWidget {
                         fit: FlexFit.tight,
                         child: Stack(
                           children: [
-                            Hero(
-                              tag: "background",
-                              transitionOnUserGestures: true,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: AppColor.STPureWhite,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(15),
-                                  ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: AppColor.STPureWhite,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
                                 ),
                               ),
                             ),
-                            MediaQuery.removePadding(
-                              context: context,
-                              removeTop: true,
-                              child: Hero(
-                                tag: "list",
-                                transitionOnUserGestures: true,
+                            Hero(
+                              tag: "list",
+                              transitionOnUserGestures: true,
+                              child: MediaQuery.removePadding(
+                                context: context,
+                                removeTop: true,
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: model.subscriptions.length,
@@ -297,82 +288,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
-// class ActiveSubscriptionView extends StatelessWidget {
-//   const ActiveSubscriptionView(this.model, {Key? key}) : super(key: key);
-//   final HomeViewModel model;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoPageScaffold(
-//       child: SafeArea(
-//         child: Stack(
-//           children: [
-//             Hero(
-//               tag: "background",
-//               transitionOnUserGestures: true,
-//               child: Container(
-//                 margin: EdgeInsets.symmetric(horizontal: 10),
-//                 decoration: BoxDecoration(
-//                   color: AppColor.STPureWhite,
-//                   borderRadius: BorderRadius.all(
-//                     Radius.circular(15),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             Column(
-//               children: [
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   mainAxisSize: MainAxisSize.max,
-//                   children: [
-//                     Hero(
-//                       tag: "active",
-//                       transitionOnUserGestures: true,
-//                       child: Text(
-//                         "Active",
-//                         style: kTitleStyle.copyWith(color: AppColor.STDark),
-//                       ),
-//                     ),
-//                     GestureDetector(
-//                       onTap: model.$navigationService.back,
-//                       child: Icon(
-//                         CupertinoIcons.xmark_circle_fill,
-//                         size: 30,
-//                       ),
-//                     ),
-//                   ],
-//                 ).paddingH(20),
-//                 verticalSpaceSmall,
-//                 Flexible(
-//                   fit: FlexFit.tight,
-//                   child: MediaQuery.removePadding(
-//                     context: context,
-//                     removeTop: true,
-//                     child: Hero(
-//                       tag: "list",
-//                       transitionOnUserGestures: true,
-//                       child: ListView.builder(
-//                           shrinkWrap: true,
-//                           itemCount: model.subscriptions.length,
-//                           itemBuilder: (context, index) {
-//                             if (model.subscriptions[index].renewsEvery ==
-//                                 RenewsEvery.Never) {
-//                               return Container();
-//                             }
-//                             return STActiveSubCard(
-//                               subsription: model.subscriptions[index],
-//                             );
-//                           }),
-//                     ),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

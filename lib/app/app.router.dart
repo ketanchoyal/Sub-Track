@@ -6,7 +6,11 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:io';
+
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/ui/view/active_subscription/active_subscription_view.dart';
@@ -14,16 +18,19 @@ import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
 
 import '../core/models/brand/brand.dart';
 import '../ui/shared/shared.dart';
+import '../ui/view/active_subscription/active_subscription_view.dart';
 import '../ui/view/add_sub/add_sub_view.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';
 import '../ui/view/demo/demo_view.dart';
 import '../ui/view/home/home_view.dart';
 import '../ui/view/login/login_view.dart';
+import '../ui/view/new_subscription/new_subscription_view.dart';
 import '../ui/view/on_boarding/on_boarding_view.dart';
 import '../ui/view/other_select/other_select_view.dart';
 import '../ui/view/register/register_view.dart';
 import '../ui/view/select_category/select_category_view.dart';
 import '../ui/view/select_icon/select_icon_view.dart';
+import '../ui/view/setting/setting_view.dart';
 import '../ui/view/startup/startup_view.dart';
 
 part 'app.routerx.dart';
@@ -37,6 +44,7 @@ class Routes {
   static const String registerView = '/register-view';
   static const String homeView = '/home-view';
   static const String activeSubscriptionView = '/active-subscription-view';
+  static const String settingView = '/setting-view';
   static const all = <String>{
     demoView,
     onBoardingView,
@@ -46,6 +54,7 @@ class Routes {
     registerView,
     homeView,
     activeSubscriptionView,
+    settingView,
   };
 }
 
@@ -69,6 +78,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.registerView, page: RegisterView),
     RouteDef(Routes.homeView, page: HomeView),
     RouteDef(Routes.activeSubscriptionView, page: ActiveSubscriptionView),
+    RouteDef(Routes.settingView, page: SettingView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -119,8 +129,15 @@ class StackedRouter extends RouterBase {
       return buildAdaptivePageRoute<dynamic>(
         builder: (context) => ActiveSubscriptionView(),
         settings: data,
-        maintainState: true,
         fullscreenDialog: true,
+        maintainState: true,
+      );
+    },
+    SettingView: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => SettingView(),
+        settings: data,
+        maintainState: true,
       );
     },
   };

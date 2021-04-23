@@ -154,21 +154,21 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   code_builder:
     dependency: transitive
     description:
@@ -253,6 +253,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  dismissible_page:
+    dependency: "direct main"
+    description:
+      path: "packages/dismissible_page"
+      relative: true
+    source: path
+    version: "0.6.1"
   email_validator:
     dependency: "direct main"
     description:
@@ -322,7 +329,7 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -373,16 +380,16 @@ packages:
   flutter_local_notifications:
     dependency: "direct main"
     description:
-      name: flutter_local_notifications
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/flutter_local_notifications/flutter_local_notifications"
+      relative: true
+    source: path
     version: "5.0.0+1"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
-      name: flutter_local_notifications_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/flutter_local_notifications/flutter_local_notifications_platform_interface"
+      relative: true
+    source: path
     version: "3.0.0"
   flutter_localizations:
     dependency: "direct main"
@@ -468,7 +475,7 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   hive_flutter:
     dependency: "direct main"
     description:
@@ -482,7 +489,7 @@ packages:
       name: hive_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   http:
     dependency: transitive
     description:
@@ -756,6 +763,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.26.0"
+  settings_ui:
+    dependency: "direct main"
+    description:
+      name: settings_ui
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   shelf:
     dependency: transitive
     description:
@@ -796,6 +810,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   source_span:
     dependency: transitive
     description:
@@ -816,7 +837,7 @@ packages:
       name: stacked
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.1.0"
   stacked_firebase_auth:
     dependency: "direct main"
     description:
@@ -832,7 +853,7 @@ packages:
       name: stacked_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.1"
   stacked_hooks:
     dependency: "direct main"
     description:
@@ -944,7 +965,7 @@ packages:
       name: velocity_x
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.0"
+    version: "3.0.0"
   vxstate:
     dependency: transitive
     description:

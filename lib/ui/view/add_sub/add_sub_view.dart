@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -24,24 +26,42 @@ class AddSubView extends StatelessWidget {
           // controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
-              CupertinoSliverNavigationBar(
-                stretch: false,
-                backgroundColor: AppColor.STPureWhite,
-                border: Border(bottom: BorderSide.none),
-                transitionBetweenRoutes: true,
-                largeTitle: Text(
-                  'Add Subscription',
-                ),
-                automaticallyImplyLeading: false,
-                leading: SizedBox(),
-                trailing: GestureDetector(
-                  onTap: model.pop,
-                  child: Icon(
-                    CupertinoIcons.xmark_circle_fill,
-                    size: 30,
+              if (Platform.isAndroid)
+                SliverToBoxAdapter(
+                  child: AppBar(
+                    backgroundColor: AppColor.STAccent,
+                    title: Text(
+                      'Add Subscription',
+                      style: kHeader3Style,
+                    ),
+                    leading: GestureDetector(
+                      onTap: model.pop,
+                      child: Icon(
+                        CupertinoIcons.xmark,
+                        size: 25,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              if (Platform.isIOS || Platform.isMacOS)
+                CupertinoSliverNavigationBar(
+                  stretch: false,
+                  backgroundColor: AppColor.STPureWhite,
+                  border: Border(bottom: BorderSide.none),
+                  transitionBetweenRoutes: true,
+                  largeTitle: Text(
+                    'Add Subscription',
+                  ),
+                  automaticallyImplyLeading: false,
+                  leading: SizedBox(),
+                  trailing: GestureDetector(
+                    onTap: model.pop,
+                    child: Icon(
+                      CupertinoIcons.xmark_circle_fill,
+                      size: 30,
+                    ),
+                  ),
+                ),
               SliverToBoxAdapter(
                 child: Column(
                   children: <Widget>[
@@ -90,7 +110,9 @@ class AddSubView extends StatelessWidget {
                     // physics: ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: model.brands?.length ?? 0,
-                    controller: model.uiService.scrollController,
+                    controller: Platform.isIOS
+                        ? model.uiService.scrollController
+                        : null,
                     // controller: ModalScrollController.of(context),
                     itemBuilder: (context, index) {
                       return STAddSubCard(

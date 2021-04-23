@@ -22,7 +22,7 @@ dependencies:
   #   path: ./packages/stacked_firebase_auth
 
   #Fast Development
-  velocity_x: ^2.6.0
+  velocity_x: ^3.0.0
 
   # Graphic related
   cupertino_icons: ^1.0.2
@@ -38,14 +38,18 @@ dependencies:
   uuid: ^3.0.3
   time: ^2.0.0
   dart_date: ^1.1.0-nullsafety.0
-  flutter_local_notifications: ^5.0.0+1
+  flutter_local_notifications:
+    path: ./packages/flutter_local_notifications/flutter_local_notifications
   fl_chart: ^0.35.0
   email_validator: ^2.0.1
   animator: ^3.0.0
+  settings_ui: ^1.0.0
+  dismissible_page:
+    path: ./packages/dismissible_page
 
   #Firebase
-  firebase_core: ^1.0.3
-  cloud_firestore: ^1.0.5
+  firebase_core: ^1.0.4
+  cloud_firestore: ^1.0.6
   stacked_firebase_auth:
     git:
         url: https://github.com/ketanchoyal/stacked.git
@@ -55,11 +59,11 @@ dependencies:
   cross_connectivity: ^3.0.2
 
   #Local Storage
-  hive: ^2.0.3
+  hive: ^2.0.4
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.0.4
+  stacked: ^2.1.0
   stacked_hooks: ^0.2.0
   stacked_services: ^0.8.3
 
@@ -67,8 +71,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  stacked_generator: ^0.3.2
-  hive_generator: ^1.0.0
+  stacked_generator: ^0.4.1
+  hive_generator: ^1.1.0
   flutter_launcher_icons: ^0.9.0
 
 flutter_icons:

@@ -32,11 +32,12 @@ class CalculationServiceImpl extends CalculationService {
         }
         if (subscription.payments != null) {
           subscription.payments!.forEach((key, newValue) {
-            data.update(
-              key.date,
-              (value) => value + newValue,
-              ifAbsent: () => newValue,
-            );
+            if (key.isBefore(DateTime.now()))
+              data.update(
+                key.date,
+                (value) => value + newValue,
+                ifAbsent: () => newValue,
+              );
           });
         }
       });
@@ -152,6 +153,8 @@ class CalculationServiceImpl extends CalculationService {
     return totalExpense;
   }
 
+  // FIXME Subscription are renews every 30 day so instead of adding month add 30days
+  // Reference: https://transform-hq.helpscoutdocs.com/article/21-exact-interval-for-a-monthly-subscription
   Future<Subscription> _calculatePayments(Subscription subscription) async {
     print("Calculating payments for ${subscription.brand.title}");
     Map<DateTime, double> _payments = {};
@@ -261,6 +264,14 @@ class CalculationServiceImpl extends CalculationService {
     }
     if (subscription.payments != null && subscription.payments!.isNotEmpty) {
       DateTime latestPayment = subscription.payments!.entries.last.key;
+      if (subscription.renewsEvery == RenewsEvery.Monthly) {
+        latestPayment = latestPayment.addMonths(1);
+      }
+      if (subscription.renewsEvery == RenewsEvery.Yearly) {
+        latestPayment = latestPayment.addYears(1);
+      }
+      // if (subscription.renewsEvery)
+      // TODO check if this latest payment has happened or not
       print(latestPayment);
       int remaningDays =
           latestPayment.difference(DateTime.now().date).inDays.abs();

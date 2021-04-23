@@ -1,4 +1,5 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
@@ -52,6 +53,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   startupTasks() {
     _fetchSubs();
     _getCurrentMonthExpense();
+    _getCurentYearExpense();
     _getGraphData();
     notifyListeners();
   }
@@ -66,7 +68,12 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   _getCurrentMonthExpense() async {
     _currentMonthExpense = await _calculationService.getCurrentMonthExpense();
-    _average = _currentMonthExpense / DateTime.now().month;
+    notifyListeners();
+  }
+
+  _getCurentYearExpense() async {
+    double currentYearExpense = await _calculationService.getTotalExpense();
+    _average = currentYearExpense / DateTime.now().month;
     notifyListeners();
   }
 
@@ -77,5 +84,14 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   navigateToActiveSub() async {
     $navigationService.navigateTo(Routes.activeSubscriptionView);
+  }
+
+  logout() async {
+    await $firebaseAuthenticationService.logout();
+    $navigationService.clearStackAndShow(Routes.onBoardingView);
+  }
+
+  navigateToSettingView() {
+    $navigationService.navigateTo(Routes.settingView);
   }
 }

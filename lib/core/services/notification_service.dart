@@ -63,36 +63,27 @@ class NotificationServiceImpl extends NotificationService {
     //     'largeIcon');
     // final String bigPicturePath = await _downloadAndSaveFile(
     //     'https://via.placeholder.com/400x800', 'bigPicture');
-    // await _configureLocalTimeZone();
-    // await _flutterLocalNotificationsPlugin.zonedSchedule(
-    //   10,
-    //   "This is Title",
-    //   "This is Body",
-    //   tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-    //   NotificationDetails(
-    //     iOS: IOSNotificationDetails(
-    //       subtitle: "This is Subtitle",
-    //       threadIdentifier: "threadIdentifier",
-    //     ),
-    //     android: AndroidNotificationDetails(
-    //       "thisIsChannelId",
-    //       "thisIsChannelName",
-    //       "thisIs Descriiption",
-    //       styleInformation:
-    //           BigPictureStyleInformation(FilePathAndroidBitmap(largeIconPath),
-    //               // largeIcon: FilePathAndroidBitmap(largeIconPath),
-    //               contentTitle: 'overridden <b>big</b> content title',
-    //               htmlFormatContentTitle: true,
-    //               summaryText: 'summary <i>text</i>',
-    //               htmlFormatSummaryText: true),
-    //       usesChronometer: true,
-    //       subText: "this is sub text",
-    //     ),
-    //   ),
-    //   androidAllowWhileIdle: true,
-    //   uiLocalNotificationDateInterpretation:
-    //       UILocalNotificationDateInterpretation.absoluteTime,
-    // );
+    await _configureLocalTimeZone();
+    await _flutterLocalNotificationsPlugin.periodicallyShow(
+      10,
+      "This is Title",
+      "This is Body",
+      RepeatInterval.everyMinute,
+      NotificationDetails(
+        iOS: IOSNotificationDetails(
+          subtitle: "This is Subtitle",
+          threadIdentifier: "threadIdentifier",
+        ),
+        android: AndroidNotificationDetails(
+          "thisIsChannelId",
+          "thisIsChannelName",
+          "thisIs Descriiption",
+          usesChronometer: true,
+          subText: "this is sub text",
+        ),
+      ),
+      androidAllowWhileIdle: true,
+    );
   }
 
   Future<String> _downloadAndSaveFile(String url, String fileName) async {
@@ -102,5 +93,60 @@ class NotificationServiceImpl extends NotificationService {
     final File file = File(filePath);
     await file.writeAsBytes(response.bodyBytes);
     return filePath;
+  }
+
+  Future<void> _scheduleMonthlyMondayTenAMNotification() async {
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        'monthly scheduled notification title',
+        'monthly scheduled notification body',
+        _nextInstanceOfMondayTenAM(),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'monthly notification channel id',
+            'monthly notification channel name',
+            'monthly notificationdescription',
+          ),
+        ),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
+  }
+
+  Future<void> _scheduleYearlyMondayTenAMNotification() async {
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        'yearly scheduled notification title',
+        'yearly scheduled notification body',
+        _nextInstanceOfMondayTenAM(),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+              'yearly notification channel id',
+              'yearly notification channel name',
+              'yearly notificationdescription'),
+        ),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
+  }
+
+  tz.TZDateTime _nextInstanceOfMondayTenAM() {
+    tz.TZDateTime scheduledDate = _nextInstanceOfTenAM();
+    while (scheduledDate.weekday != DateTime.monday) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
+  }
+
+  tz.TZDateTime _nextInstanceOfTenAM() {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate =
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, 10);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
   }
 }

@@ -17,6 +17,7 @@ abstract class SubscriptionRepo {
   Future addSubscription({required Subscription subscription});
   Future deleteSubscription({required String subscriptionId});
   Future updateSubscription({required Subscription subscription});
+  List<Subscription> getSubscriptionsOnce();
 }
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
@@ -38,6 +39,11 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       print("Fetching subs from Local Data Source");
       return _brandLocalDataSource.fetchSubscriptions();
     }
+  }
+
+  @override
+  List<Subscription> getSubscriptionsOnce() {
+    return _brandLocalDataSource.getSubscriptionsOnce();
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
 class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
+  bool isDialogPopped = false;
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
   // CalculationService _calculationService = locator<CalculationService>();
 

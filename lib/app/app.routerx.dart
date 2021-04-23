@@ -37,6 +37,15 @@ class StackedRouterX extends StackedRouter {
         },
       );
     },
+    ActiveSubscriptionView: (data) {
+      return TransparentRoute<dynamic>(
+        builder: (context) => ActiveSubscriptionView(),
+        settings: data,
+        backgroundColor: Colors.black.withOpacity(0.35),
+        fullscreenDialog: true,
+        maintainState: true,
+      );
+    },
   };
 }
 

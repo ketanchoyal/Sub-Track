@@ -1,4 +1,4 @@
-import 'package:coast/coast.dart';
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -14,72 +14,81 @@ class ActiveSubscriptionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ActiveSubscriptionViewModel>.reactive(
       viewModelBuilder: () => ActiveSubscriptionViewModel(),
-      builder: (context, model, child) => CupertinoPageScaffold(
-        child: Stack(
-          children: [
-            SafeArea(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 0),
-                decoration: BoxDecoration(
-                  color: AppColor.STPureWhite,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-              ),
-            ),
-            Column(
+      builder: (context, model, child) => DismissiblePage(
+        isFullScreen: true,
+        minScale: 0.7,
+        onDismiss: model.pop,
+        direction: DismissDirection.horizontal,
+        child: Hero(
+          tag: "list",
+          transitionOnUserGestures: true,
+          child: CupertinoPageScaffold(
+            child: Stack(
               children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        "Active",
-                        style: kTitleStyle.copyWith(color: AppColor.STDark),
+                SafeArea(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 0),
+                    decoration: BoxDecoration(
+                      color: AppColor.STPureWhite,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // SystemChrome.setEnabledSystemUIOverlays(
-                          //     SystemUiOverlay.values);
-                          model.pop();
-                        },
-                        child: Icon(
-                          CupertinoIcons.xmark_circle_fill,
-                          size: 30,
-                        ),
-                      ),
-                    ],
-                  ).paddingH(20),
-                ),
-                // verticalSpaceSmall,
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: model.subscriptions.length,
-                        itemBuilder: (context, index) {
-                          print(index);
-                          if (model.subscriptions[index].renewsEvery ==
-                              RenewsEvery.Never) {
-                            return Container();
-                          }
-
-                          return STActiveSubCard(
-                            subsription: model.subscriptions[index],
-                          );
-                        }),
+                    ),
                   ),
-                )
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            "Active",
+                            style: kTitleStyle.copyWith(color: AppColor.STDark),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // SystemChrome.setEnabledSystemUIOverlays(
+                              //     SystemUiOverlay.values);
+                              model.pop();
+                            },
+                            child: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              size: 35,
+                            ),
+                          ),
+                        ],
+                      ).paddingH(20),
+                    ),
+                    // verticalSpaceSmall,
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: model.subscriptions.length,
+                            itemBuilder: (context, index) {
+                              if (model.subscriptions[index].renewsEvery ==
+                                  RenewsEvery.Never) {
+                                return Container();
+                              }
+
+                              return STActiveSubCard(
+                                subsription: model.subscriptions[index],
+                              );
+                            }),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

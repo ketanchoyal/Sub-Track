@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:coast/coast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -216,22 +213,26 @@ class HomeView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            MediaQuery.removePadding(
-                              context: context,
-                              removeTop: true,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: model.subscriptions.length,
-                                  itemBuilder: (context, index) {
-                                    if (model
-                                            .subscriptions[index].renewsEvery ==
-                                        RenewsEvery.Never) {
-                                      return Container();
-                                    }
-                                    return STActiveSubCard(
-                                      subsription: model.subscriptions[index],
-                                    );
-                                  }),
+                            Hero(
+                              tag: "herrrroooo",
+                              transitionOnUserGestures: true,
+                              child: MediaQuery.removePadding(
+                                context: context,
+                                removeTop: true,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: model.subscriptions.length,
+                                    itemBuilder: (context, index) {
+                                      if (model.subscriptions[index]
+                                              .renewsEvery ==
+                                          RenewsEvery.Never) {
+                                        return Container();
+                                      }
+                                      return STActiveSubCard(
+                                        subsription: model.subscriptions[index],
+                                      );
+                                    }),
+                              ),
                             ),
                           ],
                         ),

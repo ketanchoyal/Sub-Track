@@ -171,7 +171,7 @@ class SettingView extends StatelessWidget {
                 ),
               ),
               Text(
-                'Version: 1.0.0+1',
+                'Version: 1.0.0-beta.3',
                 style: kSmallStyle.copyWith(color: Color(0xFF777777)),
               ),
             ],

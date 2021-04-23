@@ -214,7 +214,7 @@ class HomeView extends StatelessWidget {
                               ),
                             ),
                             Hero(
-                              tag: "herrrroooo",
+                              tag: "list",
                               transitionOnUserGestures: true,
                               child: MediaQuery.removePadding(
                                 context: context,

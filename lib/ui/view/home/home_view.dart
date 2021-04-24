@@ -213,26 +213,22 @@ class HomeView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Hero(
-                              tag: "list",
-                              transitionOnUserGestures: true,
-                              child: MediaQuery.removePadding(
-                                context: context,
-                                removeTop: true,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: model.subscriptions.length,
-                                    itemBuilder: (context, index) {
-                                      if (model.subscriptions[index]
-                                              .renewsEvery ==
-                                          RenewsEvery.Never) {
-                                        return Container();
-                                      }
-                                      return STActiveSubCard(
-                                        subsription: model.subscriptions[index],
-                                      );
-                                    }),
-                              ),
+                            MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: model.subscriptions.length,
+                                  itemBuilder: (context, index) {
+                                    if (model
+                                            .subscriptions[index].renewsEvery ==
+                                        RenewsEvery.Never) {
+                                      return Container();
+                                    }
+                                    return STActiveSubCard(
+                                      subsription: model.subscriptions[index],
+                                    );
+                                  }),
                             ),
                           ],
                         ),

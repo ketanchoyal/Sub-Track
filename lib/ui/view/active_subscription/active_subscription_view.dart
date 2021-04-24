@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
@@ -53,74 +50,71 @@ class ActiveSubscriptionView extends StatelessWidget {
                         child: CupertinoPageScaffold(
                           child: Stack(
                             children: [
-                              Hero(
-                                tag: "list",
-                                transitionOnUserGestures: true,
-                                child: Container(
-                                  // margin: EdgeInsets.symmetric(horizontal: 0),
-                                  decoration: BoxDecoration(
-                                    color: AppColor.STPureWhite,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
+                              Container(
+                                // margin: EdgeInsets.symmetric(horizontal: 0),
+                                decoration: BoxDecoration(
+                                  color: AppColor.STPureWhite,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                              .padding
+                                              .top),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            "Active",
+                                            style: kTitleStyle.copyWith(
+                                                color: AppColor.STDark),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              // SystemChrome.setEnabledSystemUIOverlays(
+                                              //     SystemUiOverlay.values);
+                                              model.pop();
+                                            },
+                                            child: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              size: 35,
+                                            ),
+                                          ),
+                                        ],
+                                      ).paddingH(20),
                                     ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context)
-                                                .padding
-                                                .top),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              "Active",
-                                              style: kTitleStyle.copyWith(
-                                                  color: AppColor.STDark),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                // SystemChrome.setEnabledSystemUIOverlays(
-                                                //     SystemUiOverlay.values);
-                                                model.pop();
-                                              },
-                                              child: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                size: 35,
-                                              ),
-                                            ),
-                                          ],
-                                        ).paddingH(20),
+                                    // verticalSpaceSmall,
+                                    SizedBox(
+                                      height: 70,
+                                      child: MediaQuery.removePadding(
+                                        context: context,
+                                        removeTop: true,
+                                        child: ListView.builder(
+                                            shrinkWrap: false,
+                                            controller: controller,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount:
+                                                model.subscriptions.length,
+                                            itemBuilder: (context, index) {
+                                              return STActiveSubCard(
+                                                isHorizontal: true,
+                                                subsription:
+                                                    model.subscriptions[index],
+                                              );
+                                            }),
                                       ),
-                                      // verticalSpaceSmall,
-                                      Flexible(
-                                        fit: FlexFit.loose,
-                                        child: MediaQuery.removePadding(
-                                          context: context,
-                                          removeTop: true,
-                                          child: ListView.builder(
-                                              shrinkWrap: false,
-                                              controller: controller,
-                                              itemCount:
-                                                  model.subscriptions.length,
-                                              itemBuilder: (context, index) {
-                                                return STActiveSubCard(
-                                                  subsription: model
-                                                      .subscriptions[index],
-                                                );
-                                              }),
-                                        ),
-                                      ),
-                                      // Expanded(
-                                      //   child: Container(),
-                                      // ),
-                                    ],
-                                  ),
+                                    ),
+                                    Expanded(
+                                      child: Container(),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

@@ -258,7 +258,7 @@ packages:
     description:
       path: "."
       ref: null-safety
-      resolved-ref: be6396c9f01a70289bf313e2d6e48ef11f727a9b
+      resolved-ref: "5a0851d86ca8e5d2a64b84598d69df797a4b08f7"
       url: "https://github.com/ketanchoyal/Flutter_dismissible_page.git"
     source: git
     version: "0.6.1"

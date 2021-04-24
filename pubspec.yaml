@@ -48,6 +48,7 @@ dependencies:
   animator: ^3.0.0
   settings_ui: ^1.0.0
   dismissible_page:
+    # path: ../packages/dismissible_page
     git:
       url: https://github.com/ketanchoyal/Flutter_dismissible_page.git
       ref: null-safety

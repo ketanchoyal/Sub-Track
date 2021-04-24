@@ -40,25 +40,29 @@ class STActiveSubCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: SvgPicture.network(
-                      subsription.brand.iconUrl!,
-                      height: 30,
-                      color: subsription.brand.hex.toColor()!.contrastOf(),
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: SvgPicture.network(
+                        subsription.brand.iconUrl!,
+                        height: 30,
+                        color: subsription.brand.hex.toColor()!.contrastOf(),
+                      ),
                     ),
-                  ),
-                  Text(
-                    subsription.brand.title,
-                    style: kBodyBoldStyle.copyWith(
-                      color: AppColor.STLight,
+                    Expanded(
+                      child: Text(
+                        subsription.brand.title,
+                        style: kBodyBoldStyle.copyWith(
+                          color: AppColor.STLight,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),

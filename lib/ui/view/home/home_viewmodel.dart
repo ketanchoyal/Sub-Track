@@ -13,7 +13,6 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
   SubscriptionLocalDataSource _subscriptionLocalDataSource =
       locator<SubscriptionLocalDataSource>();
-  CalculationService _calculationService = locator<CalculationService>();
 
   List<Subscription> _subscriptions = [];
   List<Subscription> get subscriptions => _subscriptions;
@@ -32,7 +31,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   int? remainingDays({required Subscription subscription}) {
     if (!_remaningDays.containsKey(subscription.subscriptionId)) {
-      _calculationService.calculateRemainingDays(subscription).then((value) {
+      $calculationService.calculateRemainingDays(subscription).then((value) {
         _remaningDays.addAll({subscription.subscriptionId: value});
         notifyListeners();
       });
@@ -67,18 +66,18 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   }
 
   _getCurrentMonthExpense() async {
-    _currentMonthExpense = await _calculationService.getCurrentMonthExpense();
+    _currentMonthExpense = await $calculationService.getCurrentMonthExpense();
     notifyListeners();
   }
 
   _getCurentYearExpense() async {
-    double currentYearExpense = await _calculationService.getTotalExpense();
+    double currentYearExpense = await $calculationService.getTotalExpense();
     _average = currentYearExpense / DateTime.now().month;
     notifyListeners();
   }
 
   _getGraphData() async {
-    _graphData = await _calculationService.getGraphData();
+    _graphData = await $calculationService.getGraphData();
     notifyListeners();
   }
 

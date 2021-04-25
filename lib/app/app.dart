@@ -16,6 +16,7 @@ import 'package:sub_track/ui/view/setting/setting_view.dart';
 import 'package:sub_track/ui/view/startup/startup_view.dart';
 
 @StackedApp(
+  logger: StackedLogger(),
   routes: [
     CupertinoRoute(page: DemoView),
     CupertinoRoute(

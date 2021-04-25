@@ -291,7 +291,17 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                               title: "Sub Started On",
                               child: STDetailFormElement(
                                 onTap: () async {
-                                  _showDatePicker(context, model);
+                                  Platform.isIOS
+                                      ? _showDatePicker(context, model)
+                                      : await model
+                                          .setDate(await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate:
+                                                    DateTime.now().addYears(-5),
+                                                lastDate: DateTime.now(),
+                                              ) ??
+                                              DateTime.now());
                                 },
                                 child: Text(
                                   model.subscription.startedOn
@@ -381,21 +391,27 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
       context: ctx,
       builder: (context) => Container(
         color: AppColor.STLight,
-        height: 400,
-        child: Column(
+        height: 300,
+        child: Stack(
           children: [
             Container(
-              height: 300,
+              height: 280,
               child: CupertinoDatePicker(
                 initialDateTime: DateTime.now(),
                 onDateTimeChanged: model.setDate,
+                maximumDate: DateTime.now(),
+                maximumYear: DateTime.now().year,
+                minimumDate: DateTime.now().addYears(-5),
                 mode: CupertinoDatePickerMode.date,
               ),
             ),
             // Close the modal
-            CupertinoButton(
-              child: Text('Close'),
-              onPressed: () => Navigator.of(context).pop(),
+            Align(
+              alignment: Alignment.topRight,
+              child: CupertinoButton(
+                child: Text('Close'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             )
           ],
         ),

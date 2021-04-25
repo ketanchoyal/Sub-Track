@@ -5,7 +5,7 @@ description: Subscription Tracker Application
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0-beta.3
+version: 1.0.0-beta.4
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -47,7 +47,10 @@ dependencies:
   email_validator: ^2.0.1
   animator: ^3.0.0
   settings_ui: ^1.0.0
+  logger: ^1.0.0
+  url_launcher: ^6.0.3
   dismissible_page:
+    # path: ../packages/dismissible_page
     git:
       url: https://github.com/ketanchoyal/Flutter_dismissible_page.git
       ref: null-safety
@@ -70,7 +73,7 @@ dependencies:
   #State Management
   stacked: ^2.1.0
   stacked_hooks: ^0.2.0
-  stacked_services: ^0.8.3
+  stacked_services: ^0.8.5
 
 dev_dependencies:
   flutter_test:

@@ -41,7 +41,7 @@ class StackedRouterX extends StackedRouter {
       return TransparentRoute<dynamic>(
         builder: (context) => ActiveSubscriptionView(),
         settings: data,
-        backgroundColor: Colors.black.withOpacity(0.35),
+        backgroundColor: Colors.transparent,
         fullscreenDialog: true,
         maintainState: true,
       );
@@ -64,6 +64,7 @@ PageRoute<T> buildAdaptiveSheetRoute<T>({
       fullscreenDialog: fullscreenDialog,
     );
   } else if (Platform.isIOS || Platform.isMacOS) {
+    //https://gist.github.com/devkabiir/57de88ce8d64dff9d3e6fe0627a8b654
     return PageRouteBuilder(
       settings: data,
       barrierDismissible: true,
@@ -71,8 +72,8 @@ PageRoute<T> buildAdaptiveSheetRoute<T>({
       opaque: false,
       fullscreenDialog: fullscreenDialog,
       maintainState: maintainState,
-      transitionDuration: Duration(milliseconds: 335),
-      reverseTransitionDuration: Duration(milliseconds: 335),
+      transitionDuration: Duration(milliseconds: 200),
+      reverseTransitionDuration: Duration(milliseconds: 200),
       barrierColor: Colors.transparent,
       pageBuilder: (context, animation, secondaryAnimation) {
         // return NewSubscription();

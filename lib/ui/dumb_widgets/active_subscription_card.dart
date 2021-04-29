@@ -50,7 +50,7 @@ class STActiveSubCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 9,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: isHorizontal
@@ -89,7 +89,7 @@ class STActiveSubCard extends StatelessWidget {
                 // if (!isHorizontal) Spacer(),
                 if (!isHorizontal)
                   Expanded(
-                    flex: 1,
+                    flex: 3,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: RichText(

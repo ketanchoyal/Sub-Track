@@ -50,14 +50,15 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   }
 
   startupTasks() {
-    _fetchSubs();
+    fetchSubs();
     _getCurrentMonthExpense();
     _getCurentYearExpense();
     _getGraphData();
     notifyListeners();
   }
 
-  _fetchSubs() async {
+  fetchSubs() async {
+    await Future.delayed(Duration(seconds: 5));
     if (_subscriptions.isEmpty)
       (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
         _subscriptions = event;

@@ -264,18 +264,22 @@ class CalculationServiceImpl extends CalculationService {
     }
     if (subscription.payments != null && subscription.payments!.isNotEmpty) {
       DateTime latestPayment = subscription.payments!.entries.last.key;
-      if (subscription.renewsEvery == RenewsEvery.Monthly) {
-        latestPayment = latestPayment.addMonths(1);
-      }
-      if (subscription.renewsEvery == RenewsEvery.Yearly) {
-        latestPayment = latestPayment.addYears(1);
-      }
-      // if (subscription.renewsEvery)
-      // TODO check if this latest payment has happened or not
       print(latestPayment);
-      int remaningDays =
-          latestPayment.difference(DateTime.now().date).inDays.abs();
+      int remaningDays = latestPayment.difference(DateTime.now().date).inDays;
       print(latestPayment.difference(DateTime.now().date).inDays);
+      // NOTE check if this latest payment has happened or not (id negative than sub is happened)
+      if (remaningDays.isNegative || remaningDays == 0) {
+        if (subscription.renewsEvery == RenewsEvery.Monthly) {
+          latestPayment = latestPayment.addMonths(1);
+        }
+        if (subscription.renewsEvery == RenewsEvery.Yearly) {
+          latestPayment = latestPayment.addYears(1);
+        }
+        if (subscription.renewsEvery == RenewsEvery.Weekly) {
+          latestPayment = latestPayment.add(Duration(days: 7));
+        }
+      }
+      remaningDays = latestPayment.difference(DateTime.now().date).inDays;
       // await _subscriptionRepo.updateSubscription(
       //     subscription: subscription.copyWith(remaningDays: remaningDays));
       return remaningDays;

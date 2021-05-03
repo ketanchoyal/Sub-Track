@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
+import 'package:sub_track/ui/dumb_widgets/loading.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/dumb_widgets/textfield_outline.dart';
 import 'package:sub_track/ui/shared/shared.dart';
@@ -221,14 +222,23 @@ class ActiveSubscriptionView extends StatelessWidget {
                                                 ),
                                                 TextSpan(
                                                   text:
-                                                      " ${model.remainingDays == 1 ? "day" : "days"},",
+                                                      " ${(model.remainingDays ?? 0) <= 1 ? "day" : "days"},",
                                                 ),
                                                 TextSpan(
                                                   text:
-                                                      " ${DateFormat('dd MMM').format(model.selectedSub.startedOn)}.",
+                                                      " ${DateFormat('dd MMM').format(model.selectedSub.nextSubOn(model.remainingDays) ?? DateTime.now())}.",
                                                 ),
                                               ],
                                             ),
+                                          ),
+                                          verticalSpaceSmall,
+                                          Text(
+                                            "Subscription started on ${DateFormat('dd MMM yyyy').format(model.startedOn)}.",
+                                            style: kMediumStyle.copyWith(
+                                                color: model
+                                                    .selectedSub.brand.hex
+                                                    .toColor()!
+                                                    .contrastOf()),
                                           ),
                                         ],
                                       ),
@@ -253,7 +263,7 @@ class ActiveSubscriptionView extends StatelessWidget {
                                         ),
                                     ],
                                   ),
-                                  verticalSpaceMedium,
+                                  verticalSpaceRegular,
                                   Text(
                                     "History",
                                     style: kHeader3Style.copyWith(
@@ -269,20 +279,66 @@ class ActiveSubscriptionView extends StatelessWidget {
                                         .contrastOf(),
                                   ),
                                   verticalSpaceRegular,
-                                  Column(
-                                    children: model
-                                        .selectedSub.payments!.entries
-                                        .map(
-                                          (e) => History(
-                                            title:
-                                                model.selectedSub.brand.title,
-                                            date: e.key,
-                                            amount: e.value,
-                                            color: model.selectedSub.brand.hex
-                                                .toColor(),
-                                          ),
+                                  model.isBusy
+                                      ? Center(
+                                          child: STLoading(),
                                         )
-                                        .toList(),
+                                      : Column(
+                                          children: model
+                                              .selectedSub.payments!.entries
+                                              .map(
+                                                (e) => History(
+                                                  title: model
+                                                      .selectedSub.brand.title,
+                                                  date: e.key,
+                                                  amount: e.value,
+                                                  color: model
+                                                      .selectedSub.brand.hex
+                                                      .toColor(),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                  model.isBusy
+                                      ? verticalSpaceRegular
+                                      : verticalSpaceTiny,
+                                  Divider(
+                                    color: model.selectedSub.brand.hex
+                                        .toColor()!
+                                        .contrastOf(),
+                                  ),
+                                  verticalSpaceTiny,
+                                  GestureDetector(
+                                    onTap: () {
+                                      model.deleteSub();
+                                    },
+                                    child: SizedBox(
+                                      width: screenWidth(context),
+                                      height: 50,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Delete",
+                                            style: kHeader3Style.copyWith(
+                                              color: model.selectedSub.brand.hex
+                                                  .toColor()!
+                                                  .contrastOf(),
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.delete_rounded,
+                                            size: 30,
+                                            color: model.selectedSub.brand.hex
+                                                .toColor()!
+                                                .contrastOf(),
+                                          ),
+                                        ],
+                                      ).paddingH(5),
+                                    ),
                                   ),
                                 ],
                               ),

@@ -18,8 +18,13 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
     _selectedSub = subscriptions.first;
   }
 
-  selectSub(Subscription sub) {
+  selectSub(Subscription sub) async {
     _selectedSub = sub;
+    if (_selectedSub.payments == null) {
+      setBusy(true);
+      await $calculationService.calculateRemainingDays(_selectedSub);
+      setBusy(false);
+    }
     notifyListeners();
   }
 
@@ -34,6 +39,15 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
     $navigationService.back();
   }
 
+  deleteSub() {
+    // _subscriptionRepo.deleteSubscription(
+    //     subscriptionId: _selectedSub.subscriptionId);
+  }
+
+  DateTime get startedOn {
+    return _selectedSub.startedOn;
+  }
+
   int? get remainingDays {
     if (!_remaningDays.containsKey(_selectedSub.subscriptionId)) {
       $calculationService.calculateRemainingDays(_selectedSub).then((value) {
@@ -46,7 +60,7 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   }
 
   openLink() {
-    if (selectedSub.brand.source != null)
+    if (_selectedSub.brand.source != null)
       _urlLaunchService.launchUrl(selectedSub.brand.source!);
   }
 }

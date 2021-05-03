@@ -122,3 +122,30 @@ class Subscription extends HiveObject {
         remaningDays: remaningDays ?? this.remaningDays,
       );
 }
+
+extension SubscriptionX on Subscription {
+  DateTime? nextSubOn(int? days) {
+    return days == null ? null : DateTime.now().add(Duration(days: days));
+    // switch (renewsEvery) {
+    //   case RenewsEvery.Never:
+    //     return null;
+    //   case RenewsEvery.Monthly:
+    //     if (payments?.entries.last.key.isFuture ?? true) {
+    //       return payments?.entries.last.key ?? null;
+    //     } else
+    //       return payments?.entries.last.key.addMonths(1) ?? null;
+    //   case RenewsEvery.Daily:
+    //     return payments?.entries.last.key ?? null;
+    //   case RenewsEvery.Weekly:
+    //     return payments?.entries.last.key ?? null;
+    //   case RenewsEvery.Biweekly:
+    //     return payments?.entries.last.key ?? null;
+    //   case RenewsEvery.Quarterly:
+    //     return payments?.entries.last.key ?? null;
+    //   case RenewsEvery.Half_yearly:
+    //     return payments?.entries.last.key ?? null;
+    //   case RenewsEvery.Yearly:
+    //     return payments?.entries.last.key ?? null;
+    // }
+  }
+}

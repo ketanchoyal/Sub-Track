@@ -77,7 +77,7 @@ class HomeView extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: Container(
-                  height: screenHeight(context),
+                  height: screenHeightPercentage(context, percentage: 0.8),
                   child: Stack(
                     children: [
                       Row(
@@ -229,6 +229,7 @@ class HomeView extends StatelessWidget {
                                   MediaQuery.removePadding(
                                     context: context,
                                     removeTop: true,
+                                    removeBottom: true,
                                     child: ListView.builder(
                                         shrinkWrap: true,
                                         itemCount: model.subscriptions.length,

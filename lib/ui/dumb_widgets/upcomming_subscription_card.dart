@@ -130,7 +130,7 @@ class STUpcommingSub extends StatelessWidget {
                             color: AppColor.STDarkLight,
                           ),
                           Text(
-                            "${DateFormat('dd MMMM').format(subsription.startedOn)}",
+                            "${DateFormat('dd MMMM').format(subsription.nextSubOn(remaningDays) ?? DateTime.now())}",
                             style: kPreTitleStyle.copyWith(
                               color: AppColor.STDarkLight,
                             ),

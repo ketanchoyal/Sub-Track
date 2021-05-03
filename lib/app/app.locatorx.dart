@@ -36,6 +36,7 @@ setupLocator() async {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => SnackbarService());
+  locator.registerLazySingleton(() => BottomSheetService());
   locator.registerSingleton(FirebaseAuthenticationService());
 
   // **************************************************************************

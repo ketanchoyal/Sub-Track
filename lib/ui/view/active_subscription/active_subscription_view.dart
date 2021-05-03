@@ -284,20 +284,27 @@ class ActiveSubscriptionView extends StatelessWidget {
                                           child: STLoading(),
                                         )
                                       : Column(
-                                          children: model
-                                              .selectedSub.payments!.entries
-                                              .map(
-                                                (e) => History(
-                                                  title: model
-                                                      .selectedSub.brand.title,
-                                                  date: e.key,
-                                                  amount: e.value,
-                                                  color: model
-                                                      .selectedSub.brand.hex
-                                                      .toColor(),
-                                                ),
-                                              )
-                                              .toList(),
+                                          children:
+                                              model.selectedSub.payments == null
+                                                  ? []
+                                                  : model.selectedSub.payments!
+                                                      .entries
+                                                      .map(
+                                                        (e) => History(
+                                                          title: model
+                                                              .selectedSub
+                                                              .brand
+                                                              .title,
+                                                          date: e.key,
+                                                          amount: e.value,
+                                                          color: model
+                                                              .selectedSub
+                                                              .brand
+                                                              .hex
+                                                              .toColor(),
+                                                        ),
+                                                      )
+                                                      .toList(),
                                         ),
                                   model.isBusy
                                       ? verticalSpaceRegular

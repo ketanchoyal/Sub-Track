@@ -45,7 +45,9 @@ class SubscriptionServiceImpl with Firestore implements SubscriptionService {
     }
   }
 
-  //NOTE Requires Testing
+  // NOTE Why Do I need this function? Subs are fethed from local all the time, Remote is just used to store dat
+  // FIXME Instead of this function, can I make a function to sync local data with the remote data when user logs in First time?
+  // NOTE Requires Testing
   @override
   Stream<List<Subscription>> fetchSubscriptions() {
     if (currentUserSubCollRef != null)

@@ -1,16 +1,19 @@
-# sub_track
+<img src="assets/launcher_icons/splash_screen.png" width="60px" height="60px" />
 
-Subscription Tracker Application
+# Sub Track: A Subscription Tracker Application built using Flutter
 
-## Getting Started
+### Sub Track is first open source Subscription Tracker app made using Flutter
 
-This project is a starting point for a Flutter application.
+### TODO
+    ## Prority
+    - [ ] Add Notification
+    - [ ] Arrange Ongoing Subs according to Date
+    - [ ] Add Currency Selection Screen
 
-A few resources to get you started if this is your first Flutter project:
+    ## Just Feature
+    - [ ] Firebase Sync
+    - [x] History
+    - [x] Add Shared with
+    - [x] Show Remaining days
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Screenshots

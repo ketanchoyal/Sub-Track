@@ -121,31 +121,39 @@ class Subscription extends HiveObject {
         payments: payments ?? this.payments,
         remaningDays: remaningDays ?? this.remaningDays,
       );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "category": category,
+        "description": description,
+        "sharedWith": sharedWith,
+        "brand": brand.toMap(),
+        "cost": cost,
+        "renewsEvery": renewsEveryValue,
+        "subscriptionId": subscriptionId,
+        "startedOn": startedOn,
+        "notificationOn": notificationOnValue,
+        "remaningDays": remaningDays,
+        "payments": payments,
+      };
+
+  factory Subscription.fromJson(Map<String, dynamic> json) =>
+      Subscription.noEnum(
+        brand: Brand.fromMap(json['brand']),
+        cost: json['cost'] as double,
+        description: json['description'] as String?,
+        subscriptionId: json['subscriptionId'] as String,
+        renewsEvery: json['renewsEvery'] as String,
+        category: json['category'] as String?,
+        sharedWith: json['sharedWith'] as int?,
+        startedOn: json['startedOn'] as DateTime,
+        notificationOn: json['notificationOn'] as String,
+        payments: (json['payments'] as Map?)?.cast<DateTime, double>(),
+        remaningDays: json['remaningDays'] as int?,
+      );
 }
 
 extension SubscriptionX on Subscription {
   DateTime? nextSubOn(int? days) {
     return days == null ? null : DateTime.now().add(Duration(days: days));
-    // switch (renewsEvery) {
-    //   case RenewsEvery.Never:
-    //     return null;
-    //   case RenewsEvery.Monthly:
-    //     if (payments?.entries.last.key.isFuture ?? true) {
-    //       return payments?.entries.last.key ?? null;
-    //     } else
-    //       return payments?.entries.last.key.addMonths(1) ?? null;
-    //   case RenewsEvery.Daily:
-    //     return payments?.entries.last.key ?? null;
-    //   case RenewsEvery.Weekly:
-    //     return payments?.entries.last.key ?? null;
-    //   case RenewsEvery.Biweekly:
-    //     return payments?.entries.last.key ?? null;
-    //   case RenewsEvery.Quarterly:
-    //     return payments?.entries.last.key ?? null;
-    //   case RenewsEvery.Half_yearly:
-    //     return payments?.entries.last.key ?? null;
-    //   case RenewsEvery.Yearly:
-    //     return payments?.entries.last.key ?? null;
-    // }
   }
 }

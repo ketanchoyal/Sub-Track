@@ -22,7 +22,7 @@ import 'package:sub_track/core/services/connectivity_service.dart';
 import 'package:sub_track/core/services/file_service.dart';
 import 'package:sub_track/core/services/notification_service.dart';
 import 'package:sub_track/core/services/stoppable_services.dart';
-import 'package:sub_track/core/services/subscription_service.dart';
+import 'package:sub_track/core/services/firebase/subscription_service.dart';
 import 'package:sub_track/core/services/url_launch_service.dart';
 
 import '../core/services/brand_service.dart';

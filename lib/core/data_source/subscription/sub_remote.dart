@@ -2,7 +2,7 @@ import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
-import 'package:sub_track/core/services/subscription_service.dart';
+import 'package:sub_track/core/services/firebase/subscription_service.dart';
 
 /// Require
 ///

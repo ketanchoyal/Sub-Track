@@ -296,10 +296,13 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                                       : await model
                                           .setDate(await showDatePicker(
                                                 context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate:
-                                                    DateTime.now().addYears(-5),
-                                                lastDate: DateTime.now(),
+                                                initialDate: model
+                                                    .subscription.startedOn,
+                                                firstDate: DateTime.now()
+                                                    .addYears(-5)
+                                                    .date,
+                                                lastDate: DateTime.now()
+                                                    .add(Duration(minutes: 10)),
                                               ) ??
                                               DateTime.now());
                                 },
@@ -385,7 +388,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
     );
   }
 
-  void _showDatePicker(ctx, model) {
+  void _showDatePicker(ctx, AddSubDetailsViewModel model) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
     showCupertinoModalPopup(
       context: ctx,
@@ -397,11 +400,11 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
             Container(
               height: 280,
               child: CupertinoDatePicker(
-                initialDateTime: DateTime.now(),
+                initialDateTime: model.subscription.startedOn,
                 onDateTimeChanged: model.setDate,
-                maximumDate: DateTime.now(),
+                maximumDate: DateTime.now().add(Duration(minutes: 10)),
                 maximumYear: DateTime.now().year,
-                minimumDate: DateTime.now().addYears(-5),
+                minimumDate: DateTime.now().addYears(-5).date,
                 mode: CupertinoDatePickerMode.date,
               ),
             ),

@@ -1,18 +1,25 @@
 <img src="assets/launcher_icons/splash_screen.png" width="60px" height="60px" />
 
+![CI/CD Android](https://github.com/ketanchoyal/Sub-Track/actions/workflows/main.yml/badge.svg?branch=actions/ci_cd_android)
+
 # Sub Track: A Subscription Tracker Application built using Flutter
 
 ### Sub Track is first open source Subscription Tracker app made using Flutter
 
+### Want to Contribute?
+
+Refer [CONTRIBUTING.md](CONTRIBUTING.md)
 # TODO
 ### &emsp; Prority
-- [ ] Add Notification
+- [ ] Add Notifications
 - [ ] Arrange Ongoing Subs according to Date
 - [ ] Add Currency Selection Screen
 
 ### &emsp; Just Feature
-- [ ] Firebase Sync
+- [x] Firebase Sync
 - [x] History
+- [ ] Archive Subscription
+- [ ] Pause Subscription
 - [x] Add Shared with
 - [x] Show Remaining days
 

@@ -8,10 +8,12 @@ import 'package:sub_track/ui/shared/shared.dart';
 ///
 /// [SubscriptionRepo]
 abstract class CalculationService {
-  Future<double> getTotalExpense({bool currentYear = true});
-  Future<double> getCurrentMonthExpense();
-  Future<Map<DateTime, double>> getGraphData();
-  Future<double> getExpenseOf({required DateTime month});
+  Future<double> getTotalExpense(
+      {bool currentYear = true, bool fromRemote = false});
+  Future<double> getCurrentMonthExpense({bool fromRemote = false});
+  Future<Map<DateTime, double>> getGraphData({bool fromRemote = false});
+  Future<double> getExpenseOf(
+      {required DateTime month, bool fromRemote = false});
   Future<int?> calculateRemainingDays(Subscription subscription);
 }
 
@@ -19,9 +21,9 @@ class CalculationServiceImpl extends CalculationService {
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
 
   @override
-  Future<Map<DateTime, double>> getGraphData() async {
+  Future<Map<DateTime, double>> getGraphData({bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+        (await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote));
 
     await for (List<Subscription> subs in subStream) {
       Map<DateTime, double> data = {};
@@ -47,9 +49,10 @@ class CalculationServiceImpl extends CalculationService {
   }
 
   @override
-  Future<double> getExpenseOf({required DateTime month}) async {
+  Future<double> getExpenseOf(
+      {required DateTime month, bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+        (await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote));
 
     await for (List<Subscription> subs in subStream) {
       double totalExpense = 0;
@@ -67,9 +70,9 @@ class CalculationServiceImpl extends CalculationService {
 
   //NOTE needs testing
   @override
-  Future<double> getCurrentMonthExpense() async {
+  Future<double> getCurrentMonthExpense({bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+        (await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote));
 
     await for (List<Subscription> subs in subStream) {
       double totalExpense = 0;
@@ -102,9 +105,10 @@ class CalculationServiceImpl extends CalculationService {
 
   //NOTE needs testing
   @override
-  Future<double> getTotalExpense({bool currentYear = true}) async {
+  Future<double> getTotalExpense(
+      {bool currentYear = true, bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        await _subscriptionRepo.fetchSubscriptions();
+        await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote);
     print("Subscribed to getTotalExpense");
     print("setting totalExpense : 0");
     double totalExpense = 0;

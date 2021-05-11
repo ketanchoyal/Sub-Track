@@ -16,6 +16,19 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   List<Subscription> _subscriptions = [];
   List<Subscription> get subscriptions => _subscriptions;
+  List<Subscription> get upcommings {
+    List<Subscription> sortedSubs = _subscriptions;
+    sortedSubs.sort((a, b) {
+      int? r1 = remainingDays(subscription: a);
+      int? r2 = remainingDays(subscription: b);
+      if (r1 != null && r2 != null) {
+        return r1.compareTo(r2);
+      } else
+        return 1000;
+    });
+    return sortedSubs.take(5).toList();
+  }
+
   Map<String, int?> _remaningDays = {};
 
   double _currentMonthExpense = 0.0;

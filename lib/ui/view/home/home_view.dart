@@ -169,18 +169,16 @@ class HomeView extends StatelessWidget {
                               width: context.screenWidth,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: model.subscriptions.length,
+                                  itemCount: model.upcommings.length,
                                   itemBuilder: (contex, index) {
-                                    if (model
-                                            .subscriptions[index].renewsEvery ==
+                                    if (model.upcommings[index].renewsEvery ==
                                         RenewsEvery.Never) {
                                       return Container();
                                     }
                                     return STUpcommingSub(
-                                      subsription: model.subscriptions[index],
+                                      subsription: model.upcommings[index],
                                       remaningDays: model.remainingDays(
-                                        subscription:
-                                            model.subscriptions[index],
+                                        subscription: model.upcommings[index],
                                       ),
                                     );
                                   }),

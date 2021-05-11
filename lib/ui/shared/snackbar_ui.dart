@@ -35,6 +35,24 @@ void setupSnackbarUi() {
   );
 
   service.registerCustomSnackbarConfig(
+    variant: SnackbarType.Info,
+    config: SnackbarConfig(
+      isDismissible: true,
+      animationDuration: Duration(seconds: 1),
+      backgroundColor: AppColor.STAccent,
+      textColor: AppColor.STPureWhite,
+      borderRadius: 10,
+      forwardAnimationCurve: Curves.bounceIn,
+      // reverseAnimationCurve: Curves.bounceOut,
+      padding: EdgeInsets.all(15),
+      margin: EdgeInsets.all(15),
+      snackPosition: SnackPosition.BOTTOM,
+      snackStyle: SnackStyle.FLOATING,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+    ),
+  );
+
+  service.registerCustomSnackbarConfig(
     variant: SnackbarType.Error,
     config: SnackbarConfig(
       isDismissible: true,
@@ -52,4 +70,4 @@ void setupSnackbarUi() {
   );
 }
 
-enum SnackbarType { Success, Error }
+enum SnackbarType { Success, Error, Info }

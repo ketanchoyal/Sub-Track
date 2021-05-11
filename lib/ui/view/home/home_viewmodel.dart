@@ -107,8 +107,11 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  navigateToActiveSub() async {
-    $navigationService.navigateTo(Routes.activeSubscriptionView);
+  navigateToActiveSub({required String subId}) async {
+    $navigationService.navigateTo(
+      Routes.activeSubscriptionView,
+      arguments: ActiveSubscriptionViewArguments(selectedSubId: subId),
+    );
   }
 
   logout() async {

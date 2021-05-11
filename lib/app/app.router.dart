@@ -126,8 +126,12 @@ class StackedRouter extends RouterBase {
       );
     },
     ActiveSubscriptionView: (data) {
+      var args = data.getArgs<ActiveSubscriptionViewArguments>(nullOk: false);
       return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => ActiveSubscriptionView(),
+        builder: (context) => ActiveSubscriptionView(
+          key: args.key,
+          selectedSubId: args.selectedSubId,
+        ),
         settings: data,
         fullscreenDialog: true,
         maintainState: true,
@@ -269,6 +273,13 @@ class NewSubscriptionRouter extends RouterBase {
 /// ************************************************************************
 /// Arguments holder classes
 /// *************************************************************************
+
+/// ActiveSubscriptionView arguments holder class
+class ActiveSubscriptionViewArguments {
+  final Key? key;
+  final String selectedSubId;
+  ActiveSubscriptionViewArguments({this.key, required this.selectedSubId});
+}
 
 /// AddSubDetailsView arguments holder class
 class AddSubDetailsViewArguments {

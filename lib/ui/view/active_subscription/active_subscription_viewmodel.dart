@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
@@ -8,7 +9,7 @@ import 'package:sub_track/ui/shared/mixins.dart';
 
 class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   bool isDialogPopped = false;
-  double scale = 1.0;
+  double scale = 2.0;
   SubscriptionRepo get _subscriptionRepo => locator<SubscriptionRepo>();
   UrlLaunchService get _urlLaunchService => locator<UrlLaunchService>();
   BottomSheetService get _bottomSheetService => locator<BottomSheetService>();
@@ -16,8 +17,10 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   Subscription get selectedSub => _selectedSub;
   Map<String, int?> _remaningDays = {};
 
-  ActiveSubscriptionViewModel() {
-    selectSub(subscriptions.first);
+  ActiveSubscriptionViewModel(String subscriptionId) {
+    _selectedSub = subscriptions
+        .where((element) => element.subscriptionId == subscriptionId)
+        .first;
   }
 
   selectSub(Subscription sub) async {

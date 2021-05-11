@@ -194,7 +194,9 @@ class HomeView extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    model.navigateToActiveSub();
+                                    model.navigateToActiveSub(
+                                        subId: model.subscriptions.first
+                                            .subscriptionId);
                                     // model.$navigationService.navigateWithTransition(
                                     //   ActiveSubscriptionView(model),
                                     //   popGesture: true,
@@ -237,9 +239,17 @@ class HomeView extends StatelessWidget {
                                               RenewsEvery.Never) {
                                             return Container();
                                           }
-                                          return STActiveSubCard(
-                                            subsription:
-                                                model.subscriptions[index],
+                                          return GestureDetector(
+                                            onTap: () {
+                                              model.navigateToActiveSub(
+                                                  subId: model
+                                                      .subscriptions[index]
+                                                      .subscriptionId);
+                                            },
+                                            child: STActiveSubCard(
+                                              subsription:
+                                                  model.subscriptions[index],
+                                            ),
                                           );
                                         }),
                                   ),

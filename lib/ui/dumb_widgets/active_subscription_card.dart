@@ -9,6 +9,7 @@ class STActiveSubCard extends StatelessWidget {
     Key? key,
     required this.subsription,
     this.isHorizontal = false,
+    this.isSelected = false,
   }) : super(key: key);
 
   // TODO set font color based on [liminance]
@@ -17,6 +18,7 @@ class STActiveSubCard extends StatelessWidget {
 
   final Subscription subsription;
   final bool isHorizontal;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class STActiveSubCard extends StatelessWidget {
         height: 70,
         width: isHorizontal ? 70 : screenWidth(context),
         child: Hero(
-          tag: subsription.subscriptionId,
+          tag: isSelected ? "fjncj " : subsription.subscriptionId,
           transitionOnUserGestures: true,
           child: Card(
             elevation: 5,

@@ -1,4 +1,5 @@
 import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/app/app.logger.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
@@ -8,12 +9,13 @@ import 'package:sub_track/core/services/firebase/subscription_service.dart';
 ///
 /// [SubscriptionService]
 ///
-///  [SubscriptionLocalDataSource]
+/// [SubscriptionLocalDataSource]
 abstract class SubscriptionRemoteDataSource implements SubscriptionDataSource {
   // cacheSubscriptions();
 }
 
 class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
+  final logger = getLogger("SubscriptionRemoteDataSource");
   SubscriptionService get _subscriptionService =>
       locator<SubscriptionService>();
 
@@ -22,6 +24,7 @@ class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
 
   @override
   addSubscription(Subscription subscription) async {
+    logger.d("In the addSubscription");
     await _subscriptionService.addSubscription(subscription);
   }
 
@@ -37,6 +40,7 @@ class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
 
   @override
   updateSubscription(Subscription updatedSubscription) async {
+    logger.d("In the updateSubscription");
     await _subscriptionService.updateSubscription(updatedSubscription);
   }
 

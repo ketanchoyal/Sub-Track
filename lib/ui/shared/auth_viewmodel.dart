@@ -2,17 +2,22 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/snackbar_ui.dart';
 
 abstract class AuthenticationViewModel extends FormViewModel
     with $SharedVariables {
-  final firebaseAuthenticationService =
+  FirebaseAuthenticationService get firebaseAuthenticationService =>
       locator<FirebaseAuthenticationService>();
-  final _snackbarService = locator<SnackbarService>();
+  SnackbarService get _snackbarService => locator<SnackbarService>();
+
+  SubscriptionRepo get _subscriptionRepo => locator<SubscriptionRepo>();
 
   final String successRoute;
-  AuthenticationViewModel({required this.successRoute});
+  final bool isNewUser;
+  AuthenticationViewModel(
+      {required this.successRoute, required this.isNewUser});
 
   @override
   void setFormStatus() {}
@@ -22,18 +27,18 @@ abstract class AuthenticationViewModel extends FormViewModel
   Future saveData() async {
     try {
       final result = await runBusyFuture(runAuthentication());
-      _handleAuthenticationResponse(result);
+      await _handleAuthenticationResponse(result);
     } catch (e) {}
   }
 
   Future<void> useGoogleAuthentication() async {
     final result = await firebaseAuthenticationService.signInWithGoogle();
-    _handleAuthenticationResponse(result);
+    await _handleAuthenticationResponse(result);
   }
 
   Future<void> useAnonymousLogin() async {
     final result = await firebaseAuthenticationService.loginAnonymously();
-    _handleAuthenticationResponse(result);
+    await _handleAuthenticationResponse(result);
   }
 
   Future<void> useAppleAuthentication() async {
@@ -42,19 +47,28 @@ abstract class AuthenticationViewModel extends FormViewModel
       appleRedirectUri:
           'https://sub-track-b7ad4.firebaseapp.com/__/auth/handler',
     );
-    _handleAuthenticationResponse(result);
+    await _handleAuthenticationResponse(result);
   }
 
   /// Checks if the result has an error. If it doesn't we navigate to the success view
   /// else we show the friendly validation message.
-  void _handleAuthenticationResponse(FirebaseAuthenticationResult authResult) {
+  _handleAuthenticationResponse(FirebaseAuthenticationResult authResult) async {
     if (!authResult.hasError) {
       // navigate to success route
+      if (!isNewUser) {
+        _snackbarService.showCustomSnackBar(
+          message: "Please wait while we look for your saved subscriptions",
+          duration: Duration(seconds: 4),
+          variant: SnackbarType.Success,
+        );
+        await _subscriptionRepo.cacheSubscriptions();
+      }
       _snackbarService.showCustomSnackBar(
-        message: "Logged in",
+        // message: "Logged in",
         duration: Duration(seconds: 4),
         variant: SnackbarType.Success,
-        title: "Welcome, ${(authResult.user!.displayName) ?? ""}",
+        message:
+            "Welcome, ${(authResult.user!.displayName) ?? "Anonymous User"}",
       );
       $navigationService.clearStackAndShow(successRoute);
     } else {

@@ -45,7 +45,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
         cost: 0.0,
         renewsEvery: RenewsEvery.Never,
         subscriptionId: uuid.v1(),
-        startedOn: DateTime.now(),
+        startedOn: DateTime.now().date,
         sharedWith: 0,
         category: "Default",
         notificationOn: NotifyOn.Never,

@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emojis/emoji.dart';
 import 'package:hive/hive.dart';
 import 'package:sub_track/core/enums/enums.dart';
-import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 // import 'package:time/time.dart';
 // import 'package:dart_date/dart_date.dart' show addMonths;
@@ -133,7 +133,8 @@ class Subscription extends HiveObject {
         "startedOn": startedOn,
         "notificationOn": notificationOnValue,
         "remaningDays": remaningDays,
-        "payments": payments,
+        "payments": payments?.map<String, double>(
+            (key, value) => MapEntry(key.toString().split(" ")[0], value)),
       };
 
   factory Subscription.fromJson(Map<String, dynamic> json) =>
@@ -145,9 +146,12 @@ class Subscription extends HiveObject {
         renewsEvery: json['renewsEvery'] as String,
         category: json['category'] as String?,
         sharedWith: json['sharedWith'] as int?,
-        startedOn: json['startedOn'] as DateTime,
+        startedOn: (json['startedOn'] as Timestamp).toDate(),
         notificationOn: json['notificationOn'] as String,
-        payments: (json['payments'] as Map?)?.cast<DateTime, double>(),
+        payments: (json['payments'] as Map?)
+            ?.cast<String, double>()
+            .map<DateTime, double>(
+                (key, value) => MapEntry(DateTime.parse(key), value)),
         remaningDays: json['remaningDays'] as int?,
       );
 }

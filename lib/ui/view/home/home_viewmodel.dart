@@ -26,6 +26,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   Map<DateTime, double> _graphData = {};
   Map<DateTime, double> get graphData => _graphData;
+  bool _fetchFromServer = false;
 
   get animatorKey => $uiServices.animatorKey;
 
@@ -58,27 +59,38 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   }
 
   fetchSubs() async {
-    await Future.delayed(Duration(seconds: 1));
     if (_subscriptions.length == 0)
-      (await _subscriptionRepo.fetchSubscriptions()).listen((event) {
+      (await _subscriptionRepo.fetchSubscriptions(forceFetch: _fetchFromServer))
+          .listen((event) {
         _subscriptions = event;
+        if (event.length == 0) {
+          if (!_fetchFromServer) {
+            _fetchFromServer = true;
+            startupTasks();
+          } else {
+            _fetchFromServer = false;
+          }
+        }
       });
     notifyListeners();
   }
 
   _getCurrentMonthExpense() async {
-    _currentMonthExpense = await $calculationService.getCurrentMonthExpense();
+    _currentMonthExpense = await $calculationService.getCurrentMonthExpense(
+        fromRemote: _fetchFromServer);
     notifyListeners();
   }
 
   _getCurentYearExpense() async {
-    double currentYearExpense = await $calculationService.getTotalExpense();
+    double currentYearExpense =
+        await $calculationService.getTotalExpense(fromRemote: _fetchFromServer);
     _average = currentYearExpense / DateTime.now().month;
     notifyListeners();
   }
 
   _getGraphData() async {
-    _graphData = await $calculationService.getGraphData();
+    _graphData =
+        await $calculationService.getGraphData(fromRemote: _fetchFromServer);
     notifyListeners();
   }
 

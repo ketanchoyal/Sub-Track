@@ -90,7 +90,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if (model.subscriptions.length > 0)
+                      if (model.subscriptions.isNotEmpty)
                         Column(
                           children: [
                             SizedBox(
@@ -250,7 +250,7 @@ class HomeView extends StatelessWidget {
                             )
                           ],
                         ),
-                      if (model.subscriptions.length > 0)
+                      if (model.subscriptions.isNotEmpty)
                         Positioned(
                           bottom: 20,
                           right: 20,
@@ -265,7 +265,7 @@ class HomeView extends StatelessWidget {
                             onPressed: model.navigateToAddSub,
                           ),
                         ),
-                      if (model.subscriptions.length == 0)
+                      if (model.subscriptions.isEmpty)
                         Align(
                           alignment: Alignment.center,
                           child: Column(

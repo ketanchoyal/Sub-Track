@@ -18,6 +18,7 @@ abstract class SubscriptionRepo {
   Future deleteSubscription({required String subscriptionId});
   Future updateSubscription({required Subscription subscription});
   List<Subscription> getSubscriptionsOnce();
+  Future cacheSubscriptions();
 }
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
@@ -39,6 +40,15 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       print("Fetching subs from Local Data Source");
       return _brandLocalDataSource.fetchSubscriptions();
     }
+  }
+
+  @override
+  cacheSubscriptions() async {
+    List<Subscription> subs =
+        await _brandRemoteDataSource.fetchSubscriptions().first;
+    await Future.forEach<Subscription>(subs, (element) async {
+      await _brandLocalDataSource.addSubscription(element);
+    });
   }
 
   @override

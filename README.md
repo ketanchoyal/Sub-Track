@@ -1,7 +1,7 @@
 <img src="assets/launcher_icons/splash_screen.png" width="60px" height="60px" />
 
 
-![CI/CD Android](https://github.com/ketanchoyal/Sub-Track/actions/workflows/.github/workflows/main.yml/badge.svg?branch=actions/ci_cd_android)
+![CI/CD Android](https://github.com/ketanchoyal/Sub-Track/actions/workflows/.github/workflows/main.yml/badge.svg)
 
 # Sub Track: A Subscription Tracker Application built using Flutter
 

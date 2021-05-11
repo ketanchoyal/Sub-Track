@@ -14,6 +14,8 @@ Refer [CONTRIBUTING.md](CONTRIBUTING.md)
 - [ ] Add Notifications
 - [ ] Arrange Ongoing Subs according to Date
 - [ ] Add Currency Selection Screen
+- [ ] Add Android Specific UI for select icon view
+- [ ] Enable Emoji selection in select icon view
 
 ### &emsp; Just Feature
 - [x] Firebase Sync

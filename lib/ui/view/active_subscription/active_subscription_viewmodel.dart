@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
@@ -7,19 +9,36 @@ import 'package:sub_track/ui/shared/mixins.dart';
 
 class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   bool isDialogPopped = false;
-  double scale = 1.0;
+  double scale = 2.0;
   SubscriptionRepo get _subscriptionRepo => locator<SubscriptionRepo>();
   UrlLaunchService get _urlLaunchService => locator<UrlLaunchService>();
+  BottomSheetService get _bottomSheetService => locator<BottomSheetService>();
   late Subscription _selectedSub;
   Subscription get selectedSub => _selectedSub;
   Map<String, int?> _remaningDays = {};
 
-  ActiveSubscriptionViewModel() {
-    _selectedSub = subscriptions.first;
+  ActiveSubscriptionViewModel(String subscriptionId) {
+    _selectedSub = subscriptions
+        .where((element) => element.subscriptionId == subscriptionId)
+        .first;
   }
 
-  selectSub(Subscription sub) {
+  selectSub(Subscription sub) async {
     _selectedSub = sub;
+    if (_selectedSub.payments == null) {
+      setBusy(true);
+      await $calculationService.calculateRemainingDays(_selectedSub);
+      setBusy(false);
+    } else {
+      if (_selectedSub.payments!.isEmpty) {
+        setBusy(true);
+        await $calculationService.calculateRemainingDays(_selectedSub);
+        setBusy(false);
+      }
+    }
+    _selectedSub = subscriptions
+        .where((element) => element.subscriptionId == sub.subscriptionId)
+        .first;
     notifyListeners();
   }
 
@@ -34,6 +53,30 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
     $navigationService.back();
   }
 
+  deleteSub() async {
+    SheetResponse? result = await _bottomSheetService.showBottomSheet(
+      title: "Are you sure?",
+      barrierDismissible: true,
+      cancelButtonTitle: "Cancel",
+      description: "This action cannot be undone",
+      confirmButtonTitle: "Delete",
+      enableDrag: true,
+      isScrollControlled: true,
+    );
+    if (result != null) {
+      if (result.confirmed) {
+        await _subscriptionRepo.deleteSubscription(
+            subscriptionId: _selectedSub.subscriptionId);
+      }
+    }
+    selectSub(subscriptions.first);
+    notifyListeners();
+  }
+
+  DateTime get startedOn {
+    return _selectedSub.startedOn;
+  }
+
   int? get remainingDays {
     if (!_remaningDays.containsKey(_selectedSub.subscriptionId)) {
       $calculationService.calculateRemainingDays(_selectedSub).then((value) {
@@ -46,7 +89,7 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   }
 
   openLink() {
-    if (selectedSub.brand.source != null)
+    if (_selectedSub.brand.source != null)
       _urlLaunchService.launchUrl(selectedSub.brand.source!);
   }
 }

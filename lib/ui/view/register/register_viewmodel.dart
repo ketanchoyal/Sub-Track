@@ -10,7 +10,7 @@ class RegisterViewModel extends AuthenticationViewModel {
   TextFieldType passwordTextFieldType = TextFieldType.DEFAULT;
   TextFieldType nameTextFieldType = TextFieldType.DEFAULT;
 
-  RegisterViewModel() : super(successRoute: Routes.homeView);
+  RegisterViewModel() : super(successRoute: Routes.homeView, isNewUser: true);
   @override
   void setFormStatus() {
     if (emailValue != null) {

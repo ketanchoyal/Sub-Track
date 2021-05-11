@@ -38,8 +38,12 @@ class StackedRouterX extends StackedRouter {
       );
     },
     ActiveSubscriptionView: (data) {
+      var args = data.getArgs<ActiveSubscriptionViewArguments>(nullOk: false);
       return TransparentRoute<dynamic>(
-        builder: (context) => ActiveSubscriptionView(),
+        builder: (context) => ActiveSubscriptionView(
+          key: args.key,
+          selectedSubId: args.selectedSubId,
+        ),
         settings: data,
         backgroundColor: Colors.transparent,
         fullscreenDialog: true,

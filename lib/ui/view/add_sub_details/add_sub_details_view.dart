@@ -108,6 +108,9 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
         listenToFormUpdated(model);
         model.setBrand(brand);
       },
+      onDispose: () {
+        disposeForm();
+      },
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,

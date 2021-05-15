@@ -13,7 +13,7 @@ class LoginViewModel extends AuthenticationViewModel {
 
   LoginViewModel() : super(successRoute: Routes.homeView, isNewUser: false);
   @override
-  void setFormStatus() {
+  setFormStatus() {
     if (emailValue != null) {
       if (EmailValidator.validate(emailValue!))
         emailTextFieldType = TextFieldType.VALID;
@@ -25,7 +25,7 @@ class LoginViewModel extends AuthenticationViewModel {
     notifyListeners();
   }
 
-  void register() {
+  register() {
     $navigationService.navigateTo(Routes.registerView);
   }
 
@@ -35,4 +35,8 @@ class LoginViewModel extends AuthenticationViewModel {
         email: emailValue!,
         password: passwordValue!,
       );
+
+  forgotPassword() {
+    $navigationService.navigateTo(Routes.forgotPasswordView);
+  }
 }

@@ -862,31 +862,35 @@ class MockSubscriptionRepo extends _i1.Mock implements _i35.SubscriptionRepo {
               Stream<List<_i21.Subscription>>.empty())) as _i13
           .Future<_i13.Stream<List<_i21.Subscription>>>);
   @override
-  _i13.Future<dynamic> addSubscription({_i21.Subscription? subscription}) =>
+  _i13.Future<void> addSubscription({_i21.Subscription? subscription}) =>
       (super.noSuchMethod(
           Invocation.method(
               #addSubscription, [], {#subscription: subscription}),
-          returnValue: Future<dynamic>.value(null)) as _i13.Future<dynamic>);
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i13.Future<void>);
   @override
-  _i13.Future<dynamic> deleteSubscription({String? subscriptionId}) =>
+  _i13.Future<void> deleteSubscription({String? subscriptionId}) =>
       (super.noSuchMethod(
           Invocation.method(
               #deleteSubscription, [], {#subscriptionId: subscriptionId}),
-          returnValue: Future<dynamic>.value(null)) as _i13.Future<dynamic>);
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i13.Future<void>);
   @override
-  _i13.Future<dynamic> updateSubscription({_i21.Subscription? subscription}) =>
+  _i13.Future<void> updateSubscription({_i21.Subscription? subscription}) =>
       (super.noSuchMethod(
           Invocation.method(
               #updateSubscription, [], {#subscription: subscription}),
-          returnValue: Future<dynamic>.value(null)) as _i13.Future<dynamic>);
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i13.Future<void>);
   @override
   List<_i21.Subscription> getSubscriptionsOnce() =>
       (super.noSuchMethod(Invocation.method(#getSubscriptionsOnce, []),
           returnValue: <_i21.Subscription>[]) as List<_i21.Subscription>);
   @override
-  _i13.Future<dynamic> cacheSubscriptions() =>
+  _i13.Future<void> cacheSubscriptions() =>
       (super.noSuchMethod(Invocation.method(#cacheSubscriptions, []),
-          returnValue: Future<dynamic>.value(null)) as _i13.Future<dynamic>);
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i13.Future<void>);
 }
 
 /// A class which mocks [CalculationService].

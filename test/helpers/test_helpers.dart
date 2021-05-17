@@ -1,3 +1,4 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -23,6 +24,7 @@ import 'package:sub_track/ui/view/on_boarding/on_boarding_viewmodel.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../models/fake_user.dart';
 import 'test_helpers.mocks.dart';
 
 part 'services.dart';
@@ -88,7 +90,7 @@ registerMocks() async {
   getAndRegisterDialogService();
   getAndRegisterSnackbarService();
   getAndRegisterBottomSheetService();
-  getAndRegisterFirebaseAuthenticationService();
+  await getAndRegisterFirebaseAuthenticationService();
 
   getAndRegisterNotificationService();
   getAndRegisterFileService();

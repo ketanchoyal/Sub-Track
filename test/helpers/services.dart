@@ -28,10 +28,22 @@ BottomSheetService getAndRegisterBottomSheetService() {
   return service;
 }
 
-FirebaseAuthenticationService getAndRegisterFirebaseAuthenticationService(
-    {bool isUserLoggedIn = false}) {
+Future<FirebaseAuthenticationService>
+    getAndRegisterFirebaseAuthenticationService({
+  bool isUserLoggedIn = false,
+  bool successFullLogin = true,
+  String? email,
+  String? password,
+}) async {
   _removeRegistrationIfExists<FirebaseAuthenticationService>();
   final service = MockFirebaseAuthenticationService();
+  when(service.loginWithEmail(
+    email: email,
+    password: password,
+  )).thenAnswer((_) async => successFullLogin
+      ? FirebaseAuthenticationResult(user: FakeUser())
+      : FirebaseAuthenticationResult.error(errorMessage: "Error"));
+
   when(service.hasUser).thenReturn(isUserLoggedIn);
   locator.registerSingleton<FirebaseAuthenticationService>(service);
   return service;

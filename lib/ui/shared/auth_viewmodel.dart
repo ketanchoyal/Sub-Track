@@ -16,6 +16,7 @@ abstract class AuthenticationViewModel extends FormViewModel
 
   final String successRoute;
   final bool isNewUser;
+  late final FirebaseAuthenticationResult result;
   AuthenticationViewModel(
       {required this.successRoute, required this.isNewUser});
 
@@ -26,23 +27,23 @@ abstract class AuthenticationViewModel extends FormViewModel
 
   Future saveData() async {
     try {
-      final result = await runBusyFuture(runAuthentication());
+      result = await runBusyFuture(runAuthentication());
       await _handleAuthenticationResponse(result);
     } catch (e) {}
   }
 
   Future<void> useGoogleAuthentication() async {
-    final result = await firebaseAuthenticationService.signInWithGoogle();
+    result = await firebaseAuthenticationService.signInWithGoogle();
     await _handleAuthenticationResponse(result);
   }
 
   Future<void> useAnonymousLogin() async {
-    final result = await firebaseAuthenticationService.loginAnonymously();
+    result = await firebaseAuthenticationService.loginAnonymously();
     await _handleAuthenticationResponse(result);
   }
 
   Future<void> useAppleAuthentication() async {
-    final result = await firebaseAuthenticationService.signInWithApple(
+    result = await firebaseAuthenticationService.signInWithApple(
       appleClientId: '',
       appleRedirectUri:
           'https://sub-track-b7ad4.firebaseapp.com/__/auth/handler',

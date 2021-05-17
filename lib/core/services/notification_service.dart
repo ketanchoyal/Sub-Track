@@ -10,9 +10,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 abstract class NotificationService {
-  Future scheduleNotification(Subscription subscription);
-  Future init();
-  Future deleteNotification(Subscription subscription);
+  Future<void> scheduleNotification(Subscription subscription);
+  Future<void> init();
+  Future<void> deleteNotification(Subscription subscription);
 }
 
 class NotificationServiceImpl extends NotificationService {

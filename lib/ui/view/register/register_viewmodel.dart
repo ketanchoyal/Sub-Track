@@ -24,8 +24,23 @@ class RegisterViewModel extends AuthenticationViewModel {
 
     if (nameValue != null && nameValue == "") {
       nameTextFieldType = TextFieldType.ERROR;
+    } else {
+      nameTextFieldType = TextFieldType.VALID;
     }
     notifyListeners();
+  }
+
+  @override
+  Future<void> saveData() async {
+    if (passwordValue == null) {
+      passwordTextFieldType = TextFieldType.ERROR;
+    } else {
+      passwordTextFieldType = TextFieldType.VALID;
+    }
+    if ((emailTextFieldType == passwordTextFieldType) &&
+        (emailTextFieldType == nameTextFieldType)) {
+      super.saveData();
+    }
   }
 
   back() {
@@ -34,8 +49,7 @@ class RegisterViewModel extends AuthenticationViewModel {
 
   @override
   Future<FirebaseAuthenticationResult> runAuthentication() async {
-    FirebaseAuthenticationResult result =
-        await firebaseAuthenticationService.createAccountWithEmail(
+    await firebaseAuthenticationService.createAccountWithEmail(
       email: emailValue!,
       password: passwordValue!,
     );

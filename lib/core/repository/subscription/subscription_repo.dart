@@ -43,7 +43,7 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   }
 
   @override
-  cacheSubscriptions() async {
+  Future<void> cacheSubscriptions() async {
     List<Subscription> subs =
         await _brandRemoteDataSource.fetchSubscriptions().first;
     await Future.forEach<Subscription>(subs, (element) async {

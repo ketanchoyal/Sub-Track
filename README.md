@@ -19,6 +19,7 @@ Refer [CONTRIBUTING.md](CONTRIBUTING.md)
 - [ ] Enable Emoji selection in select icon view
 
 ### &emsp; Just Feature
+- [ ] Add Filter by Category Option
 - [x] Firebase Sync
 - [x] History
 - [ ] Archive Subscription

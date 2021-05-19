@@ -23,6 +23,8 @@ abstract class AuthenticationViewModel extends FormViewModel
   @override
   void setFormStatus() {}
 
+  Future<void> runAfterSuccessfullAuth() async {}
+
   Future<FirebaseAuthenticationResult> runAuthentication();
 
   Future<void> saveData() async {
@@ -53,7 +55,8 @@ abstract class AuthenticationViewModel extends FormViewModel
 
   /// Checks if the result has an error. If it doesn't we navigate to the success view
   /// else we show the friendly validation message.
-  _handleAuthenticationResponse(FirebaseAuthenticationResult authResult) async {
+  Future<void> _handleAuthenticationResponse(
+      FirebaseAuthenticationResult authResult) async {
     if (!authResult.hasError) {
       // navigate to success route
       if (!isNewUser) {
@@ -71,6 +74,7 @@ abstract class AuthenticationViewModel extends FormViewModel
         message:
             "Welcome, ${(authResult.user!.displayName) ?? "Anonymous User"}",
       );
+      await runAfterSuccessfullAuth();
       $navigationService.clearStackAndShow(successRoute);
     } else {
       setValidationMessage(authResult.errorMessage);

@@ -23,8 +23,10 @@ class LoginViewModel extends AuthenticationViewModel {
       emailTextFieldType = TextFieldType.ERROR;
     }
 
-    if (passwordValue != null && passwordValue?.trim() == "") {
+    if (passwordValue == null || passwordValue?.trim() == "") {
       passwordTextFieldType = TextFieldType.ERROR;
+    } else {
+      passwordTextFieldType = TextFieldType.DEFAULT;
     }
     notifyListeners();
   }
@@ -33,7 +35,8 @@ class LoginViewModel extends AuthenticationViewModel {
   Future<void> saveData() async {
     if (passwordValue == null) {
       passwordTextFieldType = TextFieldType.ERROR;
-    } else if (emailTextFieldType == TextFieldType.VALID) {
+    } else if (emailTextFieldType == TextFieldType.VALID &&
+        passwordTextFieldType != TextFieldType.ERROR) {
       super.saveData();
     }
   }

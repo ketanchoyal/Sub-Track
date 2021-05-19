@@ -15,7 +15,7 @@ class StartUpViewModel extends BaseViewModel {
     await locator<NotificationService>().init();
     await locator<BrandLocalDataSource>().init();
     await locator<SubscriptionLocalDataSource>().init();
-    _checkIfLoggedIn();
+    await _checkIfLoggedIn();
   }
 
   _checkIfLoggedIn() async {

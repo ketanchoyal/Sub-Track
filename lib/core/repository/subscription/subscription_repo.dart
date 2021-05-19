@@ -14,11 +14,11 @@ import 'package:sub_track/core/services/stoppable_services.dart';
 abstract class SubscriptionRepo {
   Future<Stream<List<Subscription>>> fetchSubscriptions(
       {bool forceFetch = false});
-  Future addSubscription({required Subscription subscription});
-  Future deleteSubscription({required String subscriptionId});
-  Future updateSubscription({required Subscription subscription});
+  Future<void> addSubscription({required Subscription subscription});
+  Future<void> deleteSubscription({required String subscriptionId});
+  Future<void> updateSubscription({required Subscription subscription});
   List<Subscription> getSubscriptionsOnce();
-  Future cacheSubscriptions();
+  Future<void> cacheSubscriptions();
 }
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
@@ -43,7 +43,7 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   }
 
   @override
-  cacheSubscriptions() async {
+  Future<void> cacheSubscriptions() async {
     List<Subscription> subs =
         await _brandRemoteDataSource.fetchSubscriptions().first;
     await Future.forEach<Subscription>(subs, (element) async {

@@ -15,7 +15,7 @@ import 'package:sub_track/ui/resources/resources.dart';
 /// [HiveInterface]
 ///
 abstract class BrandLocalDataSource implements BrandDataSource {
-  Future init();
+  Future<void> init();
 }
 
 class BrandLocalDataSourceImpl with BrandLocalDataSource {

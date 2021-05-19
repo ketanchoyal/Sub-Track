@@ -22,7 +22,23 @@ class LoginViewModel extends AuthenticationViewModel {
     } else {
       emailTextFieldType = TextFieldType.ERROR;
     }
+
+    if (passwordValue == null || passwordValue?.trim() == "") {
+      passwordTextFieldType = TextFieldType.ERROR;
+    } else {
+      passwordTextFieldType = TextFieldType.DEFAULT;
+    }
     notifyListeners();
+  }
+
+  @override
+  Future<void> saveData() async {
+    if (passwordValue == null) {
+      passwordTextFieldType = TextFieldType.ERROR;
+    } else if (emailTextFieldType == TextFieldType.VALID &&
+        passwordTextFieldType != TextFieldType.ERROR) {
+      super.saveData();
+    }
   }
 
   register() {

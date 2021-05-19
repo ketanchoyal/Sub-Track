@@ -24,8 +24,29 @@ class RegisterViewModel extends AuthenticationViewModel {
 
     if (nameValue != null && nameValue == "") {
       nameTextFieldType = TextFieldType.ERROR;
+    } else {
+      nameTextFieldType = TextFieldType.VALID;
+    }
+
+    if (passwordValue == null || passwordValue?.trim() == "") {
+      passwordTextFieldType = TextFieldType.ERROR;
+    } else {
+      passwordTextFieldType = TextFieldType.DEFAULT;
     }
     notifyListeners();
+  }
+
+  @override
+  Future<void> saveData() async {
+    if (passwordValue == null || passwordValue?.trim() == "") {
+      passwordTextFieldType = TextFieldType.ERROR;
+    } else {
+      passwordTextFieldType = TextFieldType.VALID;
+    }
+    if ((emailTextFieldType == passwordTextFieldType) &&
+        (emailTextFieldType == nameTextFieldType)) {
+      super.saveData();
+    }
   }
 
   back() {
@@ -33,13 +54,18 @@ class RegisterViewModel extends AuthenticationViewModel {
   }
 
   @override
-  Future<FirebaseAuthenticationResult> runAuthentication() async {
-    FirebaseAuthenticationResult result =
-        await firebaseAuthenticationService.createAccountWithEmail(
-      email: emailValue!,
-      password: passwordValue!,
-    );
-    if (result.user != null) result.user!.updateProfile(displayName: nameValue);
-    return result;
+  Future<void> runAfterSuccessfullAuth() async {
+    _setUserName();
+  }
+
+  @override
+  Future<FirebaseAuthenticationResult> runAuthentication() =>
+      firebaseAuthenticationService.createAccountWithEmail(
+        email: emailValue!,
+        password: passwordValue!,
+      );
+
+  _setUserName() async {
+    await result.user!.updateProfile(displayName: nameValue);
   }
 }

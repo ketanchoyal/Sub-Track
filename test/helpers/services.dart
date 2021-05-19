@@ -1,8 +1,11 @@
 part of 'test_helpers.dart';
 
-NavigationService getAndRegisterNavigationService() {
+Future<NavigationService> getAndRegisterNavigationService(
+    {String? route}) async {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
+  // when(service.clearStackAndShow(route))
+  //     .thenAnswer((realInvocation) async => null);
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
@@ -14,9 +17,10 @@ DialogService getAndRegisterDialogService() {
   return service;
 }
 
-SnackbarService getAndRegisterSnackbarService() {
+Future<SnackbarService> getAndRegisterSnackbarService() async {
   _removeRegistrationIfExists<SnackbarService>();
   final service = MockSnackbarService();
+  when(service.showCustomSnackBar()).thenAnswer((_) async => null);
   locator.registerSingleton<SnackbarService>(service);
   return service;
 }
@@ -30,21 +34,32 @@ BottomSheetService getAndRegisterBottomSheetService() {
 
 Future<FirebaseAuthenticationService>
     getAndRegisterFirebaseAuthenticationService({
-  bool isUserLoggedIn = false,
-  bool successFullLogin = true,
+  bool? successFullLogin,
+  bool? successFullRegister,
   String? email,
   String? password,
 }) async {
   _removeRegistrationIfExists<FirebaseAuthenticationService>();
   final service = MockFirebaseAuthenticationService();
-  when(service.loginWithEmail(
-    email: email,
-    password: password,
-  )).thenAnswer((_) async => successFullLogin
-      ? FirebaseAuthenticationResult(user: FakeUser())
-      : FirebaseAuthenticationResult.error(errorMessage: "Error"));
+  if (successFullLogin != null) {
+    when(service.loginWithEmail(
+      email: email,
+      password: password,
+    )).thenAnswer((_) async => successFullLogin
+        ? FirebaseAuthenticationResult(user: FakeUser())
+        : FirebaseAuthenticationResult.error(errorMessage: "Error"));
+    when(service.hasUser).thenReturn(successFullLogin);
+  }
 
-  when(service.hasUser).thenReturn(isUserLoggedIn);
+  if (successFullRegister != null) {
+    when(service.createAccountWithEmail(
+      email: email,
+      password: password,
+    )).thenAnswer((_) async => successFullRegister
+        ? FirebaseAuthenticationResult(user: FakeUser())
+        : FirebaseAuthenticationResult.error(errorMessage: "Error"));
+    when(service.hasUser).thenReturn(successFullRegister);
+  }
   locator.registerSingleton<FirebaseAuthenticationService>(service);
   return service;
 }

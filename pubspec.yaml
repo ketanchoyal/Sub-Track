@@ -58,10 +58,11 @@ dependencies:
   #Firebase
   firebase_core: ^1.0.4
   cloud_firestore: ^1.0.6
-  stacked_firebase_auth:
-    git:
-      url: https://github.com/ketanchoyal/stacked.git
-      path: packages/stacked_firebase_auth
+  stacked_firebase_auth: ^0.2.5
+  # stacked_firebase_auth:
+  #   git:
+  #     url: https://github.com/ketanchoyal/stacked.git
+  #     path: packages/stacked_firebase_auth
 
   #Connectivity
   cross_connectivity: ^3.0.2
@@ -71,20 +72,20 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.1.0
+  stacked: ^2.1.6
   stacked_hooks: ^0.2.0
-  stacked_services: ^0.8.5
+  stacked_services: ^0.8.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  stacked_generator: ^0.4.1
+  stacked_generator: ^0.4.6
   hive_generator: ^1.1.0
   flutter_launcher_icons: ^0.9.0
 
   # testing
-  mockito: ^5.0.7
+  mockito: ^5.0.8
 
 flutter_icons:
   android: true

@@ -7,9 +7,10 @@ BrandRepo getAndRegisterBrandRepo() {
   return service;
 }
 
-SubscriptionRepo getAndRegisterSubscriptionRepo() {
+Future<SubscriptionRepo> getAndRegisterSubscriptionRepo() async {
   _removeRegistrationIfExists<SubscriptionRepo>();
   final service = MockSubscriptionRepo();
+  when(await service.cacheSubscriptions()).thenAnswer((_) async => null);
   locator.registerSingleton<SubscriptionRepo>(service);
   return service;
 }

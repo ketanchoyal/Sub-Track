@@ -16,8 +16,9 @@ void main() {
       test(
         'When we have NO loggedIn User, User should navigate to Onboarding Route',
         () async {
-          final navigationService = getAndRegisterNavigationService();
-          getAndRegisterFirebaseAuthenticationService(isUserLoggedIn: false);
+          var navigationService = await getAndRegisterNavigationService();
+          getAndRegisterFirebaseAuthenticationService(
+              successFullLogin: false, successFullRegister: false);
           final model = _getModel();
           await model.wait();
 
@@ -27,8 +28,9 @@ void main() {
       test(
         'When we have loggedIn User, User should navigate to Home Route',
         () async {
-          final navigationService = getAndRegisterNavigationService();
-          getAndRegisterFirebaseAuthenticationService(isUserLoggedIn: true);
+          var navigationService = await getAndRegisterNavigationService();
+          await getAndRegisterFirebaseAuthenticationService(
+              successFullLogin: true);
           final model = _getModel();
           await model.wait();
 

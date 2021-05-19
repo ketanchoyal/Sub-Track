@@ -10,4 +10,9 @@ class FakeUser extends Fake implements User {
 
   @override
   String? get displayName => "fake name";
+
+  @override
+  Future<void> updateProfile({String? displayName, String? photoURL}) async {
+    return;
+  }
 }

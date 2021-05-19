@@ -86,9 +86,9 @@ void _removeRegistrationIfExists<T extends Object>() {
 }
 
 registerMocks() async {
-  getAndRegisterNavigationService();
+  await getAndRegisterNavigationService();
   getAndRegisterDialogService();
-  getAndRegisterSnackbarService();
+  await getAndRegisterSnackbarService();
   getAndRegisterBottomSheetService();
   await getAndRegisterFirebaseAuthenticationService();
 
@@ -107,7 +107,7 @@ registerMocks() async {
   getAndRegisterSubscriptionRemoteDataSource();
 
   getAndRegisterBrandRepo();
-  getAndRegisterSubscriptionRepo();
+  await getAndRegisterSubscriptionRepo();
 
   getAndRegisterCalculationService();
 

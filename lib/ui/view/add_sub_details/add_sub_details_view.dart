@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
   AddSubDetailsView({Key? key, required this.brand}) : super(key: key);
 
   Widget appbar(model, context) {
-    return Platform.isIOS
+    return UniversalPlatform.isIOS
         ? CupertinoNavigationBar(
             automaticallyImplyLeading: false,
             transitionBetweenRoutes: true,
@@ -294,7 +294,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                               title: "Sub Started On",
                               child: STDetailFormElement(
                                 onTap: () async {
-                                  Platform.isIOS
+                                  UniversalPlatform.isIOS
                                       ? _showDatePicker(context, model)
                                       : await model
                                           .setDate(await showDatePicker(

@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:settings_ui/settings_ui.dart';
 
 class SettingView extends StatelessWidget {
   Widget appbar(model, context) {
-    return Platform.isIOS
+    return UniversalPlatform.isIOS
         ? CupertinoNavigationBar(
             // border: Border(bottom: BorderSide.none),
             automaticallyImplyLeading: false,

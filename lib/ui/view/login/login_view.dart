@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class LoginView extends StatelessWidget with $LoginView {
                         verticalSpaceSmall,
                         Row(
                           children: [
-                            if (Platform.isIOS)
+                            if (UniversalPlatform.isIOS)
                               Expanded(
                                 child: STButton(
                                   buttonType: ButtonType.TERTIARY,
@@ -132,7 +132,7 @@ class LoginView extends StatelessWidget with $LoginView {
                                   buttonText: "Apple",
                                 ),
                               ),
-                            if (Platform.isIOS) horizontalSpaceRegular,
+                            if (UniversalPlatform.isIOS) horizontalSpaceRegular,
                             Expanded(
                               child: STButton(
                                 buttonType: ButtonType.TERTIARY,

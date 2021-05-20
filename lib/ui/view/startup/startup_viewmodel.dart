@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
@@ -12,7 +13,7 @@ class StartUpViewModel extends BaseViewModel {
 
   wait() async {
     await Future.delayed(Duration(seconds: 1));
-    // await locator<NotificationService>().init();
+    if (!kIsWeb) await locator<NotificationService>().init();
     await locator<BrandLocalDataSource>().init();
     await locator<SubscriptionLocalDataSource>().init();
     await _checkIfLoggedIn();

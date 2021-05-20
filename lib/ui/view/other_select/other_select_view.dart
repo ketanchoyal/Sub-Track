@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class OtherSelectView extends StatelessWidget {
   final OtherDetailSelectType type;
 
   Widget appbar(model, context) {
-    return Platform.isIOS
+    return UniversalPlatform.isIOS
         ? CupertinoNavigationBar(
             // border: Border(bottom: BorderSide.none),
             backgroundColor: AppColor.STPureWhite,

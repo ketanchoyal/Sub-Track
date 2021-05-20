@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,6 +12,7 @@ abstract class FileService {
 class FileServiceImpl implements FileService {
   @override
   Future<String> getApplicationDocumentsDirectoryPath() async {
+    if (kIsWeb) return "";
     final dir = await getApplicationDocumentsDirectory();
     return dir.path;
   }

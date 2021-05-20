@@ -34,7 +34,7 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   @override
   Future init() async {
     // final path = await _fileServices.getApplicationDocumentsDirectoryPath();
-    // _hiveService.init(path);
+    // if (!kIsWeb) _hiveService.init(path);
     _hiveService.registerAdapter<Subscription>(SubscriptionAdapter());
 
     if (!_subscriptionsBoxIsOpen)

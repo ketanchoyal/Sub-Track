@@ -6,7 +6,7 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/cupertino.dart';

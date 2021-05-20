@@ -65,7 +65,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// NOTE
-// Why HomeView state get reset on modal pop up
-// FIXME

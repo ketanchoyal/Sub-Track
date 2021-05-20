@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:sub_track/app/app.locatorx.dart';
@@ -32,7 +33,7 @@ class BrandLocalDataSourceImpl with BrandLocalDataSource {
   @override
   Future init() async {
     final path = await _fileServices.getApplicationDocumentsDirectoryPath();
-    _hiveService.init(path);
+    if (!kIsWeb) _hiveService.init(path);
     _hiveService.registerAdapter<Brand>(BrandAdapter());
 
     if (!_brandBoxIsOpen) await _hiveService.openBox<Brand>(_brandBoxName);

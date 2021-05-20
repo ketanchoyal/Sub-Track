@@ -67,7 +67,7 @@ PageRoute<T> buildAdaptiveSheetRoute<T>({
       maintainState: maintainState,
       fullscreenDialog: fullscreenDialog,
     );
-  } else if (Platform.isIOS || Platform.isMacOS) {
+  } else if (UniversalPlatform.isIOS || UniversalPlatform.isMacOS) {
     //https://gist.github.com/devkabiir/57de88ce8d64dff9d3e6fe0627a8b654
     return PageRouteBuilder(
       settings: data,

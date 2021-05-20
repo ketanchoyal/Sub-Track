@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:animator/animator.dart';
-import 'dart:io';
+import 'package:universal_platform/universal_platform.dart';
 
 // FileService _fileService = locator<FileService>();
 // cupertinoModalTransition(
@@ -55,9 +55,10 @@ class CupertinoModalTransition extends StatelessWidget {
               builder: (context, child) {
                 // animatorKey.controller.forward();
                 final progress = animatorState.value;
-                final yOffset = Platform.isIOS ? progress * paddingTop : 0.0;
-                final scale = Platform.isIOS ? 1 - progress / 10 : 1.0;
-                final radius = Platform.isIOS
+                final yOffset =
+                    UniversalPlatform.isIOS ? progress * paddingTop : 0.0;
+                final scale = UniversalPlatform.isIOS ? 1 - progress / 10 : 1.0;
+                final radius = UniversalPlatform.isIOS
                     ? progress == 0
                         ? 0.0
                         : (1 - progress) * startRoundCorner + progress * 12

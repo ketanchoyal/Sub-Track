@@ -43,7 +43,7 @@ setupLocator() async {
   // App Dependencies
   // **************************************************************************
   // Services
-  locator.registerSingleton<NotificationService>(NotificationServiceImpl());
+  // locator.registerSingleton<NotificationService>(NotificationServiceImpl());
   locator.registerSingleton<FileService>(FileServiceImpl());
   locator.registerLazySingleton<StoppableService>(() => ConnectivityService());
   locator.registerSingleton<BrandService>(BrandServiceImpl());

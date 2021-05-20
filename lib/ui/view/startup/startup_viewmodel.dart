@@ -12,7 +12,7 @@ class StartUpViewModel extends BaseViewModel {
 
   wait() async {
     await Future.delayed(Duration(seconds: 1));
-    await locator<NotificationService>().init();
+    // await locator<NotificationService>().init();
     await locator<BrandLocalDataSource>().init();
     await locator<SubscriptionLocalDataSource>().init();
     await _checkIfLoggedIn();

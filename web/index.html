@@ -31,7 +31,6 @@
     <link rel="stylesheet" type="text/css" href="splash/style.css" />
   </head>
   <body>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -41,6 +40,27 @@
           navigator.serviceWorker.register("flutter_service_worker.js");
         });
       }
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyCET5xZLc-sudZRSSWuNgPQqt3vDTN4i1Y",
+        authDomain: "sub-track-b7ad4.firebaseapp.com",
+        projectId: "sub-track-b7ad4",
+        storageBucket: "sub-track-b7ad4.appspot.com",
+        messagingSenderId: "839076632765",
+        appId: "1:839076632765:web:118b19dfb60dadbf4affd4",
+        measurementId: "G-YLV6D5LDWL",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      // firebase.analytics();
     </script>
     <picture id="splash">
       <source
@@ -59,8 +79,14 @@
         "
         media="(prefers-color-scheme: dark)"
       />
-      <img class="center" src="splash/img/light-1x.png" />
+      <img
+        class="center"
+        width="300"
+        height="300"
+        src="splash/img/light-1x.png"
+      />
     </picture>
+
     <script src="main.dart.js" type="application/javascript"></script>
   </body>
 </html>

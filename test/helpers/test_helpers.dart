@@ -116,6 +116,6 @@ registerMocks() async {
   getAndRegisterOnBoardingViewModel();
 }
 
-void unregisterMocks() {
+void unregisterAll() {
   locator.reset(dispose: true);
 }

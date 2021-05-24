@@ -5,6 +5,9 @@ import 'package:sub_track/app/app.logger.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/firebase/firestore.dart';
 
+/// Require
+///
+/// [FirebaseAuthenticationService]
 abstract class SubscriptionService {
   Stream<List<Subscription>> fetchSubscriptions();
   addSubscription(Subscription subscription);

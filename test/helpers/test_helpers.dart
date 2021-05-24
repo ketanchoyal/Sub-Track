@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -34,7 +35,12 @@ part 'viewmodels.dart';
 part 'others.dart';
 
 @GenerateMocks(
-  [],
+  [
+    CollectionReference,
+    DocumentReference,
+    FirebaseFirestore,
+    QueryDocumentSnapshot,
+  ],
   customMocks: [
     // Stacked
     MockSpec<NavigationService>(returnNullOnMissingStub: true),

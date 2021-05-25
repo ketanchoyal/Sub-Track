@@ -10,12 +10,13 @@ abstract class SubscriptionService {
   addSubscription(Subscription subscription);
   updateSubscription(Subscription updatedSubscription);
   deleteSubscription(String subscriptionId);
+  Future<List<Subscription>> getSubscriptions();
 }
 
 // NOTE Do not use await/async for Firestore transactions
 class SubscriptionServiceImpl with Firestore implements SubscriptionService {
-  final StreamController<Subscription> _streamController =
-      StreamController<Subscription>.broadcast();
+  final StreamController<List<Subscription>> _streamController =
+      StreamController<List<Subscription>>.broadcast();
   final logger = getLogger("SubscriptionService");
   @override
   addSubscription(Subscription subscription) {
@@ -56,16 +57,47 @@ class SubscriptionServiceImpl with Firestore implements SubscriptionService {
   Stream<List<Subscription>> fetchSubscriptions() {
     if (currentUserSubCollRef != null) {
       logger.i("fetching from Firebase");
-      return currentUserSubCollRef!
+      currentUserSubCollRef!
+          .withConverter<Subscription>(
+            fromFirestore: (snapshot, _) =>
+                Subscription.fromJson(snapshot.data()!),
+            toFirestore: (model, _) => model.toJson(),
+          )
           .snapshots(includeMetadataChanges: true)
           .map<List<Subscription>>((event) {
-        return event.docs
-            .map((snapshot) => Subscription.fromJson(snapshot.data()))
-            .toList();
-      });
+        return event.docs.map((snapshot) => snapshot.data()).toList();
+      }).listen((event) => _streamController.add(event));
+      // return currentUserSubCollRef!
+      //     .snapshots(includeMetadataChanges: true)
+      //     .map<List<Subscription>>((event) {
+      //   return event.docs
+      //       .map((snapshot) => Subscription.fromJson(snapshot.data()))
+      //       .toList();
+      // });
+      return _streamController.stream;
     } else {
       return Stream.empty();
       //Error Snack bar from here
+    }
+  }
+
+  @override
+  Future<List<Subscription>> getSubscriptions() async {
+    if (currentUserSubCollRef != null) {
+      logger.i("fetching from Firebase");
+      return (await currentUserSubCollRef!
+              .withConverter<Subscription>(
+                fromFirestore: (snapshot, _) =>
+                    Subscription.fromJson(snapshot.data()!),
+                toFirestore: (model, _) => model.toJson(),
+              )
+              .limit(20)
+              .get())
+          .docs
+          .map((e) => e.data())
+          .toList();
+    } else {
+      return List.empty();
     }
   }
 

@@ -5,7 +5,7 @@
     "version": "0.2.0",
         "configurations": [
             {
-                "name": "no-sound-null-safety",
+                "name": "no-null-safety",
                 "request": "launch",
                 "type": "dart",
                 "args": [
@@ -13,7 +13,7 @@
                 ]
             },
             {
-                "name": "sound-null-safety",
+                "name": "null-safety",
                 "request": "launch",
                 "type": "dart",
                 "args": []

@@ -32,6 +32,7 @@
 /build/
 /packages/emojis/build/
 
+web/index.html
 services.tar
 google-services.json
 android/app/google-services.json

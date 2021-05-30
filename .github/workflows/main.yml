@@ -12,14 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-java@v1
       with:
-        java-version: '12.x'
-    - run: |
-        mkdir $HOME/private
-        gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_KEY" \
-        --output $HOME/private/services.tar services.tar.gpg
-        tar xvf $HOME/private/services.tar
-      env:
-        SIGNING_KEY: ${{ secrets.GOOGLE_SERVICE_JSON_DECRYPT_KEY }}
+        java-version: '11.x'
     - run: echo $SIGNING_KEY | base64 -d > android/app/key.jks
       env:
         SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
@@ -27,6 +20,13 @@ jobs:
       with:
           channel: 'stable'
     - run: flutter pub get
+    - run: |
+        mkdir $HOME/private
+        gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_KEY" \
+        --output $HOME/private/services.tar services.tar.gpg
+        tar xvf $HOME/private/services.tar
+      env:
+        SIGNING_KEY: ${{ secrets.GOOGLE_SERVICE_JSON_DECRYPT_KEY }}
     - run: flutter test
     # - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
     # - run: flutter build appbundle --target-platform android-arm,android-arm64

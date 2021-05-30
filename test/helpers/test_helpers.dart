@@ -39,7 +39,7 @@ part 'others.dart';
     CollectionReference,
     DocumentReference,
     FirebaseFirestore,
-    QueryDocumentSnapshot,
+    // QueryDocumentSnapshot,
   ],
   customMocks: [
     // Stacked

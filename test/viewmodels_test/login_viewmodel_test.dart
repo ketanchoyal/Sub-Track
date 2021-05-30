@@ -12,7 +12,7 @@ LoginViewModel _getModel() => LoginViewModel();
 void main() {
   group('LoginViewModelTest -', () {
     setUp(() async => await registerMocks());
-    tearDown(() => unregisterMocks());
+    tearDown(() => unregisterAll());
 
     group('Email Validation -', () {
       test(

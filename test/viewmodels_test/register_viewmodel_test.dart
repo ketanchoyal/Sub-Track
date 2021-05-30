@@ -12,7 +12,7 @@ RegisterViewModel _getModel() => RegisterViewModel();
 void main() {
   group('RegisterViewModelTest -', () {
     setUp(() async => await registerMocks());
-    tearDown(() => unregisterMocks());
+    tearDown(() => unregisterAll());
 
     group('Email Validation -', () {
       test(

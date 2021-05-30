@@ -10,7 +10,7 @@ StartUpViewModel _getModel() => StartUpViewModel();
 void main() {
   group('StartupViewmodelTest -', () {
     setUp(() async => await registerMocks());
-    tearDown(() => unregisterMocks());
+    tearDown(() => unregisterAll());
 
     group('Run Statup Logic -', () {
       test(

@@ -60,6 +60,18 @@ Future<FirebaseAuthenticationService>
         : FirebaseAuthenticationResult.error(errorMessage: "Error"));
     when(service.hasUser).thenReturn(successFullRegister);
   }
+
+  when(service.currentUser).thenReturn(
+    successFullLogin != null
+        ? successFullLogin
+            ? FakeUser()
+            : null
+        : successFullRegister != null
+            ? successFullRegister
+                ? FakeUser()
+                : null
+            : null,
+  );
   locator.registerSingleton<FirebaseAuthenticationService>(service);
   return service;
 }

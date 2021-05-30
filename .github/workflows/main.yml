@@ -41,7 +41,7 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@master
       with:
-        name: bundle-build
+        name: app-release
         path: build/app/outputs/bundle/release
         # path: build/app/outputs/apk/release
     - uses: actions/upload-artifact@master
@@ -62,7 +62,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@master
       with:
-        name: apk-build
+        name: app-release
     - uses: actions/download-artifact@master
       with:
         name: mapping.txt

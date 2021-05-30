@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/app/app.logger.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/data_source/subscription/sub_remote.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
@@ -14,18 +17,23 @@ import 'package:sub_track/core/services/stoppable_services.dart';
 abstract class SubscriptionRepo {
   Future<Stream<List<Subscription>>> fetchSubscriptions(
       {bool forceFetch = false});
-  Future addSubscription({required Subscription subscription});
-  Future deleteSubscription({required String subscriptionId});
-  Future updateSubscription({required Subscription subscription});
+  Future<void> addSubscription({required Subscription subscription});
+  Future<void> deleteSubscription({required String subscriptionId});
+  Future<void> updateSubscription({required Subscription subscription});
   List<Subscription> getSubscriptionsOnce();
-  Future cacheSubscriptions();
+  Future<void> cacheSubscriptions();
 }
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
-  SubscriptionLocalDataSource get _brandLocalDataSource =>
+  SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
       locator<SubscriptionLocalDataSource>();
-  SubscriptionRemoteDataSource get _brandRemoteDataSource =>
+  SubscriptionRemoteDataSource get _subscriptionRemoteDataSource =>
       locator<SubscriptionRemoteDataSource>();
+
+  StreamController<List<Subscription>> _subscriptionsStreamController =
+      StreamController.broadcast();
+
+  var log = getLogger("");
 
   ConnectivityService get _connectivityService =>
       locator<StoppableService>() as ConnectivityService;
@@ -34,43 +42,54 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   Future<Stream<List<Subscription>>> fetchSubscriptions(
       {bool forceFetch = false}) async {
     if (await _connectivityService.checkConnectivity() && forceFetch) {
-      print("Fetching subs from Remote Data Source");
-      return _brandRemoteDataSource.fetchSubscriptions();
+      log.i("Fetching subs from Remote Data Source");
+
+      // (await _subscriptionsStreamController
+      //         .addStream(_subscriptionRemoteDataSource.fetchSubscriptions()))
+      //     .asStream();
+      // return _subscriptionsStreamController.stream;
+      return _subscriptionRemoteDataSource.fetchSubscriptions();
     } else {
-      print("Fetching subs from Local Data Source");
-      return _brandLocalDataSource.fetchSubscriptions();
+      log.i("Fetching subs from Local Data Source");
+      // (await _subscriptionsStreamController
+      //         .addStream(_subscriptionLocalDataSource.fetchSubscriptions()))
+      //     .asStream();
+      // return _subscriptionsStreamController.stream;
+      return _subscriptionLocalDataSource.fetchSubscriptions();
     }
   }
 
   @override
-  cacheSubscriptions() async {
+  Future<void> cacheSubscriptions() async {
+    log.d("Caching Subscriptions started");
     List<Subscription> subs =
-        await _brandRemoteDataSource.fetchSubscriptions().first;
+        await _subscriptionRemoteDataSource.fetchSubscriptions().first;
     await Future.forEach<Subscription>(subs, (element) async {
-      await _brandLocalDataSource.addSubscription(element);
+      await _subscriptionLocalDataSource.addSubscription(element);
     });
+    log.d("Caching Subscriptions finished");
   }
 
   @override
   List<Subscription> getSubscriptionsOnce() {
-    return _brandLocalDataSource.getSubscriptionsOnce();
+    return _subscriptionLocalDataSource.getSubscriptionsOnce();
   }
 
   @override
   Future addSubscription({required Subscription subscription}) async {
-    await _brandLocalDataSource.addSubscription(subscription);
-    _brandRemoteDataSource.addSubscription(subscription);
+    await _subscriptionLocalDataSource.addSubscription(subscription);
+    _subscriptionRemoteDataSource.addSubscription(subscription);
   }
 
   @override
   Future deleteSubscription({required String subscriptionId}) async {
-    await _brandLocalDataSource.deleteSubscription(subscriptionId);
-    _brandRemoteDataSource.deleteSubscription(subscriptionId);
+    await _subscriptionLocalDataSource.deleteSubscription(subscriptionId);
+    _subscriptionRemoteDataSource.deleteSubscription(subscriptionId);
   }
 
   @override
   Future updateSubscription({required Subscription subscription}) async {
-    await _brandLocalDataSource.updateSubscription(subscription);
-    _brandRemoteDataSource.updateSubscription(subscription);
+    await _subscriptionLocalDataSource.updateSubscription(subscription);
+    _subscriptionRemoteDataSource.updateSubscription(subscription);
   }
 }

@@ -16,33 +16,36 @@ abstract class AuthenticationViewModel extends FormViewModel
 
   final String successRoute;
   final bool isNewUser;
+  late final FirebaseAuthenticationResult result;
   AuthenticationViewModel(
       {required this.successRoute, required this.isNewUser});
 
   @override
   void setFormStatus() {}
 
+  Future<void> runAfterSuccessfullAuth() async {}
+
   Future<FirebaseAuthenticationResult> runAuthentication();
 
-  Future saveData() async {
+  Future<void> saveData() async {
     try {
-      final result = await runBusyFuture(runAuthentication());
+      result = await runBusyFuture(runAuthentication());
       await _handleAuthenticationResponse(result);
     } catch (e) {}
   }
 
   Future<void> useGoogleAuthentication() async {
-    final result = await firebaseAuthenticationService.signInWithGoogle();
+    result = await firebaseAuthenticationService.signInWithGoogle();
     await _handleAuthenticationResponse(result);
   }
 
   Future<void> useAnonymousLogin() async {
-    final result = await firebaseAuthenticationService.loginAnonymously();
+    result = await firebaseAuthenticationService.loginAnonymously();
     await _handleAuthenticationResponse(result);
   }
 
   Future<void> useAppleAuthentication() async {
-    final result = await firebaseAuthenticationService.signInWithApple(
+    result = await firebaseAuthenticationService.signInWithApple(
       appleClientId: '',
       appleRedirectUri:
           'https://sub-track-b7ad4.firebaseapp.com/__/auth/handler',
@@ -52,7 +55,8 @@ abstract class AuthenticationViewModel extends FormViewModel
 
   /// Checks if the result has an error. If it doesn't we navigate to the success view
   /// else we show the friendly validation message.
-  _handleAuthenticationResponse(FirebaseAuthenticationResult authResult) async {
+  Future<void> _handleAuthenticationResponse(
+      FirebaseAuthenticationResult authResult) async {
     if (!authResult.hasError) {
       // navigate to success route
       if (!isNewUser) {
@@ -70,6 +74,7 @@ abstract class AuthenticationViewModel extends FormViewModel
         message:
             "Welcome, ${(authResult.user!.displayName) ?? "Anonymous User"}",
       );
+      await runAfterSuccessfullAuth();
       $navigationService.clearStackAndShow(successRoute);
     } else {
       setValidationMessage(authResult.errorMessage);

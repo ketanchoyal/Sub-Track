@@ -5,7 +5,7 @@ description: Subscription Tracker Application
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0-beta.5
+version: 1.0.0-beta.5+3
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -25,8 +25,8 @@ dependencies:
   velocity_x: ^3.0.0
 
   # Graphic related
-  cupertino_icons: ^1.0.2
-  flutter_svg: ^0.21.0+1
+  cupertino_icons: ^1.0.3
+  flutter_svg: ^0.22.0
   simple_icons: ^4.18.5
   emojis:
     path: ./packages/emojis
@@ -37,7 +37,7 @@ dependencies:
   image_picker: ^0.7.4
   uuid: ^3.0.3
   time: ^2.0.0
-  dart_date: ^1.1.0-nullsafety.0
+  dart_date: ^1.1.0
   flutter_local_notifications:
     git:
       url: https://github.com/ketanchoyal/flutter_local_notifications.git
@@ -56,12 +56,13 @@ dependencies:
       ref: null-safety
 
   #Firebase
-  firebase_core: ^1.0.4
-  cloud_firestore: ^1.0.6
-  stacked_firebase_auth:
-    git:
-        url: https://github.com/ketanchoyal/stacked.git
-        path: packages/stacked_firebase_auth
+  firebase_core: ^1.2.0
+  cloud_firestore: ^2.2.0
+  stacked_firebase_auth: ^0.2.5
+  # stacked_firebase_auth:
+  #   git:
+  #     url: https://github.com/ketanchoyal/stacked.git
+  #     path: packages/stacked_firebase_auth
 
   #Connectivity
   cross_connectivity: ^3.0.2
@@ -71,17 +72,20 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.1.0
+  stacked: ^2.1.6
   stacked_hooks: ^0.2.0
-  stacked_services: ^0.8.5
+  stacked_services: ^0.8.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  stacked_generator: ^0.4.1
+  stacked_generator: ^0.4.6
   hive_generator: ^1.1.0
   flutter_launcher_icons: ^0.9.0
+
+  # testing
+  mockito: ^5.0.8
 
 flutter_icons:
   android: true

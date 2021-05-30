@@ -27,6 +27,9 @@ class RegisterView extends StatelessWidget with $RegisterView {
       onModelReady: (model) {
         listenToFormUpdated(model);
       },
+      onDispose: () {
+        disposeForm();
+      },
       builder: (context, model, child) => CupertinoPageScaffold(
         child: Stack(
           children: [

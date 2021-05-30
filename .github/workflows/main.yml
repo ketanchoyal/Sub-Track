@@ -15,11 +15,11 @@ jobs:
         java-version: '12.x'
     - run: |
         mkdir $HOME/private
-        gpg --quiet --batch --yes --decrypt --passphrase="$FIREBASE_SECRET" \
+        gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_KEY" \
         --output $HOME/private/services.tar services.tar.gpg
         tar xvf $HOME/private/services.tar
       env:
-        SIGNING_KEY: ${{ secrets.FIREBASE_SECRET }}
+        SIGNING_KEY: ${{ secrets.GOOGLE_SERVICE_JSON_DECRYPT_KEY }}
     - run: echo $SIGNING_KEY | base64 -d > android/app/key.jks
       env:
         SIGNING_KEY: ${{ secrets.SIGNING_KEY }}

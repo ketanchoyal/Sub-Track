@@ -63,9 +63,9 @@ jobs:
       uses: actions/download-artifact@master
       with:
         name: app-release
-    - uses: actions/download-artifact@master
-      with:
-        name: mapping
+    # - uses: actions/download-artifact@master
+    #   with:
+    #     name: mapping
     - name: Publish to Play Store internal test track
       uses: r0adkll/upload-google-play@v1
       with:
@@ -75,7 +75,7 @@ jobs:
         releaseFiles: app-release.aab
         track: production
         # whatsNewDirectory: whatsNewDirectory/whatsnew
-        mappingFile: mapping.txt
+        # mappingFile: mapping.txt
         # userFraction: 0.50 #Percentage of user which should get the update
   # build_web:
   #   name: Build Flutter (Web)

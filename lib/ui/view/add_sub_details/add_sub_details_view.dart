@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,22 +30,12 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
 
   AddSubDetailsView({Key? key, required this.brand}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
-      viewModelBuilder: () => AddSubDetailsViewModel(),
-      fireOnModelReadyOnce: true,
-      onModelReady: (model) {
-        initControllers(model, brand);
-        listenToFormUpdated(model);
-        model.setBrand(brand);
-      },
-      builder: (context, model, child) {
-        return CupertinoPageScaffold(
-          resizeToAvoidBottomInset: false,
-          navigationBar: CupertinoNavigationBar(
+  Widget appbar(model, context) {
+    return Platform.isIOS
+        ? CupertinoNavigationBar(
             automaticallyImplyLeading: false,
             transitionBetweenRoutes: true,
+            backgroundColor: AppColor.STPureWhite,
             middle: Text(
               brand.title,
               style: kNavigationStyle,
@@ -76,12 +68,59 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                 size: 30,
               ),
             ),
-          ),
-          child: model.isBusy
+          )
+        : AppBar(
+            backgroundColor: AppColor.STAccent,
+            title: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  brand.title,
+                  style: kHeader3Style,
+                ),
+                GestureDetector(
+                  onTap: () => model.addSubscription(),
+                  child: Text(
+                    "Save",
+                    style: kBodyBoldStyle,
+                  ),
+                ),
+              ],
+            ),
+            leading: GestureDetector(
+              onTap: model.pop,
+              child: Icon(
+                Icons.arrow_back,
+                size: 25,
+              ),
+            ),
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<AddSubDetailsViewModel>.reactive(
+      viewModelBuilder: () => AddSubDetailsViewModel(),
+      fireOnModelReadyOnce: true,
+      onModelReady: (model) {
+        initControllers(model, brand);
+        listenToFormUpdated(model);
+        model.setBrand(brand);
+      },
+      onDispose: () {
+        disposeForm();
+      },
+      builder: (context, model, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: AppColor.STLight,
+          appBar: appbar(model, context) as PreferredSizeWidget,
+          body: model.isBusy
               ? Stack(
                   children: [
-                    Center(
-                      child: STLoading(),
+                    const Center(
+                      child: const STLoading(),
                     )
                   ],
                 )
@@ -255,7 +294,20 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                               title: "Sub Started On",
                               child: STDetailFormElement(
                                 onTap: () async {
-                                  _showDatePicker(context, model);
+                                  Platform.isIOS
+                                      ? _showDatePicker(context, model)
+                                      : await model
+                                          .setDate(await showDatePicker(
+                                                context: context,
+                                                initialDate: model
+                                                    .subscription.startedOn,
+                                                firstDate: DateTime.now()
+                                                    .addYears(-5)
+                                                    .date,
+                                                lastDate: DateTime.now()
+                                                    .add(Duration(minutes: 10)),
+                                              ) ??
+                                              DateTime.now());
                                 },
                                 child: Text(
                                   model.subscription.startedOn
@@ -339,27 +391,33 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
     );
   }
 
-  void _showDatePicker(ctx, model) {
+  void _showDatePicker(ctx, AddSubDetailsViewModel model) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
     showCupertinoModalPopup(
       context: ctx,
       builder: (context) => Container(
         color: AppColor.STLight,
-        height: 400,
-        child: Column(
+        height: 300,
+        child: Stack(
           children: [
             Container(
-              height: 300,
+              height: 280,
               child: CupertinoDatePicker(
-                initialDateTime: DateTime.now(),
+                initialDateTime: model.subscription.startedOn,
                 onDateTimeChanged: model.setDate,
+                maximumDate: DateTime.now().add(Duration(minutes: 10)),
+                maximumYear: DateTime.now().year,
+                minimumDate: DateTime.now().addYears(-5).date,
                 mode: CupertinoDatePickerMode.date,
               ),
             ),
             // Close the modal
-            CupertinoButton(
-              child: Text('Close'),
-              onPressed: () => Navigator.of(context).pop(),
+            Align(
+              alignment: Alignment.topRight,
+              child: CupertinoButton(
+                child: Text('Close'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             )
           ],
         ),

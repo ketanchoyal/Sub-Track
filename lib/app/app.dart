@@ -4,6 +4,7 @@ import 'package:sub_track/ui/view/active_subscription/active_subscription_view.d
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
+import 'package:sub_track/ui/view/forgot_password/forgot_password_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
 import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
@@ -12,9 +13,11 @@ import 'package:sub_track/ui/view/other_select/other_select_view.dart';
 import 'package:sub_track/ui/view/register/register_view.dart';
 import 'package:sub_track/ui/view/select_category/select_category_view.dart';
 import 'package:sub_track/ui/view/select_icon/select_icon_view.dart';
+import 'package:sub_track/ui/view/setting/setting_view.dart';
 import 'package:sub_track/ui/view/startup/startup_view.dart';
 
 @StackedApp(
+  logger: StackedLogger(),
   routes: [
     CupertinoRoute(page: DemoView),
     CupertinoRoute(
@@ -52,11 +55,16 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
     StackedRoute(page: LoginView),
     StackedRoute(page: RegisterView),
     StackedRoute(page: HomeView),
+    StackedRoute(page: ForgotPasswordView),
     AdaptiveRoute(
       page: ActiveSubscriptionView,
       fullscreenDialog: true,
       maintainState: true,
-    )
+    ),
+    AdaptiveRoute(
+      page: SettingView,
+      maintainState: true,
+    ),
   ],
   // no asType function in null safety version
   // dependencies: [

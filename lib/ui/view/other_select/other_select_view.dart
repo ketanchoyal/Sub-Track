@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -12,40 +14,61 @@ class OtherSelectView extends StatelessWidget {
   final dynamic selected;
   final OtherDetailSelectType type;
 
+  Widget appbar(model, context) {
+    return Platform.isIOS
+        ? CupertinoNavigationBar(
+            // border: Border(bottom: BorderSide.none),
+            backgroundColor: AppColor.STPureWhite,
+            automaticallyImplyLeading: false,
+            transitionBetweenRoutes: true,
+            middle: Text(type.name),
+            leading: Padding(
+              padding:
+                  const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
+              child: GestureDetector(
+                onTap: () {
+                  model.pop(selected: selected);
+                },
+                child: Text.rich(
+                  TextSpan(
+                    text: String.fromCharCode(CupertinoIcons.back.codePoint),
+                    style: TextStyle(
+                      inherit: false,
+                      color: CupertinoTheme.of(context).primaryColor,
+                      fontSize: 30.0,
+                      fontFamily: CupertinoIcons.back.fontFamily,
+                      package: CupertinoIcons.back.fontPackage,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        : AppBar(
+            backgroundColor: AppColor.STAccent,
+            title: Text(
+              type.name,
+              style: kHeader3Style,
+            ),
+            leading: GestureDetector(
+              onTap: () => model.pop(selected: selected),
+              child: Icon(
+                Icons.arrow_back,
+                size: 25,
+              ),
+            ),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OtherSelectViewModel>.reactive(
       viewModelBuilder: () => OtherSelectViewModel(),
       onModelReady: (model) => model.setupType(type, selected: selected),
-      builder: (context, model, child) => CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          border: Border(bottom: BorderSide.none),
-          backgroundColor: AppColor.STPureWhite,
-          automaticallyImplyLeading: false,
-          transitionBetweenRoutes: true,
-          middle: Text(type.name),
-          leading: Padding(
-            padding: const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
-            child: GestureDetector(
-              onTap: () {
-                model.pop(selected: selected);
-              },
-              child: Text.rich(
-                TextSpan(
-                  text: String.fromCharCode(CupertinoIcons.back.codePoint),
-                  style: TextStyle(
-                    inherit: false,
-                    color: CupertinoTheme.of(context).primaryColor,
-                    fontSize: 30.0,
-                    fontFamily: CupertinoIcons.back.fontFamily,
-                    package: CupertinoIcons.back.fontPackage,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        child: Stack(
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: AppColor.STLight,
+        appBar: appbar(model, context) as PreferredSizeWidget,
+        body: Stack(
           children: [
             SingleChildScrollView(
               child: CupertinoFormSection.insetGrouped(

@@ -8,10 +8,12 @@ import 'package:sub_track/ui/shared/shared.dart';
 ///
 /// [SubscriptionRepo]
 abstract class CalculationService {
-  Future<double> getTotalExpense({bool currentYear = true});
-  Future<double> getCurrentMonthExpense();
-  Future<Map<DateTime, double>> getGraphData();
-  Future<double> getExpenseOf({required DateTime month});
+  Future<double> getTotalExpense(
+      {bool currentYear = true, bool fromRemote = false});
+  Future<double> getCurrentMonthExpense({bool fromRemote = false});
+  Future<Map<DateTime, double>> getGraphData({bool fromRemote = false});
+  Future<double> getExpenseOf(
+      {required DateTime month, bool fromRemote = false});
   Future<int?> calculateRemainingDays(Subscription subscription);
 }
 
@@ -19,9 +21,9 @@ class CalculationServiceImpl extends CalculationService {
   SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
 
   @override
-  Future<Map<DateTime, double>> getGraphData() async {
+  Future<Map<DateTime, double>> getGraphData({bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+        (await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote));
 
     await for (List<Subscription> subs in subStream) {
       Map<DateTime, double> data = {};
@@ -32,11 +34,12 @@ class CalculationServiceImpl extends CalculationService {
         }
         if (subscription.payments != null) {
           subscription.payments!.forEach((key, newValue) {
-            data.update(
-              key.date,
-              (value) => value + newValue,
-              ifAbsent: () => newValue,
-            );
+            if (key.isBefore(DateTime.now()))
+              data.update(
+                key.date,
+                (value) => value + newValue,
+                ifAbsent: () => newValue,
+              );
           });
         }
       });
@@ -46,9 +49,10 @@ class CalculationServiceImpl extends CalculationService {
   }
 
   @override
-  Future<double> getExpenseOf({required DateTime month}) async {
+  Future<double> getExpenseOf(
+      {required DateTime month, bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+        (await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote));
 
     await for (List<Subscription> subs in subStream) {
       double totalExpense = 0;
@@ -66,9 +70,9 @@ class CalculationServiceImpl extends CalculationService {
 
   //NOTE needs testing
   @override
-  Future<double> getCurrentMonthExpense() async {
+  Future<double> getCurrentMonthExpense({bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        (await _subscriptionRepo.fetchSubscriptions());
+        (await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote));
 
     await for (List<Subscription> subs in subStream) {
       double totalExpense = 0;
@@ -101,9 +105,10 @@ class CalculationServiceImpl extends CalculationService {
 
   //NOTE needs testing
   @override
-  Future<double> getTotalExpense({bool currentYear = true}) async {
+  Future<double> getTotalExpense(
+      {bool currentYear = true, bool fromRemote = false}) async {
     final Stream<List<Subscription>> subStream =
-        await _subscriptionRepo.fetchSubscriptions();
+        await _subscriptionRepo.fetchSubscriptions(forceFetch: fromRemote);
     print("Subscribed to getTotalExpense");
     print("setting totalExpense : 0");
     double totalExpense = 0;
@@ -152,6 +157,8 @@ class CalculationServiceImpl extends CalculationService {
     return totalExpense;
   }
 
+  // FIXME Subscription are renews every 30 day so instead of adding month add 30days
+  // Reference: https://transform-hq.helpscoutdocs.com/article/21-exact-interval-for-a-monthly-subscription
   Future<Subscription> _calculatePayments(Subscription subscription) async {
     print("Calculating payments for ${subscription.brand.title}");
     Map<DateTime, double> _payments = {};
@@ -262,9 +269,21 @@ class CalculationServiceImpl extends CalculationService {
     if (subscription.payments != null && subscription.payments!.isNotEmpty) {
       DateTime latestPayment = subscription.payments!.entries.last.key;
       print(latestPayment);
-      int remaningDays =
-          latestPayment.difference(DateTime.now().date).inDays.abs();
+      int remaningDays = latestPayment.difference(DateTime.now().date).inDays;
       print(latestPayment.difference(DateTime.now().date).inDays);
+      // NOTE check if this latest payment has happened or not (id negative than sub is happened)
+      if (remaningDays.isNegative || remaningDays == 0) {
+        if (subscription.renewsEvery == RenewsEvery.Monthly) {
+          latestPayment = latestPayment.addMonths(1);
+        }
+        if (subscription.renewsEvery == RenewsEvery.Yearly) {
+          latestPayment = latestPayment.addYears(1);
+        }
+        if (subscription.renewsEvery == RenewsEvery.Weekly) {
+          latestPayment = latestPayment.add(Duration(days: 7));
+        }
+      }
+      remaningDays = latestPayment.difference(DateTime.now().date).inDays;
       // await _subscriptionRepo.updateSubscription(
       //     subscription: subscription.copyWith(remaningDays: remaningDays));
       return remaningDays;

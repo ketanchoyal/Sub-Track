@@ -42,32 +42,38 @@ class STAddSubCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: SvgPicture.network(
-                        brand.iconUrl!,
-                        height: 35,
-                        semanticsLabel: brand.title,
-                        placeholderBuilder: (BuildContext context) =>
-                            const CupertinoActivityIndicator(
-                          animating: true,
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: SvgPicture.network(
+                          brand.iconUrl!,
+                          height: 35,
+                          semanticsLabel: brand.title,
+                          placeholderBuilder: (BuildContext context) =>
+                              const CupertinoActivityIndicator(
+                            animating: true,
+                          ),
+                          color: brand.hex.toColor()!.brighten(80),
+                          // color: AppColor.STPureDark,
                         ),
-                        color: brand.hex.toColor()!.brighten(80),
-                        // color: AppColor.STPureDark,
                       ),
-                    ),
-                    Text(
-                      brand.title,
-                      style: kBodyBoldStyle.copyWith(
-                        // color: brand.hex.toColor()!.contrastOf(),
-                        color: AppColor.STLight,
+                      Expanded(
+                        child: Text(
+                          brand.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: kBodyBoldStyle.copyWith(
+                            // color: brand.hex.toColor()!.contrastOf(),
+                            color: AppColor.STLight,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),

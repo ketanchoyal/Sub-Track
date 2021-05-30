@@ -12,8 +12,9 @@ import 'package:sub_track/core/services/file_service.dart';
 ///
 /// [HiveInterface]
 abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
-  Future init();
-  Future cleanEverything();
+  Future<void> init();
+  Future<void> cleanEverything();
+  List<Subscription> getSubscriptionsOnce();
   // Future updateCache(Subscription subscriptions);
 }
 
@@ -60,6 +61,11 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
   Stream<List<Subscription>> fetchSubscriptions() {
     _listenToSubscription();
     return _streamController.stream;
+  }
+
+  @override
+  List<Subscription> getSubscriptionsOnce() {
+    return _subscriptionBox.values.toList();
   }
 
   //Real stuff here

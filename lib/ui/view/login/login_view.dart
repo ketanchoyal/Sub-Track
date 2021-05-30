@@ -26,6 +26,9 @@ class LoginView extends StatelessWidget with $LoginView {
       onModelReady: (model) {
         listenToFormUpdated(model);
       },
+      onDispose: () {
+        disposeForm();
+      },
       builder: (context, model, child) => CupertinoPageScaffold(
         child: Stack(
           children: [
@@ -95,9 +98,12 @@ class LoginView extends StatelessWidget with $LoginView {
                           ),
                         ),
                         verticalSpaceSmall,
-                        Text(
-                          "Forgot Password?",
-                          style: kLinkStyle,
+                        GestureDetector(
+                          onTap: model.forgotPassword,
+                          child: Text(
+                            "Forgot Password?",
+                            style: kLinkStyle,
+                          ),
                         ),
                         verticalSpaceMedium,
                         Row(

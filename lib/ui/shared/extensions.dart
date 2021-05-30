@@ -121,6 +121,8 @@ extension DateTimeX on DateTime {
       );
   DateTime get date => DateTime(year, month, day);
 
+  bool get isFuture => this.isAfter(DateTime.now());
+
   DateTime addMonths(int amount) => clone._setMonth(month + amount);
 
   DateTime addHalfYear(int amount) => addMonths(amount * 6);

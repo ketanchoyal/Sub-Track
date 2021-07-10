@@ -34,7 +34,7 @@ class STActiveSubCard extends StatelessWidget {
               horizontal: 5,
             )
           : const EdgeInsets.symmetric(
-              horizontal: 12,
+              horizontal: 5,
               vertical: 2,
             ),
       child: SizedBox(

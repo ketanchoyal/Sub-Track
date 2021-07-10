@@ -1,9 +1,9 @@
+import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/dumb_widgets/cupertino_modal_container.dart';
-import 'package:velocity_x/velocity_x.dart';
 import './new_subscription_viewmodel.dart';
 
 class NewSubscription extends StatelessWidget {

@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget with $LoginView {
       onModelReady: (model) {
         listenToFormUpdated(model);
       },
-      onDispose: () {
+      onDispose: (model) {
         disposeForm();
       },
       builder: (context, model, child) => CupertinoPageScaffold(

@@ -72,6 +72,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   }
 
   fetchSubs() async {
+    await Future.delayed(Duration(seconds: 5));
     if (_subscriptions.length == 0)
       (await _subscriptionRepo.fetchSubscriptions(forceFetch: _fetchFromServer))
           .listen((event) {

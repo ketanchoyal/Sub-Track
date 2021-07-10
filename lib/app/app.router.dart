@@ -22,6 +22,7 @@ import '../ui/view/active_subscription/active_subscription_view.dart';
 import '../ui/view/add_sub/add_sub_view.dart';
 import '../ui/view/add_sub_details/add_sub_details_view.dart';
 import '../ui/view/demo/demo_view.dart';
+import '../ui/view/forgot_password/forgot_password_view.dart';
 import '../ui/view/home/home_view.dart';
 import '../ui/view/login/login_view.dart';
 import '../ui/view/new_subscription/new_subscription_view.dart';
@@ -43,6 +44,7 @@ class Routes {
   static const String loginView = '/login-view';
   static const String registerView = '/register-view';
   static const String homeView = '/home-view';
+  static const String forgotPasswordView = '/forgot-password-view';
   static const String activeSubscriptionView = '/active-subscription-view';
   static const String settingView = '/setting-view';
   static const all = <String>{
@@ -53,6 +55,7 @@ class Routes {
     loginView,
     registerView,
     homeView,
+    forgotPasswordView,
     activeSubscriptionView,
     settingView,
   };
@@ -77,6 +80,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.registerView, page: RegisterView),
     RouteDef(Routes.homeView, page: HomeView),
+    RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.activeSubscriptionView, page: ActiveSubscriptionView),
     RouteDef(Routes.settingView, page: SettingView),
   ];
@@ -122,6 +126,12 @@ class StackedRouter extends RouterBase {
     HomeView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => HomeView(),
+        settings: data,
+      );
+    },
+    ForgotPasswordView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ForgotPasswordView(),
         settings: data,
       );
     },

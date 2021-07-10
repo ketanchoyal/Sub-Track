@@ -24,7 +24,7 @@ void main() {
 
   test('Search for emoji with invalid name', () {
     final emoji = Emoji.byName('bla');
-    expect(emoji, isNull);
+    expect(emoji, Emoji.inCaseOfNull());
   });
 
   group('Emoji.emojinize', () {

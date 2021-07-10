@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
@@ -29,6 +30,10 @@ void setupSnackbarUi() {
       padding: EdgeInsets.all(15),
       margin: EdgeInsets.all(15),
       snackPosition: SnackPosition.BOTTOM,
+      icon: Icon(
+        Icons.check_rounded,
+        color: Colors.white,
+      ),
       snackStyle: SnackStyle.FLOATING,
       dismissDirection: SnackDismissDirection.HORIZONTAL,
     ),
@@ -42,6 +47,10 @@ void setupSnackbarUi() {
       backgroundColor: AppColor.STAccent,
       textColor: AppColor.STPureWhite,
       borderRadius: 10,
+      icon: Icon(
+        Icons.info_rounded,
+        color: Colors.white,
+      ),
       forwardAnimationCurve: Curves.bounceIn,
       // reverseAnimationCurve: Curves.bounceOut,
       padding: EdgeInsets.all(15),
@@ -61,6 +70,10 @@ void setupSnackbarUi() {
       textColor: AppColor.STPureWhite,
       borderRadius: 10,
       margin: EdgeInsets.all(15),
+      icon: Icon(
+        Icons.cancel_rounded,
+        color: Colors.white,
+      ),
       forwardAnimationCurve: Curves.bounceIn,
       // reverseAnimationCurve: Curves.bounceOut,
       padding: EdgeInsets.all(15),

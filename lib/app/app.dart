@@ -4,6 +4,7 @@ import 'package:sub_track/ui/view/active_subscription/active_subscription_view.d
 import 'package:sub_track/ui/view/add_sub/add_sub_view.dart';
 import 'package:sub_track/ui/view/add_sub_details/add_sub_details_view.dart';
 import 'package:sub_track/ui/view/demo/demo_view.dart';
+import 'package:sub_track/ui/view/forgot_password/forgot_password_view.dart';
 import 'package:sub_track/ui/view/home/home_view.dart';
 import 'package:sub_track/ui/view/login/login_view.dart';
 import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
@@ -54,6 +55,7 @@ import 'package:sub_track/ui/view/startup/startup_view.dart';
     StackedRoute(page: LoginView),
     StackedRoute(page: RegisterView),
     StackedRoute(page: HomeView),
+    StackedRoute(page: ForgotPasswordView),
     AdaptiveRoute(
       page: ActiveSubscriptionView,
       fullscreenDialog: true,

@@ -1,7 +1,7 @@
 <img src="assets/launcher_icons/splash_screen.png" width="60px" height="60px" />
 
 
-![CI/CD Android](https://github.com/ketanchoyal/Sub-Track/actions/workflows/.github/workflows/main.yml/badge.svg)
+![CI/CD Android](https://github.com/ketanchoyal/Sub-Track/actions/workflows/.github/workflows/main.yml/badge.svg) [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fketanchoyal%2FSub-Track&count_bg=%23566BDE&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Hit+Count&edge_flat=true)](https://hits.seeyoufarm.com)
 
 # Sub Track: A Subscription Tracker Application built using Flutter
 
@@ -19,6 +19,7 @@ Refer [CONTRIBUTING.md](CONTRIBUTING.md)
 - [ ] Enable Emoji selection in select icon view
 
 ### &emsp; Just Feature
+- [ ] Add Filter by Category Option
 - [x] Firebase Sync
 - [x] History
 - [ ] Archive Subscription

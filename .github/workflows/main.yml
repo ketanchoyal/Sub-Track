@@ -32,6 +32,7 @@ jobs:
     # - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
     # - run: flutter build appbundle --target-platform android-arm,android-arm64
     # - run: flutter build appbundle
+    - run: flutter test
     - run: flutter build apk --release
       env:
         KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}

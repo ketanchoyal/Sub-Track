@@ -5,14 +5,6 @@
     "version": "0.2.0",
         "configurations": [
             {
-                "name": "no-null-safety",
-                "request": "launch",
-                "type": "dart",
-                "args": [
-                    "--no-sound-null-safety"
-                ]
-            },
-            {
                 "name": "null-safety",
                 "request": "launch",
                 "type": "dart",

@@ -137,7 +137,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
   }
 
   navigateToSelectCategory() async {
-    String? category = await $navigationService.navigateTo(
+    var category = await $navigationService.navigateTo(
       NewSubscriptionRoutes.selectCategoryView,
       id: 2,
       arguments: SelectCategoryViewArguments(selected: _subscription.category),
@@ -166,7 +166,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
         _setSubscriptionData(
           _subscription.copyWith(
             subscriptionId: uuid.v1(),
-            renewsEvery: result as RenewsEvery,
+            renewsEvery: result as RenewsEvery?,
           ),
         );
         break;
@@ -174,7 +174,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
         _setSubscriptionData(
           _subscription.copyWith(
             subscriptionId: uuid.v1(),
-            notificationOn: result as NotifyOn,
+            notificationOn: result as NotifyOn?,
           ),
         );
         break;

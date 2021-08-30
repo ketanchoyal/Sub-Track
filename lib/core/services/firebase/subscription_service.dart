@@ -60,7 +60,7 @@ class SubscriptionServiceImpl with Firestore implements SubscriptionService {
   Stream<List<Subscription>> fetchSubscriptions() {
     if (currentUserSubCollRef != null) {
       logger.i("fetching from Firebase");
-      currentUserSubCollRef!
+      return currentUserSubCollRef!
           .withConverter<Subscription>(
             fromFirestore: (snapshot, _) =>
                 Subscription.fromJson(snapshot.data()!),
@@ -69,7 +69,7 @@ class SubscriptionServiceImpl with Firestore implements SubscriptionService {
           .snapshots(includeMetadataChanges: true)
           .map<List<Subscription>>((event) {
         return event.docs.map((snapshot) => snapshot.data()).toList();
-      }).listen((event) => _streamController.add(event));
+      }); //.listen((event) => _streamController.add(event));
       // return currentUserSubCollRef!
       //     .snapshots(includeMetadataChanges: true)
       //     .map<List<Subscription>>((event) {
@@ -77,7 +77,7 @@ class SubscriptionServiceImpl with Firestore implements SubscriptionService {
       //       .map((snapshot) => Subscription.fromJson(snapshot.data()))
       //       .toList();
       // });
-      return _streamController.stream;
+      // return _streamController.stream;
     } else {
       return Stream.empty();
       //Error Snack bar from here

@@ -71,22 +71,26 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  fetchSubs() async {
-    await Future.delayed(Duration(seconds: 5));
-    if (_subscriptions.length == 0)
-      (await _subscriptionRepo.fetchSubscriptions(forceFetch: _fetchFromServer))
-          .listen((event) {
-        _subscriptions = event;
-        if (event.length == 0) {
-          if (!_fetchFromServer) {
-            _fetchFromServer = true;
-            startupTasks();
-          } else {
-            _fetchFromServer = false;
-          }
+  fetchSubs({bool refresh = false}) async {
+    if (!refresh) setBusy(true);
+    // _subscriptions = _subscriptionRepo.getSubscriptionsOnce();
+    await Future.delayed(Duration(seconds: 1));
+    // if (_subscriptions.length == 0)
+    _subscriptionRepo
+        .fetchSubscriptions(forceFetch: _fetchFromServer)
+        .listen((event) {
+      _subscriptions = event;
+      notifyListeners();
+      if (event.length == 0) {
+        if (!_fetchFromServer) {
+          _fetchFromServer = true;
+          startupTasks();
+        } else {
+          _fetchFromServer = false;
         }
-      });
-    notifyListeners();
+      }
+    });
+    if (!refresh) setBusy(false);
   }
 
   _getCurrentMonthExpense() async {

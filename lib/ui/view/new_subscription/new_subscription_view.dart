@@ -33,9 +33,10 @@ class NewSubscription extends StatelessWidget {
                 }
                 return false;
               },
-              child: Navigator(
-                onGenerateRoute: NewSubscriptionRouter().onGenerateRoute,
-                key: StackedService.nestedNavigationKey(2),
+              child: ExtendedNavigator<NewSubscriptionRouter>(
+                initialRoute: NewSubscriptionRoutes.addSubView,
+                // onGenerateRoute: NewSubscriptionRouter().onGenerateRoute,
+                navigatorKey: StackedService.nestedNavigationKey(2),
               ),
             ),
           );

@@ -27,14 +27,14 @@ dependencies:
   # Graphic related
   cupertino_icons: ^1.0.3
   flutter_svg: ^0.22.0
-  simple_icons: ^4.18.5
+  simple_icons: ^5.2.0
   emojis:
     path: ./packages/emojis
 
   # Helpers
   # modal_bottom_sheet: ^2.0.0
-  keyboard_actions: ^3.4.0
-  image_picker: ^0.7.4
+  keyboard_actions: ^3.4.4
+  image_picker: ^0.8.3+3
   uuid: ^3.0.3
   time: ^2.0.0
   dart_date: ^1.1.0
@@ -43,11 +43,11 @@ dependencies:
       url: https://github.com/ketanchoyal/flutter_local_notifications.git
       path: flutter_local_notifications/
       ref: ios-swift
-  fl_chart: ^0.35.0
+  fl_chart: ^0.40.0
   email_validator: ^2.0.1
   animator: ^3.0.0
   settings_ui: ^1.0.0
-  logger: ^1.0.0
+  logger: ^1.1.0
   url_launcher: ^6.0.3
   dismissible_page:
     # path: ../packages/dismissible_page
@@ -56,9 +56,9 @@ dependencies:
       ref: null-safety
 
   #Firebase
-  firebase_core: ^1.2.0
-  cloud_firestore: ^2.2.0
-  stacked_firebase_auth: ^0.2.5
+  firebase_core: ^1.6.0
+  cloud_firestore: ^2.5.1
+  stacked_firebase_auth: ^0.2.10
   # stacked_firebase_auth:
   #   git:
   #     url: https://github.com/ketanchoyal/stacked.git
@@ -72,20 +72,24 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.1.6
+  stacked: ^2.2.5
   stacked_hooks: ^0.2.0
-  stacked_services: ^0.8.6
+  stacked_services: ^0.8.13
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  stacked_generator: ^0.4.6
+  stacked_generator: ^0.5.2
   hive_generator: ^1.1.0
-  flutter_launcher_icons: ^0.9.0
+  flutter_launcher_icons: ^0.9.2
 
   # testing
-  mockito: ^5.0.8
+  mockito: ^5.0.15
+
+dependency_overrides:
+  analyzer: ^2.0.0
+  meta: ^1.7.0
 
 flutter_icons:
   android: true

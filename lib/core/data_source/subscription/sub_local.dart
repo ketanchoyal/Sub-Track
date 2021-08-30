@@ -43,7 +43,7 @@ class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
 
   @override
   addSubscription(Subscription subscription) async {
-    print("Here");
+    print("Adding Sub to local");
 
     if (_subscriptionsBoxIsOpen) {
       print(_subscriptionBox.values.length);

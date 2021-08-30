@@ -85,13 +85,13 @@ class HomeView extends StatelessWidget {
                       );
                     },
                     onRefresh: () async {
-                      await model.fetchSubs();
+                      await model.fetchSubs(refresh: true);
                     },
                   ),
                   SliverToBoxAdapter(
                     child: Container(
                       height: screenHeightPercentage(context, percentage: 1),
-                      child: model.subscriptions.isNotEmpty
+                      child: model.subscriptions.isNotEmpty && !model.isBusy
                           ? MediaQuery.removePadding(
                               removeTop: true,
                               context: context,
@@ -219,9 +219,13 @@ class HomeView extends StatelessWidget {
                     ),
                   )
                 ],
-                shrinkWrap: true,
+                shrinkWrap: false,
               ),
-              if (model.subscriptions.isEmpty)
+              if (model.isBusy)
+                Center(
+                  child: STLoading(),
+                ),
+              if (model.subscriptions.isEmpty && !model.isBusy)
                 Positioned(
                   right: 0,
                   top: 0,

@@ -15,8 +15,7 @@ import 'package:sub_track/core/services/stoppable_services.dart';
 ///
 /// [ConnectivityService]
 abstract class SubscriptionRepo {
-  Future<Stream<List<Subscription>>> fetchSubscriptions(
-      {bool forceFetch = false});
+  Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false});
   Future<void> addSubscription({required Subscription subscription});
   Future<void> deleteSubscription({required String subscriptionId});
   Future<void> updateSubscription({required Subscription subscription});
@@ -39,9 +38,9 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       locator<StoppableService>() as ConnectivityService;
 
   @override
-  Future<Stream<List<Subscription>>> fetchSubscriptions(
-      {bool forceFetch = false}) async {
-    if (await _connectivityService.checkConnectivity() && forceFetch) {
+  Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false}) {
+    // if (await _connectivityService.checkConnectivity() && forceFetch) {
+    if (forceFetch) {
       log.i("Fetching subs from Remote Data Source");
 
       // (await _subscriptionsStreamController

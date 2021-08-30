@@ -48,7 +48,7 @@ class ExpenseGraphState extends State<ExpenseGraph> {
             show: true,
             bottomTitles: SideTitles(
               showTitles: true,
-              getTextStyles: (value) => kPreTitleStyle.copyWith(
+              getTextStyles: (contx, value) => kPreTitleStyle.copyWith(
                 color: AppColor.STDark,
               ),
               margin: 10,
@@ -58,6 +58,12 @@ class ExpenseGraphState extends State<ExpenseGraph> {
                     .format(DateTime(0, value.toInt()))
                     .toUpperCase();
               },
+            ),
+            topTitles: SideTitles(
+              showTitles: false,
+            ),
+            rightTitles: SideTitles(
+              showTitles: false,
             ),
             leftTitles: SideTitles(
               showTitles: false,

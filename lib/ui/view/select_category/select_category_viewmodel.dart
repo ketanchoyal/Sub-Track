@@ -7,5 +7,8 @@ import 'package:sub_track/ui/shared/mixins.dart';
 class SelectCategoryViewModel extends BaseViewModel with $SharedVariables {
   List<Category> get categories => Category.categories;
 
-  pop({String? category}) => $navigationService.back(id: 2, result: category);
+  pop({String? category}) {
+    Get.back(result: category, id: 2);
+    // $navigationService.back(id: 2, result: category);
+  }
 }

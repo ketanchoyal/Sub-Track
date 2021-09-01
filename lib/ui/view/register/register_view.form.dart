@@ -44,8 +44,11 @@ mixin $RegisterView on StatelessWidget {
     // The dispose function for a TextEditingController sets all listeners to null
 
     nameController.dispose();
+    nameFocusNode.dispose();
     emailController.dispose();
+    emailFocusNode.dispose();
     passwordController.dispose();
+    passwordFocusNode.dispose();
   }
 }
 

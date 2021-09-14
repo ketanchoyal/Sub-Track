@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
@@ -26,24 +27,26 @@ class NotificationServiceImpl extends NotificationService {
 
   @override
   init() async {
-    final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('splash');
+    if (!kIsWeb) {
+      final AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('splash');
 
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings();
+      final IOSInitializationSettings initializationSettingsIOS =
+          IOSInitializationSettings();
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
+      final InitializationSettings initializationSettings =
+          InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsIOS,
+      );
 
-    await _flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onSelectNotification: (value) async {
-        print(value);
-      },
-    );
+      await _flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
+        onSelectNotification: (value) async {
+          print(value);
+        },
+      );
+    }
   }
 
   Future<void> _configureLocalTimeZone() async {

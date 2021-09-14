@@ -1,8 +1,9 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/dumb_widgets/add_subscription_card.dart';
 import 'package:sub_track/ui/dumb_widgets/loading.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
@@ -26,7 +27,7 @@ class AddSubView extends StatelessWidget {
           // controller: scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
-              if (Platform.isAndroid)
+              if (GetPlatform.isAndroid)
                 SliverToBoxAdapter(
                   child: AppBar(
                     backgroundColor: AppColor.STAccent,
@@ -43,7 +44,7 @@ class AddSubView extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (Platform.isIOS || Platform.isMacOS)
+              if (GetPlatform.isIOS || GetPlatform.isMacOS)
                 CupertinoSliverNavigationBar(
                   stretch: false,
                   backgroundColor: AppColor.STPureWhite,
@@ -110,7 +111,7 @@ class AddSubView extends StatelessWidget {
                     // physics: ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: model.brands?.length ?? 0,
-                    controller: Platform.isIOS
+                    controller: (GetPlatform.isIOS || GetPlatform.isMacOS)
                         ? model.uiService.scrollController
                         : null,
                     // controller: ModalScrollController.of(context),

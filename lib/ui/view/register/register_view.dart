@@ -1,9 +1,10 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/text_fields.dart';
 import 'package:sub_track/ui/dumb_widgets/textfield_outline.dart';
@@ -135,7 +136,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                         verticalSpaceSmall,
                         Row(
                           children: [
-                            if (Platform.isIOS)
+                            if (GetPlatform.isIOS || GetPlatform.isMacOS)
                               Expanded(
                                 child: STButton(
                                   buttonType: ButtonType.TERTIARY,
@@ -147,7 +148,8 @@ class RegisterView extends StatelessWidget with $RegisterView {
                                   buttonText: "Apple",
                                 ),
                               ),
-                            if (Platform.isIOS) horizontalSpaceRegular,
+                            if (GetPlatform.isIOS || GetPlatform.isMacOS)
+                              horizontalSpaceRegular,
                             Expanded(
                               child: STButton(
                                 buttonType: ButtonType.TERTIARY,

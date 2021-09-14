@@ -1,7 +1,8 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 /// Inspiration taken from [modal_bottom_sheet](https://github.com/jamesblasco/modal_bottom_sheet)
 
@@ -25,7 +26,7 @@ class PlatformContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS
+    return (GetPlatform.isIOS || GetPlatform.isMacOS)
         ? _CupertinoBottomSheetContainer(
             child: child,
             backgroundColor: backgroundColor,

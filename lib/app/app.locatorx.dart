@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -43,7 +44,8 @@ setupLocator() async {
   // App Dependencies
   // **************************************************************************
   // Services
-  locator.registerSingleton<NotificationService>(NotificationServiceImpl());
+  if (!kIsWeb)
+    locator.registerSingleton<NotificationService>(NotificationServiceImpl());
   locator.registerSingleton<FileService>(FileServiceImpl());
   locator.registerLazySingleton<StoppableService>(() => ConnectivityService());
   locator.registerSingleton<BrandService>(BrandServiceImpl());

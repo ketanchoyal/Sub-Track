@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:animator/animator.dart';
-import 'dart:io';
+import 'package:stacked_services/stacked_services.dart';
+// import 'dart:io';
 
 // FileService _fileService = locator<FileService>();
 // cupertinoModalTransition(
@@ -40,8 +41,7 @@ class CupertinoModalTransition extends StatelessWidget {
         builder: (context, animatorState, _) {
           var startRoundCorner = 0.0;
           final paddingTop = MediaQuery.of(context).padding.top;
-          if (Theme.of(context).platform == TargetPlatform.iOS &&
-              paddingTop > 20) {
+          if ((GetPlatform.isIOS || GetPlatform.isMacOS) && paddingTop > 20) {
             startRoundCorner = 38.5 * animatorState.value;
             // See: https://kylebashour.com/posts/finding-the-real-iphone-x-corner-radius
           }
@@ -55,9 +55,13 @@ class CupertinoModalTransition extends StatelessWidget {
               builder: (context, child) {
                 // animatorKey.controller.forward();
                 final progress = animatorState.value;
-                final yOffset = Platform.isIOS ? progress * paddingTop : 0.0;
-                final scale = Platform.isIOS ? 1 - progress / 10 : 1.0;
-                final radius = Platform.isIOS
+                final yOffset = (GetPlatform.isIOS || GetPlatform.isMacOS)
+                    ? progress * paddingTop
+                    : 0.0;
+                final scale = (GetPlatform.isIOS || GetPlatform.isMacOS)
+                    ? 1 - progress / 10
+                    : 1.0;
+                final radius = (GetPlatform.isIOS || GetPlatform.isMacOS)
                     ? progress == 0
                         ? 0.0
                         : (1 - progress) * startRoundCorner + progress * 12

@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:keyboard_actions/keyboard_custom.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/ui/dumb_widgets/loading.dart';
@@ -31,7 +32,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
   AddSubDetailsView({Key? key, required this.brand}) : super(key: key);
 
   Widget appbar(model, context) {
-    return Platform.isIOS
+    return (GetPlatform.isIOS || GetPlatform.isMacOS)
         ? CupertinoNavigationBar(
             automaticallyImplyLeading: false,
             transitionBetweenRoutes: true,
@@ -294,7 +295,7 @@ class AddSubDetailsView extends StatelessWidget with $AddSubDetailsView {
                               title: "Sub Started On",
                               child: STDetailFormElement(
                                 onTap: () async {
-                                  Platform.isIOS
+                                  (GetPlatform.isIOS || GetPlatform.isMacOS)
                                       ? _showDatePicker(context, model)
                                       : await model
                                           .setDate(await showDatePicker(

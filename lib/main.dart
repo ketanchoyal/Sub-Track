@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/shared/snackbar_ui.dart';
@@ -13,8 +14,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 // FIXME Rename all abstract class (add interface to there name) and Remove Impl from there implemented classes
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays(
-      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersive,
+    overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
+  );
   await Firebase.initializeApp();
   await setupLocator();
   setupSnackbarUi();
@@ -59,6 +62,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         // home: BarChartSample4(),
+        initialRoute: Routes.startUpView,
         navigatorKey: StackedService.navigatorKey,
         onGenerateRoute: StackedRouterX().onGenerateRoute,
       ),

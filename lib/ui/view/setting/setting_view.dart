@@ -1,8 +1,9 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import './setting_viewmodel.dart';
@@ -10,7 +11,7 @@ import 'package:settings_ui/settings_ui.dart';
 
 class SettingView extends StatelessWidget {
   Widget appbar(model, context) {
-    return Platform.isIOS
+    return (GetPlatform.isIOS || GetPlatform.isMacOS)
         ? CupertinoNavigationBar(
             // border: Border(bottom: BorderSide.none),
             automaticallyImplyLeading: false,

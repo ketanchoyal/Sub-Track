@@ -76,9 +76,7 @@ class ActiveSubscriptionView extends StatelessWidget {
                                     tag: model.selectedSub.subscriptionId,
                                     child: Container(
                                       width: screenWidth(context),
-                                      color: model.selectedSub.brand.hex
-                                          .toColor()!
-                                          .contrastOf(),
+                                      color: AppColor.STPureWhite,
                                       child: Padding(
                                         padding: EdgeInsets.only(
                                           top: MediaQuery.of(context)
@@ -107,6 +105,9 @@ class ActiveSubscriptionView extends StatelessWidget {
                                                 Icons
                                                     .keyboard_arrow_down_rounded,
                                                 size: 35,
+                                                color: model
+                                                    .selectedSub.brand.hex
+                                                    .toColor()!,
                                               ),
                                             ),
                                           ],

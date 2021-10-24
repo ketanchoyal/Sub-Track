@@ -1,7 +1,12 @@
 import 'dart:async';
 
 import 'package:cross_connectivity/cross_connectivity.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/core/services/stoppable_services.dart';
+
+final connectivityServiceP = Provider<ConnectivityService>(
+    (ref) => ConnectivityService(),
+    name: "connectivityServiceP");
 
 class ConnectivityService extends StoppableService {
   Connectivity? _connectivity;

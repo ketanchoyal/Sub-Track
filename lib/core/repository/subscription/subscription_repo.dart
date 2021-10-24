@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.logger.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
@@ -7,6 +8,22 @@ import 'package:sub_track/core/data_source/subscription/sub_remote.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/connectivity_service.dart';
 import 'package:sub_track/core/services/stoppable_services.dart';
+
+final subscriptionRepoP = Provider<SubscriptionRepo>(
+  (ref) {
+    return SubscriptionRepoImpl(
+      local: ref.watch(subscriptionLocalDataSourceP),
+      remote: ref.watch(subscriptionRemoteDataSourceP),
+      connectivityService: ref.watch(connectivityServiceP),
+    );
+  },
+  dependencies: [
+    subscriptionLocalDataSourceP,
+    subscriptionRemoteDataSourceP,
+    connectivityServiceP,
+  ],
+  name: 'subscriptionRepoP',
+);
 
 /// Require
 /// [SubscriptionLocalDataSource],
@@ -24,18 +41,22 @@ abstract class SubscriptionRepo {
 }
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
-  SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
-      locator<SubscriptionLocalDataSource>();
-  SubscriptionRemoteDataSource get _subscriptionRemoteDataSource =>
-      locator<SubscriptionRemoteDataSource>();
+  final SubscriptionLocalDataSource _subscriptionLocalDataSource;
+  final SubscriptionRemoteDataSource _subscriptionRemoteDataSource;
+  final ConnectivityService _connectivityService;
+
+  SubscriptionRepoImpl({
+    required SubscriptionLocalDataSource local,
+    required SubscriptionRemoteDataSource remote,
+    required ConnectivityService connectivityService,
+  })  : _subscriptionLocalDataSource = local,
+        _connectivityService = connectivityService,
+        _subscriptionRemoteDataSource = remote;
 
   StreamController<List<Subscription>> _subscriptionsStreamController =
       StreamController.broadcast();
 
   var log = getLogger("");
-
-  ConnectivityService get _connectivityService =>
-      locator<StoppableService>() as ConnectivityService;
 
   @override
   Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false}) {

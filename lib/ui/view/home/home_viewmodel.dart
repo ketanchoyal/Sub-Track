@@ -1,4 +1,5 @@
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/src/provider.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
@@ -6,13 +7,26 @@ import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/calculation_service.dart';
+import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
+
+final homeViewModelCNP = ChangeNotifierProvider<HomeViewModel>(
+  (ref) => HomeViewModel(ref),
+  name: 'homeViewModelCNP',
+);
 
 class HomeViewModel extends BaseViewModel with $SharedVariables {
   // bool haveSubscriptions = false;
-  SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
-  SubscriptionLocalDataSource _subscriptionLocalDataSource =
-      locator<SubscriptionLocalDataSource>();
+  SubscriptionRepo get _subscriptionRepo => _ref.read(subscriptionRepoP);
+  SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
+      _ref.read(subscriptionLocalDataSourceP);
+
+  final ProviderRefBase _ref;
+
+  HomeViewModel(this._ref);
+
+  @override
+  ProviderRefBase get ref => _ref;
 
   List<Subscription> _subscriptions = [];
   List<Subscription> get subscriptions => _subscriptions;

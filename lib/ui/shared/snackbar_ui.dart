@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:get/get.dart';
 
-void setupSnackbarUi() {
-  final service = locator<SnackbarService>();
+final snackbarServiceP = Provider<SnackbarService>(
+  (ref) => setupSnackbarUi(),
+  name: 'snackbarServiceP',
+);
+
+SnackbarService setupSnackbarUi() {
+  final service = SnackbarService();
 
   // Registers a config to be used when calling showSnackbar
   // service.registerSnackbarConfig(SnackbarConfig(
@@ -81,6 +87,7 @@ void setupSnackbarUi() {
       dismissDirection: SnackDismissDirection.HORIZONTAL,
     ),
   );
+  return service;
 }
 
 enum SnackbarType { Success, Error, Info }

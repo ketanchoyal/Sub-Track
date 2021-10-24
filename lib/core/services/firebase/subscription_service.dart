@@ -1,9 +1,25 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:sub_track/app/app.logger.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
+import 'package:sub_track/core/services/auth_service.dart';
 import 'package:sub_track/core/services/firebase/firestore.dart';
+
+final subscriptionServiceP = Provider<SubscriptionService>(
+  (ref) {
+    return SubscriptionServiceImpl(
+      authService: ref.watch(firebaseAuthServiceP),
+    );
+  },
+  dependencies: [
+    firebaseAuthServiceP,
+  ],
+  name: 'SubscriptionServiceP',
+);
 
 /// Require
 ///
@@ -17,7 +33,10 @@ abstract class SubscriptionService {
 }
 
 // NOTE Do not use await/async for Firestore transactions
-class SubscriptionServiceImpl with Firestore implements SubscriptionService {
+class SubscriptionServiceImpl extends Firestore implements SubscriptionService {
+  SubscriptionServiceImpl({required FirebaseAuthenticationService authService})
+      : super(authService);
+
   final StreamController<List<Subscription>> _streamController =
       StreamController<List<Subscription>>.broadcast();
   final logger = getLogger("SubscriptionService");

@@ -3,12 +3,18 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+
+final notificationServiceP = Provider<NotificationService>(
+  (ref) => NotificationServiceImpl(),
+  name: 'notificationServiceP',
+);
 
 abstract class NotificationService {
   Future<void> scheduleNotification(Subscription subscription);

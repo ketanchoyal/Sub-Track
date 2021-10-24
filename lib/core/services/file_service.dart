@@ -1,6 +1,11 @@
 import 'dart:io';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
+
+final fileServiceP = Provider<FileService>((ref) => FileServiceImpl());
+final hiveP = Provider<HiveInterface>((ref) => Hive);
 
 abstract class FileService {
   Future<String> getApplicationDocumentsDirectoryPath();

@@ -1,9 +1,18 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.logger.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
 import 'package:sub_track/core/data_source/subscription/sub_local.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/firebase/subscription_service.dart';
+
+final subscriptionRemoteDataSourceP = Provider<SubscriptionRemoteDataSource>(
+  (ref) => SubscriptionRemoteDataSourceImpl(ref),
+  dependencies: [
+    subscriptionServiceP,
+  ],
+  name: 'subscriptionRemoteDataSourceP',
+);
 
 /// Require
 ///
@@ -14,13 +23,12 @@ abstract class SubscriptionRemoteDataSource implements SubscriptionDataSource {
   // cacheSubscriptions();
 }
 
-class SubscriptionRemoteDataSourceImpl with SubscriptionRemoteDataSource {
+class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
+  final ProviderRef _ref;
+  SubscriptionRemoteDataSourceImpl(this._ref);
   final logger = getLogger("SubscriptionRemoteDataSource");
   SubscriptionService get _subscriptionService =>
-      locator<SubscriptionService>();
-
-  SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
-      locator<SubscriptionLocalDataSource>();
+      _ref.read(subscriptionServiceP);
 
   @override
   addSubscription(Subscription subscription) async {

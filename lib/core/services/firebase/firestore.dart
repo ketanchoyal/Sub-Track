@@ -4,8 +4,9 @@ import 'package:sub_track/app/app.locatorx.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class Firestore {
-  final _firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
+  final FirebaseAuthenticationService _firebaseAuthenticationService;
+
+  Firestore(this._firebaseAuthenticationService);
 
   final firestore = FirebaseFirestore.instance;
 

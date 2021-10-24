@@ -1,8 +1,16 @@
-import 'package:sub_track/app/app.locatorx.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/shared/shared.dart';
+
+final calculationServiceP = Provider<CalculationService>(
+  (ref) => CalculationServiceImpl(
+    subscriptionRepo: ref.watch(subscriptionRepoP),
+  ),
+  dependencies: [subscriptionRepoP],
+  name: "calculationServiceP",
+);
 
 /// Require
 ///
@@ -17,8 +25,11 @@ abstract class CalculationService {
   Future<int?> calculateRemainingDays(Subscription subscription);
 }
 
-class CalculationServiceImpl extends CalculationService {
-  SubscriptionRepo _subscriptionRepo = locator<SubscriptionRepo>();
+class CalculationServiceImpl implements CalculationService {
+  final SubscriptionRepo _subscriptionRepo;
+
+  CalculationServiceImpl({required SubscriptionRepo subscriptionRepo})
+      : _subscriptionRepo = subscriptionRepo;
 
   @override
   Future<Map<DateTime, double>> getGraphData({bool fromRemote = false}) async {

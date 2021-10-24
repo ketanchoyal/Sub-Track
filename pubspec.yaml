@@ -72,15 +72,16 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  stacked: ^2.2.5
-  stacked_hooks: ^0.2.0
+  flutter_riverpod: ^1.0.0-dev.11
+  # stacked: ^2.2.5
+  # stacked_hooks: ^0.2.0
   stacked_services: ^0.8.13
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  stacked_generator: ^0.5.2
+  # stacked_generator: ^0.5.2
   hive_generator: ^1.1.0
   flutter_launcher_icons: ^0.9.2
 

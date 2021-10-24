@@ -1,10 +1,16 @@
 // import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/models/brand/brands.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'dart:convert';
+
+final brandServiceP = Provider<BrandService>(
+  (ref) => BrandServiceImpl(),
+  name: 'brandServiceP',
+);
 
 abstract class BrandService {
   List<Brand>? get brands;

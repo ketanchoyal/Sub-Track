@@ -1,10 +1,20 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/file_service.dart';
+
+final subscriptionLocalDataSourceP = Provider<SubscriptionLocalDataSource>(
+  (ref) => SubscriptionLocalDataSourceImpl(ref),
+  dependencies: [
+    fileServiceP,
+    hiveP,
+  ],
+  name: "subscriptionLocalDataSourceP",
+);
 
 /// Require
 ///
@@ -18,11 +28,14 @@ abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
   // Future updateCache(Subscription subscriptions);
 }
 
-class SubscriptionLocalDataSourceImpl with SubscriptionLocalDataSource {
+class SubscriptionLocalDataSourceImpl implements SubscriptionLocalDataSource {
+  final ProviderRef _ref;
+  SubscriptionLocalDataSourceImpl(this._ref);
   final StreamController<List<Subscription>> _streamController =
       StreamController<List<Subscription>>.broadcast();
-  final _fileServices = locator<FileService>();
-  final _hiveService = locator<HiveInterface>();
+  FileService get _fileServices => _ref.read(fileServiceP);
+  HiveInterface get _hiveService => _ref.read(hiveP);
+
   final _subscriptionsBoxName = "subscriptions";
   bool get _subscriptionsBoxIsOpen =>
       _hiveService.isBoxOpen(_subscriptionsBoxName);

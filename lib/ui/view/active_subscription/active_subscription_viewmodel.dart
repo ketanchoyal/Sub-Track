@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/url_launch_service.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
+import 'package:sub_track/ui/shared/base_viewmodel.dart';
 
 class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   bool isDialogPopped = false;

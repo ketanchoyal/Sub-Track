@@ -2,6 +2,12 @@
 // for some animation or streams etc..
 import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final uiServicesP = Provider<UIServices>(
+  (ref) => UIServices(),
+  name: "uiServicesP",
+);
 
 class UIServices {
   late ScrollController _scrollController;

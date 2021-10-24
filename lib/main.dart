@@ -30,42 +30,46 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // REVIEW Using Material on top of CupertinoApp is okay or not
     return MaterialApp(
-      color: AppColor.STAccent,
+      title: 'Sub Track',
+      color: AppColor.STAccentLight,
       theme: ThemeData(
         primaryColor: AppColor.STAccent,
       ),
-      home: CupertinoApp(
-        title: 'Sub Track',
-        color: AppColor.STAccent,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        theme: CupertinoThemeData(
-          brightness: Brightness.light,
-          scaffoldBackgroundColor: AppColor.STLight,
-          barBackgroundColor: AppColor.STLight,
-          primaryContrastingColor: AppColor.STLight,
-          primaryColor: AppColor.STAccent,
-          textTheme: CupertinoTextThemeData(
+      builder: (context, child) {
+        return CupertinoApp(
+          title: 'Sub Track',
+          color: AppColor.STAccentLight,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: child,
+          theme: CupertinoThemeData(
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: AppColor.STLight,
+            barBackgroundColor: AppColor.STLight,
+            primaryContrastingColor: AppColor.STLight,
             primaryColor: AppColor.STAccent,
-            navLargeTitleTextStyle: kTitleStyle.copyWith(
-              color: AppColor.STDark,
-              letterSpacing: 1,
-            ),
-            navTitleTextStyle: kNavigationStyle.copyWith(
-              color: AppColor.STDark,
-            ),
-            textStyle: kBodyStyle.copyWith(
-              color: AppColor.STDark,
+            textTheme: CupertinoTextThemeData(
+              primaryColor: AppColor.STAccent,
+              navLargeTitleTextStyle: kTitleStyle.copyWith(
+                color: AppColor.STDark,
+                letterSpacing: 1,
+              ),
+              navTitleTextStyle: kNavigationStyle.copyWith(
+                color: AppColor.STDark,
+              ),
+              textStyle: kBodyStyle.copyWith(
+                color: AppColor.STDark,
+              ),
             ),
           ),
-        ),
-        // home: BarChartSample4(),
-        initialRoute: Routes.startUpView,
-        navigatorKey: StackedService.navigatorKey,
-        onGenerateRoute: StackedRouterX().onGenerateRoute,
-      ),
+          // home: BarChartSample4(),
+        );
+      },
+      initialRoute: Routes.startUpView,
+      navigatorKey: StackedService.navigatorKey,
+      onGenerateRoute: StackedRouterX().onGenerateRoute,
     );
   }
 }

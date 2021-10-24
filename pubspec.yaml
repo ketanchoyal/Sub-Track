@@ -87,9 +87,9 @@ dev_dependencies:
   # testing
   mockito: ^5.0.15
 
-dependency_overrides:
-  analyzer: ^1.0.0
-  meta: ^1.7.0
+# dependency_overrides:
+#   analyzer: ^1.0.0
+#   meta: ^1.7.0
 
 flutter_icons:
   android: true

@@ -44,8 +44,6 @@ class BrandRepoImpl implements BrandRepo {
   final BrandRemoteDataSource _brandRemoteDataSource;
   final ConnectivityService _connectivityService;
 
-  List<Brand>? _brands;
-
   BrandRepoImpl({
     required BrandLocalDataSource local,
     required BrandRemoteDataSource remote,
@@ -55,17 +53,20 @@ class BrandRepoImpl implements BrandRepo {
         _connectivityService = connectivityService;
 
   @override
-  List<Brand>? get brands => _brands;
+  List<Brand>? get brands =>
+      _fromLocal ? _brandLocalDataSource.brands : _brandRemoteDataSource.brands;
+
+  bool _fromLocal = true;
 
   @override
   fetchBrands({bool forceFetch = false}) async {
     if (await _connectivityService.checkConnectivity() && forceFetch) {
+      _fromLocal = false;
       await _brandRemoteDataSource.fetchBrands();
-      _brands = _brandRemoteDataSource.brands;
-      if (_brands == null) fetchBrands(forceFetch: false);
+      if (_brandRemoteDataSource.brands == null) fetchBrands(forceFetch: false);
     } else {
+      _fromLocal = true;
       await _brandLocalDataSource.fetchBrands();
-      _brands = _brandLocalDataSource.brands;
     }
   }
 }

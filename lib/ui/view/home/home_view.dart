@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/ui/dumb_widgets/active_subscription_card.dart';
@@ -26,7 +27,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   void initState() {
     super.initState();
-    ref.read(homeViewModelCNP).startupTasks();
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
+      ref.read(homeViewModelCNP).startupTasks();
+    });
   }
 
   @override

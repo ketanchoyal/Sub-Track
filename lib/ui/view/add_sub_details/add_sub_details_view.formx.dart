@@ -7,15 +7,19 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:sub_track/core/models/brand/brand.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:sub_track/ui/shared/auth_viewmodel.dart';
+import 'package:sub_track/ui/view/add_sub_details/add_sub_details_viewmodel.dart';
+
+import 'add_sub_details_view.dart';
 
 const String NameValueKey = 'name';
 const String CostValueKey = 'cost';
 const String DescriptionValueKey = 'description';
 const String SharedWithValueKey = 'sharedWith';
 
-mixin $AddSubDetailsView on StatelessWidget {
+mixin $AddSubDetailsView on ConsumerState<AddSubDetailsView> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController costController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -26,26 +30,26 @@ mixin $AddSubDetailsView on StatelessWidget {
   final FocusNode sharedWithFocusNode = FocusNode();
   final FocusNode colorFocusNode = FocusNode();
 
-  initControllers(FormViewModel model, Brand brand) {
-    model.setBusy(true);
-    nameController.text = brand.title;
+  initControllers() {
+    // ref.read(addSubDetailViewModelCNP).setBusy(true);
+    nameController.text = widget.brand.title;
     costController.text = "0.0";
     sharedWithController.text = "0";
-    model.setBusy(false);
+    // ref.read(addSubDetailViewModelCNP).setBusy(false);
   }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(FormViewModel model) {
-    nameController.addListener(() => _updateFormData(model));
-    costController.addListener(() => _updateFormData(model));
-    descriptionController.addListener(() => _updateFormData(model));
-    sharedWithController.addListener(() => _updateFormData(model));
+  void listenToFormUpdated() {
+    nameController.addListener(() => _updateFormData());
+    costController.addListener(() => _updateFormData());
+    descriptionController.addListener(() => _updateFormData());
+    sharedWithController.addListener(() => _updateFormData());
   }
 
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model) => model.setData(
-        model.formValueMap
+  void _updateFormData() => (ref.read(addSubDetailViewModelCNP)).setData(
+        (ref.read(addSubDetailViewModelCNP)).formValueMap
           ..addAll({
             NameValueKey: nameController.text,
             CostValueKey: costController.text,

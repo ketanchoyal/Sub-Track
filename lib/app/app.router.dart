@@ -15,7 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:stacked/stacked.dart';
+//
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/view/active_subscription/active_subscription_view.dart';
 import 'package:sub_track/ui/view/new_subscription/new_subscription_view.dart';
@@ -43,6 +43,16 @@ part 'app.routerx.dart';
 final navigationServiceP = Provider<NavigationService>(
   (ref) => NavigationService(),
   name: 'navigationServiceP',
+);
+
+final bottomSheetServiceP = Provider<BottomSheetService>(
+  (ref) => BottomSheetService(),
+  name: 'bottomSheetServiceP',
+);
+
+final dialogServiceP = Provider<DialogService>(
+  (ref) => DialogService(),
+  name: 'dialogServiceP',
 );
 
 class Routes {

@@ -1,11 +1,22 @@
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/enums/enums.dart';
+import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-class OtherSelectViewModel extends BaseViewModel with $SharedVariables {
+final otherSelectViewModelCNP = ChangeNotifierProvider.autoDispose(
+  (ref) => OtherSelectViewModel(ref),
+  name: 'OtherSelectViewModel',
+);
+
+class OtherSelectViewModel extends BaseViewModel {
+  final ProviderRefBase _ref;
+
+  OtherSelectViewModel(this._ref);
+
   late OtherDetailSelectType _type;
   late String _selected;
   late List _options;
@@ -13,10 +24,11 @@ class OtherSelectViewModel extends BaseViewModel with $SharedVariables {
   List get options => _options;
   String get selected => _selected;
 
-  pop({dynamic? selected}) =>
-      $navigationService.back(id: 2, result: selected ?? _selected);
+  pop({dynamic selected}) =>
+      _ref.read(navigationServiceP).back(id: 2, result: selected ?? _selected);
 
-  setupType(OtherDetailSelectType value, {dynamic selected}) {
+  setupType(OtherDetailSelectType value, {required dynamic selected}) {
+    setBusy(true);
     _type = value;
     switch (_type) {
       case OtherDetailSelectType.Renews_Every:
@@ -28,7 +40,7 @@ class OtherSelectViewModel extends BaseViewModel with $SharedVariables {
         _options = NotifyOn.values;
         break;
     }
-    notifyListeners();
+    setBusy(false);
   }
 
   List getOptions() {

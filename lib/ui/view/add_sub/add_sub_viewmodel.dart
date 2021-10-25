@@ -1,16 +1,26 @@
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/brand_service.dart';
 import 'package:sub_track/ui/services/ui_services.dart';
+import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
-class AddSubViewModel extends BaseViewModel with $SharedVariables {
-  final _uiServices = locator<UIServices>();
-  final _brandService = locator<BrandService>();
+final addSubViewModelCNP = ChangeNotifierProvider(
+  (ref) => AddSubViewModel(ref),
+  name: 'AddSubViewModel',
+);
 
-  UIServices get uiService => _uiServices;
+class AddSubViewModel extends BaseViewModel with $SharedVariables {
+  final ProviderRefBase _ref;
+
+  AddSubViewModel(this._ref);
+
+  @override
+  ProviderRefBase get ref => _ref;
+
+  BrandService get _brandService => _ref.read(brandServiceP);
 
   String? _searchKeyword;
 
@@ -20,9 +30,9 @@ class AddSubViewModel extends BaseViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  List<Brand>? get brands => _brandService.brands == null
+  List<Brand>? get brands => _ref.read(brandServiceP).brands == null
       ? []
-      : _brandService.brands!.where(
+      : _ref.read(brandServiceP).brands!.where(
           (element) {
             if (_searchKeyword == null) {
               return true;

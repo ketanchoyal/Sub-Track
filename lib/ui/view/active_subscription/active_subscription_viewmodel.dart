@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/repository/subscription/subscription_repo.dart';
 import 'package:sub_track/core/services/url_launch_service.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/base_viewmodel.dart';
 
+final activeSubscriptionViewModelCNP = ChangeNotifierProvider(
+  (ref) => ActiveSubscriptionViewModel(ref),
+  name: 'ActiveSubscriptionViewModel',
+);
+
 class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
+  final ProviderRefBase _ref;
+
+  ActiveSubscriptionViewModel(this._ref);
+
+  @override
+  ProviderRefBase get ref => _ref;
+
   bool isDialogPopped = false;
   double scale = 2.0;
-  SubscriptionRepo get _subscriptionRepo => locator<SubscriptionRepo>();
-  UrlLaunchService get _urlLaunchService => locator<UrlLaunchService>();
-  BottomSheetService get _bottomSheetService => locator<BottomSheetService>();
+  SubscriptionRepo get _subscriptionRepo => _ref.read(subscriptionRepoP);
+  UrlLaunchService get _urlLaunchService => _ref.read(urlLaunchServiceP);
+  BottomSheetService get _bottomSheetService => _ref.read(bottomSheetServiceP);
   late Subscription _selectedSub;
   Subscription get selectedSub => _selectedSub;
   Map<String, int?> _remaningDays = {};
 
-  ActiveSubscriptionViewModel(String subscriptionId) {
+  init(String subscriptionId) {
     _selectedSub = subscriptions
         .where((element) => element.subscriptionId == subscriptionId)
         .first;

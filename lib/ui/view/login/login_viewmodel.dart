@@ -1,17 +1,24 @@
 // ignore: implementation_imports
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/shared/auth_viewmodel.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:email_validator/email_validator.dart';
-import 'login_view.form.dart';
+import 'login_view.formx.dart';
+
+final loginViewModelCNP = ChangeNotifierProvider(
+  (ref) => LoginViewModel(ref),
+  name: 'loginViewModel',
+);
 
 class LoginViewModel extends AuthenticationViewModel {
   // final $navigationService = locator<NavigationService>();
   TextFieldType emailTextFieldType = TextFieldType.DEFAULT;
   TextFieldType passwordTextFieldType = TextFieldType.DEFAULT;
 
-  LoginViewModel() : super(successRoute: Routes.homeView, isNewUser: false);
+  LoginViewModel(ProviderRefBase ref)
+      : super(ref, successRoute: Routes.homeView, isNewUser: false);
   @override
   setFormStatus() {
     if (emailValue != null) {

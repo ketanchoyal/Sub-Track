@@ -7,30 +7,29 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sub_track/ui/shared/auth_viewmodel.dart';
+import 'package:sub_track/ui/view/forgot_password/forgot_password_viewmodel.dart';
+
+import 'forgot_password_view.dart';
 
 const String EmailValueKey = 'email';
-const String PasswordValueKey = 'password';
 
-mixin $LoginView on StatelessWidget {
+mixin $ForgotPasswordView on ConsumerState<ForgotPasswordView> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passwordFocusNode = FocusNode();
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(FormViewModel model) {
-    emailController.addListener(() => _updateFormData(model));
-    passwordController.addListener(() => _updateFormData(model));
+  void listenToFormUpdated() {
+    emailController.addListener(() => _updateFormData());
   }
 
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model) => model.setData(
-        model.formValueMap
+  void _updateFormData() => ref.read(forgotPasswordViewModelCNP).setData(
+        ref.read(forgotPasswordViewModelCNP).formValueMap
           ..addAll({
             EmailValueKey: emailController.text,
-            PasswordValueKey: passwordController.text,
           }),
       );
 
@@ -40,17 +39,13 @@ mixin $LoginView on StatelessWidget {
 
     emailController.dispose();
     emailFocusNode.dispose();
-    passwordController.dispose();
-    passwordFocusNode.dispose();
   }
 }
 
 extension ValueProperties on FormViewModel {
   String? get emailValue => this.formValueMap[EmailValueKey];
-  String? get passwordValue => this.formValueMap[PasswordValueKey];
 
   bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
-  bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
 }
 
 extension Methods on FormViewModel {}

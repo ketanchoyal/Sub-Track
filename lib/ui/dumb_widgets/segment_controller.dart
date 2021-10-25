@@ -11,7 +11,7 @@ class STSegmentController<T> extends StatelessWidget {
     this.selectedValue,
   }) : super(key: key);
 
-  final Function(T?) onValueChanged;
+  final void Function(T?) onValueChanged;
   final Map<T, String> children;
 
   final T? selectedValue;

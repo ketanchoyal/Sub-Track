@@ -12,7 +12,7 @@ import 'package:sub_track/ui/shared/mixins.dart';
 
 final homeViewModelCNP = ChangeNotifierProvider<HomeViewModel>(
   (ref) => HomeViewModel(ref),
-  name: 'homeViewModelCNP',
+  name: 'HomeViewModel',
 );
 
 class HomeViewModel extends BaseViewModel with $SharedVariables {

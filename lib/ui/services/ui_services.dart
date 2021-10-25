@@ -17,6 +17,7 @@ class UIServices {
   ScrollController get scrollController => _scrollController;
 
   final AnimatorKey _animatorKey = AnimatorKey<double>();
+  // ..controller.duration = const Duration(milliseconds: 335);
 
   AnimatorKey get animatorKey => _animatorKey;
 
@@ -29,7 +30,10 @@ class UIServices {
   }
 
   animateBackToZero() {
-    _animatorKey.controller.animateBack(0.0);
+    _animatorKey.controller.animateBack(
+      0.0,
+      duration: const Duration(milliseconds: 200),
+    );
   }
 
   // static late final GlobalKey<HomeViewState> homeViewKey;

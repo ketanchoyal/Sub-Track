@@ -76,8 +76,8 @@ PageRoute<T> buildAdaptiveSheetRoute<T>({
       opaque: false,
       fullscreenDialog: fullscreenDialog,
       maintainState: maintainState,
-      transitionDuration: Duration(milliseconds: 200),
-      reverseTransitionDuration: Duration(milliseconds: 200),
+      transitionDuration: const Duration(milliseconds: 335),
+      reverseTransitionDuration: const Duration(milliseconds: 335),
       barrierColor: Colors.transparent,
       pageBuilder: (context, animation, secondaryAnimation) {
         // return NewSubscription();

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/shared/snackbar_ui.dart';
@@ -15,12 +16,16 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersive,
-    overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
+    overlays: [SystemUiOverlay.bottom],
   );
   await Firebase.initializeApp();
-  await setupLocator();
-  setupSnackbarUi();
-  runApp(MyApp());
+  // await setupLocator();
+  // setupSnackbarUi();
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 // TODO Replace my widget extensions with velocityX extensions

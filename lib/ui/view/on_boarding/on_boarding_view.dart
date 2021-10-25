@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/app/app.router.dart';
@@ -32,80 +33,68 @@ class OnBoardingView extends StatelessWidget {
   }
 }
 
-class View1 extends StatelessWidget {
+class View1 extends ConsumerWidget {
   const View1({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<OnBoardingViewModel>.reactive(
-      viewModelBuilder: () => locator<OnBoardingViewModel>(),
-      disposeViewModel: false,
-      builder: (context, model, child) => CupertinoPageScaffold(
-        resizeToAvoidBottomInset: false,
-        child: _STOnBoarding(
-          index: 0,
-          onSkipPressed: () {
-            model.skip();
-          },
-          onBackPressed: () {},
-          onPressed: () {
-            model.navigate(1);
-          },
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
+      child: _STOnBoarding(
+        index: 0,
+        onSkipPressed: () {
+          ref.read(onBoardingViewModelCNP).skip();
+        },
+        onBackPressed: () {},
+        onPressed: () {
+          ref.read(onBoardingViewModelCNP).navigate(1);
+        },
       ),
     );
   }
 }
 
-class View2 extends StatelessWidget {
+class View2 extends ConsumerWidget {
   const View2({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<OnBoardingViewModel>.reactive(
-      viewModelBuilder: () => locator<OnBoardingViewModel>(),
-      disposeViewModel: false,
-      builder: (context, model, child) => CupertinoPageScaffold(
-        resizeToAvoidBottomInset: false,
-        child: _STOnBoarding(
-          index: 1,
-          onSkipPressed: () {
-            model.skip();
-          },
-          onBackPressed: () {
-            model.back();
-          },
-          onPressed: () {
-            model.navigate(2);
-          },
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
+      child: _STOnBoarding(
+        index: 1,
+        onSkipPressed: () {
+          ref.read(onBoardingViewModelCNP).skip();
+        },
+        onBackPressed: () {
+          ref.read(onBoardingViewModelCNP).back();
+        },
+        onPressed: () {
+          ref.read(onBoardingViewModelCNP).navigate(2);
+        },
       ),
     );
   }
 }
 
-class View3 extends StatelessWidget {
+class View3 extends ConsumerWidget {
   const View3({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<OnBoardingViewModel>.reactive(
-      viewModelBuilder: () => locator<OnBoardingViewModel>(),
-      disposeViewModel: false,
-      builder: (context, model, child) => CupertinoPageScaffold(
-        resizeToAvoidBottomInset: false,
-        child: _STOnBoarding(
-          index: 2,
-          onSkipPressed: () {
-            model.skip();
-          },
-          onBackPressed: () {
-            model.back();
-          },
-          onPressed: () {
-            model.skip();
-          },
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
+      child: _STOnBoarding(
+        index: 2,
+        onSkipPressed: () {
+          ref.read(onBoardingViewModelCNP).skip();
+        },
+        onBackPressed: () {
+          ref.read(onBoardingViewModelCNP).back();
+        },
+        onPressed: () {
+          ref.read(onBoardingViewModelCNP).skip();
+        },
       ),
     );
   }

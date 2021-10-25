@@ -7,13 +7,16 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sub_track/ui/shared/auth_viewmodel.dart';
+import 'package:sub_track/ui/view/register/register_view.dart';
+import 'package:sub_track/ui/view/register/register_viewmodel.dart';
 
 const String NameValueKey = 'name';
 const String EmailValueKey = 'email';
 const String PasswordValueKey = 'password';
 
-mixin $RegisterView on StatelessWidget {
+mixin $RegisterView on ConsumerState<RegisterView> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -23,15 +26,15 @@ mixin $RegisterView on StatelessWidget {
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
-  void listenToFormUpdated(FormViewModel model) {
-    nameController.addListener(() => _updateFormData(model));
-    emailController.addListener(() => _updateFormData(model));
-    passwordController.addListener(() => _updateFormData(model));
+  void listenToFormUpdated() {
+    nameController.addListener(() => _updateFormData());
+    emailController.addListener(() => _updateFormData());
+    passwordController.addListener(() => _updateFormData());
   }
 
   /// Updates the formData on the FormViewModel
-  void _updateFormData(FormViewModel model) => model.setData(
-        model.formValueMap
+  void _updateFormData() => ref.read(registerViewModelCNP).setData(
+        ref.read(registerViewModelCNP).formValueMap
           ..addAll({
             NameValueKey: nameController.text,
             EmailValueKey: emailController.text,

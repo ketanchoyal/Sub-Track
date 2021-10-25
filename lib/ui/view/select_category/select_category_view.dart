@@ -2,14 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import 'package:sub_track/ui/view/select_category/widgets/category_view_element.dart';
 import './select_category_viewmodel.dart';
 
-class SelectCategoryView extends StatelessWidget {
+class SelectCategoryView extends ConsumerWidget {
   const SelectCategoryView({Key? key, this.selected}) : super(key: key);
   final String? selected;
 
@@ -80,32 +81,35 @@ class SelectCategoryView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<SelectCategoryViewModel>.reactive(
-      viewModelBuilder: () => SelectCategoryViewModel(),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: AppColor.STLight,
-        appBar: appbar(model, context) as PreferredSizeWidget,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: CupertinoFormSection.insetGrouped(
-                margin: EdgeInsets.all(8),
-                children: model.categories
-                    .map(
-                      (e) => SingleCategoryViewElement(
-                        category: e,
-                        selected: selected,
-                        onTap: () {
-                          model.pop(category: e.name);
-                        },
-                      ),
-                    )
-                    .toList(),
-              ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final model = ref.read(selectCategoryViewModelCNP);
+    final categories = ref
+        .watch(selectCategoryViewModelCNP.select((value) => value.categories));
+    // TODO: The scrollView here can be optimized using ProviderScope
+    return Scaffold(
+      backgroundColor: AppColor.STLight,
+      appBar: appbar(model, context) as PreferredSizeWidget,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: CupertinoFormSection.insetGrouped(
+              margin: EdgeInsets.all(8),
+              children: categories
+                  .map(
+                    (e) => SingleCategoryViewElement(
+                      category: e,
+                      selected: selected,
+                      onTap: () {
+                        ref
+                            .read(selectCategoryViewModelCNP)
+                            .pop(category: e.name);
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

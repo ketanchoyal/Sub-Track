@@ -1,9 +1,10 @@
 import 'dart:ui';
 import 'package:emojis/emoji.dart';
 import 'package:flutter/foundation.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:stacked_services/stacked_services.dart';
-import 'package:sub_track/app/app.locatorx.dart';
+import 'package:sub_track/ui/shared/auth_viewmodel.dart';
 import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
@@ -15,12 +16,19 @@ import 'package:sub_track/ui/shared/shared.dart';
 import 'package:uuid/uuid.dart';
 import 'add_sub_details_view.formx.dart';
 
+final addSubDetailViewModelCNP = ChangeNotifierProvider.autoDispose(
+  (ref) => AddSubDetailsViewModel(ref),
+  name: 'AddSubDetailViewModel',
+);
+
 class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
-  AddSubDetailsViewModel() {
+  final ProviderRefBase _ref;
+  @override
+  ProviderRefBase get ref => _ref;
+  AddSubDetailsViewModel(this._ref) {
     setBusy(true);
   }
-  final _dialogService = locator<DialogService>();
-  final _uiServices = locator<UIServices>();
+  DialogService get _dialogService => _ref.read(dialogServiceP);
   // get scrollController => _uiServices.scrollController;
   // final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
   late final ValueNotifier<Color?> colorChangeNotifier;
@@ -37,7 +45,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     notifyListeners();
   }
 
-  setBrand(Brand brand) {
+  void setBrand(Brand brand) {
     _brand = brand;
     _setSubscriptionData(
       Subscription(
@@ -54,7 +62,7 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
     //Set color Chnage notifier on model ready
     colorChangeNotifier = ValueNotifier(_brand.hex.toColor());
     colorChangeNotifier.addListener(_setColor);
-    notifyListeners();
+    setBusy(false);
   }
 
   _setColor() {
@@ -213,7 +221,8 @@ class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
 
   addSubscription() async {
     // print(_subscription);
-    await locator<SubscriptionRepo>()
+    await _ref
+        .read(subscriptionRepoP)
         .addSubscription(subscription: _subscription);
     $navigationService.back(id: 2);
   }

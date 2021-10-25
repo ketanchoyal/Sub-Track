@@ -1,15 +1,32 @@
 import 'package:emojis/emoji.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/app/app.locatorx.dart';
 import 'package:sub_track/core/models/brand/brand.dart';
 import 'package:sub_track/core/services/brand_service.dart';
+import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
+final selectIconViewModelCNP = ChangeNotifierProvider.autoDispose(
+  (ref) {
+    return SelectIconViewModel(ref);
+  },
+  name: 'SelectIconViewModel',
+);
+
 // NOTE Merge all emoji and use that when emoji is searched instead of individual search of every group
 class SelectIconViewModel extends BaseViewModel with $SharedVariables {
-  final _brandService = locator<BrandService>();
+  // use [brandRepoP] instread of brandService
+  BrandService get _brandService => _ref.read(brandServiceP);
+
+  final ProviderRefBase _ref;
+
+  SelectIconViewModel(this._ref);
+
+  @override
+  ProviderRefBase get ref => _ref;
 
   IconType _iconType = IconType.Services;
   IconType get iconType => _iconType;
@@ -45,7 +62,7 @@ class SelectIconViewModel extends BaseViewModel with $SharedVariables {
   String? _searchKeyword;
   bool isSearching = false;
 
-  selectIconType(IconType? iconType) {
+  void selectIconType(IconType? iconType) {
     if (iconType != null) {
       _iconType = iconType;
       notifyListeners();
@@ -86,7 +103,7 @@ class SelectIconViewModel extends BaseViewModel with $SharedVariables {
         },
       ).toList();
 
-  // TODO Refractor emojis (hint: make a map and convert [EmojiGroup] widget to hook)
+  // TODO Refractor emojis (hint: make a map [<EmojiGroup,bool>] and convert [EmojiGroup] widget to hook)
 
   // SIMILEY
   bool showMoreSmiley = false;

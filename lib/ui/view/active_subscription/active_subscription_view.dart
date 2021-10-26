@@ -42,8 +42,8 @@ class _ActiveSubscriptionViewState
         .watch(activeSubscriptionViewModelCNP.select((value) => value.isBusy));
     final selectedSub = ref.watch(
         activeSubscriptionViewModelCNP.select((value) => value.selectedSub));
-    final remainingDays = ref.watch(
-        activeSubscriptionViewModelCNP.select((value) => value.remainingDays));
+    // final remainingDays = ref.watch(
+    //     activeSubscriptionViewModelCNP.select((value) => value.remainingDays));
     final startedOn = ref.watch(
         activeSubscriptionViewModelCNP.select((value) => value.startedOn));
 
@@ -239,15 +239,15 @@ class _ActiveSubscriptionViewState
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          "${remainingDays ?? "N.A"}",
+                                                          "${model.remainingDays ?? "N.A"}",
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          " ${(remainingDays ?? 0) <= 1 ? "day" : "days"},",
+                                                          " ${(model.remainingDays ?? 0) <= 1 ? "day" : "days"},",
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          " ${DateFormat('dd MMM').format(selectedSub.nextSubOn(remainingDays) ?? DateTime.now())}.",
+                                                          " ${DateFormat('dd MMM').format(selectedSub.nextSubOn(model.remainingDays) ?? DateTime.now())}.",
                                                     ),
                                                   ],
                                                 ),

@@ -30,8 +30,8 @@ class _OtherSelectViewState extends ConsumerState<OtherSelectView> {
     super.initState();
     SchedulerBinding.instance?.addPostFrameCallback((_) {
       ref
-          .read(otherSelectViewModelCNP)
-          .setupType(widget.type, selected: widget.selected);
+          .read(otherSelectViewModelCNP(widget.type))
+          .setupSelectedValue(selected: widget.selected);
     });
   }
 
@@ -83,7 +83,7 @@ class _OtherSelectViewState extends ConsumerState<OtherSelectView> {
 
   @override
   Widget build(BuildContext context) {
-    final model = ref.watch(otherSelectViewModelCNP);
+    final model = ref.watch(otherSelectViewModelCNP(widget.type));
     // final isBusy =
     //     ref.watch(otherSelectViewModelCNP.select((value) => value.isBusy));
     return Scaffold(
@@ -105,7 +105,7 @@ class _OtherSelectViewState extends ConsumerState<OtherSelectView> {
                     children: model
                         .getOptions()
                         .map((e) => OtherOptionViewElement(
-                              selected: model.selected,
+                              selected: model.selected ?? "",
                               onTap: () {
                                 model.pop(selected: e[1]);
                               },

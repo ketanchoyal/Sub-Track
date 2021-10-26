@@ -7,37 +7,43 @@ import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 
-final otherSelectViewModelCNP = ChangeNotifierProvider.autoDispose(
-  (ref) => OtherSelectViewModel(ref),
+final otherSelectViewModelCNP = ChangeNotifierProvider.autoDispose
+    .family<OtherSelectViewModel, OtherDetailSelectType>(
+  (ref, type) => OtherSelectViewModel(ref, type),
   name: 'OtherSelectViewModel',
 );
 
 class OtherSelectViewModel extends BaseViewModel {
   final ProviderRefBase _ref;
 
-  OtherSelectViewModel(this._ref);
+  OtherSelectViewModel(this._ref, this._type);
 
-  late OtherDetailSelectType _type;
-  late String _selected;
-  late List _options;
+  final OtherDetailSelectType _type;
+  String? _selected;
 
-  List get options => _options;
-  String get selected => _selected;
+  List get options {
+    switch (_type) {
+      case OtherDetailSelectType.Renews_Every:
+        return RenewsEvery.values;
+
+      case OtherDetailSelectType.Notification:
+        return NotifyOn.values;
+    }
+  }
+
+  String? get selected => _selected;
 
   pop({dynamic selected}) =>
-      _ref.read(navigationServiceP).back(id: 2, result: selected ?? _selected);
+      _ref.read(navigationServiceP).back(id: 2, result: selected);
 
-  setupType(OtherDetailSelectType value, {required dynamic selected}) {
+  setupSelectedValue({required dynamic selected}) {
     setBusy(true);
-    _type = value;
     switch (_type) {
       case OtherDetailSelectType.Renews_Every:
         _selected = (selected as RenewsEvery).value;
-        _options = RenewsEvery.values;
         break;
       case OtherDetailSelectType.Notification:
         _selected = (selected as NotifyOn).value;
-        _options = NotifyOn.values;
         break;
     }
     setBusy(false);

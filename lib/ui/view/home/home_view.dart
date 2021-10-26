@@ -35,6 +35,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final model = ref.read(homeViewModelCNP);
+    final isBusy = ref.watch(homeViewModelCNP.select((value) => value.isBusy));
+    final subscriptions =
+        ref.watch(homeViewModelCNP.select((value) => value.subscriptions));
     return CupertinoModalTransition(
       animatorKey: model.animatorKey,
       child: CupertinoPageScaffold(
@@ -98,7 +101,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 SliverToBoxAdapter(
                   child: Container(
                     height: screenHeightPercentage(context, percentage: 1),
-                    child: model.subscriptions.isNotEmpty && !model.isBusy
+                    child: subscriptions.isNotEmpty && !isBusy
                         ? MediaQuery.removePadding(
                             removeTop: true,
                             context: context,
@@ -157,8 +160,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                     GestureDetector(
                                       onTap: () {
                                         model.navigateToActiveSub(
-                                            subId: model.subscriptions.first
-                                                .subscriptionId);
+                                            subId: subscriptions
+                                                .first.subscriptionId);
                                         // model.$navigationService.navigateWithTransition(
                                         //   ActiveSubscriptionView(model),
                                         //   popGesture: true,
@@ -190,9 +193,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                         shrinkWrap: true,
                                         physics:
                                             const NeverScrollableScrollPhysics(),
-                                        itemCount: model.subscriptions.length,
+                                        itemCount: subscriptions.length,
                                         itemBuilder: (context, index) {
-                                          if (model.subscriptions[index]
+                                          if (subscriptions[index]
                                                   .renewsEvery ==
                                               RenewsEvery.Never) {
                                             return Container();
@@ -200,13 +203,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                           return GestureDetector(
                                             onTap: () {
                                               model.navigateToActiveSub(
-                                                  subId: model
-                                                      .subscriptions[index]
+                                                  subId: subscriptions[index]
                                                       .subscriptionId);
                                             },
                                             child: STActiveSubCard(
-                                              subsription:
-                                                  model.subscriptions[index],
+                                              subsription: subscriptions[index],
                                             ),
                                           );
                                         }),
@@ -226,11 +227,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ],
               shrinkWrap: false,
             ),
-            if (model.isBusy)
+            if (isBusy)
               Center(
                 child: STLoading(),
               ),
-            if (model.subscriptions.isEmpty && !model.isBusy)
+            if (subscriptions.isEmpty && !isBusy)
               Positioned(
                 right: 0,
                 top: 0,
@@ -259,7 +260,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   ],
                 ),
               ),
-            if (model.subscriptions.isNotEmpty)
+            if (subscriptions.isNotEmpty)
               Positioned(
                 bottom: 20,
                 right: 20,

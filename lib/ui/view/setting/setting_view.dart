@@ -10,59 +10,57 @@ import 'package:sub_track/ui/theme/app_colors.dart';
 import './setting_viewmodel.dart';
 import 'package:settings_ui/settings_ui.dart';
 
-class SettingView extends StatelessWidget {
-  Widget get appBar {
-    return Consumer(builder: (context, WidgetRef ref, child) {
-      final model = ref.read(settingViewModelCNP);
-      return (GetPlatform.isIOS || GetPlatform.isMacOS)
-          ? CupertinoNavigationBar(
-              // border: Border(bottom: BorderSide.none),
-              automaticallyImplyLeading: false,
-              backgroundColor: AppColor.STPureWhite,
-              transitionBetweenRoutes: true,
-              middle: Text("Setting"),
-              leading: Padding(
-                padding:
-                    const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
-                child: GestureDetector(
-                  onTap: model.pop,
-                  child: Text.rich(
-                    TextSpan(
-                      text: String.fromCharCode(CupertinoIcons.back.codePoint),
-                      style: TextStyle(
-                        inherit: false,
-                        color: CupertinoTheme.of(context).primaryColor,
-                        fontSize: 30.0,
-                        fontFamily: CupertinoIcons.back.fontFamily,
-                        package: CupertinoIcons.back.fontPackage,
-                      ),
+class SettingView extends ConsumerWidget {
+  Widget appBar(model, context) {
+    return (GetPlatform.isIOS || GetPlatform.isMacOS)
+        ? CupertinoNavigationBar(
+            // border: Border(bottom: BorderSide.none),
+            automaticallyImplyLeading: false,
+            backgroundColor: AppColor.STPureWhite,
+            transitionBetweenRoutes: true,
+            middle: Text("Setting"),
+            leading: Padding(
+              padding:
+                  const EdgeInsetsDirectional.only(start: 0, end: 0, top: 7),
+              child: GestureDetector(
+                onTap: model.pop,
+                child: Text.rich(
+                  TextSpan(
+                    text: String.fromCharCode(CupertinoIcons.back.codePoint),
+                    style: TextStyle(
+                      inherit: false,
+                      color: CupertinoTheme.of(context).primaryColor,
+                      fontSize: 30.0,
+                      fontFamily: CupertinoIcons.back.fontFamily,
+                      package: CupertinoIcons.back.fontPackage,
                     ),
                   ),
                 ),
               ),
-            )
-          : AppBar(
-              backgroundColor: AppColor.STAccent,
-              title: Text(
-                "Setting",
-                style: kHeader3Style,
+            ),
+          )
+        : AppBar(
+            backgroundColor: AppColor.STAccent,
+            title: Text(
+              "Setting",
+              style: kHeader3Style,
+            ),
+            leading: GestureDetector(
+              onTap: model.pop,
+              child: Icon(
+                Icons.arrow_back,
+                size: 25,
               ),
-              leading: GestureDetector(
-                onTap: model.pop,
-                child: Icon(
-                  Icons.arrow_back,
-                  size: 25,
-                ),
-              ),
-            );
-    });
+            ),
+          );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final model = ref.read(settingViewModelCNP);
     return Scaffold(
       backgroundColor: AppColor.STLight,
-      appBar: appBar as PreferredSizeWidget,
+      appBar: appBar(model, context) as PreferredSizeWidget,
       body: buildSettingsList(),
     );
   }

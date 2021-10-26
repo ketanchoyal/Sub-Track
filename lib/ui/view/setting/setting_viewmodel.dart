@@ -3,7 +3,7 @@ import 'package:sub_track/app/app.router.dart';
 import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
-final settingViewModelCNP = ChangeNotifierProvider(
+final settingViewModelCNP = ChangeNotifierProvider.autoDispose(
   (ref) => SettingViewModel(ref),
   name: 'SettingViewModel',
 );

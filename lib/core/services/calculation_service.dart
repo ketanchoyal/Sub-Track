@@ -293,10 +293,15 @@ class CalculationServiceImpl implements CalculationService {
         if (subscription.renewsEvery == RenewsEvery.Weekly) {
           latestPayment = latestPayment.add(Duration(days: 7));
         }
+        if (subscription.renewsEvery == RenewsEvery.Biweekly) {
+          latestPayment = latestPayment.add(Duration(days: 14));
+        }
       }
       remaningDays = latestPayment.difference(DateTime.now().date).inDays;
-      // await _subscriptionRepo.updateSubscription(
-      //     subscription: subscription.copyWith(remaningDays: remaningDays));
+      if (subscription.remaningDays != remaningDays) {
+        await _subscriptionRepo.updateSubscription(
+            subscription: subscription.copyWith(remaningDays: remaningDays));
+      }
       return remaningDays;
     } else {
       return null;

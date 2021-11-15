@@ -1,28 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:sub_track/core/enums/enums.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
+import 'package:sub_track/ui/view/home/home_viewmodel.dart';
 
 import 'remainig_days_widget.dart';
 
-class STUpcommingSub extends StatelessWidget {
+final currentSubscription =
+    Provider<Subscription>((ref) => throw UnimplementedError());
+
+class STUpcommingSub extends ConsumerWidget {
   const STUpcommingSub({
     Key? key,
-    required this.subsription,
-    this.remaningDays,
+    // required this.subsription,
+    // this.remaningDays,
   }) : super(key: key);
 
-  final Subscription subsription;
-  final int? remaningDays;
+  // final Subscription subsription;
+  // final int? remaningDays;
 
   // TODO if icon is null then make icon using initial of sub
   // TODO Make enum for repatation
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final subsription = ref.read(currentSubscription);
+    // final remaningDays = subsription.remaningDays;
+    // ref.watch(calculateRemaningDaysFutureProvider(subsription)).when(
+    //     data: (days) {
+    //   remaningDays = days;
+    // }, error: (error, st, previous) {
+    //   remaningDays = null;
+    // }, loading: (previous) {
+    //   remaningDays = null;
+    // });
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -130,7 +145,7 @@ class STUpcommingSub extends StatelessWidget {
                             color: AppColor.STDarkLight,
                           ),
                           Text(
-                            "${DateFormat('dd MMMM').format(subsription.nextSubOn(remaningDays) ?? DateTime.now())}",
+                            "${DateFormat('dd MMMM').format(subsription.nextSubOn(subsription.remaningDays) ?? DateTime.now())}",
                             style: kPreTitleStyle.copyWith(
                               color: AppColor.STDarkLight,
                             ),
@@ -153,11 +168,11 @@ class STUpcommingSub extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: STRemainingDaysWidget(
                 color: subsription.brand.hex.toColor() ?? AppColor.STAccent,
-                percent: remaningDays == null
+                percent: subsription.remaningDays == null
                     ? null
                     : subsription.renewsEvery == RenewsEvery.Never
                         ? null
-                        : (remaningDays!) /
+                        : (subsription.remaningDays!) /
                             (subsription.renewsEvery == RenewsEvery.Weekly
                                 ? 7.0
                                 : subsription.renewsEvery ==
@@ -176,7 +191,7 @@ class STUpcommingSub extends StatelessWidget {
                                                         RenewsEvery.Yearly
                                                     ? 365.0
                                                     : 1.0),
-                remainigDays: (remaningDays ?? "N.A").toString(),
+                remainigDays: (subsription.remaningDays ?? "N.A").toString(),
               ),
             ),
           ],

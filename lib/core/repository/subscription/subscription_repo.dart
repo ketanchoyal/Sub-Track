@@ -53,8 +53,8 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
         _connectivityService = connectivityService,
         _subscriptionRemoteDataSource = remote;
 
-  StreamController<List<Subscription>> _subscriptionsStreamController =
-      StreamController.broadcast();
+  // StreamController<List<Subscription>> _subscriptionsStreamController =
+  //     StreamController.broadcast();
 
   var log = getLogger("");
 
@@ -68,14 +68,16 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       //         .addStream(_subscriptionRemoteDataSource.fetchSubscriptions()))
       //     .asStream();
       // return _subscriptionsStreamController.stream;
-      return _subscriptionRemoteDataSource.fetchSubscriptions();
+      return _subscriptionRemoteDataSource.fetchSubscriptions()
+        ..asBroadcastStream();
     } else {
       log.i("Fetching subs from Local Data Source");
       // (await _subscriptionsStreamController
       //         .addStream(_subscriptionLocalDataSource.fetchSubscriptions()))
       //     .asStream();
       // return _subscriptionsStreamController.stream;
-      return _subscriptionLocalDataSource.fetchSubscriptions();
+      return _subscriptionLocalDataSource.fetchSubscriptions()
+        ..asBroadcastStream();
     }
   }
 

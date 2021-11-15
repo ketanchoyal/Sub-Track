@@ -27,17 +27,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
-      ref.read(homeViewModelCNP).startupTasks();
-    });
+    // SchedulerBinding.instance?.addPostFrameCallback((_) {
+    //   ref.read(homeViewModelCNP).startupTasks();
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     final model = ref.read(homeViewModelCNP);
-    final isBusy = ref.watch(homeViewModelCNP.select((value) => value.isBusy));
-    final subscriptions =
-        ref.watch(homeViewModelCNP.select((value) => value.subscriptions));
+    // final isBusy = ref.watch(homeViewModelCNP.select((value) => value.isBusy));
+    // final subscriptions =
+    //     ref.watch(homeViewModelCNP.select((value) => value.subscriptions));
     return CupertinoModalTransition(
       animatorKey: model.animatorKey,
       child: CupertinoPageScaffold(
@@ -66,7 +66,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   ),
                   padding: EdgeInsetsDirectional.only(end: 5),
                   trailing: GestureDetector(
-                    onLongPress: model.startupTasks,
+                    // onLongPress: model.startupTasks,
                     onTap: model.navigateToSettingView,
                     onDoubleTap: () {
                       model.clean();
@@ -95,97 +95,121 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     );
                   },
                   onRefresh: () async {
-                    await model.fetchSubs(refresh: true);
+                    ref.refresh(allSubscriptionStreamProvider);
+                    ref.refresh(upCommingSubscriptionsFutureProvider);
+                    // await model.fetchSubs(refresh: true);
                   },
                 ),
                 SliverToBoxAdapter(
                   child: Container(
                     height: screenHeightPercentage(context, percentage: 1),
-                    child: subscriptions.isNotEmpty && !isBusy
-                        ? MediaQuery.removePadding(
-                            removeTop: true,
-                            context: context,
-                            child: ListView(
-                              physics: NeverScrollableScrollPhysics(),
-                              children: [
-                                SummaryWidget(),
-                                verticalSpaceSmall,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      "Upcomming",
-                                      style: kHeader3Style,
-                                    ),
-                                    // Text(
-                                    //   "See all",
-                                    //   style: kBodyBoldStyle.copyWith(
-                                    //       color: AppColor.STAccent),
-                                    // )
-                                  ],
-                                ).paddingH(20),
-                                Container(
+                    child: MediaQuery.removePadding(
+                      removeTop: true,
+                      context: context,
+                      child: ListView(
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          SummaryWidget(),
+                          verticalSpaceSmall,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                "Upcomming",
+                                style: kHeader3Style,
+                              ),
+                              // Text(
+                              //   "See all",
+                              //   style: kBodyBoldStyle.copyWith(
+                              //       color: AppColor.STAccent),
+                              // )
+                            ],
+                          ).paddingH(20),
+                          Consumer(builder: (context, ref, child) {
+                            final upcomingSubs =
+                                ref.watch(upCommingSubscriptionsFutureProvider);
+                            return upcomingSubs.when(
+                              data: (subs) {
+                                return Container(
                                   height: 170,
                                   width: context.screenWidth,
                                   child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: model.upcommings.length,
+                                      itemCount: subs.length,
                                       itemBuilder: (contex, index) {
-                                        if (model.upcommings[index]
-                                                .renewsEvery ==
+                                        if (subs[index].renewsEvery ==
                                             RenewsEvery.Never) {
                                           return Container();
                                         }
-                                        return STUpcommingSub(
-                                          subsription: model.upcommings[index],
-                                          remaningDays: model.remainingDays(
-                                            subscription:
-                                                model.upcommings[index],
-                                          ),
+                                        return ProviderScope(
+                                          overrides: [
+                                            currentSubscription
+                                                .overrideWithValue(subs[index]),
+                                          ],
+                                          child: const STUpcommingSub(
+                                              // subsription: subs[index],
+                                              // remaningDays:
+                                              //     subs[index].remaningDays,
+                                              ),
                                         );
                                       }),
+                                );
+                              },
+                              error: (error, st, previous) {
+                                return ErrorWidget(error);
+                              },
+                              loading: (previous) {
+                                return Center(
+                                  child: STLoading(),
+                                );
+                              },
+                            );
+                          }),
+                          verticalSpaceSmall,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                "Active",
+                                style: kHeader3Style,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  // model.navigateToActiveSub(
+                                  //     subId:
+                                  //         subscriptions.first.subscriptionId);
+                                  // model.$navigationService.navigateWithTransition(
+                                  //   ActiveSubscriptionView(model),
+                                  //   popGesture: true,
+                                  //   opaque: true,
+                                  // );
+                                },
+                                child: Text(
+                                  "See all",
+                                  style: kBodyBoldStyle.copyWith(
+                                      color: AppColor.STAccent),
                                 ),
-                                verticalSpaceSmall,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      "Active",
-                                      style: kHeader3Style,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        model.navigateToActiveSub(
-                                            subId: subscriptions
-                                                .first.subscriptionId);
-                                        // model.$navigationService.navigateWithTransition(
-                                        //   ActiveSubscriptionView(model),
-                                        //   popGesture: true,
-                                        //   opaque: true,
-                                        // );
-                                      },
-                                      child: Text(
-                                        "See all",
-                                        style: kBodyBoldStyle.copyWith(
-                                            color: AppColor.STAccent),
-                                      ),
-                                    )
-                                  ],
-                                ).paddingH(20),
-                                verticalSpaceSmall,
-                                Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: AppColor.STPureWhite,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(15),
-                                    ),
-                                  ),
-                                  child: MediaQuery.removePadding(
+                              )
+                            ],
+                          ).paddingH(20),
+                          verticalSpaceSmall,
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: AppColor.STPureWhite,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                            ),
+                            child: Consumer(builder: (context, ref, child) {
+                              final subscriptionStream =
+                                  ref.watch(allSubscriptionStreamProvider);
+
+                              return subscriptionStream.when(
+                                data: (subscriptions) {
+                                  return MediaQuery.removePadding(
                                     context: context,
                                     removeTop: true,
                                     removeBottom: true,
@@ -211,12 +235,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                             ),
                                           );
                                         }),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(),
+                                  );
+                                },
+                                error: (error, st, previous) {
+                                  return ErrorWidget(error);
+                                },
+                                loading: (previous) {
+                                  return Center(
+                                    child: STLoading(),
+                                  );
+                                },
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -227,54 +261,73 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ],
               shrinkWrap: false,
             ),
-            if (isBusy)
-              Center(
-                child: STLoading(),
-              ),
-            if (subscriptions.isEmpty && !isBusy)
-              Positioned(
-                right: 0,
-                top: 0,
-                bottom: 0,
-                left: 0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "No Subscription Added",
-                      style: kHeader3Style.copyWith(
-                        color: AppColor.STDark,
-                      ),
-                    ),
-                    Text(
-                      "Add your subscriptions to see here",
-                      style: kSmallStyle.copyWith(),
-                    ),
-                    verticalSpaceSmall,
-                    STButton(
-                      buttonText: "Add Subscription",
-                      onPressed: model.navigateToAddSub,
-                    )
-                  ],
-                ),
-              ),
-            if (subscriptions.isNotEmpty)
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: FloatingActionButton(
-                  heroTag: "plusButton",
-                  backgroundColor: AppColor.STPureWhite,
-                  autofocus: true,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Image.asset(Assets.addIcon),
-                  ),
-                  onPressed: model.navigateToAddSub,
-                ),
-              ),
+            // if (isBusy)
+            //   Center(
+            //     child: STLoading(),
+            //   ),
+            Consumer(
+              builder: (context, ref, child) {
+                final subscriptionStream =
+                    ref.watch(allSubscriptionStreamProvider);
+
+                return subscriptionStream.when(
+                  data: (subscriptions) {
+                    if (subscriptions.isEmpty)
+                      return Positioned(
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "No Subscription Added",
+                              style: kHeader3Style.copyWith(
+                                color: AppColor.STDark,
+                              ),
+                            ),
+                            Text(
+                              "Add your subscriptions to see here",
+                              style: kSmallStyle.copyWith(),
+                            ),
+                            verticalSpaceSmall,
+                            STButton(
+                              buttonText: "Add Subscription",
+                              onPressed: model.navigateToAddSub,
+                            )
+                          ],
+                        ),
+                      );
+                    if (subscriptions.isNotEmpty)
+                      return Positioned(
+                        bottom: 20,
+                        right: 20,
+                        child: FloatingActionButton(
+                          heroTag: "plusButton",
+                          backgroundColor: AppColor.STPureWhite,
+                          autofocus: true,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Image.asset(Assets.addIcon),
+                          ),
+                          onPressed: model.navigateToAddSub,
+                        ),
+                      );
+
+                    return SizedBox();
+                  },
+                  error: (error, st, previous) {
+                    return ErrorWidget(error);
+                  },
+                  loading: (previous) {
+                    return const SizedBox();
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -289,12 +342,15 @@ class SummaryWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentMonthExpense = ref
-        .watch(homeViewModelCNP.select((value) => value.currentMonthExpense));
-    final average =
-        ref.watch(homeViewModelCNP.select((value) => value.average));
-    final graphData =
-        ref.watch(homeViewModelCNP.select((value) => value.graphData));
+    final currentMonthExpenseFP = ref.watch(currentMonthExpenseFutureProvider);
+    final averageFP = ref.watch(currentYearExpenseAverageFutureProvider);
+    final graphDataFP = ref.watch(graphDataFutureProvider);
+    // final currentMonthExpense = ref
+    //     .watch(homeViewModelCNP.select((value) => value.currentMonthExpense));
+    // final average =
+    //     ref.watch(homeViewModelCNP.select((value) => value.average));
+    // final graphData =
+    //     ref.watch(homeViewModelCNP.select((value) => value.graphData));
     return SizedBox(
       height: 180,
       width: screenWidth(context),
@@ -317,30 +373,77 @@ class SummaryWidget extends ConsumerWidget {
                     "Paid this month",
                     style: kSmallStyle.copyWith(color: AppColor.STDarkLight),
                   ),
-                  Text(
-                    "\$${currentMonthExpense}",
-                    style: kHeader2Style.copyWith(
-                      color: AppColor.STDark,
-                      letterSpacing: -1,
-                    ),
+                  currentMonthExpenseFP.when(
+                    data: (currentMonthExpense) {
+                      return Text(
+                        "\$$currentMonthExpense",
+                        style: kHeader2Style.copyWith(
+                          color: AppColor.STDark,
+                          letterSpacing: -1,
+                        ),
+                      );
+                    },
+                    error: (error, st, previous) {
+                      return ErrorWidget(error);
+                    },
+                    loading: (previous) {
+                      return Text(
+                        "...",
+                        style: kHeader2Style.copyWith(
+                          color: AppColor.STDark,
+                          letterSpacing: -1,
+                        ),
+                      );
+                    },
                   ),
-                  Text(
-                    "avg. \$${average}/m",
-                    style: kSmallStyle.copyWith(
-                      color: AppColor.STDarkLight,
-                    ),
+                  averageFP.when(
+                    data: (average) {
+                      return Text(
+                        "avg. \$$average/m",
+                        style: kSmallStyle.copyWith(
+                          color: AppColor.STDarkLight,
+                        ),
+                      );
+                    },
+                    error: (error, st, _) {
+                      return ErrorWidget(error);
+                    },
+                    loading: (_) {
+                      return Text(
+                        "avg. ../m",
+                        style: kSmallStyle.copyWith(
+                          color: AppColor.STDarkLight,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
             // verticalSpaceLarge,
-            Expanded(
-              flex: 9,
-              child: graphData.isEmpty
-                  ? Center(child: Text("No Data Available"))
-                  : ExpenseGraph(
-                      data: graphData,
-                    ),
+            graphDataFP.when(
+              data: (graphData) {
+                return Expanded(
+                  flex: 9,
+                  child: graphData.isEmpty
+                      ? Center(child: Text("No Data Available"))
+                      : ExpenseGraph(
+                          data: graphData,
+                        ),
+                );
+              },
+              error: (error, st, _) {
+                return Expanded(
+                  flex: 9,
+                  child: Center(
+                    child: ErrorWidget(error),
+                  ),
+                );
+              },
+              loading: (_) {
+                return Expanded(
+                    flex: 9, child: Center(child: Text("No Data Available")));
+              },
             ),
           ],
         ),

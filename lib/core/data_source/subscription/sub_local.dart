@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sub_track/app/app.locatorx.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sub_track/core/data_source/subscription/sub_abstract.dart';
 import 'package:sub_track/core/models/subscription/subscription.dart';
 import 'package:sub_track/core/services/file_service.dart';
@@ -52,6 +52,8 @@ class SubscriptionLocalDataSourceImpl implements SubscriptionLocalDataSource {
 
     if (!_subscriptionsBoxIsOpen)
       await _hiveService.openBox<Subscription>(_subscriptionsBoxName);
+
+    await _listenToSubscription();
   }
 
   @override
@@ -72,8 +74,17 @@ class SubscriptionLocalDataSourceImpl implements SubscriptionLocalDataSource {
 
   @override
   Stream<List<Subscription>> fetchSubscriptions() {
-    _listenToSubscription();
-    return _streamController.stream;
+    // _listenToSubscription();
+    return _subscriptionBox.watch().map(
+      (BoxEvent event) {
+        print(
+            "${event.key} : ${event.value} => ${event.deleted ? "Deleted" : "Added"}");
+        return getSubscriptionsOnce();
+      },
+    ).startWith(
+      getSubscriptionsOnce(),
+    )..asBroadcastStream();
+    // return _streamController.stream..asBroadcastStream();
   }
 
   @override
@@ -82,14 +93,24 @@ class SubscriptionLocalDataSourceImpl implements SubscriptionLocalDataSource {
   }
 
   //Real stuff here
-  _listenToSubscription() {
+  _listenToSubscription() async {
     if (_subscriptionsBoxIsOpen) {
       print("listening To Subscription local");
-      _streamController.add(_subscriptionBox.values.toList());
-      _subscriptionBox.watch().listen((event) {
-        _streamController.add(_subscriptionBox.values.toList());
-        print("listening To Subscription local");
-      });
+      // _streamController.add(_subscriptionBox.values.toList());
+      // await _streamController.addStream(
+      //   _subscriptionBox.watch().map(
+      //     (BoxEvent event) {
+      //       print("${event.toString()}");
+      //       return getSubscriptionsOnce();
+      //     },
+      //   ).startWith(
+      //     getSubscriptionsOnce(),
+      //   ),
+      // );
+      // _subscriptionBox.watch().listen((event) {
+      //   _streamController.add(_subscriptionBox.values.toList());
+      //   print("listening To Subscription local");
+      // });
     }
   }
 

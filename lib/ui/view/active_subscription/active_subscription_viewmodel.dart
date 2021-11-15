@@ -92,14 +92,15 @@ class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
   }
 
   int? get remainingDays {
-    if (!_remaningDays.containsKey(_selectedSub.subscriptionId)) {
-      $calculationService.calculateRemainingDays(_selectedSub).then((value) {
-        _remaningDays.addAll({_selectedSub.subscriptionId: value});
-        notifyListeners();
-      });
-      return null;
-    }
-    return _remaningDays[_selectedSub.subscriptionId];
+    return _selectedSub.remaningDays;
+    // if (!_remaningDays.containsKey(_selectedSub.subscriptionId)) {
+    //   $calculationService.calculateRemainingDays(_selectedSub).then((value) {
+    //     _remaningDays.addAll({_selectedSub.subscriptionId: value});
+    //     notifyListeners();
+    //   });
+    //   return null;
+    // }
+    // return _remaningDays[_selectedSub.subscriptionId];
   }
 
   openLink() {

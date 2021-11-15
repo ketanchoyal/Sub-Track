@@ -150,41 +150,41 @@ class _DemoViewState extends State<DemoView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 STUpcommingSub(
-                  subsription: Subscription(
-                    subscriptionId: "sfihewruiw",
-                    brand: Brand(
-                      title: "Netflix",
-                      hex: "E50914",
-                      source:
-                          "https://brand.netflix.com/en/assets/brand-symbol",
-                      iconName: "netflix.svg",
-                      iconUrl:
-                          "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                    // subsription: Subscription(
+                    //   subscriptionId: "sfihewruiw",
+                    //   brand: Brand(
+                    //     title: "Netflix",
+                    //     hex: "E50914",
+                    //     source:
+                    //         "https://brand.netflix.com/en/assets/brand-symbol",
+                    //     iconName: "netflix.svg",
+                    //     iconUrl:
+                    //         "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                    //   ),
+                    //   cost: 18.99,
+                    //   renewsEvery: RenewsEvery.Weekly,
+                    //   startedOn: DateTime.now(),
+                    //   notificationOn: NotifyOn.One_Day_Before,
+                    // ),
                     ),
-                    cost: 18.99,
-                    renewsEvery: RenewsEvery.Weekly,
-                    startedOn: DateTime.now(),
-                    notificationOn: NotifyOn.One_Day_Before,
-                  ),
-                ),
                 STUpcommingSub(
-                  subsription: Subscription(
-                    subscriptionId: "sfihewruiw",
-                    brand: Brand(
-                      title: "Netflix",
-                      hex: "E50914",
-                      source:
-                          "https://brand.netflix.com/en/assets/brand-symbol",
-                      iconName: "netflix.svg",
-                      iconUrl:
-                          "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                    // subsription: Subscription(
+                    //   subscriptionId: "sfihewruiw",
+                    //   brand: Brand(
+                    //     title: "Netflix",
+                    //     hex: "E50914",
+                    //     source:
+                    //         "https://brand.netflix.com/en/assets/brand-symbol",
+                    //     iconName: "netflix.svg",
+                    //     iconUrl:
+                    //         "https://raw.githubusercontent.com/ketanchoyal/simple-icons/master/icons/netflix.svg",
+                    //   ),
+                    //   cost: 18.99,
+                    //   renewsEvery: RenewsEvery.Weekly,
+                    //   startedOn: DateTime.now(),
+                    //   notificationOn: NotifyOn.One_Day_Before,
+                    // ),
                     ),
-                    cost: 18.99,
-                    renewsEvery: RenewsEvery.Weekly,
-                    startedOn: DateTime.now(),
-                    notificationOn: NotifyOn.One_Day_Before,
-                  ),
-                ),
               ],
             ),
           ],

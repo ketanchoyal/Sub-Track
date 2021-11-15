@@ -10,6 +10,94 @@ import 'package:sub_track/core/services/calculation_service.dart';
 import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
+final forceFetchToggleSP = StateProvider(
+  (ref) => false,
+);
+
+final allSubscriptionStreamProvider = StreamProvider<List<Subscription>>(
+  (ref) {
+    final repo = ref.watch(subscriptionRepoP);
+    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    return repo.fetchSubscriptions(
+      forceFetch: forceFetchToggle.state,
+    )..listen(
+        (event) {
+          if (event.isEmpty) {
+            ref.read(forceFetchToggleSP).state = true;
+          }
+        },
+      );
+  },
+  name: 'allSubscriptionStreamProvider',
+);
+
+final upCommingSubscriptionsFutureProvider = FutureProvider<List<Subscription>>(
+  (ref) async {
+    final repo = ref.watch(subscriptionRepoP);
+    final allSubscriptions = repo.getSubscriptionsOnce();
+    final sortedSubs = allSubscriptions;
+
+    sortedSubs.sort((a, b) {
+      int? r1 = ref.read(calculateRemaningDaysFutureProvider(a)).asData?.value;
+      int? r2 = ref.read(calculateRemaningDaysFutureProvider(b)).asData?.value;
+      if (r1 != null && r2 != null) {
+        return r1.compareTo(r2);
+      } else
+        return 1000;
+    });
+
+    return sortedSubs.take(5).toList();
+  },
+  name: 'upCommingSubscriptionsFutureProvider',
+);
+
+final calculateRemaningDaysFutureProvider =
+    FutureProvider.family<int?, Subscription>(
+  (ref, sub) async {
+    final calculateionService = ref.watch(calculationServiceP);
+
+    return calculateionService.calculateRemainingDays(sub);
+  },
+  name: 'calculateRemaningDaysFutureProvider',
+);
+
+final currentMonthExpenseFutureProvider = FutureProvider<String>(
+  (ref) async {
+    final calculateionService = ref.watch(calculationServiceP);
+    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    final currentMonthExpense =
+        await calculateionService.getCurrentMonthExpense(
+      fromRemote: forceFetchToggle.state,
+    );
+    return currentMonthExpense.toStringAsFixed(2);
+  },
+  name: 'currentMonthExpenseFutureProvider',
+);
+
+final currentYearExpenseAverageFutureProvider = FutureProvider<String>(
+  (ref) async {
+    final calculateionService = ref.watch(calculationServiceP);
+    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    final currentYearExpense = await calculateionService.getTotalExpense(
+      fromRemote: forceFetchToggle.state,
+    );
+    final average = currentYearExpense / DateTime.now().month;
+    return average.toStringAsFixed(2);
+  },
+  name: 'currentYearExpenseFutureProvider',
+);
+
+final graphDataFutureProvider = FutureProvider<Map<DateTime, double>>(
+  (ref) async {
+    final calculateionService = ref.watch(calculationServiceP);
+    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    return calculateionService.getGraphData(
+      fromRemote: forceFetchToggle.state,
+    );
+  },
+  name: 'graphDataFutureProvider',
+);
+
 final homeViewModelCNP = ChangeNotifierProvider<HomeViewModel>(
   (ref) => HomeViewModel(ref),
   name: 'HomeViewModel',
@@ -17,7 +105,7 @@ final homeViewModelCNP = ChangeNotifierProvider<HomeViewModel>(
 
 class HomeViewModel extends BaseViewModel with $SharedVariables {
   // bool haveSubscriptions = false;
-  SubscriptionRepo get _subscriptionRepo => _ref.read(subscriptionRepoP);
+  // SubscriptionRepo get _subscriptionRepo => _ref.read(subscriptionRepoP);
   SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
       _ref.read(subscriptionLocalDataSourceP);
 
@@ -28,45 +116,7 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   @override
   ProviderRefBase get ref => _ref;
 
-  List<Subscription> _subscriptions = [];
-  List<Subscription> get subscriptions => _subscriptions;
-  List<Subscription> get upcommings {
-    List<Subscription> sortedSubs = _subscriptions;
-    sortedSubs.sort((a, b) {
-      int? r1 = remainingDays(subscription: a);
-      int? r2 = remainingDays(subscription: b);
-      if (r1 != null && r2 != null) {
-        return r1.compareTo(r2);
-      } else
-        return 1000;
-    });
-    return sortedSubs.take(5).toList();
-  }
-
-  Map<String, int?> _remaningDays = {};
-
-  double _currentMonthExpense = 0.0;
-  String get currentMonthExpense => _currentMonthExpense.toStringAsFixed(2);
-
-  double _average = 0.0;
-  String get average => _average.toStringAsFixed(2);
-
-  Map<DateTime, double> _graphData = {};
-  Map<DateTime, double> get graphData => _graphData;
-  bool _fetchFromServer = false;
-
   get animatorKey => $uiServices.animatorKey;
-
-  int? remainingDays({required Subscription subscription}) {
-    if (!_remaningDays.containsKey(subscription.subscriptionId)) {
-      $calculationService.calculateRemainingDays(subscription).then((value) {
-        _remaningDays.addAll({subscription.subscriptionId: value});
-        notifyListeners();
-      });
-      return null;
-    }
-    return _remaningDays[subscription.subscriptionId];
-  }
 
   navigateToAddSub() {
     $uiServices.forward();
@@ -75,55 +125,6 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
 
   clean() {
     _subscriptionLocalDataSource.cleanEverything();
-  }
-
-  startupTasks() {
-    fetchSubs();
-    _getCurrentMonthExpense();
-    _getCurentYearExpense();
-    _getGraphData();
-    notifyListeners();
-  }
-
-  fetchSubs({bool refresh = false}) async {
-    if (!refresh) setBusy(true);
-    // _subscriptions = _subscriptionRepo.getSubscriptionsOnce();
-    await Future.delayed(Duration(seconds: 1));
-    // if (_subscriptions.length == 0)
-    _subscriptionRepo
-        .fetchSubscriptions(forceFetch: _fetchFromServer)
-        .listen((event) {
-      _subscriptions = event;
-      notifyListeners();
-      if (event.length == 0) {
-        if (!_fetchFromServer) {
-          _fetchFromServer = true;
-          startupTasks();
-        } else {
-          _fetchFromServer = false;
-        }
-      }
-    });
-    if (!refresh) setBusy(false);
-  }
-
-  _getCurrentMonthExpense() async {
-    _currentMonthExpense = await $calculationService.getCurrentMonthExpense(
-        fromRemote: _fetchFromServer);
-    notifyListeners();
-  }
-
-  _getCurentYearExpense() async {
-    double currentYearExpense =
-        await $calculationService.getTotalExpense(fromRemote: _fetchFromServer);
-    _average = currentYearExpense / DateTime.now().month;
-    notifyListeners();
-  }
-
-  _getGraphData() async {
-    _graphData =
-        await $calculationService.getGraphData(fromRemote: _fetchFromServer);
-    notifyListeners();
   }
 
   navigateToActiveSub({required String subId}) async {

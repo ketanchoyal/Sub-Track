@@ -17,7 +17,7 @@ class LoginViewModel extends AuthenticationViewModel {
   TextFieldType emailTextFieldType = TextFieldType.DEFAULT;
   TextFieldType passwordTextFieldType = TextFieldType.DEFAULT;
 
-  LoginViewModel(ProviderRefBase ref)
+  LoginViewModel(Ref ref)
       : super(ref, successRoute: Routes.homeView, isNewUser: false);
   @override
   setFormStatus() {

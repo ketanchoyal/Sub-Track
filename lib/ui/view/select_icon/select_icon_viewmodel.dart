@@ -21,12 +21,12 @@ class SelectIconViewModel extends BaseViewModel with $SharedVariables {
   // use [brandRepoP] instread of brandService
   BrandService get _brandService => _ref.read(brandServiceP);
 
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   SelectIconViewModel(this._ref);
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   IconType _iconType = IconType.Services;
   IconType get iconType => _iconType;

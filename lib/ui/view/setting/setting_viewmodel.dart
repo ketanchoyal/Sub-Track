@@ -11,10 +11,10 @@ final settingViewModelCNP = ChangeNotifierProvider.autoDispose(
 class SettingViewModel extends BaseViewModel with $SharedVariables {
   SettingViewModel(this._ref);
 
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   bool get isAnonymous =>
       $firebaseAuthenticationService.currentUser?.isAnonymous ?? true;

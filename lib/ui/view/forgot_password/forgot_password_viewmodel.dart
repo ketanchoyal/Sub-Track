@@ -16,9 +16,9 @@ final forgotPasswordViewModelCNP = ChangeNotifierProvider(
 
 class ForgotPasswordViewModel extends FormViewModel with $SharedVariables {
   ForgotPasswordViewModel(this._ref);
-  final ProviderRefBase _ref;
+  final Ref _ref;
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   var logger = getLogger("");
   SnackbarService get _snackbarService => _ref.read(snackbarServiceP);

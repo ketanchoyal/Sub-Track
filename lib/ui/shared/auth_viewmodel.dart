@@ -11,7 +11,7 @@ import 'base_viewmodel.dart';
 
 abstract class AuthenticationViewModel extends FormViewModel
     with $SharedVariables {
-  final ProviderRefBase _ref;
+  final Ref _ref;
   AuthenticationViewModel(
     this._ref, {
     required this.successRoute,
@@ -19,7 +19,7 @@ abstract class AuthenticationViewModel extends FormViewModel
   });
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   FirebaseAuthenticationService get firebaseAuthenticationService =>
       _ref.read(firebaseAuthServiceP);

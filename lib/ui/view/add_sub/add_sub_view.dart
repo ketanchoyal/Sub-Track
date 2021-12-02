@@ -31,9 +31,11 @@ class _AddSubViewState extends ConsumerState<AddSubView> {
 
   @override
   Widget build(BuildContext context) {
-    final model = ref.read(addSubViewModelCNP);
-    final isBusy =
-        ref.watch(addSubViewModelCNP.select((value) => value.isBusy));
+    // final isBusy =
+    //     ref.watch(addSubViewModelCNP.select((value) => value.isBusy));
+    // final brands =
+    //     ref.watch(addSubViewModelCNP.select((value) => value.brands));
+    final model = ref.watch(addSubViewModelCNP);
     // final brands =
     //     ref.watch(addSubViewModelCNP.select((value) => value.brands));
     return CupertinoPageScaffold(
@@ -108,7 +110,7 @@ class _AddSubViewState extends ConsumerState<AddSubView> {
           ];
         },
         floatHeaderSlivers: true,
-        body: isBusy
+        body: model.isBusy
             ? Stack(
                 children: [
                   Center(

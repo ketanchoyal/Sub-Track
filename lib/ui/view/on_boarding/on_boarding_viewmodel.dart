@@ -10,7 +10,7 @@ final onBoardingViewModelCNP =
 class OnBoardingViewModel extends BaseViewModel {
   NavigationService get _navigationService => _ref.read(navigationServiceP);
 
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   OnBoardingViewModel(this._ref);
 

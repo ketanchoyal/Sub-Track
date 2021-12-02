@@ -10,20 +10,25 @@ import 'package:sub_track/core/services/calculation_service.dart';
 import 'package:sub_track/ui/shared/base_viewmodel.dart';
 import 'package:sub_track/ui/shared/mixins.dart';
 
-final forceFetchToggleSP = StateProvider(
+final _forceFetchToggleSP = StateProvider(
   (ref) => false,
 );
+
+final isSubscriptionListEmptySP = StateProvider((ref) => false);
 
 final allSubscriptionStreamProvider = StreamProvider<List<Subscription>>(
   (ref) {
     final repo = ref.watch(subscriptionRepoP);
-    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     return repo.fetchSubscriptions(
-      forceFetch: forceFetchToggle.state,
+      forceFetch: forceFetchToggle,
     )..listen(
         (event) {
           if (event.isEmpty) {
-            ref.read(forceFetchToggleSP).state = true;
+            ref.read(isSubscriptionListEmptySP.notifier).state = true;
+            ref.read(_forceFetchToggleSP.notifier).state = true;
+          } else {
+            ref.read(isSubscriptionListEmptySP.notifier).state = false;
           }
         },
       );
@@ -64,10 +69,10 @@ final calculateRemaningDaysFutureProvider =
 final currentMonthExpenseFutureProvider = FutureProvider<String>(
   (ref) async {
     final calculateionService = ref.watch(calculationServiceP);
-    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     final currentMonthExpense =
         await calculateionService.getCurrentMonthExpense(
-      fromRemote: forceFetchToggle.state,
+      fromRemote: forceFetchToggle,
     );
     return currentMonthExpense.toStringAsFixed(2);
   },
@@ -77,9 +82,9 @@ final currentMonthExpenseFutureProvider = FutureProvider<String>(
 final currentYearExpenseAverageFutureProvider = FutureProvider<String>(
   (ref) async {
     final calculateionService = ref.watch(calculationServiceP);
-    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     final currentYearExpense = await calculateionService.getTotalExpense(
-      fromRemote: forceFetchToggle.state,
+      fromRemote: forceFetchToggle,
     );
     final average = currentYearExpense / DateTime.now().month;
     return average.toStringAsFixed(2);
@@ -90,9 +95,9 @@ final currentYearExpenseAverageFutureProvider = FutureProvider<String>(
 final graphDataFutureProvider = FutureProvider<Map<DateTime, double>>(
   (ref) async {
     final calculateionService = ref.watch(calculationServiceP);
-    final forceFetchToggle = ref.watch(forceFetchToggleSP);
+    final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     return calculateionService.getGraphData(
-      fromRemote: forceFetchToggle.state,
+      fromRemote: forceFetchToggle,
     );
   },
   name: 'graphDataFutureProvider',
@@ -109,12 +114,12 @@ class HomeViewModel extends BaseViewModel with $SharedVariables {
   SubscriptionLocalDataSource get _subscriptionLocalDataSource =>
       _ref.read(subscriptionLocalDataSourceP);
 
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   HomeViewModel(this._ref);
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   get animatorKey => $uiServices.animatorKey;
 

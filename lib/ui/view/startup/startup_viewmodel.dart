@@ -18,7 +18,7 @@ final startupViewModelCNP =
 );
 
 class StartUpViewModel extends BaseViewModel {
-  final ProviderRefBase _ref;
+  final Ref _ref;
   StartUpViewModel(this._ref);
 
   NavigationService get _navigationService => _ref.read(navigationServiceP);

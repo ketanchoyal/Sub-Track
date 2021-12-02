@@ -13,12 +13,12 @@ final selectCategoryViewModelCNP = ChangeNotifierProvider(
 class SelectCategoryViewModel extends BaseViewModel with $SharedVariables {
   List<Category> get categories => Category.categories;
 
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   SelectCategoryViewModel(this._ref);
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   pop({String? category}) {
     Get.back(result: category, id: 2);

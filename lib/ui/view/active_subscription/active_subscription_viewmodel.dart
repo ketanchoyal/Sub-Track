@@ -15,12 +15,12 @@ final activeSubscriptionViewModelCNP = ChangeNotifierProvider(
 );
 
 class ActiveSubscriptionViewModel extends BaseViewModel with $SharedVariables {
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   ActiveSubscriptionViewModel(this._ref);
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   bool isDialogPopped = false;
   double scale = 2.0;

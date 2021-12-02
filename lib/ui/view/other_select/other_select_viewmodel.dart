@@ -14,7 +14,7 @@ final otherSelectViewModelCNP = ChangeNotifierProvider.autoDispose
 );
 
 class OtherSelectViewModel extends BaseViewModel {
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   OtherSelectViewModel(this._ref, this._type);
 

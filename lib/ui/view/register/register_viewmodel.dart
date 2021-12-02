@@ -16,7 +16,7 @@ class RegisterViewModel extends AuthenticationViewModel {
   TextFieldType passwordTextFieldType = TextFieldType.DEFAULT;
   TextFieldType nameTextFieldType = TextFieldType.DEFAULT;
 
-  RegisterViewModel(ProviderRefBase ref)
+  RegisterViewModel(Ref ref)
       : super(ref, successRoute: Routes.homeView, isNewUser: true);
   @override
   void setFormStatus() {

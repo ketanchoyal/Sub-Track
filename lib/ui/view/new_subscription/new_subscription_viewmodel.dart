@@ -11,12 +11,12 @@ final newSubscriptionViewModelCNP =
 );
 
 class NewSubscriptionViewModel extends BaseViewModel with $SharedVariables {
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   NewSubscriptionViewModel(this._ref);
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   bool isDialogPopped = false;
 

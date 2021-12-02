@@ -10,7 +10,7 @@ import 'package:sub_track/ui/services/ui_services.dart';
 import 'base_viewmodel.dart';
 
 mixin $SharedVariables on BaseViewModel {
-  ProviderRefBase get ref;
+  Ref get ref;
 
   NavigationService get $navigationService => ref.read(navigationServiceP);
   UIServices get $uiServices => ref.read(uiServicesP);

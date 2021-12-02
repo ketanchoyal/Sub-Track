@@ -72,7 +72,7 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  flutter_riverpod: ^1.0.0-dev.11
+  flutter_riverpod: ^1.0.1
   # stacked: ^2.2.5
   # stacked_hooks: ^0.2.0
   rxdart: ^0.27.2

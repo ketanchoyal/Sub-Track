@@ -35,6 +35,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final model = ref.read(homeViewModelCNP);
+    final isSubscriptionListEmpty = ref.watch(isSubscriptionListEmptySP);
     // final isBusy = ref.watch(homeViewModelCNP.select((value) => value.isBusy));
     // final subscriptions =
     //     ref.watch(homeViewModelCNP.select((value) => value.subscriptions));
@@ -96,6 +97,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   },
                   onRefresh: () async {
                     ref.refresh(allSubscriptionStreamProvider);
+                    ref.refresh(graphDataFutureProvider);
                     ref.refresh(upCommingSubscriptionsFutureProvider);
                     // await model.fetchSubs(refresh: true);
                   },
@@ -109,145 +111,150 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       child: ListView(
                         physics: NeverScrollableScrollPhysics(),
                         children: [
-                          SummaryWidget(),
-                          verticalSpaceSmall,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                "Upcomming",
-                                style: kHeader3Style,
-                              ),
-                              // Text(
-                              //   "See all",
-                              //   style: kBodyBoldStyle.copyWith(
-                              //       color: AppColor.STAccent),
-                              // )
-                            ],
-                          ).paddingH(20),
-                          Consumer(builder: (context, ref, child) {
-                            final upcomingSubs =
-                                ref.watch(upCommingSubscriptionsFutureProvider);
-                            return upcomingSubs.when(
-                              data: (subs) {
-                                return Container(
-                                  height: 170,
-                                  width: context.screenWidth,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: subs.length,
-                                      itemBuilder: (contex, index) {
-                                        if (subs[index].renewsEvery ==
-                                            RenewsEvery.Never) {
-                                          return Container();
-                                        }
-                                        return ProviderScope(
-                                          overrides: [
-                                            currentSubscription
-                                                .overrideWithValue(subs[index]),
-                                          ],
-                                          child: const STUpcommingSub(
-                                              // subsription: subs[index],
-                                              // remaningDays:
-                                              //     subs[index].remaningDays,
-                                              ),
-                                        );
-                                      }),
-                                );
-                              },
-                              error: (error, st, previous) {
-                                return ErrorWidget(error);
-                              },
-                              loading: (previous) {
-                                return Center(
-                                  child: STLoading(),
-                                );
-                              },
-                            );
-                          }),
-                          verticalSpaceSmall,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                "Active",
-                                style: kHeader3Style,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  // model.navigateToActiveSub(
-                                  //     subId:
-                                  //         subscriptions.first.subscriptionId);
-                                  // model.$navigationService.navigateWithTransition(
-                                  //   ActiveSubscriptionView(model),
-                                  //   popGesture: true,
-                                  //   opaque: true,
-                                  // );
-                                },
-                                child: Text(
-                                  "See all",
-                                  style: kBodyBoldStyle.copyWith(
-                                      color: AppColor.STAccent),
+                          if (isSubscriptionListEmpty) ...[],
+                          if (!isSubscriptionListEmpty) ...[
+                            SummaryWidget(),
+                            verticalSpaceSmall,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  "Upcomming",
+                                  style: kHeader3Style,
                                 ),
-                              )
-                            ],
-                          ).paddingH(20),
-                          verticalSpaceSmall,
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              color: AppColor.STPureWhite,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                            ),
-                            child: Consumer(builder: (context, ref, child) {
-                              final subscriptionStream =
-                                  ref.watch(allSubscriptionStreamProvider);
-
-                              return subscriptionStream.when(
-                                data: (subscriptions) {
-                                  return MediaQuery.removePadding(
-                                    context: context,
-                                    removeTop: true,
-                                    removeBottom: true,
+                                // Text(
+                                //   "See all",
+                                //   style: kBodyBoldStyle.copyWith(
+                                //       color: AppColor.STAccent),
+                                // )
+                              ],
+                            ).paddingH(20),
+                            Consumer(builder: (context, ref, child) {
+                              final upcomingSubs = ref
+                                  .watch(upCommingSubscriptionsFutureProvider);
+                              return upcomingSubs.when(
+                                data: (subs) {
+                                  return Container(
+                                    height: 170,
+                                    width: context.screenWidth,
                                     child: ListView.builder(
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: subscriptions.length,
-                                        itemBuilder: (context, index) {
-                                          if (subscriptions[index]
-                                                  .renewsEvery ==
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: subs.length,
+                                        itemBuilder: (contex, index) {
+                                          if (subs[index].renewsEvery ==
                                               RenewsEvery.Never) {
                                             return Container();
                                           }
-                                          return GestureDetector(
-                                            onTap: () {
-                                              model.navigateToActiveSub(
-                                                  subId: subscriptions[index]
-                                                      .subscriptionId);
-                                            },
-                                            child: STActiveSubCard(
-                                              subsription: subscriptions[index],
-                                            ),
+                                          return ProviderScope(
+                                            overrides: [
+                                              currentSubscription
+                                                  .overrideWithValue(
+                                                      subs[index]),
+                                            ],
+                                            child: const STUpcommingSub(
+                                                // subsription: subs[index],
+                                                // remaningDays:
+                                                //     subs[index].remaningDays,
+                                                ),
                                           );
                                         }),
                                   );
                                 },
-                                error: (error, st, previous) {
+                                error: (error, st) {
                                   return ErrorWidget(error);
                                 },
-                                loading: (previous) {
+                                loading: () {
                                   return Center(
                                     child: STLoading(),
                                   );
                                 },
                               );
                             }),
-                          ),
+                            verticalSpaceSmall,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  "Active",
+                                  style: kHeader3Style,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    // model.navigateToActiveSub(
+                                    //     subId:
+                                    //         subscriptions.first.subscriptionId);
+                                    // model.$navigationService.navigateWithTransition(
+                                    //   ActiveSubscriptionView(model),
+                                    //   popGesture: true,
+                                    //   opaque: true,
+                                    // );
+                                  },
+                                  child: Text(
+                                    "See all",
+                                    style: kBodyBoldStyle.copyWith(
+                                        color: AppColor.STAccent),
+                                  ),
+                                )
+                              ],
+                            ).paddingH(20),
+                            verticalSpaceSmall,
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: AppColor.STPureWhite,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
+                              child: Consumer(builder: (context, ref, child) {
+                                final subscriptionStream =
+                                    ref.watch(allSubscriptionStreamProvider);
+
+                                return subscriptionStream.when(
+                                  data: (subscriptions) {
+                                    return MediaQuery.removePadding(
+                                      context: context,
+                                      removeTop: true,
+                                      removeBottom: true,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: subscriptions.length,
+                                          itemBuilder: (context, index) {
+                                            if (subscriptions[index]
+                                                    .renewsEvery ==
+                                                RenewsEvery.Never) {
+                                              return Container();
+                                            }
+                                            return GestureDetector(
+                                              onTap: () {
+                                                model.navigateToActiveSub(
+                                                    subId: subscriptions[index]
+                                                        .subscriptionId);
+                                              },
+                                              child: STActiveSubCard(
+                                                subsription:
+                                                    subscriptions[index],
+                                              ),
+                                            );
+                                          }),
+                                    );
+                                  },
+                                  error: (error, st) {
+                                    return ErrorWidget(error);
+                                  },
+                                  loading: () {
+                                    return Center(
+                                      child: STLoading(),
+                                    );
+                                  },
+                                );
+                              }),
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -265,69 +272,50 @@ class _HomeViewState extends ConsumerState<HomeView> {
             //   Center(
             //     child: STLoading(),
             //   ),
-            Consumer(
-              builder: (context, ref, child) {
-                final subscriptionStream =
-                    ref.watch(allSubscriptionStreamProvider);
-
-                return subscriptionStream.when(
-                  data: (subscriptions) {
-                    if (subscriptions.isEmpty)
-                      return Positioned(
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "No Subscription Added",
-                              style: kHeader3Style.copyWith(
-                                color: AppColor.STDark,
-                              ),
-                            ),
-                            Text(
-                              "Add your subscriptions to see here",
-                              style: kSmallStyle.copyWith(),
-                            ),
-                            verticalSpaceSmall,
-                            STButton(
-                              buttonText: "Add Subscription",
-                              onPressed: model.navigateToAddSub,
-                            )
-                          ],
-                        ),
-                      );
-                    if (subscriptions.isNotEmpty)
-                      return Positioned(
-                        bottom: 20,
-                        right: 20,
-                        child: FloatingActionButton(
-                          heroTag: "plusButton",
-                          backgroundColor: AppColor.STPureWhite,
-                          autofocus: true,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Image.asset(Assets.addIcon),
-                          ),
-                          onPressed: model.navigateToAddSub,
-                        ),
-                      );
-
-                    return SizedBox();
-                  },
-                  error: (error, st, previous) {
-                    return ErrorWidget(error);
-                  },
-                  loading: (previous) {
-                    return const SizedBox();
-                  },
-                );
-              },
-            ),
+            if (isSubscriptionListEmpty)
+              Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                left: 0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "No Subscription Added",
+                      style: kHeader3Style.copyWith(
+                        color: AppColor.STDark,
+                      ),
+                    ),
+                    Text(
+                      "Add your subscriptions to see here",
+                      style: kSmallStyle.copyWith(),
+                    ),
+                    verticalSpaceSmall,
+                    STButton(
+                      buttonText: "Add Subscription",
+                      onPressed: model.navigateToAddSub,
+                    )
+                  ],
+                ),
+              ),
+            if (!isSubscriptionListEmpty)
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: FloatingActionButton(
+                  heroTag: "plusButton",
+                  backgroundColor: AppColor.STPureWhite,
+                  autofocus: true,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Image.asset(Assets.addIcon),
+                  ),
+                  onPressed: model.navigateToAddSub,
+                ),
+              ),
           ],
         ),
       ),
@@ -383,10 +371,10 @@ class SummaryWidget extends ConsumerWidget {
                         ),
                       );
                     },
-                    error: (error, st, previous) {
+                    error: (error, st) {
                       return ErrorWidget(error);
                     },
-                    loading: (previous) {
+                    loading: () {
                       return Text(
                         "...",
                         style: kHeader2Style.copyWith(
@@ -405,10 +393,10 @@ class SummaryWidget extends ConsumerWidget {
                         ),
                       );
                     },
-                    error: (error, st, _) {
+                    error: (error, st) {
                       return ErrorWidget(error);
                     },
-                    loading: (_) {
+                    loading: () {
                       return Text(
                         "avg. ../m",
                         style: kSmallStyle.copyWith(
@@ -432,7 +420,7 @@ class SummaryWidget extends ConsumerWidget {
                         ),
                 );
               },
-              error: (error, st, _) {
+              error: (error, st) {
                 return Expanded(
                   flex: 9,
                   child: Center(
@@ -440,7 +428,7 @@ class SummaryWidget extends ConsumerWidget {
                   ),
                 );
               },
-              loading: (_) {
+              loading: () {
                 return Expanded(
                     flex: 9, child: Center(child: Text("No Data Available")));
               },

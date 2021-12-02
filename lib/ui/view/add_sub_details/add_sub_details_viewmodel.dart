@@ -22,9 +22,9 @@ final addSubDetailViewModelCNP = ChangeNotifierProvider.autoDispose(
 );
 
 class AddSubDetailsViewModel extends FormViewModel with $SharedVariables {
-  final ProviderRefBase _ref;
+  final Ref _ref;
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
   AddSubDetailsViewModel(this._ref) {
     setBusy(true);
   }

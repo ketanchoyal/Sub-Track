@@ -13,12 +13,12 @@ final addSubViewModelCNP = ChangeNotifierProvider(
 );
 
 class AddSubViewModel extends BaseViewModel with $SharedVariables {
-  final ProviderRefBase _ref;
+  final Ref _ref;
 
   AddSubViewModel(this._ref);
 
   @override
-  ProviderRefBase get ref => _ref;
+  Ref get ref => _ref;
 
   BrandService get _brandService => _ref.read(brandServiceP);
 
@@ -52,7 +52,7 @@ class AddSubViewModel extends BaseViewModel with $SharedVariables {
     setBusy(false);
   }
 
-  bool haveSubscriptions = false;
+  // bool haveSubscriptions = false;
 
   // navigateToAddSub() {
   //   $navigationService.navigateTo(NewSubscriptionRoutes.addSubView, id: 2);

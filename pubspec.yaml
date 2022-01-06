@@ -46,7 +46,7 @@ dependencies:
   fl_chart: ^0.40.0
   email_validator: ^2.0.1
   animator: ^3.0.0
-  settings_ui: ^1.0.0
+  flutter_settings_ui: ^2.0.1
   logger: ^1.1.0
   url_launcher: ^6.0.3
   dismissible_page:
@@ -56,9 +56,9 @@ dependencies:
       ref: null-safety
 
   #Firebase
-  firebase_core: ^1.6.0
-  cloud_firestore: ^2.5.1
-  stacked_firebase_auth: ^0.2.10
+  firebase_core: ^1.10.6
+  cloud_firestore: ^3.1.5
+  stacked_firebase_auth: ^0.2.10+2
   # stacked_firebase_auth:
   #   git:
   #     url: https://github.com/ketanchoyal/stacked.git
@@ -72,7 +72,7 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  flutter_riverpod: ^1.0.1
+  flutter_riverpod: ^1.0.3
   # stacked: ^2.2.5
   # stacked_hooks: ^0.2.0
   rxdart: ^0.27.2

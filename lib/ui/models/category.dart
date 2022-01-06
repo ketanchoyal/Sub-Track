@@ -17,7 +17,7 @@ class Category {
     Category(name: "Default", icon: CupertinoIcons.question, hex: "8E8E93"),
     Category(name: "News", icon: CupertinoIcons.news_solid, hex: "8E8E93"),
     Category(
-        name: "LisfeStyle", icon: CupertinoIcons.news_solid, hex: "5856D6"),
+        name: "Life Style", icon: CupertinoIcons.news_solid, hex: "5856D6"),
     Category(
         name: "Transportation", icon: CupertinoIcons.news_solid, hex: "007AFF"),
     Category(

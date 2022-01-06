@@ -9,6 +9,7 @@ import 'package:sub_track/ui/dumb_widgets/buttons.dart';
 import 'package:sub_track/ui/dumb_widgets/cupertino_modal_transition.dart';
 import 'package:sub_track/ui/dumb_widgets/loading.dart';
 import 'package:sub_track/ui/dumb_widgets/upcomming_subscription_card.dart';
+import 'package:sub_track/ui/models/category.dart';
 import 'package:sub_track/ui/resources/resources.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
@@ -41,204 +42,194 @@ class _HomeViewState extends ConsumerState<HomeView> {
     //     ref.watch(homeViewModelCNP.select((value) => value.subscriptions));
     return CupertinoModalTransition(
       animatorKey: model.animatorKey,
-      child: CupertinoPageScaffold(
-        // key: UIServices.homeViewKey,
-        resizeToAvoidBottomInset: true,
-        child: Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: screenHeight(context),
-                  width: screenWidth(context) * 0.35,
-                  color: AppColor.STPureWhite.withOpacity(0.5),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              physics: BouncingScrollPhysics(),
-              slivers: <Widget>[
-                CupertinoSliverNavigationBar(
-                  border: Border(bottom: BorderSide.none),
-                  transitionBetweenRoutes: true,
-                  largeTitle: Text(
-                    'Summary',
+      child: Material(
+        color: Colors.transparent,
+        child: CupertinoPageScaffold(
+          // key: UIServices.homeViewKey,
+          resizeToAvoidBottomInset: true,
+          child: Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: screenHeight(context),
+                    width: screenWidth(context) * 0.35,
+                    color: AppColor.STPureWhite.withOpacity(0.5),
                   ),
-                  padding: EdgeInsetsDirectional.only(end: 5),
-                  trailing: GestureDetector(
-                    // onLongPress: model.startupTasks,
-                    onTap: model.navigateToSettingView,
-                    onDoubleTap: () {
-                      model.clean();
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
-                      radius: 18,
-                      child: Center(
-                        child: Icon(
-                          Icons.person,
-                          // size: 40,
+                ],
+              ),
+              CustomScrollView(
+                physics: BouncingScrollPhysics(),
+                slivers: <Widget>[
+                  CupertinoSliverNavigationBar(
+                    border: Border(bottom: BorderSide.none),
+                    transitionBetweenRoutes: true,
+                    largeTitle: Text(
+                      'Summary',
+                    ),
+                    padding: EdgeInsetsDirectional.only(end: 5),
+                    trailing: GestureDetector(
+                      // onLongPress: model.startupTasks,
+                      onTap: model.navigateToSettingView,
+                      onDoubleTap: () {
+                        model.clean();
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: AppColor.STPureWhite.withOpacity(0.4),
+                        radius: 18,
+                        child: Center(
+                          child: Icon(
+                            Icons.person,
+                            // size: 40,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                CupertinoSliverRefreshControl(
-                  builder: (context, mode, pulledExtent,
-                      refreshTriggerPullDistance, refreshIndicatorExtent) {
-                    return Center(
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        child: STLoading(),
-                      ),
-                    );
-                  },
-                  onRefresh: () async {
-                    ref.refresh(allSubscriptionStreamProvider);
-                    ref.refresh(graphDataFutureProvider);
-                    ref.refresh(upCommingSubscriptionsFutureProvider);
-                    // await model.fetchSubs(refresh: true);
-                  },
-                ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: screenHeightPercentage(context, percentage: 1),
-                    child: MediaQuery.removePadding(
-                      removeTop: true,
-                      context: context,
-                      child: ListView(
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          if (isSubscriptionListEmpty) ...[],
-                          if (!isSubscriptionListEmpty) ...[
-                            SummaryWidget(),
-                            verticalSpaceSmall,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "Upcomming",
-                                  style: kHeader3Style,
-                                ),
-                                // Text(
-                                //   "See all",
-                                //   style: kBodyBoldStyle.copyWith(
-                                //       color: AppColor.STAccent),
-                                // )
-                              ],
-                            ).paddingH(20),
-                            Consumer(builder: (context, ref, child) {
-                              final upcomingSubs = ref
-                                  .watch(upCommingSubscriptionsFutureProvider);
-                              return upcomingSubs.when(
-                                data: (subs) {
-                                  return Container(
-                                    height: 170,
-                                    width: context.screenWidth,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: subs.length,
-                                        itemBuilder: (contex, index) {
-                                          if (subs[index].renewsEvery ==
-                                              RenewsEvery.Never) {
-                                            return Container();
-                                          }
-                                          return ProviderScope(
-                                            overrides: [
-                                              currentSubscription
-                                                  .overrideWithValue(
-                                                      subs[index]),
-                                            ],
-                                            child: const STUpcommingSub(
-                                                // subsription: subs[index],
-                                                // remaningDays:
-                                                //     subs[index].remaningDays,
+                  CupertinoSliverRefreshControl(
+                    builder: (context, mode, pulledExtent,
+                        refreshTriggerPullDistance, refreshIndicatorExtent) {
+                      return Center(
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          child: STLoading(),
+                        ),
+                      );
+                    },
+                    onRefresh: () async {
+                      ref.refresh(allSubscriptionStreamProvider);
+                      ref.refresh(graphDataFutureProvider);
+                      ref.refresh(upCommingSubscriptionsFutureProvider);
+                      // await model.fetchSubs(refresh: true);
+                    },
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: screenHeightPercentage(context, percentage: 1),
+                      child: MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            Consumer(
+                              builder: (context, ref, child) {
+                                final selectedCategory =
+                                    ref.watch(selectedFilterCategorySP);
+                                return SizedBox(
+                                  height: 50,
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    children: [
+                                      Category(
+                                          name: "Filter",
+                                          icon: Icons.filter_list_rounded,
+                                          hex: "000000"),
+                                      ...Category.categories,
+                                    ]
+                                        .map(
+                                          (e) => Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 4),
+                                            child: FilterChip(
+                                              avatar: CircleAvatar(
+                                                backgroundColor:
+                                                    AppColor.STPureWhite,
+                                                child: Center(
+                                                  child: Icon(
+                                                    e.icon,
+                                                    size: 16,
+                                                    color: e.hex.toColor(),
+                                                  ),
                                                 ),
-                                          );
-                                        }),
-                                  );
-                                },
-                                error: (error, st) {
-                                  return ErrorWidget(error);
-                                },
-                                loading: () {
-                                  return Center(
-                                    child: STLoading(),
-                                  );
-                                },
-                              );
-                            }),
-                            verticalSpaceSmall,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "Active",
-                                  style: kHeader3Style,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // model.navigateToActiveSub(
-                                    //     subId:
-                                    //         subscriptions.first.subscriptionId);
-                                    // model.$navigationService.navigateWithTransition(
-                                    //   ActiveSubscriptionView(model),
-                                    //   popGesture: true,
-                                    //   opaque: true,
-                                    // );
-                                  },
-                                  child: Text(
-                                    "See all",
-                                    style: kBodyBoldStyle.copyWith(
-                                        color: AppColor.STAccent),
+                                              ),
+                                              label: Text(
+                                                e.name,
+                                                style: TextStyle(
+                                                  color: e.hex
+                                                      .toColor()
+                                                      ?.contrastOf(),
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              selected:
+                                                  selectedCategory == e.name,
+                                              backgroundColor: e.hex.toColor(),
+                                              selectedColor: e.hex.toColor(),
+                                              onSelected: (bool value) {
+                                                if (e.name == "Filter") {
+                                                  ref
+                                                      .read(
+                                                          selectedFilterCategorySP
+                                                              .state)
+                                                      .state = null;
+                                                } else {
+                                                  ref
+                                                      .read(
+                                                          selectedFilterCategorySP
+                                                              .state)
+                                                      .state = e.name;
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
                                   ),
-                                )
-                              ],
-                            ).paddingH(20),
-                            verticalSpaceSmall,
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                color: AppColor.STPureWhite,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15),
-                                ),
-                              ),
-                              child: Consumer(builder: (context, ref, child) {
-                                final subscriptionStream =
-                                    ref.watch(allSubscriptionStreamProvider);
-
-                                return subscriptionStream.when(
-                                  data: (subscriptions) {
-                                    return MediaQuery.removePadding(
-                                      context: context,
-                                      removeTop: true,
-                                      removeBottom: true,
+                                );
+                              },
+                            ),
+                            if (isSubscriptionListEmpty) ...[],
+                            if (!isSubscriptionListEmpty) ...[
+                              SummaryWidget(),
+                              verticalSpaceSmall,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    "Upcomming",
+                                    style: kHeader3Style,
+                                  ),
+                                  // Text(
+                                  //   "See all",
+                                  //   style: kBodyBoldStyle.copyWith(
+                                  //       color: AppColor.STAccent),
+                                  // )
+                                ],
+                              ).paddingH(20),
+                              Consumer(builder: (context, ref, child) {
+                                final upcomingSubs = ref.watch(
+                                    upCommingSubscriptionsFutureProvider);
+                                return upcomingSubs.when(
+                                  data: (subs) {
+                                    return Container(
+                                      height: 170,
+                                      width: context.screenWidth,
                                       child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: subscriptions.length,
-                                          itemBuilder: (context, index) {
-                                            if (subscriptions[index]
-                                                    .renewsEvery ==
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: subs.length,
+                                          itemBuilder: (contex, index) {
+                                            if (subs[index].renewsEvery ==
                                                 RenewsEvery.Never) {
                                               return Container();
                                             }
-                                            return GestureDetector(
-                                              onTap: () {
-                                                model.navigateToActiveSub(
-                                                    subId: subscriptions[index]
-                                                        .subscriptionId);
-                                              },
-                                              child: STActiveSubCard(
-                                                subsription:
-                                                    subscriptions[index],
-                                              ),
+                                            return ProviderScope(
+                                              overrides: [
+                                                currentSubscription
+                                                    .overrideWithValue(
+                                                        subs[index]),
+                                              ],
+                                              child: const STUpcommingSub(
+                                                  // subsription: subs[index],
+                                                  // remaningDays:
+                                                  //     subs[index].remaningDays,
+                                                  ),
                                             );
                                           }),
                                     );
@@ -253,70 +244,175 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                   },
                                 );
                               }),
-                            ),
+                              verticalSpaceSmall,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    "Active",
+                                    style: kHeader3Style,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // model.navigateToActiveSub(
+                                      //     subId:
+                                      //         subscriptions.first.subscriptionId);
+                                      // model.$navigationService.navigateWithTransition(
+                                      //   ActiveSubscriptionView(model),
+                                      //   popGesture: true,
+                                      //   opaque: true,
+                                      // );
+                                    },
+                                    child: Text(
+                                      "See all",
+                                      style: kBodyBoldStyle.copyWith(
+                                          color: AppColor.STAccent),
+                                    ),
+                                  )
+                                ],
+                              ).paddingH(20),
+                              verticalSpaceSmall,
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: AppColor.STPureWhite,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                ),
+                                child: Consumer(builder: (context, ref, child) {
+                                  final subscriptionStream =
+                                      ref.watch(allSubscriptionStreamProvider);
+
+                                  return subscriptionStream.when(
+                                    data: (subscriptions) {
+                                      return MediaQuery.removePadding(
+                                        context: context,
+                                        removeTop: true,
+                                        removeBottom: true,
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: subscriptions.length,
+                                            itemBuilder: (context, index) {
+                                              if (subscriptions[index]
+                                                      .renewsEvery ==
+                                                  RenewsEvery.Never) {
+                                                return Container();
+                                              }
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  model.navigateToActiveSub(
+                                                      subId:
+                                                          subscriptions[index]
+                                                              .subscriptionId);
+                                                },
+                                                child: STActiveSubCard(
+                                                  subsription:
+                                                      subscriptions[index],
+                                                ),
+                                              );
+                                            }),
+                                      );
+                                    },
+                                    error: (error, st) {
+                                      return ErrorWidget(error);
+                                    },
+                                    loading: () {
+                                      return Center(
+                                        child: STLoading(),
+                                      );
+                                    },
+                                  );
+                                }),
+                              ),
+                            ],
                           ],
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 50,
-                  ),
-                )
-              ],
-              shrinkWrap: false,
-            ),
-            // if (isBusy)
-            //   Center(
-            //     child: STLoading(),
-            //   ),
-            if (isSubscriptionListEmpty)
-              Positioned(
-                right: 0,
-                top: 0,
-                bottom: 0,
-                left: 0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "No Subscription Added",
-                      style: kHeader3Style.copyWith(
-                        color: AppColor.STDark,
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 50,
+                    ),
+                  )
+                ],
+                shrinkWrap: false,
+              ),
+              // if (isBusy)
+              //   Center(
+              //     child: STLoading(),
+              //   ),
+              if (isSubscriptionListEmpty)
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "No Subscription Added",
+                        style: kHeader3Style.copyWith(
+                          color: AppColor.STDark,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Add your subscriptions to see here",
-                      style: kSmallStyle.copyWith(),
-                    ),
-                    verticalSpaceSmall,
-                    STButton(
-                      buttonText: "Add Subscription",
-                      onPressed: model.navigateToAddSub,
-                    )
-                  ],
-                ),
-              ),
-            if (!isSubscriptionListEmpty)
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: FloatingActionButton(
-                  heroTag: "plusButton",
-                  backgroundColor: AppColor.STPureWhite,
-                  autofocus: true,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Image.asset(Assets.addIcon),
+                      Text(
+                        "Add your subscriptions to see here",
+                        style: kSmallStyle.copyWith(),
+                      ),
+                      verticalSpaceSmall,
+                      STButton(
+                        buttonText: "Add Subscription",
+                        onPressed: model.navigateToAddSub,
+                      )
+                    ],
                   ),
-                  onPressed: model.navigateToAddSub,
                 ),
-              ),
-          ],
+              if (!isSubscriptionListEmpty)
+                Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: FloatingActionButton(
+                    heroTag: "plusButton",
+                    backgroundColor: AppColor.STPureWhite,
+                    autofocus: true,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Image.asset(Assets.addIcon),
+                    ),
+                    onPressed: model.navigateToAddSub,
+                  ),
+                ),
+
+              // if (!isSubscriptionListEmpty)
+              //   Positioned(
+              //     bottom: 20,
+              //     left: 20,
+              //     child: FloatingActionButton(
+              //       heroTag: "filter",
+              //       backgroundColor: AppColor.STPureWhite,
+              //       autofocus: true,
+              //       child: Padding(
+              //         padding: const EdgeInsets.all(12.0),
+              //         child: Image.asset(
+              //           Assets.filter,
+              //           fit: BoxFit.contain,
+              //           height: 25,
+              //         ),
+              //       ),
+              //       onPressed: () {},
+              //     ),
+              //   ),
+            ],
+          ),
         ),
       ),
     );
@@ -333,12 +429,6 @@ class SummaryWidget extends ConsumerWidget {
     final currentMonthExpenseFP = ref.watch(currentMonthExpenseFutureProvider);
     final averageFP = ref.watch(currentYearExpenseAverageFutureProvider);
     final graphDataFP = ref.watch(graphDataFutureProvider);
-    // final currentMonthExpense = ref
-    //     .watch(homeViewModelCNP.select((value) => value.currentMonthExpense));
-    // final average =
-    //     ref.watch(homeViewModelCNP.select((value) => value.average));
-    // final graphData =
-    //     ref.watch(homeViewModelCNP.select((value) => value.graphData));
     return SizedBox(
       height: 180,
       width: screenWidth(context),

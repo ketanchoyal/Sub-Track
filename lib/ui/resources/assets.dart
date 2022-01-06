@@ -9,5 +9,6 @@ class Assets {
   static const String boy2 = 'assets/images/3x/boy_2.png';
   static const String mobile1 = 'assets/images/3x/mobile_1.png';
   static const String mobile2 = 'assets/images/3x/mobile_2.png';
+  static const String filter = 'assets/images/3x/filter.png';
   static const String addIcon = 'assets/images/3x/addIcon.png';
 }

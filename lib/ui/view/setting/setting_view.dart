@@ -8,7 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:sub_track/ui/shared/shared.dart';
 import 'package:sub_track/ui/theme/app_colors.dart';
 import './setting_viewmodel.dart';
-import 'package:settings_ui/settings_ui.dart';
+import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
 class SettingView extends ConsumerWidget {
   Widget appBar(model, context) {

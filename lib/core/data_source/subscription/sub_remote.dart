@@ -53,7 +53,7 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
   }
 
   @override
-  Stream<List<Subscription>> fetchSubscriptions() {
-    return _subscriptionService.fetchSubscriptions();
+  Stream<List<Subscription>> fetchSubscriptions([String? category]) {
+    return _subscriptionService.fetchSubscriptions(category);
   }
 }

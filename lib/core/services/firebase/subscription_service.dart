@@ -25,7 +25,7 @@ final subscriptionServiceP = Provider<SubscriptionService>(
 ///
 /// [FirebaseAuthenticationService]
 abstract class SubscriptionService {
-  Stream<List<Subscription>> fetchSubscriptions();
+  Stream<List<Subscription>> fetchSubscriptions([String? category]);
   addSubscription(Subscription subscription);
   updateSubscription(Subscription updatedSubscription);
   deleteSubscription(String subscriptionId);
@@ -76,7 +76,7 @@ class SubscriptionServiceImpl extends Firestore implements SubscriptionService {
   // NOTE Why Do I need this function? Subs are fethed from local all the time, Remote is just used to store dat
   // FIXME Instead of this function, can I make a function to sync local data with the remote data when user logs in First time?
   @override
-  Stream<List<Subscription>> fetchSubscriptions() {
+  Stream<List<Subscription>> fetchSubscriptions([String? category]) {
     if (currentUserSubCollRef != null) {
       logger.i("fetching from Firebase");
       return currentUserSubCollRef!
@@ -85,6 +85,7 @@ class SubscriptionServiceImpl extends Firestore implements SubscriptionService {
                 Subscription.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson(),
           )
+          .where("category", isEqualTo: category)
           .snapshots(includeMetadataChanges: true)
           .map<List<Subscription>>((event) {
         return event.docs.map((snapshot) => snapshot.data()).toList();

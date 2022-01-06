@@ -32,11 +32,12 @@ final subscriptionRepoP = Provider<SubscriptionRepo>(
 ///
 /// [ConnectivityService]
 abstract class SubscriptionRepo {
-  Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false});
+  Stream<List<Subscription>> fetchSubscriptions(
+      {bool forceFetch = false, String? category});
   Future<void> addSubscription({required Subscription subscription});
   Future<void> deleteSubscription({required String subscriptionId});
   Future<void> updateSubscription({required Subscription subscription});
-  List<Subscription> getSubscriptionsOnce();
+  List<Subscription> getSubscriptionsOnce([String? category]);
   Future<void> cacheSubscriptions();
 }
 
@@ -59,7 +60,8 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   var log = getLogger("");
 
   @override
-  Stream<List<Subscription>> fetchSubscriptions({bool forceFetch = false}) {
+  Stream<List<Subscription>> fetchSubscriptions(
+      {bool forceFetch = false, String? category}) {
     // if (await _connectivityService.checkConnectivity() && forceFetch) {
     if (forceFetch) {
       log.i("Fetching subs from Remote Data Source");
@@ -68,7 +70,7 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       //         .addStream(_subscriptionRemoteDataSource.fetchSubscriptions()))
       //     .asStream();
       // return _subscriptionsStreamController.stream;
-      return _subscriptionRemoteDataSource.fetchSubscriptions()
+      return _subscriptionRemoteDataSource.fetchSubscriptions(category)
         ..asBroadcastStream();
     } else {
       log.i("Fetching subs from Local Data Source");
@@ -76,7 +78,7 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
       //         .addStream(_subscriptionLocalDataSource.fetchSubscriptions()))
       //     .asStream();
       // return _subscriptionsStreamController.stream;
-      return _subscriptionLocalDataSource.fetchSubscriptions()
+      return _subscriptionLocalDataSource.fetchSubscriptions(category)
         ..asBroadcastStream();
     }
   }
@@ -93,8 +95,8 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   }
 
   @override
-  List<Subscription> getSubscriptionsOnce() {
-    return _subscriptionLocalDataSource.getSubscriptionsOnce();
+  List<Subscription> getSubscriptionsOnce([String? category]) {
+    return _subscriptionLocalDataSource.getSubscriptionsOnce(category);
   }
 
   @override

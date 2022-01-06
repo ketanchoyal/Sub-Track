@@ -14,14 +14,18 @@ final _forceFetchToggleSP = StateProvider(
   (ref) => false,
 );
 
+final selectedFilterCategorySP = StateProvider<String?>((ref) => null);
+
 final isSubscriptionListEmptySP = StateProvider((ref) => false);
 
 final allSubscriptionStreamProvider = StreamProvider<List<Subscription>>(
   (ref) {
     final repo = ref.watch(subscriptionRepoP);
+    final category = ref.watch(selectedFilterCategorySP);
     final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     return repo.fetchSubscriptions(
       forceFetch: forceFetchToggle,
+      category: category,
     )..listen(
         (event) {
           if (event.isEmpty) {
@@ -39,7 +43,8 @@ final allSubscriptionStreamProvider = StreamProvider<List<Subscription>>(
 final upCommingSubscriptionsFutureProvider = FutureProvider<List<Subscription>>(
   (ref) async {
     final repo = ref.watch(subscriptionRepoP);
-    final allSubscriptions = repo.getSubscriptionsOnce();
+    final category = ref.watch(selectedFilterCategorySP);
+    final allSubscriptions = repo.getSubscriptionsOnce(category);
     final sortedSubs = allSubscriptions;
 
     sortedSubs.sort((a, b) {

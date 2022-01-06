@@ -24,7 +24,7 @@ final subscriptionLocalDataSourceP = Provider<SubscriptionLocalDataSource>(
 abstract class SubscriptionLocalDataSource implements SubscriptionDataSource {
   Future<void> init();
   Future<void> cleanEverything();
-  List<Subscription> getSubscriptionsOnce();
+  List<Subscription> getSubscriptionsOnce([String? category]);
   // Future updateCache(Subscription subscriptions);
 }
 
@@ -73,23 +73,26 @@ class SubscriptionLocalDataSourceImpl implements SubscriptionLocalDataSource {
   }
 
   @override
-  Stream<List<Subscription>> fetchSubscriptions() {
+  Stream<List<Subscription>> fetchSubscriptions([String? category]) {
     // _listenToSubscription();
     return _subscriptionBox.watch().map(
       (BoxEvent event) {
         print(
             "${event.key} : ${event.value} => ${event.deleted ? "Deleted" : "Added"}");
-        return getSubscriptionsOnce();
+        return getSubscriptionsOnce(category).toList();
       },
     ).startWith(
-      getSubscriptionsOnce(),
+      getSubscriptionsOnce(category),
     )..asBroadcastStream();
     // return _streamController.stream..asBroadcastStream();
   }
 
   @override
-  List<Subscription> getSubscriptionsOnce() {
-    return _subscriptionBox.values.toList();
+  List<Subscription> getSubscriptionsOnce([String? category]) {
+    return _subscriptionBox.values.where((element) {
+      if (category == null) return true;
+      return element.category == category;
+    }).toList();
   }
 
   //Real stuff here

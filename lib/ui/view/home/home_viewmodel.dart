@@ -74,10 +74,12 @@ final calculateRemaningDaysFutureProvider =
 final currentMonthExpenseFutureProvider = FutureProvider<String>(
   (ref) async {
     final calculateionService = ref.watch(calculationServiceP);
+    final category = ref.watch(selectedFilterCategorySP);
     final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     final currentMonthExpense =
         await calculateionService.getCurrentMonthExpense(
       fromRemote: forceFetchToggle,
+      category: category,
     );
     return currentMonthExpense.toStringAsFixed(2);
   },
@@ -88,8 +90,10 @@ final currentYearExpenseAverageFutureProvider = FutureProvider<String>(
   (ref) async {
     final calculateionService = ref.watch(calculationServiceP);
     final forceFetchToggle = ref.watch(_forceFetchToggleSP);
+    final category = ref.watch(selectedFilterCategorySP);
     final currentYearExpense = await calculateionService.getTotalExpense(
       fromRemote: forceFetchToggle,
+      category: category,
     );
     final average = currentYearExpense / DateTime.now().month;
     return average.toStringAsFixed(2);
@@ -100,9 +104,11 @@ final currentYearExpenseAverageFutureProvider = FutureProvider<String>(
 final graphDataFutureProvider = FutureProvider<Map<DateTime, double>>(
   (ref) async {
     final calculateionService = ref.watch(calculationServiceP);
+    final category = ref.watch(selectedFilterCategorySP);
     final forceFetchToggle = ref.watch(_forceFetchToggleSP);
     return calculateionService.getGraphData(
       fromRemote: forceFetchToggle,
+      category: category,
     );
   },
   name: 'graphDataFutureProvider',

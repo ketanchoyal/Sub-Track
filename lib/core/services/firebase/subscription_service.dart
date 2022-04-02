@@ -85,7 +85,7 @@ class SubscriptionServiceImpl extends Firestore implements SubscriptionService {
                 Subscription.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson(),
           )
-          .where("category", isEqualTo: category)
+          .where("category", isEqualTo: category, isNull: false)
           .snapshots(includeMetadataChanges: true)
           .map<List<Subscription>>((event) {
         return event.docs.map((snapshot) => snapshot.data()).toList();

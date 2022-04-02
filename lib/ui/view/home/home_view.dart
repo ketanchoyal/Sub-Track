@@ -114,6 +114,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         child: ListView(
                           physics: NeverScrollableScrollPhysics(),
                           children: [
+                            // if (!isSubscriptionListEmpty)
                             Consumer(
                               builder: (context, ref, child) {
                                 final selectedCategory =

@@ -22,7 +22,7 @@ Future main() async {
   // await setupLocator();
   // setupSnackbarUi();
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
@@ -30,6 +30,7 @@ Future main() async {
 
 // TODO Replace my widget extensions with velocityX extensions
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // REVIEW Using Material on top of CupertinoApp is okay or not

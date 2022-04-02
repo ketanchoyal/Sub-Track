@@ -30,13 +30,13 @@ extension RenewsEveryX on RenewsEvery {
       case RenewsEvery.Daily:
         return "day";
       case RenewsEvery.Weekly:
-        return "week";
+        return "w";
       case RenewsEvery.Biweekly:
-        return "biweek";
+        return "bw";
       case RenewsEvery.Monthly:
         return "m";
       case RenewsEvery.Quarterly:
-        return "quat";
+        return "q";
       case RenewsEvery.Half_yearly:
         return "halfyear";
       case RenewsEvery.Yearly:

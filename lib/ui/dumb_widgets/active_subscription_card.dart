@@ -93,7 +93,7 @@ class STActiveSubCard extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: RichText(
                         text: TextSpan(
                           children: [

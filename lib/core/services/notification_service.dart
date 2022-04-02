@@ -86,7 +86,7 @@ class NotificationServiceImpl extends NotificationService {
         android: AndroidNotificationDetails(
           "thisIsChannelId",
           "thisIsChannelName",
-          "thisIs Descriiption",
+          channelDescription: "thisIs Descriiption",
           usesChronometer: true,
           subText: "this is sub text",
         ),
@@ -114,7 +114,7 @@ class NotificationServiceImpl extends NotificationService {
           android: AndroidNotificationDetails(
             'monthly notification channel id',
             'monthly notification channel name',
-            'monthly notificationdescription',
+            channelDescription: 'monthly notificationdescription',
           ),
         ),
         androidAllowWhileIdle: true,
@@ -130,10 +130,9 @@ class NotificationServiceImpl extends NotificationService {
         'yearly scheduled notification body',
         _nextInstanceOfMondayTenAM(),
         const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'yearly notification channel id',
+          android: AndroidNotificationDetails('yearly notification channel id',
               'yearly notification channel name',
-              'yearly notificationdescription'),
+              channelDescription: 'yearly notificationdescription'),
         ),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:

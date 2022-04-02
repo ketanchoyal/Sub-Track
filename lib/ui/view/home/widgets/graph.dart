@@ -30,6 +30,7 @@ class ExpenseGraphState extends State<ExpenseGraph> {
           alignment: BarChartAlignment.center,
           barTouchData: BarTouchData(
             enabled: true,
+            allowTouchBarBackDraw: true,
             touchTooltipData: BarTouchTooltipData(
                 fitInsideHorizontally: false,
                 fitInsideVertically: true,
@@ -39,34 +40,42 @@ class ExpenseGraphState extends State<ExpenseGraph> {
                 tooltipBgColor: AppColor.STLight,
                 getTooltipItem: (chartData, index, rodData, index2) {
                   return BarTooltipItem(
-                    "\$${rodData.y.toStringAsFixed(2)}",
+                    "\$${rodData.toY.toStringAsFixed(2)}",
                     kSmallStyle.copyWith(color: AppColor.STDark),
                   );
                 }),
           ),
           titlesData: FlTitlesData(
             show: true,
-            bottomTitles: SideTitles(
-              showTitles: true,
-              getTextStyles: (contx, value) => kPreTitleStyle.copyWith(
-                color: AppColor.STDark,
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                // getTextStyles: (contx, value) => kPreTitleStyle.copyWith(
+                //   color: AppColor.STDark,
+                // ),
+                // margin: 10,
+                reservedSize: 20,
+                interval: 10,
+                getTitlesWidget: (double value, data) {
+                  return Text(
+                    DateFormat('MMM')
+                        .format(DateTime(0, value.toInt()))
+                        .toUpperCase(),
+                    style: kPreTitleStyle.copyWith(
+                      color: AppColor.STDark,
+                    ),
+                  );
+                },
               ),
-              margin: 10,
-              reservedSize: 20,
-              getTitles: (double value) {
-                return DateFormat('MMM')
-                    .format(DateTime(0, value.toInt()))
-                    .toUpperCase();
-              },
             ),
-            topTitles: SideTitles(
-              showTitles: false,
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
             ),
-            rightTitles: SideTitles(
-              showTitles: false,
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
             ),
-            leftTitles: SideTitles(
-              showTitles: false,
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
             ),
           ),
           gridData: FlGridData(
@@ -78,6 +87,8 @@ class ExpenseGraphState extends State<ExpenseGraph> {
           // groupsSpace: 20,
           barGroups: getData(),
         ),
+        swapAnimationCurve: Curves.decelerate,
+        swapAnimationDuration: Duration(milliseconds: 500),
       ),
     );
   }
@@ -121,10 +132,8 @@ class ExpenseGraphState extends State<ExpenseGraph> {
                 x: e.key,
                 barRods: [
                   BarChartRodData(
-                    colors: [
-                      AppColor.STAccent,
-                    ],
-                    y: y,
+                    color: AppColor.STAccent,
+                    toY: y,
                     width: 16.5,
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(5),

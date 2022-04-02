@@ -38,17 +38,18 @@ dependencies:
   uuid: ^3.0.3
   time: ^2.0.0
   dart_date: ^1.1.0
-  flutter_local_notifications:
-    git:
-      url: https://github.com/ketanchoyal/flutter_local_notifications.git
-      path: flutter_local_notifications/
-      ref: ios-swift
-  fl_chart: ^0.40.0
+  flutter_local_notifications: ^9.4.0
+  # flutter_local_notifications:
+  #   git:
+  #     url: https://github.com/ketanchoyal/flutter_local_notifications.git
+  #     path: flutter_local_notifications/
+  #     ref: ios-swift
+  fl_chart: ^0.50.0
   email_validator: ^2.0.1
   animator: ^3.0.0
   flutter_settings_ui: ^2.0.1
   logger: ^1.1.0
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.20
   dismissible_page:
     # path: ../packages/dismissible_page
     git:
@@ -56,8 +57,8 @@ dependencies:
       ref: null-safety
 
   #Firebase
-  firebase_core: ^1.10.6
-  cloud_firestore: ^3.1.5
+  firebase_core: ^1.14.0
+  cloud_firestore: ^3.1.11
   stacked_firebase_auth: ^0.2.10+2
   # stacked_firebase_auth:
   #   git:
@@ -72,7 +73,7 @@ dependencies:
   hive_flutter: ^1.0.0
 
   #State Management
-  flutter_riverpod: ^1.0.3
+  flutter_riverpod: ^2.0.0-dev.5
   # stacked: ^2.2.5
   # stacked_hooks: ^0.2.0
   rxdart: ^0.27.2
@@ -92,6 +93,9 @@ dev_dependencies:
 # dependency_overrides:
 #   analyzer: ^1.0.0
 #   meta: ^1.7.0
+
+dependency_overrides:
+  platform: ^3.1.0
 
 flutter_icons:
   android: true

@@ -79,7 +79,7 @@ class SubscriptionLocalDataSourceImpl implements SubscriptionLocalDataSource {
       (BoxEvent event) {
         print(
             "${event.key} : ${event.value} => ${event.deleted ? "Deleted" : "Added"}");
-        return getSubscriptionsOnce(category).toList();
+        return getSubscriptionsOnce(category);
       },
     ).startWith(
       getSubscriptionsOnce(category),
